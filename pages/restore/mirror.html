@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EchoRest — mirror route</title>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+
+<body class="page-mirror">
+    <div class="screen-noise"></div>
+    <div class="screen-scanlines"></div>
+
+    <header class="topbar">
+        <div class="brand-block">
+            <div class="brand-line">
+                <span class="brand-dot"></span>
+                <span class="brand-name">EchoRest</span>
+            </div>
+            <p class="brand-sub">Mirror Route / 本地会话镜像</p>
+        </div>
+
+        <div class="status-block">
+            <p>镜像状态：正在读取本地缓存</p>
+            <p>数据来源：当前浏览器</p>
+            <p>权限层级：观察中</p>
+        </div>
+    </header>
+
+    <main class="thread-main mirror-main">
+        <section class="simple-card mirror-head-card">
+            <p class="section-label">MIRROR ROUTE</p>
+            <h1 class="simple-title">本地会话镜像</h1>
+
+            <div class="mirror-warning-line">
+                该页面不从服务器读取数据。它只读取你当前浏览器里留下的 EchoRest 痕迹。
+            </div>
+
+            <div class="thread-info-grid">
+                <div class="thread-info-item">
+                    <span class="thread-info-key">当前处理人</span>
+                    <span class="thread-info-value" id="mirrorWorkerValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">本地会话</span>
+                    <span class="thread-info-value" id="mirrorSessionValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">镜像读取次数</span>
+                    <span class="thread-info-value" id="mirrorVisitValue">0</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">镜像风险</span>
+                    <span class="thread-info-value" id="mirrorRiskValue">未评估</span>
+                </div>
+            </div>
+
+            <div class="login-log-box mirror-system-box">
+                <p class="warning-title">MIRROR MESSAGE</p>
+                <p id="mirrorStatusText">等待读取本地会话。</p>
+            </div>
+        </section>
+
+        <section class="simple-card mirror-console-card">
+            <p class="section-label">LOCAL TRACE READER</p>
+
+            <div class="mirror-terminal">
+                <p>[mirror] route exposed by post_404.index</p>
+                <p>[mirror] source = window.localStorage</p>
+                <p>[mirror] server confirmation = unavailable</p>
+                <p>[mirror] waiting for repairer action...</p>
+            </div>
+
+            <div class="mirror-action-grid">
+                <button class="mirror-action-btn" type="button" data-mirror-action="local">
+                    读取本地会话
+                </button>
+
+                <button class="mirror-action-btn" type="button" data-mirror-action="repair">
+                    读取维修记录
+                </button>
+
+                <button class="mirror-action-btn locked" type="button" data-mirror-action="profile">
+                    生成维修员镜像
+                </button>
+            </div>
+
+            <div id="mirrorLocalPanel" class="mirror-output-panel hidden"></div>
+            <div id="mirrorRepairPanel" class="mirror-output-panel hidden"></div>
+            <div id="mirrorProfilePanel" class="mirror-output-panel hidden"></div>
+        </section>
+
+        <section class="simple-card mirror-fragment-card">
+            <p class="section-label">MIRROR FRAGMENTS</p>
+
+            <div class="mirror-fragment-list">
+                <div class="mirror-fragment">
+                    <span>MIRROR_01</span>
+                    <p>“网页不会记得你。浏览器会。”</p>
+                </div>
+
+                <div class="mirror-fragment">
+                    <span>MIRROR_02</span>
+                    <p>“如果你清空缓存，你会觉得自己离开了。但 EchoRest 会把这也当成一次操作。”</p>
+                </div>
+
+                <div class="mirror-fragment locked" id="mirrorHiddenFragment">
+                    <span>MIRROR_03</span>
+                    <p>等待维修员镜像生成。</p>
+                </div>
+            </div>
+
+            <div id="mirrorRouteExpose" class="mirror-route-box hidden">
+                <p class="warning-title">ADMIN ROUTE EXPOSED</p>
+                <p>检测到当前处理人可以进入后台权限冲突页。</p>
+
+                <div class="mirror-route-actions">
+                    <a href="../admin/terminal.html">打开 admin route</a>
+                    <a href="../forum/post_404.html">返回 post_404.index</a>
+                    <a href="../forum/board.html">返回论坛目录</a>
+                </div>
+
+                <p class="mirror-route-note">
+                    admin route 已指向 pages/admin/terminal.html。
+                </p>
+            </div>
+        </section>
+
+        <section class="simple-card thread-nav-card">
+            <div class="thread-nav-links">
+                <a href="../forum/post_404.html">返回 post_404.index</a>
+                <span>|</span>
+                <a href="../forum/board.html">返回论坛目录</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>EchoRest Mirror Reader v0.5.0</p>
+        <p>该页面读取当前浏览器中的本地痕迹</p>
+        <p>© 未检测到有效归属方</p>
+    </footer>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>

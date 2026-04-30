@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EchoRest — 交稿了！</title>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body class="page-thread-04">
+    <div class="screen-noise"></div>
+    <div class="screen-scanlines"></div>
+
+    <header class="topbar">
+        <div class="brand-block">
+            <div class="brand-line">
+                <span class="brand-dot"></span>
+                <span class="brand-name">EchoRest</span>
+            </div>
+            <p class="brand-sub">旧论坛恢复 / 线程阅读</p>
+        </div>
+
+        <div class="status-block">
+            <p>读取层：公开目录</p>
+            <p>页序记录：存在回写</p>
+            <p>附件状态：稿件残页</p>
+        </div>
+    </header>
+
+    <main class="thread-main">
+        <section class="simple-card thread-head-card">
+            <p class="section-label">THREAD 04</p>
+            <h1 class="simple-title">交稿了！</h1>
+
+            <div class="thread-info-grid">
+                <div class="thread-info-item">
+                    <span class="thread-info-key">当前处理人</span>
+                    <span class="thread-info-value" id="thread04WorkerValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">本地会话</span>
+                    <span class="thread-info-value" id="thread04SessionValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">访问次数</span>
+                    <span class="thread-info-value" id="thread04VisitValue">0</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">缓存状态</span>
+                    <span class="thread-info-value" id="thread04StateValue">待校验</span>
+                </div>
+            </div>
+
+            <div class="login-log-box">
+                <p class="warning-title">缓存读取记录</p>
+                <p id="thread04StatusText">正在比对稿件页序与缓存时间戳。</p>
+            </div>
+
+            <div class="memory-strip hidden" id="thread04MemoryStrip"></div>
+        </section>
+
+        <section class="simple-card post-list-card">
+            <p class="section-label">帖子正文</p>
+
+            <article class="forum-post">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="avatar-slot inspectable-file"
+                             data-file-id="editor_avatar"
+                             data-file-name="editor_avatar.png"
+                             data-file-path="cache/forum/thread_04/avatar/"
+                             data-file-status="部分恢复"
+                             data-file-modified="未知"
+                             data-file-related="编辑 / 催稿 / 漫画投稿"
+                             data-file-note="头像文件可读，但用户绑定邮箱字段缺失。">
+                            楼主头像预留<br>editor_avatar.png
+                            <span class="file-inspect-hint">检查文件</span>
+                        </div>
+
+                        <div>
+                            <h2 class="forum-post-author">楼主 / 交稿了！</h2>
+                            <p class="forum-post-meta">发表于：较早 / 版块：创作交流</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">#1</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <p>
+                        我负责的那个漫画家终于交稿了。催了三周，消息不回，电话不接，
+                        最后半夜四点多突然发来一个压缩包。
+                    </p>
+                    <p>
+                        但我打开之后有点说不上来。不是画得不好，是里面有几页让我觉得眼熟。
+                    </p>
+                </div>
+
+                <div class="reply-stack">
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论一：恭喜编辑老师终于解脱。</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论二：半夜四点交稿，太真实了。</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论三：眼熟是指他抄了吗？</p>
+                    </div>
+                </div>
+
+                <div class="more-replies-box">
+                    <p>…更多 <span id="thread04MoreCount">[50240]</span></p>
+                </div>
+            </article>
+
+            <article class="forum-post forum-post-news">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="news-badge">DRAFT</div>
+                        <div>
+                            <h2 class="forum-post-author">漫画残页缓存</h2>
+                            <p class="forum-post-meta">来源：投稿附件 / 状态：图层损坏</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">FILE</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <div id="draftBrokenBlock">
+                        <p class="broken-news-line">
+                            draft_page_17_corrupt.png / layer_missing / timestamp_mismatch
+                        </p>
+
+                        <div class="inline-image-slot inspectable-file"
+                             data-file-id="draft_page_17_corrupt"
+                             data-file-name="draft_page_17_corrupt.png"
+                             data-file-path="cache/forum/thread_04/comic/"
+                             data-file-status="图层损坏"
+                             data-file-modified="04:04"
+                             data-file-related="漫画 / 墙洞 / 时钟 / 交稿"
+                             data-file-note="该页草稿中出现的墙洞结构与 THREAD 03 的图片缓存相似。">
+                            漫画残页预留位 / draft_page_17_corrupt.png
+                            <span>建议美术：损坏漫画分镜，局部遮挡，能隐约看到墙洞和时钟。</span>
+                            <span class="file-inspect-hint">检查文件</span>
+                        </div>
+
+                        <button class="repair-btn" id="repairDraftBtn" type="button">尝试修复漫画残页</button>
+                    </div>
+
+                    <div id="draftRecoveredBlock" class="hidden">
+                        <p class="audio-transcript-title">[恢复分镜 / draft_page_17.png]</p>
+
+                        <div class="inline-image-slot image-hover-slot inspectable-file"
+                             data-file-id="draft_page_17_restored"
+                             data-file-name="draft_page_17_restored.png"
+                             data-file-path="cache/forum/thread_04/comic/"
+                             data-file-status="已恢复部分图层"
+                             data-file-modified="04:04"
+                             data-file-related="漫画 / 墙洞 / 眼睛 / 04:04"
+                             data-file-note="时钟标记与投稿顺序不一致。">
+                            修复后漫画页预留位 / draft_page_17_restored.png
+                            <span>建议美术：四格分镜：编辑站在楼下、楼上传来敲墙声、墙洞里有一只眼睛、时钟停在 04:04。</span>
+                            <span class="file-inspect-hint">检查文件</span>
+                            <div class="hover-file-tag">cache/comic/draft_page_17_restored.png</div>
+                        </div>
+
+                        <div class="audio-transcript-box">
+                            <p>分镜 1：编辑站在楼下。</p>
+                            <p>分镜 2：楼上传来敲墙声。</p>
+                            <p>分镜 3：墙上的洞里，有一只眼睛。</p>
+                            <p>分镜 4：时钟停在 04:04。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="forum-post forum-post-warning">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="avatar-slot">楼主头像预留<br>editor_avatar.png</div>
+                        <div>
+                            <h2 class="forum-post-author">楼主 / 交稿了！</h2>
+                            <p class="forum-post-meta">发表于：较早 / 版块：创作交流</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">#2</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <p>
+                        我最开始以为是我看错了。
+                    </p>
+                    <p>
+                        但是第十七页那张墙洞，和我上周去他家催稿时看到的那个
+                        <span class="hover-term" data-hover="该词条来自 THREAD 03 的墙体缓存。">洞</span>
+                        很像。
+                    </p>
+                    <p>
+                        更奇怪的是，他说这页是一个月前画的，可压缩包里的修改顺序却像它刚刚才被拖回去重存过一次。
+                    </p>
+                </div>
+
+                <div class="reply-stack">
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论一：艺术来源于生活。</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论二：也可能你去过他家以后自己开始多想了。</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论三：一个月前画的？那他预言自己家墙上会有洞吗？</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="forum-post forum-post-news">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="news-badge">CLOCK</div>
+                        <div>
+                            <h2 class="forum-post-author">时钟缓存记录</h2>
+                            <p class="forum-post-meta">来源：页面本地时间 / 状态：偏移</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">TRACE</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <div class="clock-trace-box">
+                        <div class="clock-trace-row">
+                            <span>当前页面时间</span>
+                            <strong id="clockNowValue">--:--</strong>
+                        </div>
+                        <div class="clock-trace-row">
+                            <span>缓存时间</span>
+                            <strong id="clockCacheValue">03:58</strong>
+                        </div>
+                        <div class="clock-trace-row">
+                            <span>异常目标</span>
+                            <strong>04:04</strong>
+                        </div>
+                    </div>
+
+                    <div class="inline-image-slot image-hover-slot inspectable-file"
+                         data-file-id="clock_trace_0404"
+                         data-file-name="clock_trace_0404.png"
+                         data-file-path="cache/forum/thread_04/clock/"
+                         data-file-status="时序偏移"
+                         data-file-modified="04:04"
+                         data-file-related="时钟 / 04:04 / 404 / 页面时间"
+                         data-file-note="缓存时间多次回落至 04:04。页面时钟仍在向前，但缓存没有，像是被拖回到同一个点重新写入。">
+                        时钟截图预留位 / clock_trace_0404.png
+                        <span>建议美术：旧电脑时钟截图、04:04、轻微乱码扫描线。</span>
+                        <span class="file-inspect-hint">检查文件</span>
+                        <div class="hover-file-tag">cache/clock/clock_trace_0404.png</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="forum-post forum-post-warning">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="avatar-slot">楼主头像预留<br>editor_avatar.png</div>
+                        <div>
+                            <h2 class="forum-post-author">楼主 / 交稿了！</h2>
+                            <p class="forum-post-meta">发表于：较早 / 版块：创作交流</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">#3</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <p>
+                        我现在听见楼上有
+                        <span class="hover-term" data-hover="该词条与墙体音频缓存存在关联。">滴答声</span>。
+                    </p>
+                    <p>
+                        我住的是一楼。楼上不是他家。
+                    </p>
+                    <p>
+                        我刚刚想再打开那张分镜，文件名变成了：
+                        <span class="hover-term" data-hover="该编号不应出现在漫画投稿目录中。">draft_page_404.png</span>
+                    </p>
+                </div>
+
+                <div class="reply-stack">
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论一：你们编辑压力也这么大吗……</p>
+                    </div>
+                    <div class="reply-line deleted-comment-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>
+                            评论二：
+                            <span class="deleted-comment-frag" data-hover="不是楼上。">
+                                不是【此评论被楼主删除】
+                            </span>
+                        </p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论三：04:04 这个时间为什么这么眼熟？</p>
+                    </div>
+                </div>
+            </article>
+
+            <div id="thread04InjectedReplyAnchor"></div>
+        </section>
+
+        <section class="simple-card thread-nav-card">
+            <div class="thread-nav-links">
+                <a href="board.html">返回列表</a>
+                <span>|</span>
+                <a href="thread_05.html">站务残留：管理记录</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Echo Board 线程阅读器 v1.4.0</p>
+        <p>恢复内容可能与站点历史缓存存在轻微偏移</p>
+        <p>© 未检测到有效归属方</p>
+    </footer>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EchoRest — final sync</title>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+
+<body class="page-final-shutdown">
+    <div class="screen-noise"></div>
+    <div class="screen-scanlines"></div>
+
+    <header class="topbar">
+        <div class="brand-block">
+            <div class="brand-line">
+                <span class="brand-dot"></span>
+                <span class="brand-name">EchoRest</span>
+            </div>
+            <p class="brand-sub">Final Sync / 最终同步</p>
+        </div>
+
+        <div class="status-block">
+            <p>同步状态：不可回滚</p>
+            <p>记录对象：当前处理人</p>
+            <p>章节状态：closing</p>
+        </div>
+    </header>
+
+    <main class="thread-main final-main">
+        <section class="simple-card final-head-card">
+            <p class="section-label">FINAL SYNC</p>
+            <h1 class="simple-title">关闭 EchoRest</h1>
+
+            <div class="final-warning-line">
+                该流程不会删除 EchoRest。它只会结束当前处理人可以看见的部分。
+            </div>
+
+            <div class="thread-info-grid">
+                <div class="thread-info-item">
+                    <span class="thread-info-key">当前处理人</span>
+                    <span class="thread-info-value" id="finalWorkerValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">本地会话</span>
+                    <span class="thread-info-value" id="finalSessionValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">管理员槽位</span>
+                    <span class="thread-info-value final-danger-text" id="finalSlotValue">等待同步</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">关闭状态</span>
+                    <span class="thread-info-value" id="finalCloseValue">未执行</span>
+                </div>
+            </div>
+
+            <div class="login-log-box final-system-box">
+                <p class="warning-title">FINAL MESSAGE</p>
+                <p id="finalStatusText">正在等待最终同步。</p>
+            </div>
+        </section>
+
+        <section class="simple-card final-console-card">
+            <p class="section-label">FINAL CONSOLE</p>
+
+            <div class="final-terminal">
+                <p>[final] route exposed by admin terminal</p>
+                <p>[final] previous_admin = 鸢 / MOD_005</p>
+                <p>[final] current_repairer = <span id="finalInlineWorker">unknown</span></p>
+                <p>[final] next_admin_slot = waiting</p>
+                <p>[final] shutdown request = not submitted</p>
+            </div>
+
+            <div class="final-action-grid">
+                <button class="final-action-btn" type="button" data-final-action="sync">
+                    读取最终同步
+                </button>
+
+                <button class="final-action-btn locked" type="button" data-final-action="record">
+                    查看写入对象
+                </button>
+
+                <button class="final-action-btn locked danger" type="button" data-final-action="shutdown">
+                    执行关闭流程
+                </button>
+            </div>
+
+            <div id="finalSyncPanel" class="final-output-panel hidden"></div>
+            <div id="finalRecordPanel" class="final-output-panel hidden"></div>
+            <div id="finalShutdownPanel" class="final-output-panel hidden"></div>
+        </section>
+
+        <section class="simple-card final-fragment-card">
+            <p class="section-label">LAST RECOVERED NOTES</p>
+
+            <div class="final-fragment-list">
+                <div class="final-fragment">
+                    <span>FINAL_NOTE_01</span>
+                    <p>“你修复了很多东西。它们也终于有机会修复你。”</p>
+                </div>
+
+                <div class="final-fragment">
+                    <span>FINAL_NOTE_02</span>
+                    <p>“下一次有人打开这些页面时，他会觉得自己是第一个。”</p>
+                </div>
+
+                <div class="final-fragment locked" id="finalHiddenFragment">
+                    <span>FINAL_NOTE_03</span>
+                    <p>等待关闭流程完成。</p>
+                </div>
+            </div>
+
+            <div id="finalEndingBox" class="final-ending-box hidden">
+                <p class="warning-title">ECHO RESTORED</p>
+                <p>
+                    当前维修员已经从“访问者”变为“可恢复对象”。
+                    EchoRest 不再需要你继续修复本轮页面。
+                </p>
+
+                <div class="final-route-actions">
+                    <a href="../../index.html">返回入口页</a>
+                    <a href="../forum/board.html">查看旧论坛</a>
+                    <a href="../admin/user_unknown.html">打开 user_unknown.cache</a>
+                </div>
+
+                <p class="final-route-note">
+                    user_unknown.cache 可以作为下一阶段隐藏支线继续扩展。
+                </p>
+            </div>
+        </section>
+
+        <section class="simple-card thread-nav-card">
+            <div class="thread-nav-links">
+                <a href="../admin/terminal.html">返回 admin terminal</a>
+                <span>|</span>
+                <a href="../restore/mirror.html">返回 mirror route</a>
+                <span>|</span>
+                <a href="../forum/board.html">返回论坛目录</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>EchoRest Final Sync v0.7.0</p>
+        <p>关闭流程只会结束当前可见页面</p>
+        <p>© 未检测到有效归属方</p>
+    </footer>
+
+    <div id="finalBlackout" class="final-blackout hidden">
+        <div class="final-blackout-inner">
+            <p class="final-blackout-label">ECHO RESTORED</p>
+            <h2>当前维修会话已关闭。</h2>
+            <p>
+                你可以关掉这个页面。
+                如果你再次打开 EchoRest，它会像第一次见到你一样欢迎你。
+            </p>
+            <p class="final-blackout-code">
+                next_admin_slot = current_repairer<br>
+                previous_admin = 鸢<br>
+                current_repairer = <span id="finalBlackoutWorker">unknown</span>
+            </p>
+            <button type="button" id="finalBlackoutReturnBtn">重新显示页面</button>
+        </div>
+    </div>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>

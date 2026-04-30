@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EchoRest — 登录验证</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="page-login">
+    <div class="screen-noise"></div>
+    <div class="screen-scanlines"></div>
+
+    <header class="topbar">
+        <div class="brand-block">
+            <div class="brand-line">
+                <span class="brand-dot"></span>
+                <span class="brand-name">EchoRest</span>
+            </div>
+            <p class="brand-sub">维修员接入 / 节点验证界面</p>
+        </div>
+
+        <div class="status-block">
+            <p>登录节点：可用</p>
+            <p>当前权限：临时维护</p>
+            <p>会话追踪：已启用</p>
+        </div>
+    </header>
+
+    <main class="simple-page-main">
+        <section class="simple-card login-card">
+            <p class="section-label">身份验证 / Access Check</p>
+            <h1 class="simple-title">进入工作区前，请完成身份验证。</h1>
+
+            <p class="simple-text">
+                你正在访问 EchoRest 的维护入口。请输入分配给你的维修员编号与访问码。
+            </p>
+
+            <p class="simple-text dim-text">
+                注意：系统可能保留此前未完成的登录痕迹。
+            </p>
+
+            <div class="login-alert hidden" id="historyAlert">
+                &#26816;&#27979;&#21040;&#30456;&#21516;&#32534;&#21495;&#30340;&#21382;&#21490;&#20250;&#35805;&#12290;
+            </div>
+
+            <form id="loginForm" class="login-form" novalidate>
+                <div class="form-group">
+                    <label for="workerId">维修员编号</label>
+                    <input type="text"
+                           id="workerId"
+                           name="workerId"
+                           placeholder="例如：observer_13"
+                           autocomplete="off" />
+                </div>
+
+                <div class="form-group">
+                    <label for="accessCode">访问码</label>
+                    <input type="password"
+                           id="accessCode"
+                           name="accessCode"
+                           placeholder="请输入访问码"
+                           autocomplete="off" />
+                </div>
+
+                <div class="hint-box">
+                    <p>当前测试阶段可用访问码：</p>
+                    <p><strong>ECHO-13</strong></p>
+                </div>
+
+                <p class="form-error" id="formError"></p>
+
+                <div class="hero-buttons">
+                    <button type="submit" class="btn btn-primary">验证并进入</button>
+                    <a class="btn btn-secondary" href="index.html">返回入口页</a>
+                </div>
+            </form>
+
+            <div class="login-log-box">
+                <p class="warning-title">节点提示</p>
+                <p id="loginStatusText">&#31561;&#24453;&#36755;&#20837;&#12290;</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>EchoRest 登录验证模块 v1.4.2</p>
+        <p>会话异常将被自动记录</p>
+        <p>© 未检测到有效归属方</p>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EchoRest — 工作区</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="page-dashboard">
+    <div class="screen-noise"></div>
+    <div class="screen-scanlines"></div>
+
+    <header class="topbar">
+        <div class="brand-block">
+            <div class="brand-line">
+                <span class="brand-dot"></span>
+                <span class="brand-name">EchoRest</span>
+            </div>
+            <p class="brand-sub">维护工作区 / 恢复控制台</p>
+        </div>
+
+        <div class="status-block">
+            <p>工作区状态：已接入</p>
+            <p>当前权限：受限维护</p>
+            <p>行为记录：持续写入中</p>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <section class="simple-card dashboard-head-card">
+            <p class="section-label">本地会话 / Session</p>
+            <h1 class="simple-title">恢复工作区已加载。</h1>
+
+            <p class="simple-text">
+                你已成功接入 EchoRest 的维护节点。以下为当前识别到的会话信息。
+            </p>
+
+            <div class="session-grid">
+                <div class="session-item">
+                    <span class="session-key">维修员编号</span>
+                    <span class="session-value" id="workerIdValue">未读取</span>
+                </div>
+
+                <div class="session-item">
+                    <span class="session-key">会话编号</span>
+                    <span class="session-value" id="sessionIdValue">未生成</span>
+                </div>
+
+                <div class="session-item">
+                    <span class="session-key">最近登录时间</span>
+                    <span class="session-value" id="lastLoginValue">无记录</span>
+                </div>
+
+                <div class="session-item">
+                    <span class="session-key">镜像状态</span>
+                    <span class="session-value" id="mirrorStateValue">待检查</span>
+                </div>
+            </div>
+
+            <div class="dashboard-alert hidden" id="dashboardAlert">
+                本地会话与既有缓存记录存在高度相似性。
+            </div>
+
+            <div class="login-log-box">
+                <p class="warning-title">系统摘要</p>
+                <p id="dashboardStatusText">正在读取工作区模块。</p>
+            </div>
+        </section>
+
+        <section class="simple-card module-card">
+            <p class="section-label">可访问模块</p>
+            <h2 class="section-title">恢复入口</h2>
+
+            <div class="module-grid">
+                <a class="module-box" href="pages/forum/board.html">
+                    <div class="module-top">
+                        <span class="module-tag">MODULE 01</span>
+                        <span class="module-state online">在线</span>
+                    </div>
+                    <h3>旧论坛恢复</h3>
+                    <p>访问 Echo Board，检查残缺帖子、用户讨论与异常缓存内容。</p>
+                </a>
+
+                <a class="module-box" href="pages/restore/mirror.html">
+                    <div class="module-top">
+                        <span class="module-tag">MODULE 02</span>
+                        <span class="module-state limited">受限</span>
+                    </div>
+                    <h3>镜像检查</h3>
+                    <p>查看本地会话镜像、时间偏移与记录同步情况。</p>
+                </a>
+
+                <a class="module-box" href="pages/admin/terminal.html">
+                    <div class="module-top">
+                        <span class="module-tag">MODULE 03</span>
+                        <span class="module-state limited">受限</span>
+                    </div>
+                    <h3>管理日志</h3>
+                    <p>读取后台日志、行为记录与系统写入信息。</p>
+                </a>
+
+                <div class="module-box module-box-locked">
+                    <div class="module-top">
+                        <span class="module-tag">MODULE 04</span>
+                        <span class="module-state offline">锁定</span>
+                    </div>
+                    <h3>归档接口</h3>
+                    <p>当前模块暂不可用。需要更多恢复进度后才可访问。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="simple-card notice-card">
+            <p class="section-label">节点提示</p>
+            <h2 class="section-title">修复建议</h2>
+
+            <ul class="notice-list">
+                <li>优先检查旧论坛残缺记录。</li>
+                <li>避免主动恢复未知帖子实例。</li>
+                <li>若镜像内容开始引用当前访问者，请记录但不要立即中断。</li>
+            </ul>
+
+            <div class="hero-buttons">
+                <a class="btn btn-primary" href="pages/forum/board.html">前往旧论坛</a>
+                <a class="btn btn-secondary" href="login.html">返回登录页</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>EchoRest 工作区控制台 v2.3.1</p>
+        <p>所有访问行为都可能被保留在本地缓存中</p>
+        <p>© 未检测到有效归属方</p>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

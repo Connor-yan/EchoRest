@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EchoRest — post_404.index</title>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+
+<body class="page-post-404">
+    <div class="screen-noise"></div>
+    <div class="screen-scanlines"></div>
+
+    <header class="topbar">
+        <div class="brand-block">
+            <div class="brand-line">
+                <span class="brand-dot"></span>
+                <span class="brand-name">EchoRest</span>
+            </div>
+            <p class="brand-sub">Restricted Index / 受限索引读取</p>
+        </div>
+
+        <div class="status-block">
+            <p>索引状态：异常响应</p>
+            <p>维修状态：校验中</p>
+            <p>当前对象：目录外条目</p>
+        </div>
+    </header>
+
+    <main class="thread-main post404-main">
+        <section class="simple-card post404-head-card">
+            <p class="section-label">RESTRICTED INDEX</p>
+            <h1 class="simple-title">post_404.index</h1>
+
+            <div class="post404-warning-line">
+                404 不一定表示缺失。某些条目会借这个状态等待被误认。
+            </div>
+
+            <div class="thread-info-grid">
+                <div class="thread-info-item">
+                    <span class="thread-info-key">当前处理人</span>
+                    <span class="thread-info-value" id="p404WorkerValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">本地会话</span>
+                    <span class="thread-info-value" id="p404SessionValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">读取次数</span>
+                    <span class="thread-info-value" id="p404VisitValue">0</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">路径相似度</span>
+                    <span class="thread-info-value" id="p404MatchValue">未比对</span>
+                </div>
+            </div>
+
+            <div class="login-log-box post404-system-box">
+                <p class="warning-title">SYSTEM MESSAGE</p>
+                <p id="p404StatusText">正在等待维修员读取受限索引。</p>
+            </div>
+        </section>
+
+        <section class="simple-card post404-terminal-card">
+            <p class="section-label">INDEX TRACE</p>
+
+            <div class="post404-terminal">
+                <p>[04:04:00] restricted index touched</p>
+                <p>[04:04:01] repairer detected</p>
+                <p>[04:04:02] previous repairer cache: <span class="post404-red">鸢 / MOD_005</span></p>
+                <p>[04:04:03] current repairer cache: <span id="p404InlineWorker">unknown</span></p>
+                <p>[04:04:04] waiting for path comparison...</p>
+            </div>
+
+            <div class="post404-action-grid">
+                <button class="post404-action-btn" type="button" data-p404-action="previous">
+                    读取上一次维修路径
+                </button>
+
+                <button class="post404-action-btn" type="button" data-p404-action="current">
+                    读取当前维修路径
+                </button>
+
+                <button class="post404-action-btn locked" type="button" data-p404-action="compare">
+                    对比两个路径
+                </button>
+            </div>
+
+            <div id="p404PreviousPanel" class="post404-output-panel hidden"></div>
+            <div id="p404CurrentPanel" class="post404-output-panel hidden"></div>
+            <div id="p404ComparePanel" class="post404-output-panel hidden"></div>
+        </section>
+
+        <section class="simple-card post404-fragment-card">
+            <p class="section-label">RECOVERED FRAGMENTS</p>
+
+            <div class="post404-fragment-list">
+                <div class="post404-fragment">
+                    <span>FRAGMENT_01</span>
+                    <p>“如果你能打开这里，说明你已经重复了我的路径。”</p>
+                </div>
+
+                <div class="post404-fragment">
+                    <span>FRAGMENT_02</span>
+                    <p>“不要把 404 当成错误。它会假装自己是错误。”</p>
+                </div>
+
+                <div class="post404-fragment locked" id="p404HiddenFragment">
+                    <span>FRAGMENT_03</span>
+                    <p>等待路径比对完成。</p>
+                </div>
+            </div>
+
+            <div id="p404RouteExpose" class="post404-route-box hidden">
+                <p class="warning-title">ROUTE EXPOSED</p>
+                <p>mirror route exposed / admin route exposed</p>
+
+                <div class="post404-route-actions">
+                    <a href="../restore/mirror.html">打开 mirror route</a>
+                    <a href="../admin/terminal.html">打开 admin route</a>
+                    <a href="board.html">返回论坛目录</a>
+                </div>
+
+                <p class="post404-route-note">
+                    mirror route 与 admin route 已接入当前项目结构。
+                </p>
+            </div>
+        </section>
+
+        <section class="simple-card thread-nav-card">
+            <div class="thread-nav-links">
+                <a href="thread_05.html">返回 THREAD 05</a>
+                <span>|</span>
+                <a href="board.html">返回列表</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>EchoRest Restricted Reader v0.4.04</p>
+        <p>该索引不属于公开论坛目录</p>
+        <p>© 未检测到有效归属方</p>
+    </footer>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>

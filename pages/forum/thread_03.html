@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EchoRest — 疲惫的粉刷匠</title>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body class="page-thread-03">
+    <div class="screen-noise"></div>
+    <div class="screen-scanlines"></div>
+
+    <header class="topbar">
+        <div class="brand-block">
+            <div class="brand-line">
+                <span class="brand-dot"></span>
+                <span class="brand-name">EchoRest</span>
+            </div>
+            <p class="brand-sub">旧论坛恢复 / 线程阅读</p>
+        </div>
+
+        <div class="status-block">
+            <p>读取层：公开目录</p>
+            <p>页面插入：来源未确认</p>
+            <p>附件状态：音频待复核</p>
+        </div>
+    </header>
+
+    <main class="thread-main">
+        <section class="simple-card thread-head-card">
+            <p class="section-label">THREAD 03</p>
+            <h1 class="simple-title">疲惫的粉刷匠</h1>
+
+            <div class="thread-info-grid">
+                <div class="thread-info-item">
+                    <span class="thread-info-key">当前处理人</span>
+                    <span class="thread-info-value" id="thread03WorkerValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">本地会话</span>
+                    <span class="thread-info-value" id="thread03SessionValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">访问次数</span>
+                    <span class="thread-info-value" id="thread03VisitValue">0</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">缓存状态</span>
+                    <span class="thread-info-value" id="thread03StateValue">待校验</span>
+                </div>
+            </div>
+
+            <div class="login-log-box">
+                <p class="warning-title">缓存读取记录</p>
+                <p id="thread03StatusText">正在复核页面插入与墙体音频来源。</p>
+            </div>
+
+            <div class="memory-strip hidden" id="thread03MemoryStrip"></div>
+        </section>
+
+        <section class="simple-card post-list-card">
+            <p class="section-label">帖子正文</p>
+
+            <!-- 3.1 -->
+            <article class="forum-post">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="avatar-slot inspectable-file"
+                             data-file-id="painter_avatar"
+                             data-file-name="painter_avatar.png"
+                             data-file-path="cache/forum/thread_03/avatar/"
+                             data-file-status="部分恢复"
+                             data-file-modified="未知"
+                             data-file-related="漫画家 / 租屋 / 墙体记录"
+                             data-file-note="头像文件可读，但用户资料页缺失。">
+                            楼主头像预留<br>painter_avatar.png
+                            <span class="file-inspect-hint">检查文件</span>
+                        </div>
+
+                        <div>
+                            <h2 class="forum-post-author">楼主 / 疲惫的粉刷匠</h2>
+                            <p class="forum-post-meta">发表于：较早 / 版块：生活吐槽</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">#1</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <p>
+                        楼上还是隔壁又开始吵了。真的服了，我只是想安静画完稿。
+                        这房子隔音差得离谱，半夜总能听到有人
+                        <span class="hover-term" data-hover="该词条已被墙体缓存引用。">敲墙</span>。
+                    </p>
+                    <p>
+                        房东说是老房子正常热胀冷缩。我信他个鬼。
+                    </p>
+                </div>
+
+                <div class="reply-stack">
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论一：老房子都这样，我家半夜也响。</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论二：你不会是截稿压力太大了吧。</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论三：漫画家是这样的，先怀疑墙，再怀疑自己。</p>
+                    </div>
+                </div>
+
+                <div class="more-replies-box">
+                    <p>…更多 <span id="thread03MoreCount">[50239]</span></p>
+                </div>
+            </article>
+
+            <!-- 3.2 -->
+            <article class="forum-post">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="avatar-slot">楼主头像预留<br>painter_avatar.png</div>
+                        <div>
+                            <h2 class="forum-post-author">楼主 / 疲惫的粉刷匠</h2>
+                            <p class="forum-post-meta">发表于：较早 / 版块：生活吐槽</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">#2</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <p>
+                        今天看到了。不是热胀冷缩，是墙上真的有个
+                        <span class="hover-term" data-hover="该词条与 THREAD 04、THREAD 05 存在未恢复引用。">洞</span>。
+                    </p>
+                    <p>
+                        很小，一个钉眼那么大，但我趴过去的时候，能听到隔壁有人说话。
+                    </p>
+
+                    <div class="inline-image-slot image-hover-slot inspectable-file"
+                         data-file-id="wall_hole_01"
+                         data-file-name="wall_hole_01.png"
+                         data-file-path="cache/forum/thread_03/images/"
+                         data-file-status="边缘恢复失败"
+                         data-file-modified="未知"
+                         data-file-related="墙洞 / 隔壁 / 孩子 / 漫画家"
+                         data-file-note="图像边缘存在重复压缩痕迹。墙洞内部区域不可放大。">
+                        图片预留位 / wall_hole_01.png
+                        <span>建议放：墙面小洞、旧出租屋墙皮、边缘轻微发黑</span>
+                        <span class="file-inspect-hint">检查文件</span>
+                        <div class="hover-file-tag">cache/wall_hole_01.png</div>
+                    </div>
+                </div>
+
+                <div class="reply-stack">
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论一：这不就是墙体开裂吗？</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论二：别趴上去听啊哥，你不觉得这很怪吗。</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论三：隔壁住的是谁？</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论四：我记得你之前是不是说过隔壁是个单亲妈妈带小孩？</p>
+                    </div>
+                </div>
+
+                <div class="more-replies-box">
+                    <p>…更多 <span class="thread03MoreCountMirror">[50239]</span></p>
+                </div>
+            </article>
+
+            <!-- 音频缓存 -->
+            <article class="forum-post forum-post-news">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="news-badge">AUDIO</div>
+                        <div>
+                            <h2 class="forum-post-author">墙体音频缓存</h2>
+                            <p class="forum-post-meta">来源：本地附件 / 状态：无法播放</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">FILE</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <div id="audioBrokenBlock">
+                        <p class="broken-news-line">
+                            audio_wall_behind.wav / 00:17 / waveform_missing
+                        </p>
+
+                        <div class="inline-image-slot inspectable-file"
+                             data-file-id="audio_wall_behind"
+                             data-file-name="audio_wall_behind.wav"
+                             data-file-path="cache/forum/thread_03/audio/"
+                             data-file-status="无法播放"
+                             data-file-modified="未知"
+                             data-file-related="墙体声音 / 孩子 / 隔壁"
+                             data-file-note="音频本体不可播放，但存在损坏转写缓存。">
+                            音频文件预留位 / audio_wall_behind.wav
+                            <span>建议美术可做一个损坏波形图，或者旧播放器截图</span>
+                            <span class="file-inspect-hint">检查文件</span>
+                        </div>
+
+                        <button class="repair-btn" id="repairAudioBtn" type="button">尝试修复音频转写</button>
+                    </div>
+
+                    <div id="audioRecoveredBlock" class="hidden">
+                        <p class="audio-transcript-title">[转写缓存 / audio_wall_behind.wav]</p>
+                        <div class="audio-transcript-box">
+                            <p>……阿姨什么时候回来？</p>
+                            <p>……我不是故意的。</p>
+                            <p>……墙那边有人。</p>
+                            <p>……不要让他看见洞。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 3.3 -->
+            <article class="forum-post forum-post-warning">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="avatar-slot">楼主头像预留<br>painter_avatar.png</div>
+                        <div>
+                            <h2 class="forum-post-author">楼主 / 疲惫的粉刷匠</h2>
+                            <p class="forum-post-meta">发表于：较早 / 版块：生活吐槽</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">#3</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <p>
+                        我本来只是想用腻子把
+                        <span class="hover-term" data-hover="该词条已被引用 4 次。">洞</span>
+                        补上。
+                    </p>
+                    <p>
+                        但我拿刮刀靠近的时候，里面有人问我：“叔叔，你也是来找我妈妈的吗？”
+                    </p>
+                    <p>
+                        我现在有点不敢动墙了。
+                    </p>
+                </div>
+
+                <div class="reply-stack">
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论一：楼主别编了，有点吓人了。</p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论二：隔壁小孩吧？你问问不就好了。</p>
+                    </div>
+                    <div class="reply-line deleted-comment-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>
+                            评论三：
+                            <span class="deleted-comment-frag" data-hover="他不在隔壁。">
+                                他不在【此评论被楼主删除】
+                            </span>
+                        </p>
+                    </div>
+                    <div class="reply-line">
+                        <div class="reply-avatar-slot">头像</div>
+                        <p>评论四：我刚刚点开这个帖的时候跳了一下404，你们有吗？</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 新闻/广告碎片 -->
+            <article class="forum-post forum-post-news">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="news-badge">AD</div>
+                        <div>
+                            <h2 class="forum-post-author">页面内嵌广告缓存</h2>
+                            <p class="forum-post-meta">状态：错误插入 / 无法确认来源</p>
+                        </div>
+                    </div>
+                    <span class="forum-post-floor">AD</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <p>
+                        【无法显示】墙面修补服务，24小时上门。旧房裂缝、墙洞、潮湿起皮均可处理。
+                    </p>
+
+                    <div class="inline-image-slot image-hover-slot inspectable-file"
+                         data-file-id="wall_repair_ad"
+                         data-file-name="wall_repair_ad_cache.jpg"
+                         data-file-path="cache/ad/unknown/"
+                         data-file-status="来源异常"
+                         data-file-modified="未知"
+                         data-file-related="墙面修补 / 广告缓存 / 404闪现"
+                         data-file-note="该广告不属于原帖内容，但被插入在 THREAD 03 中。">
+                        广告图预留位 / wall_repair_ad_cache.jpg
+                        <span>建议放：老旧小广告、墙面修补电话、电话号码被涂黑</span>
+                        <span class="file-inspect-hint">检查文件</span>
+                        <div class="hover-file-tag">cache/ad/wall_repair_ad_cache.jpg</div>
+                    </div>
+                </div>
+            </article>
+
+            <div id="thread03InjectedReplyAnchor"></div>
+        </section>
+
+        <section class="simple-card thread-nav-card">
+            <div class="thread-nav-links">
+                <a href="board.html">返回列表</a>
+                <span>|</span>
+                <a href="thread_04.html">下一主题</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Echo Board 线程阅读器 v1.4.0</p>
+        <p>恢复内容可能与站点历史缓存存在轻微偏移</p>
+        <p>© 未检测到有效归属方</p>
+    </footer>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>

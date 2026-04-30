@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EchoRest — admin terminal</title>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+
+<body class="page-admin-route">
+    <div class="screen-noise"></div>
+    <div class="screen-scanlines"></div>
+
+    <header class="topbar">
+        <div class="brand-block">
+            <div class="brand-line">
+                <span class="brand-dot"></span>
+                <span class="brand-name">EchoRest</span>
+            </div>
+            <p class="brand-sub">Admin Terminal / 权限冲突后台</p>
+        </div>
+
+        <div class="status-block">
+            <p>后台状态：未授权访问</p>
+            <p>权限层级：冲突</p>
+            <p>当前模块：admin_conflict</p>
+        </div>
+    </header>
+
+    <main class="thread-main admin-main">
+        <section class="simple-card admin-head-card">
+            <p class="section-label">ADMIN TERMINAL</p>
+            <h1 class="simple-title">权限冲突检测</h1>
+
+            <div class="admin-warning-line">
+                该页面不应出现在维修员工作区。你不是管理员。或者，你已经是了。
+            </div>
+
+            <div class="thread-info-grid">
+                <div class="thread-info-item">
+                    <span class="thread-info-key">当前管理员</span>
+                    <span class="thread-info-value admin-danger-text">鸢 / MOD_005</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">当前处理人</span>
+                    <span class="thread-info-value" id="adminWorkerValue">未读取</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">权限冲突</span>
+                    <span class="thread-info-value admin-danger-text" id="adminConflictValue">true</span>
+                </div>
+
+                <div class="thread-info-item">
+                    <span class="thread-info-key">身份合并率</span>
+                    <span class="thread-info-value" id="adminMergeValue">未计算</span>
+                </div>
+            </div>
+
+            <div class="login-log-box admin-system-box">
+                <p class="warning-title">ADMIN MESSAGE</p>
+                <p id="adminStatusText">正在等待权限校验。</p>
+            </div>
+        </section>
+
+        <section class="simple-card admin-console-card">
+            <p class="section-label">ADMIN CONSOLE</p>
+
+            <div class="admin-terminal">
+                <p>[admin] route exposed by mirror profile</p>
+                <p>[admin] current_admin = 鸢 / MOD_005</p>
+                <p>[admin] current_repairer = <span id="adminInlineWorker">unknown</span></p>
+                <p>[admin] permission_conflict = true</p>
+                <p>[admin] waiting for operator action...</p>
+            </div>
+
+            <div class="admin-action-grid">
+                <button class="admin-action-btn" type="button" data-admin-action="scan">
+                    读取权限冲突
+                </button>
+
+                <button class="admin-action-btn locked" type="button" data-admin-action="takeover">
+                    尝试接管权限
+                </button>
+
+                <button class="admin-action-btn locked" type="button" data-admin-action="rollback">
+                    回滚鸢的账号
+                </button>
+
+                <button class="admin-action-btn locked danger" type="button" data-admin-action="logout">
+                    注销当前维修员
+                </button>
+            </div>
+
+            <div id="adminScanPanel" class="admin-output-panel hidden"></div>
+            <div id="adminTakeoverPanel" class="admin-output-panel hidden"></div>
+            <div id="adminRollbackPanel" class="admin-output-panel hidden"></div>
+            <div id="adminLogoutPanel" class="admin-output-panel hidden"></div>
+        </section>
+
+        <section class="simple-card admin-fragment-card">
+            <p class="section-label">ADMIN RECOVERY NOTES</p>
+
+            <div class="admin-fragment-list">
+                <div class="admin-fragment">
+                    <span>ADMIN_NOTE_01</span>
+                    <p>“后台不是权限更高的地方。后台只是更接近记录你的地方。”</p>
+                </div>
+
+                <div class="admin-fragment">
+                    <span>ADMIN_NOTE_02</span>
+                    <p>“你看见的按钮不是选择。它们只是让系统知道你愿意继续点。”</p>
+                </div>
+
+                <div class="admin-fragment locked" id="adminHiddenFragment">
+                    <span>ADMIN_NOTE_03</span>
+                    <p>等待任意危险操作完成。</p>
+                </div>
+            </div>
+
+            <div id="adminFinalExpose" class="admin-final-box hidden">
+                <p class="warning-title">FINAL ROUTE EXPOSED</p>
+                <p>当前处理人已被写入管理员冲突记录。最终同步页已暴露。</p>
+
+                <div class="admin-route-actions">
+                    <a href="../final/shutdown.html">进入 final sync</a>
+                    <a href="../restore/mirror.html">返回 mirror route</a>
+                    <a href="../forum/board.html">返回论坛目录</a>
+                </div>
+
+                <p class="admin-route-note">
+                    final route 已指向 pages/final/shutdown.html。
+                </p>
+            </div>
+        </section>
+
+        <section class="simple-card thread-nav-card">
+            <div class="thread-nav-links">
+                <a href="../restore/mirror.html">返回 mirror route</a>
+                <span>|</span>
+                <a href="../forum/post_404.html">返回 post_404.index</a>
+                <span>|</span>
+                <a href="../forum/board.html">返回论坛目录</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>EchoRest Admin Terminal v0.6.0</p>
+        <p>该页面不属于公开维修员工作区</p>
+        <p>© 未检测到有效归属方</p>
+    </footer>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>
