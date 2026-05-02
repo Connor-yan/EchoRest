@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "D:\\EchoRest\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\EchoRest\\assets\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\EchoRest\\assets\\js\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\js\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\EchoRest\\assets\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\EchoRest\\dashboard.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dashboard.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\EchoRest\\pages\\forum\\thread_05.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -45,10 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\EchoRest\\pages\\final\\shutdown.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\final\\shutdown.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\EchoRest\\dashboard.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dashboard.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\EchoRest\\pages\\admin\\terminal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -110,33 +110,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
+              "Title": "thread_05.html",
+              "DocumentMoniker": "D:\\EchoRest\\pages\\forum\\thread_05.html",
+              "RelativeDocumentMoniker": "pages\\forum\\thread_05.html",
+              "ToolTip": "D:\\EchoRest\\pages\\forum\\thread_05.html",
+              "RelativeToolTip": "pages\\forum\\thread_05.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-04-18T11:27:42.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "style.css",
               "DocumentMoniker": "D:\\EchoRest\\assets\\css\\style.css",
               "RelativeDocumentMoniker": "assets\\css\\style.css",
               "ToolTip": "D:\\EchoRest\\assets\\css\\style.css",
               "RelativeToolTip": "assets\\css\\style.css",
-              "ViewState": "AgIAAAYVAAAAAAAAAAAswCUVAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAO4VAAAAAAAAAAAswAIWAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2026-04-14T15:49:36.9Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "main.js",
               "DocumentMoniker": "D:\\EchoRest\\assets\\js\\main.js",
               "RelativeDocumentMoniker": "assets\\js\\main.js",
               "ToolTip": "D:\\EchoRest\\assets\\js\\main.js",
               "RelativeToolTip": "assets\\js\\main.js",
-              "ViewState": "AgIAACIGAAAAAAAAAAAiwCQGAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAHAHAAAAAAAAAAAAwIEHAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-04-14T15:49:52.399Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "board.html",
               "DocumentMoniker": "D:\\EchoRest\\pages\\forum\\board.html",
               "RelativeDocumentMoniker": "pages\\forum\\board.html",
@@ -148,7 +161,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "thread_01.html",
               "DocumentMoniker": "D:\\EchoRest\\pages\\forum\\thread_01.html",
               "RelativeDocumentMoniker": "pages\\forum\\thread_01.html",
@@ -160,7 +173,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "thread_02.html",
               "DocumentMoniker": "D:\\EchoRest\\pages\\forum\\thread_02.html",
               "RelativeDocumentMoniker": "pages\\forum\\thread_02.html",
@@ -172,19 +185,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "thread_05.html",
-              "DocumentMoniker": "D:\\EchoRest\\pages\\forum\\thread_05.html",
-              "RelativeDocumentMoniker": "pages\\forum\\thread_05.html",
-              "ToolTip": "D:\\EchoRest\\pages\\forum\\thread_05.html",
-              "RelativeToolTip": "pages\\forum\\thread_05.html",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2026-04-18T11:27:42.782Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "shutdown.html",
               "DocumentMoniker": "D:\\EchoRest\\pages\\final\\shutdown.html",
               "RelativeDocumentMoniker": "pages\\final\\shutdown.html",
@@ -208,7 +209,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "post_404.html",
               "DocumentMoniker": "D:\\EchoRest\\pages\\forum\\post_404.html",
               "RelativeDocumentMoniker": "pages\\forum\\post_404.html",
@@ -220,7 +221,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "mirror.html",
               "DocumentMoniker": "D:\\EchoRest\\pages\\restore\\mirror.html",
               "RelativeDocumentMoniker": "pages\\restore\\mirror.html",
@@ -232,7 +233,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "thread_04.html",
               "DocumentMoniker": "D:\\EchoRest\\pages\\forum\\thread_04.html",
               "RelativeDocumentMoniker": "pages\\forum\\thread_04.html",
@@ -244,7 +245,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "thread_03.html",
               "DocumentMoniker": "D:\\EchoRest\\pages\\forum\\thread_03.html",
               "RelativeDocumentMoniker": "pages\\forum\\thread_03.html",
@@ -256,15 +257,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 2,
               "Title": "dashboard.html",
               "DocumentMoniker": "D:\\EchoRest\\dashboard.html",
               "RelativeDocumentMoniker": "dashboard.html",
               "ToolTip": "D:\\EchoRest\\dashboard.html",
               "RelativeToolTip": "dashboard.html",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAcwFkAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAswKkAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2026-04-14T17:10:16.788Z"
+              "WhenOpened": "2026-04-14T17:10:16.788Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
