@@ -5,6 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EchoRest — 工作区</title>
     <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* Dashboard-specific override patch */
+        .dashboard-entry-card {
+            border: 1px solid rgba(175, 205, 228, 0.18);
+            background: linear-gradient(180deg, rgba(10, 14, 18, 0.96) 0%, rgba(6, 9, 12, 0.99) 100%);
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-entry-text {
+            max-width: 720px;
+            margin-top: 10px;
+        }
+
+        .dashboard-entry-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-entry-mainbtn {
+            min-width: 220px;
+            min-height: 46px;
+            font-size: 15px;
+            justify-content: center;
+        }
+
+        .dashboard-entry-textlink {
+            color: #a9bfd3;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.18s ease;
+        }
+
+            .dashboard-entry-textlink:hover {
+                color: #eef6ff;
+            }
+
+        .dashboard-secondary-card {
+            border: 1px solid rgba(175, 205, 228, 0.12);
+            background: linear-gradient(180deg, rgba(8, 12, 16, 0.9) 0%, rgba(5, 8, 11, 0.96) 100%);
+        }
+
+        .dashboard-status-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .dashboard-status-item {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+            .dashboard-status-item:last-child {
+                border-bottom: none;
+            }
+
+        .dashboard-status-key {
+            color: #9fb5c8;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+        }
+
+        .dashboard-status-value {
+            color: #e6f1fb;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* 如果 main.js 里还保留了动态插入入口卡，这里直接隐藏，避免重复 */
+        #dashboardEntryPanel {
+            display: none !important;
+        }
+
+        @media (max-width: 720px) {
+            .dashboard-status-item {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+
+            .dashboard-entry-mainbtn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body class="page-dashboard">
     <div class="screen-noise"></div>
@@ -67,62 +158,39 @@
             </div>
         </section>
 
-        <section class="simple-card module-card">
-            <p class="section-label">可访问模块</p>
-            <h2 class="section-title">恢复入口</h2>
+        <section class="simple-card dashboard-entry-card">
+            <p class="section-label">当前可用入口 / ACTIVE ROUTE</p>
+            <h2 class="section-title">进入旧论坛恢复界面</h2>
 
-            <div class="module-grid">
-                <a class="module-box" href="pages/forum/board.html">
-                    <div class="module-top">
-                        <span class="module-tag">MODULE 01</span>
-                        <span class="module-state online">在线</span>
-                    </div>
-                    <h3>旧论坛恢复</h3>
-                    <p>访问 Echo Board，检查残缺帖子、用户讨论与异常缓存内容。</p>
-                </a>
+            <p class="simple-text dashboard-entry-text">
+                公开目录仍可访问。建议先从 Echo Board 检查残缺帖子、缓存偏移与用户讨论记录，再继续接触站务层内容。
+            </p>
 
-                <a class="module-box" href="pages/restore/mirror.html">
-                    <div class="module-top">
-                        <span class="module-tag">MODULE 02</span>
-                        <span class="module-state limited">受限</span>
-                    </div>
-                    <h3>镜像检查</h3>
-                    <p>查看本地会话镜像、时间偏移与记录同步情况。</p>
-                </a>
-
-                <a class="module-box" href="pages/admin/terminal.html">
-                    <div class="module-top">
-                        <span class="module-tag">MODULE 03</span>
-                        <span class="module-state limited">受限</span>
-                    </div>
-                    <h3>管理日志</h3>
-                    <p>读取后台日志、行为记录与系统写入信息。</p>
-                </a>
-
-                <div class="module-box module-box-locked">
-                    <div class="module-top">
-                        <span class="module-tag">MODULE 04</span>
-                        <span class="module-state offline">锁定</span>
-                    </div>
-                    <h3>归档接口</h3>
-                    <p>当前模块暂不可用。需要更多恢复进度后才可访问。</p>
-                </div>
+            <div class="dashboard-entry-actions">
+                <a class="btn btn-primary dashboard-entry-mainbtn" href="pages/forum/board.html">打开 Echo Board</a>
+                <a class="dashboard-entry-textlink" href="login.html">返回登录页</a>
             </div>
         </section>
 
-        <section class="simple-card notice-card">
-            <p class="section-label">节点提示</p>
-            <h2 class="section-title">修复建议</h2>
+        <section class="simple-card dashboard-secondary-card">
+            <p class="section-label">后台摘录 / BACKEND NOTE</p>
+            <h2 class="section-title">当前只读状态</h2>
 
-            <ul class="notice-list">
-                <li>优先检查旧论坛残缺记录。</li>
-                <li>避免主动恢复未知帖子实例。</li>
-                <li>若镜像内容开始引用当前访问者，请记录但不要立即中断。</li>
-            </ul>
+            <div class="dashboard-status-list">
+                <div class="dashboard-status-item">
+                    <span class="dashboard-status-key">镜像检查</span>
+                    <span class="dashboard-status-value">仍为只读记录，不建议优先进入</span>
+                </div>
 
-            <div class="hero-buttons">
-                <a class="btn btn-primary" href="pages/forum/board.html">前往旧论坛</a>
-                <a class="btn btn-secondary" href="login.html">返回登录页</a>
+                <div class="dashboard-status-item">
+                    <span class="dashboard-status-key">管理日志</span>
+                    <span class="dashboard-status-value">等待更多前台记录后再复核</span>
+                </div>
+
+                <div class="dashboard-status-item">
+                    <span class="dashboard-status-key">归档接口</span>
+                    <span class="dashboard-status-value">当前未开放</span>
+                </div>
             </div>
         </section>
     </main>

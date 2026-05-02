@@ -314,13 +314,61 @@ function handleDashboardPage(now) {
         if (dashboardAlert) {
             dashboardAlert.classList.remove("hidden");
         }
-        dashboardStatusText.textContent = TXT.dashboardRepeat;
+        dashboardStatusText.textContent = "\u8eab\u4efd\u9a8c\u8bc1\u5df2\u901a\u8fc7\u3002\u65e7\u7ad9\u8bba\u575b\u6062\u590d\u754c\u9762\u4ecd\u53ef\u8bbf\u95ee\uff0c\u8bf7\u7ee7\u7eed\u4ece\u516c\u5f00\u76ee\u5f55\u68c0\u67e5\u7f13\u5b58\u6b8b\u7559\u3002";
         mirrorStateValue.textContent = TXT.mirrorRepeatEcho;
     } else {
-        dashboardStatusText.textContent = TXT.dashboardLoaded;
+        dashboardStatusText.textContent = "\u8eab\u4efd\u9a8c\u8bc1\u5df2\u901a\u8fc7\u3002\u4e0b\u4e00\u6b65\uff1a\u8fdb\u5165\u65e7\u7ad9\u8bba\u575b\u6062\u590d\u754c\u9762\uff0c\u68c0\u67e5\u516c\u5f00\u76ee\u5f55\u4e0e\u7f13\u5b58\u5f02\u5e38\u3002";
     }
 
+    renderDashboardEntryHint();
+
     localStorage.setItem("echo_last_dashboard_time", now);
+}
+
+
+function renderDashboardEntryHint() {
+    const statusEl = document.getElementById("dashboardStatusText");
+    if (!statusEl) return;
+
+    let panel = document.getElementById("dashboardEntryPanel");
+
+    if (!panel) {
+        panel = document.createElement("div");
+        panel.id = "dashboardEntryPanel";
+        panel.className = "dashboard-entry-panel";
+
+        const kicker = document.createElement("p");
+        kicker.className = "dashboard-entry-kicker";
+        kicker.textContent = "NEXT ROUTE / FORUM RESTORE";
+
+        const title = document.createElement("h3");
+        title.className = "dashboard-entry-title";
+        title.textContent = "\u8fdb\u5165\u65e7\u7ad9\u8bba\u575b\u6062\u590d\u754c\u9762";
+
+        const desc = document.createElement("p");
+        desc.className = "dashboard-entry-desc";
+        desc.textContent = "\u4ece\u516c\u5f00\u76ee\u5f55\u5f00\u59cb\u8bfb\u53d6\u65e7\u7ad9\u8bb0\u5f55\uff0c\u68c0\u67e5\u53ef\u8bfb\u5e16\u5b50\u3001\u7f13\u5b58\u504f\u79fb\u4e0e\u53d7\u9650\u7d22\u5f15\u3002";
+
+        const link = document.createElement("a");
+        link.className = "dashboard-entry-link";
+        link.href = "pages/forum/board.html";
+        link.textContent = "\u8fdb\u5165\u516c\u5f00\u76ee\u5f55";
+
+        panel.appendChild(kicker);
+        panel.appendChild(title);
+        panel.appendChild(desc);
+        panel.appendChild(link);
+
+        const mountTarget =
+            statusEl.closest(".login-log-box") ||
+            statusEl.parentElement;
+
+        if (mountTarget && mountTarget.parentNode) {
+            mountTarget.parentNode.insertBefore(panel, mountTarget.nextSibling);
+        } else {
+            document.body.appendChild(panel);
+        }
+    }
 }
 
 function handleForumBoardPage(now) {
@@ -1257,61 +1305,6 @@ function hasInvestigationCode(code) {
     });
 }
 
-function getMainlineGoals() {
-    const goals = [
-        {
-            code: "goal_repair_thread04",
-            label: "修复 THREAD_04 漫画残页",
-            done: localStorage.getItem("echo_thread04_draft_repaired") === "true"
-        },
-        {
-            code: "goal_find_0404",
-            label: "确认 04:04 关联",
-            done: hasInvestigationCode("found_0404")
-        },
-        {
-            code: "goal_find_yuan",
-            label: "识别 鸢 / MOD_005",
-            done: hasInvestigationCode("found_yuan_mod005")
-        },
-        {
-            code: "goal_find_post404",
-            label: "识别 post_404 异常",
-            done: hasInvestigationCode("found_post404")
-        },
-        {
-            code: "goal_open_t05_logs",
-            label: "打开 THREAD_05 三个日志",
-            done:
-                localStorage.getItem("echorest_t05_admin_opened") === "1" &&
-                localStorage.getItem("echorest_t05_restore_opened") === "1" &&
-                localStorage.getItem("echorest_t05_user_cache_opened") === "1"
-        },
-        {
-            code: "goal_enter_post404",
-            label: "进入 post_404",
-            done: Number(localStorage.getItem("echorest_post404_visit_count") || "0") > 0
-        },
-        {
-            code: "goal_compare_post404",
-            label: "完成路径比对",
-            done: localStorage.getItem("echorest_post404_compared") === "1"
-        },
-        {
-            code: "goal_generate_mirror",
-            label: "生成维修员镜像",
-            done: localStorage.getItem("echorest_mirror_profile_generated") === "1"
-        }
-    ];
-
-    return {
-        items: goals,
-        doneCount: goals.filter(function (item) {
-            return item.done;
-        }).length,
-        totalCount: goals.length
-    };
-}
 
 
 
@@ -1371,60 +1364,9 @@ function ensureWorkConsole() {
     }
 }
 
-function getBackendTicketState() {
-    return {
-        t04Repaired: localStorage.getItem("echo_thread04_draft_repaired") === "true",
-        found0404: hasInvestigationCode("found_0404"),
-        foundYuan: hasInvestigationCode("found_yuan_mod005"),
-        found404: hasInvestigationCode("found_post404"),
-        t05LogsDone:
-            localStorage.getItem("echorest_t05_admin_opened") === "1" &&
-            localStorage.getItem("echorest_t05_restore_opened") === "1" &&
-            localStorage.getItem("echorest_t05_user_cache_opened") === "1",
-        post404Entered: Number(localStorage.getItem("echorest_post404_visit_count") || "0") > 0,
-        post404Compared: localStorage.getItem("echorest_post404_compared") === "1",
-        mirrorDone: localStorage.getItem("echorest_mirror_profile_generated") === "1"
-    };
-}
 
-function getBackendTicketRows() {
-    const S = getBackendTicketState();
 
-    return [
-        {
-            id: "ticket_clock",
-            level: S.found0404 ? "warning" : "soft",
-            title: "\u7f13\u5b58\u65f6\u95f4\u504f\u79fb",
-            note: S.found0404
-                ? "\u5df2\u8bb0\u5f55 04:04 \u951a\u70b9"
-                : "\u5c1a\u672a\u5b8c\u6210\u590d\u6838"
-        },
-        {
-            id: "ticket_admin",
-            level: S.foundYuan ? "warning" : "soft",
-            title: "\u7ba1\u7406\u5458\u7f13\u5b58\u91cd\u53e0",
-            note: S.foundYuan
-                ? "\u5df2\u51fa\u73b0 MOD_005 \u5173\u8054"
-                : "\u524d\u53f0\u6807\u8bb0\u4ecd\u4e0d\u7a33\u5b9a"
-        },
-        {
-            id: "ticket_post404",
-            level: S.found404 ? "danger" : "soft",
-            title: "\u76ee\u5f55\u5916\u6761\u76ee\u54cd\u5e94",
-            note: S.post404Compared
-                ? "\u8def\u5f84\u5bf9\u7167\u5df2\u5b8c\u6210"
-                : (S.found404 ? "\u5df2\u8fdb\u5165\u5f85\u590d\u6838\u72b6\u6001" : "\u5c1a\u672a\u786e\u8ba4")
-        },
-        {
-            id: "ticket_mirror",
-            level: S.mirrorDone ? "warning" : "soft",
-            title: "\u672c\u5730\u75d5\u8ff9\u955c\u50cf",
-            note: S.mirrorDone
-                ? "\u5df2\u751f\u6210\u53ef\u5f15\u7528\u955c\u50cf"
-                : "\u672a\u751f\u6210"
-        }
-    ];
-}
+
 
 function getMaintenanceTickets() {
     const found0404 = hasInvestigationCode("found_0404");
@@ -1494,6 +1436,492 @@ function getMaintenanceHandoverNotes() {
     ];
 }
 
+function getMaintenanceTicketRevealLevel(ticketId) {
+    const foundSource = hasInvestigationCode("found_sjahqiuhdiuq");
+    const found0404 = hasInvestigationCode("found_0404");
+    const foundYuan = hasInvestigationCode("found_yuan_mod005");
+    const found404 = hasInvestigationCode("found_post404");
+
+    const repaired03 = localStorage.getItem("echo_thread03_audio_repaired") === "true";
+    const repaired04 = localStorage.getItem("echo_thread04_draft_repaired") === "true";
+
+    const t05LogsDone =
+        localStorage.getItem("echorest_t05_admin_opened") === "1" &&
+        localStorage.getItem("echorest_t05_restore_opened") === "1" &&
+        localStorage.getItem("echorest_t05_user_cache_opened") === "1";
+
+    const post404Compared = localStorage.getItem("echorest_post404_compared") === "1";
+
+    if (ticketId === "ticket_img_source") {
+        if (foundYuan) return 3;
+        if (foundSource || localStorage.getItem("echo_thread01_news_repaired") === "true") return 2;
+        return 1;
+    }
+
+    if (ticketId === "ticket_audio_insert") {
+        if (t05LogsDone || hasInvestigationCode("found_admin_cache")) return 3;
+        if (repaired03) return 2;
+        return 1;
+    }
+
+    if (ticketId === "ticket_clock_rewrite") {
+        if (found404 || post404Compared) return 3;
+        if (repaired04 || found0404) return 2;
+        return 1;
+    }
+
+    return 1;
+}
+
+function getMaintenanceTicketSeenLevel(ticketId) {
+    return Number(localStorage.getItem("echo_ticket_seen_level_" + ticketId) || "0");
+}
+
+function ticketHasUnreadUpdate(ticketId) {
+    const currentLevel = getMaintenanceTicketRevealLevel(ticketId);
+    const seenLevel = getMaintenanceTicketSeenLevel(ticketId);
+    return currentLevel > seenLevel;
+}
+
+function markTicketUpdateAsRead(ticketId) {
+    const currentLevel = getMaintenanceTicketRevealLevel(ticketId);
+    setMaintenanceTicketSeenLevel(ticketId, currentLevel);
+}
+
+function setMaintenanceTicketSeenLevel(ticketId, level) {
+    localStorage.setItem("echo_ticket_seen_level_" + ticketId, String(level));
+}
+
+function makeLockedTicketRow(key) {
+    return {
+        key: key,
+        value: "\u3010\u5f85\u89e3\u9501\u3011",
+        locked: true
+    };
+}
+
+function getMaintenanceTicketDetail(ticketId) {
+    const level = getMaintenanceTicketRevealLevel(ticketId);
+
+    if (ticketId === "ticket_img_source") {
+        const rows = [
+            {
+                key: "\u9644\u4ef6\u540d",
+                value: "unknown_fruit_photo.tmp"
+            },
+            {
+                key: "\u6765\u6e90\u8def\u5f84",
+                value: level >= 2
+                    ? "/cache/tmp/news_leaf_01/render/fruit_window_proxy"
+                    : "/cache/tmp/news_leaf_01/..."
+            },
+            level >= 2
+                ? {
+                    key: "\u5199\u5165\u6765\u6e90",
+                    value: "sjahqiuhdiuq"
+                }
+                : makeLockedTicketRow("\u5199\u5165\u6765\u6e90"),
+            {
+                key: "\u516c\u5f00\u7528\u6237\u5217\u8868",
+                value: level >= 3
+                    ? "\u672a\u5339\u914d\u5230\u76f8\u540c ID / \u4e0e\u201c\u65b0\u6765\u7684\u7ba1\u7406\u5458\u201d\u5b57\u6bb5\u4ecd\u4e0d\u5bf9\u5e94"
+                    : "\u672a\u5339\u914d\u5230\u76f8\u540c ID"
+            },
+            level >= 3
+                ? {
+                    key: "\u524d\u53f0\u54cd\u5e94",
+                    value: "\u5237\u65b0\u540e\u5076\u53d1 404 / \u9891\u6b21\u4e0d\u7a33\u5b9a"
+                }
+                : makeLockedTicketRow("\u524d\u53f0\u54cd\u5e94")
+        ];
+
+        return {
+            type: "image",
+            label: "ECHO_REST / ATTACHMENT CHECK",
+            title: "\u62a5\u4fee\u5355 #013 / \u9644\u4ef6\u6765\u6e90\u6838\u9a8c",
+            subtitle: "\u7c7b\u578b\uff1a\u56fe\u50cf\u8d44\u4ea7\u5f02\u5e38 / \u5f53\u524d\u53ef\u89c1\u5b57\u6bb5 " + level + " / 5",
+            statusTag: level >= 3 ? "\u5b8c\u6574\u590d\u6838" : (level >= 2 ? "\u5df2\u8ffd\u52a0\u5b57\u6bb5" : "\u90e8\u5206\u5f00\u653e"),
+            statusClass: level >= 3 ? "full" : (level >= 2 ? "mid" : "partial"),
+            newFields:
+                level >= 3
+                    ? ["\u516c\u5f00\u7528\u6237\u5217\u8868", "\u524d\u53f0\u54cd\u5e94"]
+                    : (level >= 2
+                        ? ["\u5199\u5165\u6765\u6e90"]
+                        : []),
+            previewName: "unknown_fruit_photo.tmp",
+            previewState: level >= 3 ? "\u9884\u89c8\u4e0d\u7a33\u5b9a / \u6765\u6e90\u4e0d\u5bf9\u5e94" : "\u9884\u89c8\u4e0d\u7a33\u5b9a",
+            rows: rows,
+            noteTitle: "\u4eba\u5de5\u5907\u6ce8",
+            noteBody:
+                level >= 3
+                    ? "\u8be5\u56fe\u50cf\u5728\u516c\u5f00\u9875\u53ef\u4ee5\u88ab\u5f15\u7528\uff0c\u4f46\u6765\u6e90\u5b57\u6bb5\u4e0d\u5c5e\u4e8e\u4efb\u4f55\u53ef\u89c1\u7528\u6237\u3002\u53cd\u5149\u533a\u57df\u4ecd\u4fdd\u7559\u4e00\u4e2a\u4e0d\u5e94\u51fa\u73b0\u7684\u5934\u50cf\u8f6e\u5ed3\u3002"
+                    : (level >= 2
+                        ? "\u8be5\u56fe\u50cf\u6765\u6e90\u5b57\u6bb5\u5df2\u5f00\u59cb\u7a33\u5b9a\u6307\u5411\u81ea\u52a8\u4fee\u590d\u5199\u5165\uff0c\u4f46\u4ecd\u65e0\u6cd5\u4ec5\u4f9d\u9760\u516c\u5f00\u5217\u8868\u786e\u8ba4\u5bf9\u5e94\u7528\u6237\u3002"
+                        : "\u5f53\u524d\u53ea\u8fd4\u56de\u5230\u9644\u4ef6\u4e0e\u90e8\u5206\u8def\u5f84\u4fe1\u606f\u3002\u5199\u5165\u6765\u6e90\u4ecd\u672a\u7a33\u5b9a\u3002"),
+            footer:
+                level >= 3
+                    ? "\u5904\u7406\u5efa\u8bae\uff1a\u4fdd\u7559\u8def\u5f84\u3001\u6765\u6e90\u5b57\u6bb5\u4e0e\u524d\u53f0\u54cd\u5e94\u5dee\u5f02\uff0c\u6682\u4e0d\u76f4\u63a5\u6e05\u7406\u8be5\u8d44\u4ea7\u3002"
+                    : "\u5904\u7406\u5efa\u8bae\uff1a\u7ee7\u7eed\u590d\u6838\u5199\u5165\u6765\u6e90\u4e0e\u76f8\u5173\u7528\u6237\u5b57\u6bb5\u3002"
+        };
+    }
+
+    if (ticketId === "ticket_audio_insert") {
+        const rows = [
+            {
+                key: "\u97f3\u9891\u6587\u4ef6",
+                value: "audio_wall_behind.wav"
+            },
+            level >= 2
+                ? {
+                    key: "\u8f6c\u5199\u65f6\u95f4",
+                    value: "04:03 / cache-side transcript"
+                }
+                : makeLockedTicketRow("\u8f6c\u5199\u65f6\u95f4"),
+            level >= 2
+                ? {
+                    key: "\u63d2\u5165\u6765\u6e90",
+                    value: "wall_repair_ad / cached inline block"
+                }
+                : makeLockedTicketRow("\u63d2\u5165\u6765\u6e90"),
+            {
+                key: "\u539f\u59cb\u9875\u9762",
+                value: "thread_03"
+            },
+            level >= 3
+                ? {
+                    key: "\u72b6\u6001\u5224\u5b9a",
+                    value: "\u8be5\u63d2\u5165\u9879\u4e0d\u5c5e\u4e8e\u539f\u9875\u516c\u5f00\u5185\u5bb9"
+                }
+                : makeLockedTicketRow("\u72b6\u6001\u5224\u5b9a")
+        ];
+
+        return {
+            type: "audio",
+            label: "ECHO_REST / AUDIO TRACE",
+            title: "\u62a5\u4fee\u5355 #021 / \u97f3\u9891\u4e0e\u63d2\u5165\u9879\u4e0e\u4e32\u7ebf\u6392\u67e5",
+            subtitle: "\u7c7b\u578b\uff1a\u5899\u4f53\u97f3\u9891\u8f6c\u5199 / \u5f53\u524d\u53ef\u89c1\u5b57\u6bb5 " + level + " / 5",
+            statusTag: level >= 3 ? "\u5b8c\u6574\u590d\u6838" : (level >= 2 ? "\u5df2\u8ffd\u52a0\u5b57\u6bb5" : "\u90e8\u5206\u5f00\u653e"),
+            statusClass: level >= 3 ? "full" : (level >= 2 ? "mid" : "partial"),
+            newFields:
+                level >= 3
+                    ? ["\u72b6\u6001\u5224\u5b9a"]
+                    : (level >= 2
+                        ? ["\u8f6c\u5199\u65f6\u95f4", "\u63d2\u5165\u6765\u6e90"]
+                        : []),
+            previewName: "audio_wall_behind.wav",
+            previewState: level >= 2 ? "\u8f6c\u5199\u5df2\u90e8\u5206\u6062\u590d" : "\u4ec5\u8fd4\u56de\u57fa\u7840\u8bb0\u5f55",
+            rows: rows,
+            noteTitle: "\u4eba\u5de5\u5907\u6ce8",
+            noteBody:
+                level >= 3
+                    ? "\u97f3\u9891\u8f6c\u5199\u4e0e\u5899\u9762\u4fee\u8865\u5e7f\u544a\u7f13\u5b58\u5728\u540c\u4e00\u6b21\u5237\u65b0\u4e2d\u540c\u65f6\u51fa\u73b0\u3002\u6309\u6b63\u5e38\u9875\u9762\u7ed3\u6784\uff0c\u4e24\u8005\u4e0d\u5e94\u7531\u540c\u4e00\u5c42\u7f13\u5b58\u5199\u5165\u3002"
+                    : (level >= 2
+                        ? "\u5899\u4f53\u97f3\u9891\u4e0e\u9875\u5185\u63d2\u5165\u9879\u5728\u65f6\u95f4\u4e0a\u5f00\u59cb\u53d1\u751f\u91cd\u53e0\uff0c\u4f46\u4ecd\u65e0\u6cd5\u786e\u5b9a\u8be5\u63d2\u5165\u9879\u662f\u5426\u539f\u5c5e\u4e8e thread_03\u3002"
+                        : "\u5f53\u524d\u4ec5\u53ef\u8bfb\u53d6\u57fa\u7840\u97f3\u9891\u4fe1\u606f\uff0c\u63d2\u5165\u6765\u6e90\u4e0e\u5224\u5b9a\u5b57\u6bb5\u4ecd\u672a\u89e3\u9501\u3002"),
+            footer:
+                level >= 3
+                    ? "\u5904\u7406\u5efa\u8bae\uff1a\u4fdd\u7559\u8f6c\u5199\u7247\u6bb5\u4e0e\u63d2\u5165\u6e90\u8def\u5f84\uff0c\u6682\u4e0d\u5148\u79fb\u9664\u9875\u5185\u63d2\u5165\u9879\u3002"
+                    : "\u5904\u7406\u5efa\u8bae\uff1a\u7ee7\u7eed\u590d\u6838\u97f3\u9891\u8f6c\u5199\u4e0e\u9875\u5185\u63d2\u5165\u9879\u7684\u540c\u6b65\u65f6\u95f4\u3002"
+        };
+    }
+
+    if (ticketId === "ticket_clock_rewrite") {
+        const rows = [
+            {
+                key: "\u5bf9\u5e94\u7a3f\u4ef6",
+                value: "draft_page_17"
+            },
+            {
+                key: "\u6295\u7a3f\u65f6\u95f4",
+                value: "03:58"
+            },
+            level >= 2
+                ? {
+                    key: "\u7f13\u5b58\u65f6\u95f4",
+                    value: "04:04"
+                }
+                : makeLockedTicketRow("\u7f13\u5b58\u65f6\u95f4"),
+            level >= 2
+                ? {
+                    key: "\u6700\u540e\u4fee\u6539",
+                    value: "04:04 / repeated write-back"
+                }
+                : makeLockedTicketRow("\u6700\u540e\u4fee\u6539"),
+            level >= 3
+                ? {
+                    key: "\u76ee\u5f55\u54cd\u5e94",
+                    value: "\u4e0d\u6309\u666e\u901a\u7f3a\u9875\u903b\u8f91\u8fd4\u56de"
+                }
+                : makeLockedTicketRow("\u76ee\u5f55\u54cd\u5e94")
+        ];
+
+        return {
+            type: "time",
+            label: "ECHO_REST / TIME TRACE",
+            title: "\u62a5\u4fee\u5355 #034 / \u65f6\u95f4\u6233\u4e0e\u9875\u5e8f\u56de\u5199\u5bf9\u7167",
+            subtitle: "\u7c7b\u578b\uff1a\u7a3f\u4ef6\u9875\u5e8f\u504f\u79fb / \u5f53\u524d\u53ef\u89c1\u5b57\u6bb5 " + level + " / 5",
+            statusTag: level >= 3 ? "\u5b8c\u6574\u590d\u6838" : (level >= 2 ? "\u5df2\u8ffd\u52a0\u5b57\u6bb5" : "\u90e8\u5206\u5f00\u653e"),
+            statusClass: level >= 3 ? "full" : (level >= 2 ? "mid" : "partial"),
+            newFields:
+                level >= 3
+                    ? ["\u76ee\u5f55\u54cd\u5e94"]
+                    : (level >= 2
+                        ? ["\u7f13\u5b58\u65f6\u95f4", "\u6700\u540e\u4fee\u6539"]
+                        : []),
+            previewName: "draft_page_17 / clock_trace_0404",
+            previewState: level >= 2 ? "\u65f6\u95f4\u8bb0\u5f55\u6301\u7eed\u56de\u843d" : "\u4ec5\u8fd4\u56de\u57fa\u7840\u7a3f\u4ef6\u5bf9\u7167",
+            rows: rows,
+            noteTitle: "\u4eba\u5de5\u5907\u6ce8",
+            noteBody:
+                level >= 3
+                    ? "\u9875\u5e8f\u3001\u4fee\u6539\u65f6\u95f4\u4e0e\u7f13\u5b58\u8bb0\u5f55\u5728\u6b63\u5e38\u60c5\u51b5\u4e0b\u4e0d\u5e94\u540c\u65f6\u843d\u56de 04:04\u3002\u8be5\u8bb0\u5f55\u66f4\u50cf\u88ab\u62d6\u56de\u540c\u4e00\u4e2a\u56de\u5199\u951a\u70b9\uff0c\u800c\u4e0d\u662f\u5355\u7eaf\u7684\u4e22\u9875\u6216\u4fee\u6539\u5931\u8d25\u3002"
+                    : (level >= 2
+                        ? "\u7f13\u5b58\u65f6\u95f4\u4e0e\u6700\u540e\u4fee\u6539\u65f6\u95f4\u5f00\u59cb\u56fa\u5b9a\u5728 04:04\uff0c\u4f46\u8be5\u8bb0\u5f55\u4e0e\u53d7\u9650\u7d22\u5f15\u7684\u5173\u7cfb\u4ecd\u672a\u5b8c\u5168\u5f00\u653e\u3002"
+                        : "\u5f53\u524d\u53ea\u8fd4\u56de\u57fa\u7840\u6295\u7a3f\u4e0e\u7a3f\u4ef6\u5bf9\u7167\u4fe1\u606f\uff0c\u7f13\u5b58\u65f6\u95f4\u4ecd\u5904\u4e8e\u5f85\u590d\u6838\u72b6\u6001\u3002"),
+            footer:
+                level >= 3
+                    ? "\u5904\u7406\u5efa\u8bae\uff1a\u4fdd\u7559 04:04 \u4f5c\u4e3a\u72ec\u7acb\u951a\u70b9\u8bb0\u5f55\uff0c\u6682\u4e0d\u5c06\u8be5\u5f02\u5e38\u5f52\u7c7b\u4e3a\u666e\u901a\u7f3a\u9875\u3002"
+                    : "\u5904\u7406\u5efa\u8bae\uff1a\u7ee7\u7eed\u6bd4\u5bf9\u7a3f\u4ef6\u9875\u5e8f\u3001\u7f13\u5b58\u65f6\u95f4\u4e0e\u76f8\u5173\u7d22\u5f15\u54cd\u5e94\u3002"
+        };
+    }
+
+    return null;
+}
+
+function ensureMaintenanceTicketOverlay() {
+    let overlay = document.getElementById("maintenanceTicketOverlay");
+    if (overlay) return overlay;
+
+    overlay = document.createElement("div");
+    overlay.id = "maintenanceTicketOverlay";
+    overlay.className = "maintenance-ticket-overlay";
+
+    const panel = document.createElement("div");
+    panel.className = "maintenance-ticket-panel";
+
+    const label = document.createElement("div");
+    label.className = "maintenance-ticket-label";
+    label.id = "maintenanceTicketLabel";
+
+    const titleRow = document.createElement("div");
+    titleRow.className = "maintenance-ticket-title-row";
+
+    const title = document.createElement("h2");
+    title.className = "maintenance-ticket-title";
+    title.id = "maintenanceTicketTitle";
+
+    const badge = document.createElement("span");
+    badge.className = "maintenance-ticket-badge";
+    badge.id = "maintenanceTicketBadge";
+
+    titleRow.appendChild(title);
+    titleRow.appendChild(badge);
+
+    const subtitle = document.createElement("p");
+    subtitle.className = "maintenance-ticket-subtitle";
+    subtitle.id = "maintenanceTicketSubtitle";
+
+    const body = document.createElement("div");
+    body.className = "maintenance-ticket-body";
+    body.id = "maintenanceTicketBody";
+
+    const footer = document.createElement("div");
+    footer.className = "maintenance-ticket-footer";
+    footer.id = "maintenanceTicketFooter";
+
+    const actions = document.createElement("div");
+    actions.className = "maintenance-ticket-actions";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "maintenance-ticket-btn";
+    closeBtn.type = "button";
+    closeBtn.textContent = "\u5173\u95ed";
+    closeBtn.addEventListener("click", function () {
+        overlay.classList.remove("active");
+    });
+
+    actions.appendChild(closeBtn);
+
+    panel.appendChild(label);
+    panel.appendChild(titleRow);
+    panel.appendChild(subtitle);
+    panel.appendChild(body);
+    panel.appendChild(footer);
+    panel.appendChild(actions);
+
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) {
+            overlay.classList.remove("active");
+        }
+    });
+
+    return overlay;
+}
+
+function openMaintenanceTicketDetail(ticketId) {
+    const detail = getMaintenanceTicketDetail(ticketId);
+    if (!detail) return;
+
+    const level = getMaintenanceTicketRevealLevel(ticketId);
+    const seenLevel = getMaintenanceTicketSeenLevel(ticketId);
+    const hasNewUnlock = level > seenLevel;
+
+    const overlay = ensureMaintenanceTicketOverlay();
+    const panel = overlay.querySelector(".maintenance-ticket-panel");
+
+    if (panel) {
+        panel.classList.remove("maintenance-ticket-image", "maintenance-ticket-audio", "maintenance-ticket-time");
+        panel.classList.add(
+            detail.type === "audio"
+                ? "maintenance-ticket-audio"
+                : (detail.type === "time" ? "maintenance-ticket-time" : "maintenance-ticket-image")
+        );
+    }
+
+    const label = document.getElementById("maintenanceTicketLabel");
+    const title = document.getElementById("maintenanceTicketTitle");
+    const badge = document.getElementById("maintenanceTicketBadge");
+    const subtitle = document.getElementById("maintenanceTicketSubtitle");
+    const body = document.getElementById("maintenanceTicketBody");
+    const footer = document.getElementById("maintenanceTicketFooter");
+
+    if (!label || !title || !badge || !subtitle || !body || !footer) return;
+
+    label.textContent = detail.label;
+    title.textContent = detail.title;
+    subtitle.textContent = detail.subtitle;
+
+    body.innerHTML = "";
+
+    if (hasNewUnlock && detail.newFields && detail.newFields.length) {
+        const fresh = document.createElement("div");
+        fresh.className = "maintenance-ticket-fresh-note";
+
+        const freshTitle = document.createElement("div");
+        freshTitle.className = "maintenance-ticket-fresh-title";
+        freshTitle.textContent = "\u672c\u6b21\u65b0\u8ffd\u52a0\u5b57\u6bb5";
+
+        const freshText = document.createElement("div");
+        freshText.className = "maintenance-ticket-fresh-text";
+        freshText.textContent = detail.newFields.join(" / ");
+
+        fresh.appendChild(freshTitle);
+        fresh.appendChild(freshText);
+        body.appendChild(fresh);
+    }
+
+    const preview = document.createElement("div");
+    preview.className = "maintenance-ticket-preview";
+
+    const previewInner = document.createElement("div");
+    previewInner.className = "maintenance-ticket-preview-box";
+
+    const previewName = document.createElement("div");
+    previewName.className = "maintenance-ticket-preview-name";
+    previewName.textContent = detail.previewName;
+
+    const previewState = document.createElement("div");
+    previewState.className = "maintenance-ticket-preview-state";
+    previewState.textContent = detail.previewState;
+
+    previewInner.appendChild(previewName);
+    previewInner.appendChild(previewState);
+
+    if (detail.type === "audio") {
+        const waveform = document.createElement("div");
+        waveform.className = "maintenance-ticket-audio-wave";
+
+        for (let i = 0; i < 24; i++) {
+            const bar = document.createElement("span");
+            bar.className = "maintenance-ticket-audio-bar";
+            bar.style.height = (10 + ((i * 7) % 36)) + "px";
+            waveform.appendChild(bar);
+        }
+
+        previewInner.appendChild(waveform);
+    }
+
+    if (detail.type === "time") {
+        const trace = document.createElement("div");
+        trace.className = "maintenance-ticket-time-trace";
+
+        const rows = [
+            ["POST", "03:58"],
+            ["CACHE", "04:04"],
+            ["WRITE", "04:04"],
+            ["INDEX", "post_404?"]
+        ];
+
+        rows.forEach(function (item) {
+            const line = document.createElement("div");
+            line.className = "maintenance-ticket-time-line";
+
+            const key = document.createElement("span");
+            key.className = "maintenance-ticket-time-key";
+            key.textContent = item[0];
+
+            const value = document.createElement("span");
+            value.className = "maintenance-ticket-time-value";
+            value.textContent = item[1];
+
+            line.appendChild(key);
+            line.appendChild(value);
+            trace.appendChild(line);
+        });
+
+        previewInner.appendChild(trace);
+    }
+
+    preview.appendChild(previewInner);
+
+    const meta = document.createElement("div");
+    meta.className = "maintenance-ticket-meta";
+
+    detail.rows.forEach(function (item) {
+        const row = document.createElement("div");
+        row.className = "maintenance-ticket-row" + (item.locked ? " is-locked" : "");
+
+        const key = document.createElement("span");
+        key.className = "maintenance-ticket-key";
+        key.textContent = item.key;
+
+        const value = document.createElement("span");
+        value.className = "maintenance-ticket-value" + (item.locked ? " is-locked" : "");
+        value.textContent = item.value;
+
+        row.appendChild(key);
+        row.appendChild(value);
+        meta.appendChild(row);
+    });
+
+    const note = document.createElement("div");
+    note.className = "maintenance-ticket-note-block";
+
+    const noteTitle = document.createElement("div");
+    noteTitle.className = "maintenance-ticket-note-title";
+    noteTitle.textContent = detail.noteTitle;
+
+    const noteBody = document.createElement("p");
+    noteBody.className = "maintenance-ticket-note-body";
+    noteBody.textContent = detail.noteBody;
+
+    note.appendChild(noteTitle);
+    note.appendChild(noteBody);
+
+    body.appendChild(preview);
+    body.appendChild(meta);
+    body.appendChild(note);
+
+    footer.textContent = detail.footer;
+
+    markTicketUpdateAsRead(ticketId);
+    renderWorkConsole();
+    overlay.classList.add("active");
+}
+
 function renderWorkConsole() {
     const root = document.getElementById("repairerWorkspace");
     if (!root) return;
@@ -1508,7 +1936,8 @@ function renderWorkConsole() {
     const investigationLogs = getInvestigationLogs();
     const searchHistory = getSearchHistory();
     const checkedFileCount = getCheckedFileCount();
-    const ticketRows = getBackendTicketRows();
+    const tickets = getMaintenanceTickets();
+    const handoverNotes = getMaintenanceHandoverNotes();
 
     summaryEl.innerHTML = "";
 
@@ -1518,10 +1947,22 @@ function renderWorkConsole() {
     summaryEl.appendChild(summaryTitle);
 
     const summaryItems = [
-        { label: "\u5f53\u524d\u4f1a\u8bdd", value: localStorage.getItem("echo_session_id") || "SESSION_13" },
-        { label: "\u81ea\u52a8\u4fee\u590d\u5199\u5165", value: investigationLogs.length + " \u6761" },
-        { label: "\u5df2\u6821\u9a8c\u6587\u4ef6", value: checkedFileCount + " \u4e2a" },
-        { label: "\u6700\u8fd1\u68c0\u7d22", value: searchHistory.length ? searchHistory.join(" / ") : "\u6682\u65e0" }
+        {
+            label: "\u5f53\u524d\u4f1a\u8bdd",
+            value: localStorage.getItem("echo_session_id") || "SESSION_13"
+        },
+        {
+            label: "\u5df2\u6821\u9a8c\u6587\u4ef6",
+            value: checkedFileCount + " \u4e2a"
+        },
+        {
+            label: "\u6700\u8fd1\u68c0\u7d22",
+            value: searchHistory.length ? searchHistory.join(" / ") : "\u6682\u65e0"
+        },
+        {
+            label: "\u5199\u5165\u8bb0\u5f55",
+            value: investigationLogs.length + " \u6761"
+        }
     ];
 
     summaryItems.forEach(function (item) {
@@ -1543,74 +1984,90 @@ function renderWorkConsole() {
 
     goalsEl.innerHTML = "";
 
-    const queueTitle = document.createElement("p");
-    queueTitle.className = "workspace-section-label";
-    queueTitle.textContent = "\u5f02\u5e38\u5de5\u5355";
-    goalsEl.appendChild(queueTitle);
+    const goalsTitle = document.createElement("p");
+    goalsTitle.className = "workspace-section-label";
+    goalsTitle.textContent = "\u5f85\u5904\u7406\u62a5\u4fee";
+    goalsEl.appendChild(goalsTitle);
 
-    ticketRows.forEach(function (item) {
+    tickets.forEach(function (item) {
         const row = document.createElement("div");
         row.className = "workspace-goal-item workspace-ticket-item workspace-ticket-" + item.level;
+        row.dataset.ticketId = item.id;
+        const hasUnread = ticketHasUnreadUpdate(item.id);
+
+        if (
+            item.id === "ticket_img_source" ||
+            item.id === "ticket_audio_insert" ||
+            item.id === "ticket_clock_rewrite"
+        ) {
+            row.classList.add("workspace-ticket-clickable");
+            row.setAttribute("role", "button");
+            row.setAttribute("tabindex", "0");
+
+            row.addEventListener("click", function () {
+                openMaintenanceTicketDetail(item.id);
+            });
+
+            row.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openMaintenanceTicketDetail(item.id);
+                }
+            });
+        }
 
         const marker = document.createElement("span");
         marker.className = "workspace-goal-marker";
-        marker.textContent = item.level === "danger" ? "!" : (item.level === "warning" ? "\u25a0" : "\u25a1");
+        marker.textContent = item.level === "danger" ? "!" : (item.level === "warning" ? "■" : "□");
 
-        const textWrap = document.createElement("div");
-        textWrap.className = "workspace-ticket-wrap";
+        const wrap = document.createElement("div");
+        wrap.className = "workspace-ticket-wrap";
+
+        const titleRow = document.createElement("div");
+        titleRow.className = "workspace-ticket-title-row";
 
         const title = document.createElement("div");
         title.className = "workspace-goal-text";
         title.textContent = item.title;
 
+        titleRow.appendChild(title);
+
+        if (hasUnread) {
+            const badge = document.createElement("span");
+            badge.className = "workspace-ticket-badge";
+            badge.textContent = "NEW";
+            titleRow.appendChild(badge);
+        }
+
         const note = document.createElement("div");
         note.className = "workspace-ticket-note";
         note.textContent = item.note;
 
-        textWrap.appendChild(title);
-        textWrap.appendChild(note);
+        wrap.appendChild(titleRow);
+        wrap.appendChild(note);
         row.appendChild(marker);
-        row.appendChild(textWrap);
+        row.appendChild(wrap);
         goalsEl.appendChild(row);
     });
 
     checklistEl.innerHTML = "";
 
-    const reviewTitle = document.createElement("p");
-    reviewTitle.className = "workspace-section-label";
-    reviewTitle.textContent = "\u4eba\u5de5\u590d\u6838\u961f\u5217";
-    checklistEl.appendChild(reviewTitle);
+    const checklistTitle = document.createElement("p");
+    checklistTitle.className = "workspace-section-label";
+    checklistTitle.textContent = "\u7ad9\u52a1\u4ea4\u63a5\u5907\u6ce8";
+    checklistEl.appendChild(checklistTitle);
 
-    const reviewRows = [
-        {
-            label: "\u7f13\u5b58\u56fe\u50cf\u6765\u6e90\u5f02\u5e38",
-            done: hasInvestigationCode("found_sjahqiuhdiuq")
-        },
-        {
-            label: "\u65f6\u95f4\u951a\u70b9\u7ed3\u6784\u5f02\u5e38",
-            done: hasInvestigationCode("found_0404")
-        },
-        {
-            label: "\u7ba1\u7406\u5458\u6807\u8bb0\u4e0e\u7f13\u5b58\u5bf9\u8c61\u4e0d\u4e00\u81f4",
-            done: hasInvestigationCode("found_yuan_mod005")
-        },
-        {
-            label: "\u76ee\u5f55\u5916\u6761\u76ee\u9700\u8981\u8def\u5f84\u590d\u6838",
-            done: hasInvestigationCode("found_post404")
-        }
-    ];
-
-    reviewRows.forEach(function (item) {
+    handoverNotes.forEach(function (item) {
         const row = document.createElement("div");
-        row.className = "workspace-check-item" + (item.done ? " done" : "");
+        row.className = "workspace-check-item" + (item.level === "warning" ? " done" : "");
 
         const marker = document.createElement("span");
         marker.className = "workspace-check-marker";
-        marker.textContent = item.done ? "\u25a0" : "\u25a1";
+        marker.textContent = item.level === "warning" ? "\u25a0" : "\u25a1";
 
         const text = document.createElement("span");
         text.className = "workspace-check-text";
-        text.textContent = item.label;
+        text.textContent = item.text;
 
         row.appendChild(marker);
         row.appendChild(text);
