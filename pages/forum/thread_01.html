@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EchoRest — 神奇植物在哪里</title>
-    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css?v=20260701-investigation" />
 </head>
 <body class="page-thread-01">
     <div class="screen-noise"></div>
@@ -148,6 +148,89 @@
                         <span>建议放：窗外鸟群 + 掉进室内的红果子</span>
                         <span class="file-inspect-hint">检查文件</span>
                         <div class="hover-file-tag">cache/birds_window_scene_v2.png</div>
+                    </div>
+
+                    <section class="thread01-photo-investigation" id="thread01PhotoInvestigation">
+                        <div class="thread01-photo-investigation-head">
+                            <div>
+                                <span>LOCAL IMAGE INSPECTION</span>
+                                <strong>检查照片边缘中的三个不一致区域</strong>
+                            </div>
+
+                            <em id="thread01PhotoInspectStatus">PENDING</em>
+                        </div>
+
+                        <p class="thread01-photo-investigation-intro">
+                            原附件被标记为“窗外鸟群”，但缓存分类同时将它归入室内空间。
+                            依次检查红果、墙面纹理和玻璃反光。
+                        </p>
+
+                        <div class="thread01-photo-scan" id="thread01PhotoScan">
+                            <button class="thread01-photo-zone"
+                                    type="button"
+                                    data-thread01-scan="fruit"
+                                    data-readout="红色区域的可见轮廓会随压缩变化，但最外层像素边缘在每个缓存副本中完全一致。">
+
+                                <span>REGION 01</span>
+                                <strong>红色果实局部</strong>
+                                <small>等待检查</small>
+                            </button>
+
+                            <button class="thread01-photo-zone"
+                                    type="button"
+                                    data-thread01-scan="wall"
+                                    data-readout="照片下缘不是地面。重复纹理更接近旧式室内墙纸，且透视方向与窗口边框不一致。">
+
+                                <span>REGION 02</span>
+                                <strong>下缘墙面纹理</strong>
+                                <small>等待检查</small>
+                            </button>
+
+                            <button class="thread01-photo-zone"
+                                    type="button"
+                                    data-thread01-scan="reflection"
+                                    data-readout="玻璃反光中存在门牌残片。可恢复字符只剩“— / 404”，公开楼层表中没有对应房间。">
+
+                                <span>REGION 03</span>
+                                <strong>玻璃反光</strong>
+                                <small>等待检查</small>
+                            </button>
+                        </div>
+
+                        <div class="thread01-photo-readout">
+                            <span>SCAN READOUT</span>
+                            <p id="thread01PhotoReadoutText">
+                                尚未选中局部区域。
+                            </p>
+                        </div>
+
+                        <div class="thread01-photo-investigation-actions">
+                            <span id="thread01PhotoProgress">0 / 3</span>
+
+                            <button id="thread01PhotoCommit"
+                                    type="button"
+                                    disabled>
+                                写入局部检查记录
+                            </button>
+                        </div>
+
+                        <div class="thread01-photo-result hidden"
+                             id="thread01PhotoResult">
+
+                            <strong>SOURCE TRACE RECORDED</strong>
+
+                            <p>
+                                EXIF 将照片标记为室外植物记录；图像透视却包含室内墙面和未登记门牌。
+                                系统已保留“来源地址尚未存在于公开楼层表”的冲突结论。
+                            </p>
+                        </div>
+                    </section>
+
+                    <div class="evidence-capture-row">
+                        <button class="evidence-capture-btn" type="button" data-evidence-id="red_cluster">
+                            保存红色区域到工作区
+                        </button>
+                        <span class="evidence-capture-note">局部像素可与其他附件叠加复核</span>
                     </div>
                 </div>
 
@@ -301,6 +384,6 @@
         <p>© 未检测到有效归属方</p>
     </footer>
 
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/main.js?v=20260701-investigation"></script>
 </body>
 </html>

@@ -534,7 +534,240 @@ function handleThread01Page(now) {
         injectedAnchor.appendChild(article);
     }
 
+    initThread01PhotoInvestigation();
+
     localStorage.setItem("echo_last_thread01_time", now);
+}
+
+/* =========================
+   THREAD 01 Photo Inspection
+   ========================= */
+
+const ECHO_THREAD01_PHOTO_INSPECTION_KEY =
+    "echorest_thread01_photo_inspection_v1";
+
+function loadThread01PhotoInspectionState() {
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                ECHO_THREAD01_PHOTO_INSPECTION_KEY
+            ) || "{}"
+        );
+
+        return {
+            found: Array.isArray(parsed.found)
+                ? parsed.found
+                : [],
+
+            committed:
+                parsed.committed === true
+        };
+    } catch (error) {
+        return {
+            found: [],
+            committed: false
+        };
+    }
+}
+
+function saveThread01PhotoInspectionState(
+    state
+) {
+    localStorage.setItem(
+        ECHO_THREAD01_PHOTO_INSPECTION_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function initThread01PhotoInvestigation() {
+    const root =
+        document.getElementById(
+            "thread01PhotoInvestigation"
+        );
+
+    if (!root) {
+        return;
+    }
+
+    const zones = Array.from(
+        root.querySelectorAll(
+            "[data-thread01-scan]"
+        )
+    );
+
+    const status =
+        document.getElementById(
+            "thread01PhotoInspectStatus"
+        );
+
+    const readout =
+        document.getElementById(
+            "thread01PhotoReadoutText"
+        );
+
+    const progress =
+        document.getElementById(
+            "thread01PhotoProgress"
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread01PhotoCommit"
+        );
+
+    const result =
+        document.getElementById(
+            "thread01PhotoResult"
+        );
+
+    if (
+        !status ||
+        !readout ||
+        !progress ||
+        !commitButton ||
+        !result ||
+        zones.length === 0
+    ) {
+        return;
+    }
+
+    const state =
+        loadThread01PhotoInspectionState();
+
+    function render() {
+        zones.forEach(function (zone) {
+            const key =
+                zone.dataset.thread01Scan || "";
+
+            const found =
+                state.found.indexOf(key) !== -1;
+
+            zone.classList.toggle(
+                "is-found",
+                found
+            );
+
+            const small =
+                zone.querySelector("small");
+
+            if (small) {
+                small.textContent = found
+                    ? "CHECKED"
+                    : "PENDING";
+            }
+        });
+
+        progress.textContent =
+            state.found.length +
+            " / " +
+            zones.length;
+
+        const complete =
+            state.found.length >=
+            zones.length;
+
+        commitButton.disabled =
+            !complete ||
+            state.committed;
+
+        status.textContent =
+            state.committed
+                ? "RECORDED"
+                : (
+                    complete
+                        ? "READY"
+                        : "PENDING"
+                );
+
+        status.classList.toggle(
+            "is-ready",
+            complete &&
+            !state.committed
+        );
+
+        status.classList.toggle(
+            "is-recorded",
+            state.committed
+        );
+
+        result.classList.toggle(
+            "hidden",
+            !state.committed
+        );
+
+        root.classList.toggle(
+            "is-complete",
+            state.committed
+        );
+    }
+
+    zones.forEach(function (zone) {
+        zone.addEventListener(
+            "click",
+            function () {
+                const key =
+                    zone.dataset
+                        .thread01Scan || "";
+
+                if (
+                    key &&
+                    state.found.indexOf(
+                        key
+                    ) === -1
+                ) {
+                    state.found.push(key);
+
+                    saveThread01PhotoInspectionState(
+                        state
+                    );
+                }
+
+                readout.textContent =
+                    zone.dataset.readout ||
+                    "--";
+
+                render();
+            }
+        );
+    });
+
+    commitButton.addEventListener(
+        "click",
+        function () {
+            if (
+                state.found.length <
+                zones.length ||
+                state.committed
+            ) {
+                return;
+            }
+
+            state.committed = true;
+
+            saveThread01PhotoInspectionState(
+                state
+            );
+
+            localStorage.setItem(
+                "echorest_thread01_room_trace_v1",
+                "1"
+            );
+
+            addInvestigationLog(
+                "thread01_photo_room_trace",
+                "[INVESTIGATION] THREAD_01 \u7167\u7247\u5c40\u90e8\u68c0\u67e5\u5b8c\u6210\uff1a\u56fe\u50cf\u4e2d\u5b58\u5728\u5ba4\u5185\u5899\u9762\u4e0e\u672a\u767b\u8bb0\u95e8\u724c\uff0c\u4f46 EXIF \u4ecd\u5c06\u5176\u6807\u8bb0\u4e3a\u5ba4\u5916\u690d\u7269\u8bb0\u5f55\u3002",
+                true
+            );
+
+            readout.textContent =
+                "\u51b2\u7a81\u7ed3\u8bba\u5df2\u5199\u5165\u672c\u5730\u8c03\u67e5\u8bb0\u5f55\u3002";
+
+            render();
+            renderWorkConsole();
+        }
+    );
+
+    render();
 }
 
 function handleThread02Page(now) {
@@ -658,7 +891,360 @@ function handleThread02Page(now) {
         injectedAnchor.appendChild(article);
     }
 
-    localStorage.setItem("echo_last_thread02_time", now);
+    initThread02LogisticsAudit();
+
+    localStorage.setItem(
+        "echo_last_thread02_time",
+        now
+    );
+}
+
+/* =========================
+   THREAD 02 Logistics Audit
+   ========================= */
+
+const ECHO_THREAD02_LOGISTICS_STATE_KEY =
+    "echorest_thread02_logistics_audit_state_v1";
+
+const ECHO_THREAD02_LOGISTICS_UNLOCK_KEY =
+    "echorest_thread02_logistics_audit_v1";
+
+function loadThread02LogisticsAuditState() {
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                ECHO_THREAD02_LOGISTICS_STATE_KEY
+            ) || "{}"
+        );
+
+        return {
+            found:
+                Array.isArray(parsed.found)
+                    ? parsed.found
+                    : [],
+
+            wrong:
+                Array.isArray(parsed.wrong)
+                    ? parsed.wrong
+                    : [],
+
+            mistakes:
+                Number.isFinite(
+                    Number(parsed.mistakes)
+                )
+                    ? Number(parsed.mistakes)
+                    : 0,
+
+            committed:
+                parsed.committed === true,
+
+            lastMessage:
+                typeof parsed.lastMessage ===
+                    "string"
+                    ? parsed.lastMessage
+                    : ""
+        };
+    } catch (error) {
+        return {
+            found: [],
+            wrong: [],
+            mistakes: 0,
+            committed: false,
+            lastMessage: ""
+        };
+    }
+}
+
+function saveThread02LogisticsAuditState(
+    state
+) {
+    localStorage.setItem(
+        ECHO_THREAD02_LOGISTICS_STATE_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function initThread02LogisticsAudit() {
+    const root =
+        document.getElementById(
+            "thread02LogisticsAudit"
+        );
+
+    if (!root) {
+        return;
+    }
+
+    const fields = Array.from(
+        root.querySelectorAll(
+            "[data-thread02-field]"
+        )
+    );
+
+    const status =
+        document.getElementById(
+            "thread02LogisticsStatus"
+        );
+
+    const readout =
+        document.getElementById(
+            "thread02LogisticsReadout"
+        );
+
+    const progress =
+        document.getElementById(
+            "thread02LogisticsProgress"
+        );
+
+    const mistakes =
+        document.getElementById(
+            "thread02LogisticsMistakes"
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread02LogisticsCommit"
+        );
+
+    const result =
+        document.getElementById(
+            "thread02LogisticsResult"
+        );
+
+    if (
+        fields.length === 0 ||
+        !status ||
+        !readout ||
+        !progress ||
+        !mistakes ||
+        !commitButton ||
+        !result
+    ) {
+        return;
+    }
+
+    const state =
+        loadThread02LogisticsAuditState();
+
+    const requiredCount =
+        fields.filter(
+            function (field) {
+                return (
+                    field.dataset
+                        .thread02Conflict ===
+                    "true"
+                );
+            }
+        ).length;
+
+    function render() {
+        fields.forEach(
+            function (field) {
+                const key =
+                    field.dataset
+                        .thread02Field || "";
+
+                const found =
+                    state.found.indexOf(
+                        key
+                    ) !== -1;
+
+                const rejected =
+                    state.wrong.indexOf(
+                        key
+                    ) !== -1;
+
+                field.classList.toggle(
+                    "is-flagged",
+                    found
+                );
+
+                field.classList.toggle(
+                    "is-rejected",
+                    rejected
+                );
+
+                const small =
+                    field.querySelector(
+                        "small"
+                    );
+
+                if (!small) {
+                    return;
+                }
+
+                if (found) {
+                    small.textContent =
+                        "CONFLICT FLAGGED";
+                } else if (rejected) {
+                    small.textContent =
+                        "FIELD CLEARED";
+                } else {
+                    small.textContent =
+                        "CHECK FIELD";
+                }
+            }
+        );
+
+        progress.textContent =
+            state.found.length +
+            " / " +
+            requiredCount +
+            " CONFLICTS";
+
+        mistakes.textContent =
+            "\u8bef\u5224\uff1a" +
+            state.mistakes;
+
+        const ready =
+            state.found.length >=
+            requiredCount;
+
+        commitButton.disabled =
+            !ready ||
+            state.committed;
+
+        status.textContent =
+            state.committed
+                ? "RECORDED"
+                : (
+                    ready
+                        ? "READY"
+                        : "PENDING"
+                );
+
+        status.classList.toggle(
+            "is-ready",
+            ready &&
+            !state.committed
+        );
+
+        status.classList.toggle(
+            "is-recorded",
+            state.committed
+        );
+
+        root.classList.toggle(
+            "is-complete",
+            state.committed
+        );
+
+        result.classList.toggle(
+            "hidden",
+            !state.committed
+        );
+
+        if (state.lastMessage) {
+            readout.textContent =
+                state.lastMessage;
+        }
+    }
+
+    fields.forEach(
+        function (field) {
+            field.addEventListener(
+                "click",
+                function () {
+                    const key =
+                        field.dataset
+                            .thread02Field ||
+                        "";
+
+                    const isConflict =
+                        field.dataset
+                            .thread02Conflict ===
+                        "true";
+
+                    const message =
+                        field.dataset.readout ||
+                        "--";
+
+                    if (!key) {
+                        return;
+                    }
+
+                    if (isConflict) {
+                        if (
+                            state.found.indexOf(
+                                key
+                            ) === -1
+                        ) {
+                            state.found.push(
+                                key
+                            );
+                        }
+                    } else if (
+                        state.wrong.indexOf(
+                            key
+                        ) === -1
+                    ) {
+                        state.wrong.push(
+                            key
+                        );
+
+                        state.mistakes += 1;
+                    }
+
+                    state.lastMessage =
+                        message;
+
+                    saveThread02LogisticsAuditState(
+                        state
+                    );
+
+                    render();
+                }
+            );
+        }
+    );
+
+    commitButton.addEventListener(
+        "click",
+        function () {
+            if (
+                state.found.length <
+                requiredCount ||
+                state.committed
+            ) {
+                return;
+            }
+
+            state.committed = true;
+
+            state.lastMessage =
+                "\u5e95\u5355\u51b2\u7a81\u5df2\u5199\u5165\u672c\u5730\u8c03\u67e5\u8bb0\u5f55\u3002\u7ea2\u8272\u56fe\u6837\u73b0\u53ef\u4f5c\u4e3a\u72ec\u7acb\u8bc1\u636e\u4fdd\u5b58\u3002";
+
+            saveThread02LogisticsAuditState(
+                state
+            );
+
+            localStorage.setItem(
+                ECHO_THREAD02_LOGISTICS_UNLOCK_KEY,
+                "1"
+            );
+
+            addInvestigationLog(
+                "thread02_logistics_conflict_audit",
+
+                "[INVESTIGATION] THREAD_02 \u7269\u6d41\u5e95\u5355\u590d\u6838\u5b8c\u6210\uff1a\u672a\u767b\u8bb0\u5730\u5740\u3001\u9006\u5e8f\u7b7e\u6536\u65f6\u95f4\u4e0e\u7ea2\u8272\u56fe\u6837\u88ab\u5199\u5165\u540c\u4e00\u6761\u6295\u9012\u8bb0\u5f55\u3002",
+
+                true
+            );
+
+            render();
+
+            if (
+                typeof
+                syncEchoEvidenceCaptureButtons ===
+                "function"
+            ) {
+                syncEchoEvidenceCaptureButtons();
+            }
+
+            renderWorkConsole();
+        }
+    );
+
+    render();
 }
 
 function getDynamicReplyCount(visitCount) {
@@ -1335,6 +1921,8 @@ function ensureWorkConsole() {
 
             <div class="workspace-summary" id="workspaceSummary"></div>
             <div class="workspace-goals" id="workspaceGoals"></div>
+            <div class="workspace-evidence" id="workspaceEvidence"></div>
+            <div class="workspace-external" id="workspaceExternal"></div>
             <div class="workspace-checklist" id="workspaceChecklist"></div>
             <div class="workspace-log" id="workspaceLog"></div>
         </div>
@@ -1383,7 +1971,7 @@ function getMaintenanceTickets() {
     return [
         {
             id: "ticket_img_source",
-            level: foundYuan ? "warning" : "soft",
+            level: (foundYuan || echoHasEvidenceLink("image_origin_match")) ? "warning" : "soft",
             title: "\u62a5\u4fee\u5355 #013 / \u9644\u4ef6\u6765\u6e90\u4e0d\u5b8c\u5168\u5bf9\u5e94",
             note: foundYuan
                 ? "\u5907\u6ce8\uff1a\u524d\u53f0\u6807\u8bb0\u4e0e\u7f13\u5b58\u7f16\u53f7\u4ecd\u5b58\u5728\u91cd\u53e0"
@@ -1391,7 +1979,14 @@ function getMaintenanceTickets() {
         },
         {
             id: "ticket_audio_insert",
-            level: repaired03 ? "warning" : "soft",
+            level: isEchoTicket021AudioVerified()
+                ? "danger"
+                : (
+                    repaired03 ||
+                        echoHasEvidenceLink("wall_audio_match")
+                        ? "warning"
+                        : "soft"
+                ),
             title: "\u62a5\u4fee\u5355 #021 / \u9875\u5185\u63d2\u5165\u9879\u4e0e\u5899\u4f53\u97f3\u9891\u4e32\u7ebf",
             note: repaired03
                 ? "\u5907\u6ce8\uff1a\u97f3\u9891\u6b8b\u7247\u5df2\u53ef\u8bfb\uff0c\u4f46\u6765\u6e90\u4ecd\u672a\u786e\u8ba4"
@@ -1399,7 +1994,15 @@ function getMaintenanceTickets() {
         },
         {
             id: "ticket_clock_rewrite",
-            level: found404 ? "danger" : (found0404 || repaired04 ? "warning" : "soft"),
+            level: found404
+                ? "danger"
+                : (
+                    found0404 ||
+                        repaired04 ||
+                        echoHasEvidenceLink("figure_time_match")
+                        ? "warning"
+                        : "soft"
+                ),
             title: "\u62a5\u4fee\u5355 #034 / \u9875\u5e8f\u56de\u5199\u4e0e\u65f6\u95f4\u6233\u56fa\u5b9a",
             note: found404
                 ? "\u5907\u6ce8\uff1a\u76ee\u5f55\u5916\u6761\u76ee\u5df2\u5bf9\u76f8\u5173\u7f13\u5b58\u53d1\u751f\u54cd\u5e94"
@@ -1444,6 +2047,11 @@ function getMaintenanceTicketRevealLevel(ticketId) {
 
     const repaired03 = localStorage.getItem("echo_thread03_audio_repaired") === "true";
     const repaired04 = localStorage.getItem("echo_thread04_draft_repaired") === "true";
+    const ticket013Aligned =
+        isEchoTicket013Verified();
+
+    const ticket013Audited =
+        isEchoTicket013AuditVerified();
 
     const t05LogsDone =
         localStorage.getItem("echorest_t05_admin_opened") === "1" &&
@@ -1453,20 +2061,55 @@ function getMaintenanceTicketRevealLevel(ticketId) {
     const post404Compared = localStorage.getItem("echorest_post404_compared") === "1";
 
     if (ticketId === "ticket_img_source") {
-        if (foundYuan) return 3;
-        if (foundSource || localStorage.getItem("echo_thread01_news_repaired") === "true") return 2;
+        if (
+            ticket013Audited ||
+            foundYuan
+        ) {
+            return 3;
+        }
+
+        if (
+            ticket013Aligned ||
+            echoHasEvidenceLink(
+                "image_origin_match"
+            ) ||
+            foundSource ||
+            localStorage.getItem("echo_thread01_news_repaired") === "true"
+        ) {
+            return 2;
+        }
+
         return 1;
     }
 
     if (ticketId === "ticket_audio_insert") {
-        if (t05LogsDone || hasInvestigationCode("found_admin_cache")) return 3;
-        if (repaired03) return 2;
+        if (
+            isEchoTicket021AudioVerified() ||
+            t05LogsDone ||
+            hasInvestigationCode("found_admin_cache")
+        ) {
+            return 3;
+        }
+
+        if (
+            echoHasEvidenceLink("wall_audio_match") ||
+            repaired03
+        ) {
+            return 2;
+        }
+
         return 1;
     }
 
     if (ticketId === "ticket_clock_rewrite") {
         if (found404 || post404Compared) return 3;
-        if (repaired04 || found0404) return 2;
+        if (
+            echoHasEvidenceLink("figure_time_match") ||
+            repaired04 ||
+            found0404
+        ) {
+            return 2;
+        }
         return 1;
     }
 
@@ -1915,6 +2558,14 @@ function openMaintenanceTicketDetail(ticketId) {
     body.appendChild(meta);
     body.appendChild(note);
 
+    if (ticketId === "ticket_img_source") {
+        appendEchoTicket013AlignmentTool(body);
+    }
+
+    if (ticketId === "ticket_audio_insert") {
+        appendEchoTicket021AudioTool(body);
+    }
+
     footer.textContent = detail.footer;
 
     markTicketUpdateAsRead(ticketId);
@@ -1922,16 +2573,2868 @@ function openMaintenanceTicketDetail(ticketId) {
     overlay.classList.add("active");
 }
 
+/* =========================
+   Ticket 013 Image Alignment
+   ========================= */
+
+const ECHO_TICKET013_VERIFY_KEY =
+    "echorest_ticket013_image_verified_v1";
+
+const ECHO_TICKET013_TEXT = {
+    title:
+        "\u5c40\u90e8\u53e0\u52a0\u6838\u9a8c",
+
+    intro:
+        "\u62d6\u52a8 SOURCE B\uff0c\u8c03\u6574\u900f\u660e\u5ea6\u548c\u65cb\u8f6c\u89d2\u5ea6\u3002\u5f53\u4e24\u7ec4\u7ea2\u8272\u8fb9\u7f18\u5b8c\u5168\u91cd\u5408\u65f6\uff0c\u9501\u5b9a\u5bf9\u9f50\u3002",
+
+    locked:
+        "\u9700\u5148\u5728\u8bc1\u636e\u5de5\u4f5c\u533a\u786e\u8ba4\u201c\u7ea2\u8272\u679c\u5b9e\u5c40\u90e8 + \u7269\u6d41\u5e95\u5355\u7ea2\u8272\u6c61\u8ff9\u201d\u7684\u521d\u6b65\u5173\u8054\u3002",
+
+    opacity:
+        "\u900f\u660e\u5ea6",
+
+    rotation:
+        "\u65cb\u8f6c\u89d2\u5ea6",
+
+    score:
+        "MATCH CONFIDENCE",
+
+    reset:
+        "\u91cd\u7f6e\u5bf9\u9f50",
+
+    lock:
+        "\u9501\u5b9a\u5bf9\u9f50",
+
+    moveHint:
+        "\u62d6\u52a8\u4e0a\u5c42\u626b\u63cf\u56fe\u3002\u53ef\u4f7f\u7528\u7ea2\u8272\u5706\u70b9\u4e0e\u5341\u5b57\u6807\u8bb0\u8f85\u52a9\u5bf9\u9f50\u3002",
+
+    ready:
+        "\u5339\u914d\u4fe1\u5fc3\u5df2\u8fbe\u5230\u53ef\u9501\u5b9a\u9608\u503c\u3002",
+
+    searching:
+        "\u5c1a\u672a\u8fbe\u5230 92% \u7684\u9501\u5b9a\u9608\u503c\u3002",
+
+    success:
+        "VERIFIED / \u4e24\u4efd\u6765\u6e90\u4e0d\u540c\u7684\u56fe\u50cf\u5171\u4eab\u540c\u4e00\u7ec4\u7ea2\u8272\u8fb9\u7f18\u6570\u636e\u3002\u7cfb\u7edf\u5df2\u636e\u6b64\u8865\u5168\u9644\u4ef6\u6765\u6e90\u5730\u5740\u3002",
+
+    verified:
+        "\u8be5\u5de5\u5355\u5df2\u5b8c\u6210\u56fe\u50cf\u540c\u6e90\u6838\u9a8c\u3002\u6765\u6e90\u5b57\u6bb5\u5df2\u5199\u5165\u672a\u767b\u8bb0\u5730\u5740\u3002"
+};
+
+function isEchoTicket013Verified() {
+    return (
+        localStorage.getItem(
+            ECHO_TICKET013_VERIFY_KEY
+        ) === "1"
+    );
+}
+
+function clampEchoTicket013(
+    value,
+    min,
+    max
+) {
+    return Math.min(
+        max,
+        Math.max(min, value)
+    );
+}
+
+function getEchoTicket013Svg(kind) {
+    if (kind === "sourceA") {
+        return `
+            <svg
+                viewBox="0 0 440 280"
+                aria-hidden="true"
+            >
+                <defs>
+                    <linearGradient
+                        id="a-bg"
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="1"
+                    >
+                        <stop
+                            offset="0"
+                            stop-color="#14231f"
+                        />
+
+                        <stop
+                            offset="1"
+                            stop-color="#07100e"
+                        />
+                    </linearGradient>
+
+                    <filter id="a-noise">
+                        <feTurbulence
+                            type="fractalNoise"
+                            baseFrequency="0.9"
+                            numOctaves="2"
+                            seed="7"
+                        />
+
+                        <feColorMatrix
+                            values="
+                                1 0 0 0 0
+                                0 1 0 0 0
+                                0 0 1 0 0
+                                0 0 0 .08 0
+                            "
+                        />
+                    </filter>
+                </defs>
+
+                <rect
+                    width="440"
+                    height="280"
+                    fill="url(#a-bg)"
+                />
+
+                <rect
+                    width="440"
+                    height="280"
+                    filter="url(#a-noise)"
+                    opacity=".7"
+                />
+
+                <path
+                    d="M40 228 C110 192 120 125 177 96 C224 72 284 91 391 48"
+                    fill="none"
+                    stroke="#536d5f"
+                    stroke-width="8"
+                    opacity=".85"
+                />
+
+                <path
+                    d="M138 142 C167 112 197 96 226 89"
+                    fill="none"
+                    stroke="#68806f"
+                    stroke-width="4"
+                />
+
+                <path
+                    d="M236 117 C274 98 316 100 347 83"
+                    fill="none"
+                    stroke="#68806f"
+                    stroke-width="4"
+                />
+
+                <g
+                    fill="#6a1d25"
+                    stroke="#d16772"
+                    stroke-width="2"
+                >
+                    <circle
+                        cx="208"
+                        cy="126"
+                        r="13"
+                    />
+
+                    <circle
+                        cx="235"
+                        cy="116"
+                        r="11"
+                    />
+
+                    <circle
+                        cx="226"
+                        cy="145"
+                        r="12"
+                    />
+
+                    <circle
+                        cx="254"
+                        cy="139"
+                        r="9"
+                    />
+                </g>
+
+                <g
+                    stroke="#e8f5ef"
+                    stroke-width="1"
+                    opacity=".52"
+                >
+                    <path d="M216 87 V178" />
+                    <path d="M171 132 H278" />
+                </g>
+
+                <rect
+                    x="16"
+                    y="18"
+                    width="164"
+                    height="28"
+                    fill="#07100e"
+                    stroke="#4e7465"
+                />
+
+                <text
+                    x="27"
+                    y="37"
+                    fill="#bce8d8"
+                    font-size="12"
+                    font-family="monospace"
+                >
+                    SOURCE A / THREAD_01
+                </text>
+            </svg>
+        `;
+    }
+
+    return `
+        <svg
+            viewBox="0 0 440 280"
+            aria-hidden="true"
+        >
+            <defs>
+                <pattern
+                    id="b-grid"
+                    width="18"
+                    height="18"
+                    patternUnits="userSpaceOnUse"
+                >
+                    <path
+                        d="M18 0H0V18"
+                        fill="none"
+                        stroke="#7ea7a0"
+                        stroke-width=".7"
+                        opacity=".25"
+                    />
+                </pattern>
+            </defs>
+
+            <rect
+                x="38"
+                y="28"
+                width="364"
+                height="224"
+                rx="4"
+                fill="#d5d0bd"
+                opacity=".9"
+            />
+
+            <rect
+                x="38"
+                y="28"
+                width="364"
+                height="224"
+                rx="4"
+                fill="url(#b-grid)"
+            />
+
+            <g
+                stroke="#4f5652"
+                opacity=".56"
+            >
+                <path d="M70 76 H354" />
+                <path d="M70 99 H302" />
+                <path d="M70 190 H360" />
+                <path d="M70 211 H270" />
+
+                <rect
+                    x="67"
+                    y="120"
+                    width="118"
+                    height="48"
+                    fill="none"
+                />
+            </g>
+
+            <g
+                fill="#7b2028"
+                stroke="#d16772"
+                stroke-width="2"
+            >
+                <circle
+                    cx="208"
+                    cy="126"
+                    r="13"
+                />
+
+                <circle
+                    cx="235"
+                    cy="116"
+                    r="11"
+                />
+
+                <circle
+                    cx="226"
+                    cy="145"
+                    r="12"
+                />
+
+                <circle
+                    cx="254"
+                    cy="139"
+                    r="9"
+                />
+            </g>
+
+            <g
+                stroke="#12201c"
+                stroke-width="1.4"
+                opacity=".66"
+            >
+                <path d="M216 87 V178" />
+                <path d="M171 132 H278" />
+            </g>
+
+            <text
+                x="58"
+                y="52"
+                fill="#25322e"
+                font-size="12"
+                font-family="monospace"
+            >
+                SOURCE B / PARCEL SCAN
+            </text>
+        </svg>
+    `;
+}
+
+/* =========================
+   Ticket 013 Source Reasoning
+   ========================= */
+
+const ECHO_TICKET013_AUDIT_KEY =
+    "echorest_ticket013_source_audit_v1";
+
+const ECHO_TICKET013_AUDIT_STATE_KEY =
+    "echorest_ticket013_source_audit_state_v1";
+
+const ECHO_TICKET013_REASONING_TEXT = {
+    title:
+        "\u7ed3\u8bba\u590d\u6838",
+
+    intro:
+        "\u56fe\u50cf\u5bf9\u9f50\u53ea\u80fd\u8bc1\u660e\u8fb9\u7f18\u5173\u7cfb\uff0c\u4e0d\u80fd\u76f4\u63a5\u8bc1\u660e\u62cd\u6444\u5730\u70b9\u3002\u8bf7\u4ece\u4e0b\u5217\u7ed3\u8bba\u4e2d\u9009\u62e9\u4e09\u6761\u80fd\u591f\u7531\u73b0\u6709\u8bc1\u636e\u652f\u6301\u7684\u5224\u65ad\u3002",
+
+    choose:
+        "\u9009\u62e9 3 \u6761\u53ef\u652f\u6301\u7ed3\u8bba",
+
+    submit:
+        "\u63d0\u4ea4\u6838\u9a8c\u7ed3\u8bba",
+
+    selected:
+        "\u5df2\u9009\u62e9",
+
+    mistakes:
+        "\u8bef\u5224",
+
+    needThree:
+        "\u7ed3\u8bba\u6570\u91cf\u4e0d\u8db3\u3002\u5fc5\u987b\u9009\u62e9\u4e09\u6761\u3002",
+
+    wrong:
+        "\u7ed3\u8bba\u4e2d\u5305\u542b\u65e0\u6cd5\u7531\u73b0\u6709\u8bc1\u636e\u652f\u6301\u7684\u63a8\u65ad\u3002\u9519\u8bef\u5224\u65ad\u5df2\u88ab\u8bb0\u5f55\u3002",
+
+    success:
+        "\u7ed3\u8bba\u901a\u8fc7\u3002\u7cfb\u7edf\u5df2\u6839\u636e\u56fe\u50cf\u540c\u6e90\u5173\u7cfb\u8865\u5168\u9644\u4ef6\u6765\u6e90\u5730\u5740\uff1b\u8be5\u5730\u5740\u4e0d\u5728\u516c\u5f00\u697c\u5c42\u8868\u4e2d\u3002",
+
+    verified:
+        "\u5df2\u5b8c\u6210\u6765\u6e90\u7ed3\u8bba\u590d\u6838\u3002",
+
+    alignmentLocked:
+        "\u56fe\u50cf\u5bf9\u9f50\u5df2\u9501\u5b9a\u3002\u8bf7\u5b8c\u6210\u4e0b\u65b9\u7ed3\u8bba\u590d\u6838\uff0c\u5916\u90e8\u8bb0\u5f55\u624d\u4f1a\u63a5\u53d7\u8be5\u6765\u6e90\u3002",
+
+    log:
+        "\u62a5\u4fee\u5355 #013 \u6765\u6e90\u7ed3\u8bba\u590d\u6838\u5b8c\u6210\uff1a\u9644\u4ef6\u88ab\u5199\u5165\u4e00\u4e2a\u4e0d\u5b58\u5728\u4e8e\u516c\u5f00\u697c\u5c42\u8868\u7684\u6295\u9012\u5730\u5740\u3002"
+};
+
+function isEchoTicket013AuditVerified() {
+    return (
+        localStorage.getItem(
+            ECHO_TICKET013_AUDIT_KEY
+        ) === "1"
+    );
+}
+
+function loadEchoTicket013AuditState() {
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                ECHO_TICKET013_AUDIT_STATE_KEY
+            ) || "{}"
+        );
+
+        return {
+            selected:
+                Array.isArray(parsed.selected)
+                    ? parsed.selected
+                    : [],
+
+            mistakes:
+                Number.isFinite(
+                    Number(parsed.mistakes)
+                )
+                    ? Number(parsed.mistakes)
+                    : 0,
+
+            message:
+                typeof parsed.message === "string"
+                    ? parsed.message
+                    : ""
+        };
+    } catch (error) {
+        return {
+            selected: [],
+            mistakes: 0,
+            message: ""
+        };
+    }
+}
+
+function saveEchoTicket013AuditState(
+    state
+) {
+    localStorage.setItem(
+        ECHO_TICKET013_AUDIT_STATE_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function createEchoTicket013ReasoningPanel(
+    onVerified
+) {
+    const root =
+        document.createElement("section");
+
+    root.className =
+        "ticket013-reasoning";
+
+    const head =
+        document.createElement("div");
+
+    head.className =
+        "ticket013-reasoning-head";
+
+    const title =
+        document.createElement("strong");
+
+    title.textContent =
+        ECHO_TICKET013_REASONING_TEXT.title;
+
+    const badge =
+        document.createElement("span");
+
+    head.appendChild(title);
+    head.appendChild(badge);
+    root.appendChild(head);
+
+    const intro =
+        document.createElement("p");
+
+    intro.className =
+        "ticket013-reasoning-intro";
+
+    intro.textContent =
+        ECHO_TICKET013_REASONING_TEXT.intro;
+
+    root.appendChild(intro);
+
+    const optionData = [
+        {
+            key: "edge_origin",
+            correct: true,
+
+            text:
+                "\u4e24\u4efd\u56fe\u50cf\u4e2d\u7684\u7ea2\u8272\u5916\u7f18\u4e3a\u50cf\u7d20\u7ea7\u540c\u6e90\uff0c\u4e0d\u662f\u81ea\u7136\u751f\u957f\u9020\u6210\u7684\u76f8\u4f3c\u3002"
+        },
+        {
+            key: "simple_crop",
+            correct: false,
+
+            text:
+                "SOURCE B \u662f SOURCE A \u7684\u7b80\u5355\u88c1\u526a\u526f\u672c\u3002"
+        },
+        {
+            key: "same_device",
+            correct: false,
+
+            text:
+                "\u4e24\u4efd\u6587\u4ef6\u7531\u540c\u4e00\u8bbe\u5907\u5728\u540c\u4e00\u65f6\u95f4\u62cd\u6444\u3002"
+        },
+        {
+            key: "delivery_proof",
+            correct: true,
+
+            text:
+                "\u7269\u6d41\u7cfb\u7edf\u628a\u4e0e\u7ea2\u679c\u76f8\u540c\u7684\u7ea2\u8272\u56fe\u6837\u8bc6\u522b\u6210\u4e86\u6709\u6548\u7b7e\u6536\u51ed\u636e\u3002"
+        },
+        {
+            key: "source_conflict",
+            correct: true,
+
+            text:
+                "\u516c\u5f00\u6765\u6e90\u5b57\u6bb5\u65e0\u6cd5\u89e3\u91ca\u5ba4\u5185\u95e8\u724c\u4e0e\u7269\u6d41\u5730\u5740\u4e4b\u95f4\u7684\u4e00\u81f4\u6027\u3002"
+        },
+        {
+            key: "known_species",
+            correct: false,
+
+            text:
+                "\u7ea2\u679c\u5df2\u7ecf\u88ab\u8bc1\u660e\u5c5e\u4e8e\u67d0\u79cd\u5df2\u767b\u8bb0\u690d\u7269\u3002"
+        }
+    ];
+
+    const options =
+        document.createElement("div");
+
+    options.className =
+        "ticket013-reasoning-options";
+
+    const optionButtons = [];
+
+    optionData.forEach(
+        function (item, index) {
+            const button =
+                document.createElement("button");
+
+            button.type = "button";
+
+            button.dataset.reasoningKey =
+                item.key;
+
+            button.dataset.correct =
+                item.correct
+                    ? "true"
+                    : "false";
+
+            const indexLabel =
+                document.createElement("span");
+
+            indexLabel.textContent =
+                String(index + 1).padStart(
+                    2,
+                    "0"
+                );
+
+            const copy =
+                document.createElement("strong");
+
+            copy.textContent =
+                item.text;
+
+            button.appendChild(
+                indexLabel
+            );
+
+            button.appendChild(copy);
+            options.appendChild(button);
+
+            optionButtons.push(button);
+        }
+    );
+
+    root.appendChild(options);
+
+    const footer =
+        document.createElement("div");
+
+    footer.className =
+        "ticket013-reasoning-footer";
+
+    const stats =
+        document.createElement("div");
+
+    const selectionText =
+        document.createElement("span");
+
+    const mistakeText =
+        document.createElement("span");
+
+    stats.appendChild(selectionText);
+    stats.appendChild(mistakeText);
+
+    const submitButton =
+        document.createElement("button");
+
+    submitButton.type = "button";
+
+    submitButton.textContent =
+        ECHO_TICKET013_REASONING_TEXT.submit;
+
+    footer.appendChild(stats);
+    footer.appendChild(submitButton);
+
+    root.appendChild(footer);
+
+    const message =
+        document.createElement("p");
+
+    message.className =
+        "ticket013-reasoning-message";
+
+    root.appendChild(message);
+
+    const state =
+        loadEchoTicket013AuditState();
+
+    function render() {
+        const aligned =
+            isEchoTicket013Verified();
+
+        const verified =
+            isEchoTicket013AuditVerified();
+
+        root.hidden = !aligned;
+
+        badge.textContent =
+            verified
+                ? "VERIFIED"
+                : "REVIEW";
+
+        badge.classList.toggle(
+            "is-verified",
+            verified
+        );
+
+        optionButtons.forEach(
+            function (button) {
+                const key =
+                    button.dataset
+                        .reasoningKey || "";
+
+                button.classList.toggle(
+                    "is-selected",
+
+                    state.selected.indexOf(
+                        key
+                    ) !== -1
+                );
+
+                button.disabled =
+                    verified;
+            }
+        );
+
+        selectionText.textContent =
+            ECHO_TICKET013_REASONING_TEXT
+                .selected +
+            " " +
+            state.selected.length +
+            " / 3";
+
+        mistakeText.textContent =
+            ECHO_TICKET013_REASONING_TEXT
+                .mistakes +
+            " " +
+            state.mistakes;
+
+        submitButton.disabled =
+            verified ||
+            state.selected.length !== 3;
+
+        if (verified) {
+            message.textContent =
+                ECHO_TICKET013_REASONING_TEXT
+                    .verified;
+
+            message.classList.add(
+                "is-success"
+            );
+        } else {
+            message.textContent =
+                state.message ||
+                ECHO_TICKET013_REASONING_TEXT
+                    .choose;
+
+            message.classList.remove(
+                "is-success"
+            );
+        }
+
+        root.classList.toggle(
+            "is-verified",
+            verified
+        );
+    }
+
+    optionButtons.forEach(
+        function (button) {
+            button.addEventListener(
+                "click",
+
+                function () {
+                    if (
+                        isEchoTicket013AuditVerified()
+                    ) {
+                        return;
+                    }
+
+                    const key =
+                        button.dataset
+                            .reasoningKey || "";
+
+                    const index =
+                        state.selected.indexOf(
+                            key
+                        );
+
+                    if (index !== -1) {
+                        state.selected.splice(
+                            index,
+                            1
+                        );
+                    } else if (
+                        state.selected.length < 3
+                    ) {
+                        state.selected.push(
+                            key
+                        );
+                    }
+
+                    state.message = "";
+
+                    saveEchoTicket013AuditState(
+                        state
+                    );
+
+                    render();
+                }
+            );
+        }
+    );
+
+    submitButton.addEventListener(
+        "click",
+
+        function () {
+            if (
+                state.selected.length !== 3
+            ) {
+                state.message =
+                    ECHO_TICKET013_REASONING_TEXT
+                        .needThree;
+
+                saveEchoTicket013AuditState(
+                    state
+                );
+
+                render();
+                return;
+            }
+
+            const wrongButtons =
+                optionButtons.filter(
+                    function (button) {
+                        return (
+                            state.selected.indexOf(
+                                button.dataset
+                                    .reasoningKey ||
+                                ""
+                            ) !== -1 &&
+                            button.dataset.correct !==
+                            "true"
+                        );
+                    }
+                );
+
+            if (
+                wrongButtons.length > 0
+            ) {
+                state.mistakes += 1;
+
+                state.message =
+                    ECHO_TICKET013_REASONING_TEXT
+                        .wrong;
+
+                const wrongKeys =
+                    wrongButtons.map(
+                        function (button) {
+                            button.classList.add(
+                                "is-wrong"
+                            );
+
+                            return (
+                                button.dataset
+                                    .reasoningKey ||
+                                ""
+                            );
+                        }
+                    );
+
+                state.selected =
+                    state.selected.filter(
+                        function (key) {
+                            return (
+                                wrongKeys.indexOf(
+                                    key
+                                ) === -1
+                            );
+                        }
+                    );
+
+                saveEchoTicket013AuditState(
+                    state
+                );
+
+                render();
+
+                window.setTimeout(
+                    function () {
+                        wrongButtons.forEach(
+                            function (button) {
+                                button.classList.remove(
+                                    "is-wrong"
+                                );
+                            }
+                        );
+                    },
+                    520
+                );
+
+                return;
+            }
+
+            localStorage.setItem(
+                ECHO_TICKET013_AUDIT_KEY,
+                "1"
+            );
+
+            localStorage.setItem(
+                "echorest_ticket013_room_source_v1",
+                "1"
+            );
+
+            state.message =
+                ECHO_TICKET013_REASONING_TEXT
+                    .success;
+
+            saveEchoTicket013AuditState(
+                state
+            );
+
+            addInvestigationLog(
+                "ticket013_source_conclusion_verified",
+
+                ECHO_TICKET013_REASONING_TEXT
+                    .log,
+
+                true
+            );
+
+            if (
+                typeof onVerified ===
+                "function"
+            ) {
+                onVerified();
+            }
+
+            setMaintenanceTicketSeenLevel(
+                "ticket_img_source",
+
+                getMaintenanceTicketRevealLevel(
+                    "ticket_img_source"
+                )
+            );
+
+            render();
+            renderWorkConsole();
+        }
+    );
+
+    render();
+
+    return {
+        root: root,
+        refresh: render
+    };
+}
+
+function appendEchoTicket013AlignmentTool(body) {
+    if (!body) return;
+
+    const section =
+        document.createElement("section");
+
+    section.className =
+        "ticket013-align-tool";
+
+    const heading =
+        document.createElement("div");
+
+    heading.className =
+        "ticket013-align-head";
+
+    const title =
+        document.createElement("strong");
+
+    title.textContent =
+        ECHO_TICKET013_TEXT.title;
+
+    const verifiedBadge =
+        document.createElement("span");
+
+    verifiedBadge.textContent =
+        isEchoTicket013AuditVerified()
+            ? "VERIFIED"
+            : (
+                isEchoTicket013Verified()
+                    ? "ALIGNED"
+                    : "PENDING"
+            );
+
+    verifiedBadge.className =
+        isEchoTicket013AuditVerified()
+            ? "is-verified"
+            : "";
+
+    heading.appendChild(title);
+    heading.appendChild(verifiedBadge);
+    section.appendChild(heading);
+
+    const intro =
+        document.createElement("p");
+
+    intro.className =
+        "ticket013-align-intro";
+
+    intro.textContent =
+        echoHasEvidenceLink(
+            "image_origin_match"
+        )
+            ? ECHO_TICKET013_TEXT.intro
+            : ECHO_TICKET013_TEXT.locked;
+
+    section.appendChild(intro);
+
+    if (
+        !echoHasEvidenceLink(
+            "image_origin_match"
+        )
+    ) {
+        section.classList.add("is-locked");
+        body.appendChild(section);
+        return;
+    }
+
+    const stage =
+        document.createElement("div");
+
+    stage.className =
+        "ticket013-align-stage";
+
+    const baseLayer =
+        document.createElement("div");
+
+    baseLayer.className =
+        "ticket013-align-layer ticket013-align-base";
+
+    baseLayer.innerHTML =
+        getEchoTicket013Svg("sourceA");
+
+    const movingLayer =
+        document.createElement("div");
+
+    movingLayer.className =
+        "ticket013-align-layer ticket013-align-moving";
+
+    movingLayer.innerHTML =
+        getEchoTicket013Svg("sourceB");
+
+    const frame =
+        document.createElement("div");
+
+    frame.className =
+        "ticket013-align-frame";
+
+    stage.appendChild(baseLayer);
+    stage.appendChild(movingLayer);
+    stage.appendChild(frame);
+
+    section.appendChild(stage);
+
+    const controls =
+        document.createElement("div");
+
+    controls.className =
+        "ticket013-align-controls";
+
+    function makeRange(
+        labelText,
+        min,
+        max,
+        step,
+        value
+    ) {
+        const label =
+            document.createElement("label");
+
+        label.className =
+            "ticket013-range";
+
+        const top =
+            document.createElement("span");
+
+        top.textContent = labelText;
+
+        const output =
+            document.createElement("strong");
+
+        top.appendChild(output);
+
+        const input =
+            document.createElement("input");
+
+        input.type = "range";
+        input.min = String(min);
+        input.max = String(max);
+        input.step = String(step);
+        input.value = String(value);
+
+        label.appendChild(top);
+        label.appendChild(input);
+        controls.appendChild(label);
+
+        return {
+            input: input,
+            output: output
+        };
+    }
+
+    const opacityControl =
+        makeRange(
+            ECHO_TICKET013_TEXT.opacity,
+            20,
+            100,
+            1,
+            58
+        );
+
+    const rotationControl =
+        makeRange(
+            ECHO_TICKET013_TEXT.rotation,
+            -15,
+            15,
+            0.5,
+            isEchoTicket013Verified()
+                ? 0
+                : 11
+        );
+
+    section.appendChild(controls);
+
+    const scoreBox =
+        document.createElement("div");
+
+    scoreBox.className =
+        "ticket013-score-box";
+
+    const scoreTop =
+        document.createElement("div");
+
+    scoreTop.className =
+        "ticket013-score-top";
+
+    const scoreLabel =
+        document.createElement("span");
+
+    scoreLabel.textContent =
+        ECHO_TICKET013_TEXT.score;
+
+    const scoreValue =
+        document.createElement("strong");
+
+    scoreValue.textContent = "0.0%";
+
+    scoreTop.appendChild(scoreLabel);
+    scoreTop.appendChild(scoreValue);
+
+    const meter =
+        document.createElement("div");
+
+    meter.className =
+        "ticket013-score-meter";
+
+    const meterFill =
+        document.createElement("span");
+
+    meter.appendChild(meterFill);
+
+    const scoreHint =
+        document.createElement("p");
+
+    scoreHint.textContent =
+        ECHO_TICKET013_TEXT.moveHint;
+
+    scoreBox.appendChild(scoreTop);
+    scoreBox.appendChild(meter);
+    scoreBox.appendChild(scoreHint);
+
+    section.appendChild(scoreBox);
+
+    const actions =
+        document.createElement("div");
+
+    actions.className =
+        "ticket013-align-actions";
+
+    const resetButton =
+        document.createElement("button");
+
+    resetButton.type = "button";
+
+    resetButton.textContent =
+        ECHO_TICKET013_TEXT.reset;
+
+    const lockButton =
+        document.createElement("button");
+
+    lockButton.type = "button";
+
+    lockButton.textContent =
+        ECHO_TICKET013_TEXT.lock;
+
+    lockButton.disabled = true;
+
+    actions.appendChild(resetButton);
+    actions.appendChild(lockButton);
+
+    section.appendChild(actions);
+
+    const result =
+        document.createElement("div");
+
+    result.className =
+        "ticket013-align-result";
+
+    result.hidden = true;
+
+    section.appendChild(result);
+
+    const reasoningPanel =
+        createEchoTicket013ReasoningPanel(
+            function () {
+                verifiedBadge.textContent =
+                    "VERIFIED";
+
+                verifiedBadge.classList.add(
+                    "is-verified"
+                );
+            }
+        );
+
+    section.appendChild(
+        reasoningPanel.root
+    );
+
+    body.appendChild(section);
+
+    const initial =
+        isEchoTicket013Verified()
+            ? {
+                x: 0,
+                y: 0,
+                rotation: 0,
+                opacity: 58
+            }
+            : {
+                x: 78,
+                y: -36,
+                rotation: 11,
+                opacity: 58
+            };
+
+    const state = {
+        x: initial.x,
+        y: initial.y,
+        rotation: initial.rotation,
+        opacity: initial.opacity,
+
+        dragging: false,
+        pointerId: null,
+
+        startClientX: 0,
+        startClientY: 0,
+
+        startX: 0,
+        startY: 0
+    };
+
+    function getScore() {
+        const distance =
+            Math.sqrt(
+                state.x * state.x +
+                state.y * state.y
+            );
+
+        const score =
+            100 -
+            distance * 0.62 -
+            Math.abs(state.rotation) * 2.35;
+
+        return clampEchoTicket013(
+            score,
+            0,
+            100
+        );
+    }
+
+    let alignmentReadyScrolled = false;
+
+    function render() {
+        movingLayer.style.opacity =
+            String(state.opacity / 100);
+
+        movingLayer.style.transform =
+            "translate3d(" +
+            state.x.toFixed(1) +
+            "px," +
+            state.y.toFixed(1) +
+            "px,0) rotate(" +
+            state.rotation.toFixed(1) +
+            "deg)";
+
+        opacityControl.input.value =
+            String(state.opacity);
+
+        opacityControl.output.textContent =
+            state.opacity.toFixed(0) + "%";
+
+        rotationControl.input.value =
+            String(state.rotation);
+
+        rotationControl.output.textContent =
+            state.rotation.toFixed(1) +
+            "\u00b0";
+
+        const score = getScore();
+
+        scoreValue.textContent =
+            score.toFixed(1) + "%";
+
+        meterFill.style.width =
+            score.toFixed(1) + "%";
+
+        scoreBox.classList.toggle(
+            "is-ready",
+            score >= 92
+        );
+
+        lockButton.disabled =
+            score < 92 ||
+            isEchoTicket013Verified();
+
+        scoreHint.textContent =
+            score >= 92
+                ? ECHO_TICKET013_TEXT.ready
+                : ECHO_TICKET013_TEXT.searching;
+
+        if (
+            score >= 92 &&
+            !alignmentReadyScrolled &&
+            !isEchoTicket013Verified()
+        ) {
+            alignmentReadyScrolled = true;
+
+            window.requestAnimationFrame(
+                function () {
+                    actions.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest"
+                    });
+                }
+            );
+        }
+
+        if (score < 92) {
+            alignmentReadyScrolled = false;
+        }
+    }
+
+    movingLayer.addEventListener(
+        "pointerdown",
+        function (event) {
+            state.dragging = true;
+            state.pointerId =
+                event.pointerId;
+
+            state.startClientX =
+                event.clientX;
+
+            state.startClientY =
+                event.clientY;
+
+            state.startX = state.x;
+            state.startY = state.y;
+
+            movingLayer.setPointerCapture(
+                event.pointerId
+            );
+
+            movingLayer.classList.add(
+                "is-dragging"
+            );
+        }
+    );
+
+    movingLayer.addEventListener(
+        "pointermove",
+        function (event) {
+            if (
+                !state.dragging ||
+                event.pointerId !==
+                state.pointerId
+            ) {
+                return;
+            }
+
+            state.x =
+                clampEchoTicket013(
+                    state.startX +
+                    event.clientX -
+                    state.startClientX,
+                    -150,
+                    150
+                );
+
+            state.y =
+                clampEchoTicket013(
+                    state.startY +
+                    event.clientY -
+                    state.startClientY,
+                    -100,
+                    100
+                );
+
+            render();
+        }
+    );
+
+    function stopDragging(event) {
+        if (
+            !state.dragging ||
+            event.pointerId !==
+            state.pointerId
+        ) {
+            return;
+        }
+
+        state.dragging = false;
+
+        movingLayer.classList.remove(
+            "is-dragging"
+        );
+    }
+
+    movingLayer.addEventListener(
+        "pointerup",
+        stopDragging
+    );
+
+    movingLayer.addEventListener(
+        "pointercancel",
+        stopDragging
+    );
+
+    opacityControl.input.addEventListener(
+        "input",
+        function () {
+            state.opacity =
+                Number(
+                    opacityControl.input.value
+                );
+
+            render();
+        }
+    );
+
+    rotationControl.input.addEventListener(
+        "input",
+        function () {
+            state.rotation =
+                Number(
+                    rotationControl.input.value
+                );
+
+            render();
+        }
+    );
+
+    resetButton.addEventListener(
+        "click",
+        function () {
+            state.x = 78;
+            state.y = -36;
+            state.rotation = 11;
+            state.opacity = 58;
+
+            result.hidden = true;
+
+            render();
+        }
+    );
+
+    lockButton.addEventListener(
+        "click",
+        function () {
+            const score = getScore();
+
+            if (score < 92) return;
+
+            localStorage.setItem(
+                ECHO_TICKET013_VERIFY_KEY,
+                "1"
+            );
+
+            addInvestigationLog(
+                "ticket013_image_alignment_verified",
+                ECHO_TICKET013_TEXT.success,
+                true
+            );
+
+            result.hidden = false;
+
+            result.textContent =
+                ECHO_TICKET013_REASONING_TEXT
+                    .alignmentLocked;
+
+            result.classList.add(
+                "is-success"
+            );
+
+            verifiedBadge.textContent =
+                "ALIGNED";
+
+            lockButton.disabled = true;
+
+            reasoningPanel.refresh();
+
+            window.requestAnimationFrame(
+                function () {
+                    reasoningPanel.root.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest"
+                    });
+                }
+            );
+
+            setMaintenanceTicketSeenLevel(
+                "ticket_img_source",
+                getMaintenanceTicketRevealLevel(
+                    "ticket_img_source"
+                )
+            );
+
+            renderWorkConsole();
+        }
+    );
+
+    if (isEchoTicket013Verified()) {
+        result.hidden = false;
+
+        result.textContent =
+            isEchoTicket013AuditVerified()
+                ? ECHO_TICKET013_TEXT.verified
+                : ECHO_TICKET013_REASONING_TEXT
+                    .alignmentLocked;
+
+        result.classList.add(
+            "is-success"
+        );
+    }
+
+    reasoningPanel.refresh();
+    render();
+}
+
+window.echoRestTicket013 = {
+    isVerified:
+        isEchoTicket013Verified,
+
+    reset: function () {
+        localStorage.removeItem(
+            ECHO_TICKET013_VERIFY_KEY
+        );
+
+        localStorage.removeItem(
+            ECHO_TICKET013_AUDIT_KEY
+        );
+
+        localStorage.removeItem(
+            ECHO_TICKET013_AUDIT_STATE_KEY
+        );
+
+        localStorage.removeItem(
+            "echorest_ticket013_room_source_v1"
+        );
+
+        renderWorkConsole();
+    }
+};
+
+
+/* =========================
+   External Information Monitor
+   ========================= */
+
+const ECHO_TICKET021_VERIFY_KEY =
+    "echorest_ticket021_audio_verified_v1";
+
+const ECHO_TICKET034_VERIFY_KEY =
+    "echorest_ticket034_time_verified_v1";
+
+const ECHO_EXTERNAL_MONITOR_TEXT = {
+    title:
+        "\u5916\u90e8\u4fe1\u606f\u76d1\u6d4b",
+
+    source:
+        "\u516c\u5171\u4fe1\u606f\u955c\u50cf",
+
+    normal:
+        "\u6293\u53d6\u6b63\u5e38",
+
+    shifted:
+        "\u5b58\u5728\u504f\u79fb",
+
+    weather:
+        "\u672c\u5730\u5929\u6c14",
+
+    cloudy:
+        "\u591a\u4e91",
+
+    garden:
+        "\u690d\u7269\u56ed\u5f00\u653e",
+
+    gardenHours:
+        "09:00\u201417:00",
+
+    gardenPaused:
+        "\u6682\u505c\u63a5\u6536\u672a\u77e5\u679c\u5b9e\u6837\u672c",
+
+    logistics:
+        "\u5f02\u5e38\u7269\u6d41\u901a\u62a5",
+
+    unregisteredAddress:
+        "\u672a\u767b\u8bb0\u6295\u9012\u5730\u5740",
+
+    sampleSource:
+        "\u690d\u7269\u6837\u672c\u6765\u6e90",
+
+    pendingAddressReview:
+        "\u5730\u5740\u5f85\u590d\u6838",
+
+    buildingRecord:
+        "\u5efa\u7b51\u6863\u6848\u72b6\u6001",
+
+    normalRecord:
+        "\u6b63\u5e38",
+
+    wallSource:
+        "\u5899\u540e\u58f0\u6e90",
+
+    active:
+        "\u6d3b\u52a8\u4e2d",
+
+    relatedHomes:
+        "\u76f8\u5173\u4f4f\u5b85",
+
+    geoRelation:
+        "\u5730\u7406\u5173\u8054",
+
+    noGeoRelation:
+        "\u65e0\u5730\u7406\u5173\u8054",
+
+    sameRhythm:
+        "\u76f8\u540c\u6572\u51fb\u8282\u594f",
+
+    wallReports:
+        "\u4f4f\u5b85\u5899\u4f53\u62a5\u4fee",
+
+    cavity:
+        "\u5899\u4f53\u7a7a\u8154\u68c0\u6d4b",
+
+    cavityNone:
+        "\u672a\u53d1\u73b0\u7a7a\u8154",
+
+    sunrise:
+        "\u4e0b\u4e00\u6b21\u65e5\u51fa",
+
+    sunset:
+        "\u5f53\u524d\u65e5\u843d",
+
+    unregistered:
+        "\u672a\u767b\u8bb0",
+
+    publicDate:
+        "\u516c\u5171\u8bb0\u5f55\u65e5\u671f",
+
+    nextDay:
+        "\u6b21\u65e5",
+
+    sync:
+        "\u6700\u8fd1\u540c\u6b65",
+
+    feed:
+        "\u516c\u5171\u516c\u544a / \u5929\u6c14 / \u5e02\u653f\u62a5\u4fee",
+
+    noticeNormal:
+        "\u672a\u53d1\u73b0\u9700\u8981\u5173\u6ce8\u7684\u516c\u5171\u4fe1\u606f\u504f\u79fb\u3002",
+
+    noticeImage:
+        "\u4e09\u5904\u7269\u6d41\u7f51\u70b9\u6536\u5230\u5bc4\u5f80\u540c\u4e00\u672a\u767b\u8bb0\u5730\u5740\u7684\u5305\u88f9\u3002\u5bc4\u4ef6\u56fe\u50cf\u4e2d\u7684\u7ea2\u8272\u6807\u8bb0\u4fdd\u6301\u5b8c\u5168\u4e00\u81f4\u3002",
+
+    noticeAudio:
+        "\u5341\u4e03\u5904\u4e0d\u5b58\u5728\u5730\u7406\u5173\u8054\u7684\u4f4f\u5b85\u62a5\u544a\u4e86\u76f8\u540c\u7684\u6572\u51fb\u8282\u594f\u3002\u7ed3\u6784\u68c0\u6d4b\u672a\u53d1\u73b0\u5899\u540e\u7a7a\u8154\uff0c\u4f46\u58f0\u6e90\u4ecd\u88ab\u7a33\u5b9a\u5b9a\u4f4d\u5728\u5899\u4f53\u53e6\u4e00\u4fa7\u3002",
+
+    noticeTime:
+        "\u5929\u6587\u6570\u636e\u6ca1\u6709\u8fd4\u56de\u4e0b\u4e00\u6b21\u65e5\u51fa\u3002\u516c\u5171\u8bb0\u5f55\u4ecd\u5728\u7ee7\u7eed\u66f4\u65b0\u3002",
+
+    logImage:
+        "\u5916\u90e8\u4fe1\u606f\u955c\u50cf\u51fa\u73b0\u9996\u6b21\u504f\u79fb\uff1a\u7cfb\u7edf\u65b0\u589e\u4e00\u4e2a\u672a\u767b\u8bb0\u6295\u9012\u5730\u5740\uff0c\u5e76\u5c06\u7ea2\u8272\u6837\u672c\u5173\u8054\u81f3\u8be5\u5730\u5740\u3002",
+
+    logAudio:
+        "\u5916\u90e8\u4fe1\u606f\u955c\u50cf\u51fa\u73b0\u7b2c\u4e8c\u6b21\u504f\u79fb\uff1a\u672a\u767b\u8bb0\u5730\u5740\u5df2\u88ab\u5199\u5165\u6301\u7eed\u6d3b\u52a8\u58f0\u6e90\uff0c\u76f8\u540c\u8282\u594f\u5f00\u59cb\u51fa\u73b0\u5728\u65e0\u5730\u7406\u5173\u8054\u7684\u4f4f\u5b85\u4e2d\u3002",
+
+    logTime:
+        "\u5916\u90e8\u4fe1\u606f\u955c\u50cf\u4e2d\u7684\u4e0b\u4e00\u6b21\u65e5\u51fa\u5df2\u53d8\u4e3a\u672a\u767b\u8bb0\u3002"
+};
+
+function isEchoTicket021Verified() {
+    return (
+        localStorage.getItem(
+            ECHO_TICKET021_VERIFY_KEY
+        ) === "1"
+    );
+}
+
+function isEchoTicket034Verified() {
+    return (
+        localStorage.getItem(
+            ECHO_TICKET034_VERIFY_KEY
+        ) === "1"
+    );
+}
+
+function getEchoExternalMonitorStage() {
+    const ticket013Done =
+        typeof isEchoTicket013AuditVerified ===
+            "function"
+            ? isEchoTicket013AuditVerified()
+            : (
+                localStorage.getItem(
+                    "echorest_ticket013_source_audit_v1"
+                ) === "1"
+            );
+
+    const ticket021Done =
+        typeof isEchoTicket021AudioVerified === "function"
+            ? isEchoTicket021AudioVerified()
+            : (
+                localStorage.getItem(
+                    "echorest_ticket021_audio_verified_v1"
+                ) === "1"
+            );
+
+    const ticket034Done =
+        isEchoTicket034Verified();
+
+    if (ticket034Done) {
+        return 3;
+    }
+
+    if (ticket021Done) {
+        return 2;
+    }
+
+    if (ticket013Done) {
+        return 1;
+    }
+
+    return 0;
+}
+
+function getEchoExternalMonitorModel(stage) {
+    if (stage >= 3) {
+        return {
+            status:
+                ECHO_EXTERNAL_MONITOR_TEXT.shifted,
+
+            rows: [
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .weather,
+
+                    value:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .cloudy
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .sunset,
+
+                    value:
+                        "18:42"
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .sunrise,
+
+                    value:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .unregistered
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .publicDate,
+
+                    value:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .nextDay
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .wallReports,
+
+                    value:
+                        "17"
+                }
+            ],
+
+            notice:
+                ECHO_EXTERNAL_MONITOR_TEXT
+                    .noticeTime
+        };
+    }
+
+    if (stage >= 2) {
+        return {
+            status:
+                ECHO_EXTERNAL_MONITOR_TEXT.shifted,
+
+            rows: [
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .unregisteredAddress,
+
+                    value:
+                        "1"
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .logistics,
+
+                    value:
+                        "3"
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .wallReports,
+
+                    value:
+                        "17"
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .relatedHomes,
+
+                    value:
+                        "17"
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .geoRelation,
+
+                    value:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .noGeoRelation
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .cavity,
+
+                    value:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .cavityNone
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .wallSource,
+
+                    value:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .active
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .sameRhythm,
+
+                    value:
+                        "04 / 04 / 04"
+                }
+            ],
+
+            notice:
+                ECHO_EXTERNAL_MONITOR_TEXT
+                    .noticeAudio
+        };
+    }
+
+    if (stage >= 1) {
+        return {
+            status:
+                ECHO_EXTERNAL_MONITOR_TEXT.shifted,
+
+            rows: [
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .weather,
+
+                    value:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .cloudy
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .unregisteredAddress,
+
+                    value:
+                        "1"
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .logistics,
+
+                    value:
+                        "3"
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .sampleSource,
+
+                    value:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .pendingAddressReview
+                },
+                {
+                    key:
+                        ECHO_EXTERNAL_MONITOR_TEXT
+                            .wallReports,
+
+                    value:
+                        "2"
+                }
+            ],
+
+            notice:
+                ECHO_EXTERNAL_MONITOR_TEXT
+                    .noticeImage
+        };
+    }
+
+    return {
+        status:
+            ECHO_EXTERNAL_MONITOR_TEXT.normal,
+
+        rows: [
+            {
+                key:
+                    ECHO_EXTERNAL_MONITOR_TEXT
+                        .weather,
+
+                value:
+                    ECHO_EXTERNAL_MONITOR_TEXT
+                        .cloudy
+            },
+            {
+                key:
+                    ECHO_EXTERNAL_MONITOR_TEXT
+                        .garden,
+
+                value:
+                    ECHO_EXTERNAL_MONITOR_TEXT
+                        .gardenHours
+            },
+            {
+                key:
+                    ECHO_EXTERNAL_MONITOR_TEXT
+                        .logistics,
+
+                value:
+                    "0"
+            },
+            {
+                key:
+                    ECHO_EXTERNAL_MONITOR_TEXT
+                        .wallReports,
+
+                value:
+                    "2"
+            },
+            {
+                key:
+                    ECHO_EXTERNAL_MONITOR_TEXT
+                        .sunrise,
+
+                value:
+                    "05:47"
+            }
+        ],
+
+        notice:
+            ECHO_EXTERNAL_MONITOR_TEXT
+                .noticeNormal
+    };
+}
+
+function queueEchoExternalMonitorLog(stage) {
+    if (stage <= 0) {
+        return;
+    }
+
+    const flagKey =
+        "echorest_external_monitor_stage_" +
+        stage +
+        "_logged";
+
+    if (
+        localStorage.getItem(flagKey) === "1"
+    ) {
+        return;
+    }
+
+    localStorage.setItem(
+        flagKey,
+        "1"
+    );
+
+    const logs = {
+        1: {
+            code:
+                "external_monitor_image_shift",
+
+            text:
+                ECHO_EXTERNAL_MONITOR_TEXT
+                    .logImage
+        },
+
+        2: {
+            code:
+                "external_monitor_audio_shift",
+
+            text:
+                ECHO_EXTERNAL_MONITOR_TEXT
+                    .logAudio
+        },
+
+        3: {
+            code:
+                "external_monitor_time_shift",
+
+            text:
+                ECHO_EXTERNAL_MONITOR_TEXT
+                    .logTime
+        }
+    };
+
+    const entry = logs[stage];
+
+    if (!entry) {
+        return;
+    }
+
+    window.setTimeout(
+        function () {
+            addInvestigationLog(
+                entry.code,
+                entry.text,
+                true
+            );
+        },
+        0
+    );
+}
+
+function renderEchoExternalMonitor(container) {
+    if (!container) {
+        return;
+    }
+
+    const stage =
+        getEchoExternalMonitorStage();
+
+    const model =
+        getEchoExternalMonitorModel(stage);
+
+    container.innerHTML = "";
+
+    container.className =
+        "workspace-external is-stage-" +
+        stage;
+
+    const title =
+        document.createElement("p");
+
+    title.className =
+        "workspace-section-label";
+
+    title.textContent =
+        ECHO_EXTERNAL_MONITOR_TEXT.title;
+
+    container.appendChild(title);
+
+    const panel =
+        document.createElement("div");
+
+    panel.className =
+        "workspace-external-panel";
+
+    const head =
+        document.createElement("div");
+
+    head.className =
+        "workspace-external-head";
+
+    const source =
+        document.createElement("div");
+
+    source.className =
+        "workspace-external-source";
+
+    source.textContent =
+        ECHO_EXTERNAL_MONITOR_TEXT.source;
+
+    const status =
+        document.createElement("span");
+
+    status.className =
+        "workspace-external-state";
+
+    status.textContent =
+        model.status;
+
+    head.appendChild(source);
+    head.appendChild(status);
+
+    panel.appendChild(head);
+
+    const grid =
+        document.createElement("div");
+
+    grid.className =
+        "workspace-external-grid";
+
+    model.rows.forEach(
+        function (item) {
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "workspace-external-row";
+
+            const key =
+                document.createElement("span");
+
+            key.className =
+                "workspace-external-key";
+
+            key.textContent =
+                item.key;
+
+            const value =
+                document.createElement("strong");
+
+            value.className =
+                "workspace-external-value";
+
+            value.textContent =
+                item.value;
+
+            row.appendChild(key);
+            row.appendChild(value);
+            grid.appendChild(row);
+        }
+    );
+
+    panel.appendChild(grid);
+
+    const notice =
+        document.createElement("div");
+
+    notice.className =
+        "workspace-external-notice";
+
+    notice.textContent =
+        model.notice;
+
+    panel.appendChild(notice);
+
+    const footer =
+        document.createElement("div");
+
+    footer.className =
+        "workspace-external-footer";
+
+    const feed =
+        document.createElement("span");
+
+    feed.textContent =
+        ECHO_EXTERNAL_MONITOR_TEXT.feed;
+
+    const synced =
+        document.createElement("span");
+
+    const time =
+        new Date().toLocaleTimeString(
+            "zh-CN",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+            }
+        );
+
+    synced.textContent =
+        ECHO_EXTERNAL_MONITOR_TEXT.sync +
+        " " +
+        time;
+
+    footer.appendChild(feed);
+    footer.appendChild(synced);
+
+    panel.appendChild(footer);
+    container.appendChild(panel);
+
+    queueEchoExternalMonitorLog(stage);
+}
+
+
+/* =========================
+   Ticket 021 Audio Separation
+   ========================= */
+
+const ECHO_TICKET021_TEXT = {
+    title:
+        "\u97f3\u9891\u58f0\u9053\u5206\u79bb",
+
+    intro:
+        "\u8c03\u6574\u539f\u59cb\u6df7\u5408\u58f0\u3001\u5899\u4f53\u80cc\u666f\u58f0\u9053\u3001\u53cd\u76f8\u6d88\u9664\u548c\u754c\u9762\u63d0\u793a\u97f3\u53c2\u8003\u3002\u5f53\u6572\u51fb\u8282\u594f\u4e0e\u9875\u9762\u64cd\u4f5c\u8282\u594f\u5bf9\u9f50\u65f6\uff0c\u9501\u5b9a\u5206\u79bb\u3002",
+
+    locked:
+        "\u9700\u5148\u5728\u8bc1\u636e\u5de5\u4f5c\u533a\u786e\u8ba4\u201c\u5899\u4f53\u7f3a\u635f\u8f6e\u5ed3 + \u5899\u5185\u6572\u51fb\u80cc\u666f\u58f0\u9053\u201d\u7684\u521d\u6b65\u5173\u8054\u3002",
+
+    mix:
+        "\u539f\u59cb\u6df7\u5408\u58f0",
+
+    wall:
+        "\u5899\u4f53\u80cc\u666f\u58f0\u9053",
+
+    cancel:
+        "\u53cd\u76f8\u6d88\u9664",
+
+    ui:
+        "\u754c\u9762\u63d0\u793a\u97f3\u53c2\u8003",
+
+    offset:
+        "\u76f8\u4f4d\u504f\u79fb",
+
+    score:
+        "SIGNAL CLARITY",
+
+    reset:
+        "\u91cd\u7f6e\u58f0\u9053",
+
+    lock:
+        "\u9501\u5b9a\u5206\u79bb",
+
+    listen:
+        "\u91cd\u65b0\u751f\u6210\u8f6c\u5199",
+
+    transcriptTitle:
+        "\u5206\u79bb\u8f6c\u5199",
+
+    transcriptLow:
+        "\u2026\u2026\u5899\u4f53\u566a\u58f0\u8fc7\u9ad8\u3002\u8f6c\u5199\u65e0\u6cd5\u7a33\u5b9a\u751f\u6210\u3002",
+
+    transcriptMid:
+        "\u2026\u2026\u53ef\u8bfb\u7247\u6bb5\uff1a\u201c\u4e0d\u8981\u2026\u2026\u770b\u89c1\u6d1e\u2026\u2026\u201d",
+
+    transcriptHigh:
+        "\u2026\u2026\u5899\u540e\u58f0\u6e90\uff1a\u201c\u8fd9\u91cc\u4e0d\u662f\u7a7a\u7684\u3002\u4e0d\u8981\u518d\u6572\u4e86\u3002\u5b83\u4f1a\u628a\u4f60\u7684\u58f0\u97f3\u8bb0\u4e0b\u6765\u3002\u201d",
+
+    searching:
+        "\u58f0\u9053\u5206\u79bb\u5c1a\u672a\u8fbe\u5230 92% \u7684\u9501\u5b9a\u9608\u503c\u3002",
+
+    ready:
+        "\u8282\u594f\u5bf9\u9f50\u5df2\u8fbe\u5230\u9501\u5b9a\u9608\u503c\u3002",
+
+    success:
+        "VERIFIED / \u5899\u5185\u6572\u51fb\u58f0\u5df2\u4ece\u754c\u9762\u63d0\u793a\u97f3\u4e2d\u5206\u79bb\u3002\u7cfb\u7edf\u5df2\u5c06\u5899\u4f53\u53e6\u4e00\u4fa7\u6807\u8bb0\u4e3a\u5b58\u5728\u6301\u7eed\u6d3b\u52a8\u7684\u5185\u90e8\u58f0\u6e90\u3002",
+
+    verified:
+        "\u8be5\u5de5\u5355\u5df2\u5b8c\u6210\u58f0\u9053\u5206\u79bb\u6838\u9a8c\u3002\u672a\u767b\u8bb0\u7a7a\u95f4\u5df2\u83b7\u5f97\u6d3b\u52a8\u72b6\u6001\u3002",
+
+    lockedLog:
+        "\u62a5\u4fee\u5355 #021 \u5df2\u9501\u5b9a\u58f0\u9053\u5206\u79bb\u7ed3\u679c\u3002\u7cfb\u7edf\u5df2\u5c06\u672a\u767b\u8bb0\u5730\u5740\u7684\u5899\u4f53\u53e6\u4e00\u4fa7\u8bb0\u5f55\u4e3a\u6d3b\u52a8\u4e2d\u3002"
+};
+
+function isEchoTicket021AudioVerified() {
+    return (
+        localStorage.getItem(
+            "echorest_ticket021_audio_verified_v1"
+        ) === "1"
+    );
+}
+
+function clampEchoTicket021(
+    value,
+    min,
+    max
+) {
+    return Math.min(
+        max,
+        Math.max(min, value)
+    );
+}
+
+function appendEchoTicket021AudioTool(body) {
+    if (!body) return;
+
+    const section =
+        document.createElement("section");
+
+    section.className =
+        "ticket021-audio-tool";
+
+    const head =
+        document.createElement("div");
+
+    head.className =
+        "ticket021-audio-head";
+
+    const title =
+        document.createElement("strong");
+
+    title.textContent =
+        ECHO_TICKET021_TEXT.title;
+
+    const badge =
+        document.createElement("span");
+
+    badge.textContent =
+        isEchoTicket021AudioVerified()
+            ? "VERIFIED"
+            : "PENDING";
+
+    badge.className =
+        isEchoTicket021AudioVerified()
+            ? "is-verified"
+            : "";
+
+    head.appendChild(title);
+    head.appendChild(badge);
+
+    section.appendChild(head);
+
+    const intro =
+        document.createElement("p");
+
+    intro.className =
+        "ticket021-audio-intro";
+
+    intro.textContent =
+        echoHasEvidenceLink(
+            "wall_audio_match"
+        )
+            ? ECHO_TICKET021_TEXT.intro
+            : ECHO_TICKET021_TEXT.locked;
+
+    section.appendChild(intro);
+
+    if (
+        !echoHasEvidenceLink(
+            "wall_audio_match"
+        )
+    ) {
+        section.classList.add("is-locked");
+        body.appendChild(section);
+        return;
+    }
+
+    const visualizer =
+        document.createElement("div");
+
+    visualizer.className =
+        "ticket021-visualizer";
+
+    const waveformRows = [
+        {
+            name: "MIX",
+            className: "is-mix"
+        },
+        {
+            name: "WALL",
+            className: "is-wall"
+        },
+        {
+            name: "INV",
+            className: "is-inverse"
+        },
+        {
+            name: "UI",
+            className: "is-ui"
+        }
+    ];
+
+    waveformRows.forEach(
+        function (row, rowIndex) {
+            const line =
+                document.createElement("div");
+
+            line.className =
+                "ticket021-wave-line " +
+                row.className;
+
+            const label =
+                document.createElement("span");
+
+            label.className =
+                "ticket021-wave-label";
+
+            label.textContent =
+                row.name;
+
+            const bars =
+                document.createElement("div");
+
+            bars.className =
+                "ticket021-wave-bars";
+
+            for (let i = 0; i < 36; i++) {
+                const bar =
+                    document.createElement("i");
+
+                const base =
+                    8 +
+                    ((i * 11 + rowIndex * 9) %
+                        38);
+
+                const pulse =
+                    i === 7 ||
+                    i === 14 ||
+                    i === 22 ||
+                    i === 29;
+
+                bar.style.height =
+                    (
+                        pulse
+                            ? base + 24 - rowIndex * 3
+                            : base
+                    ) + "px";
+
+                if (pulse) {
+                    bar.classList.add(
+                        "is-pulse"
+                    );
+                }
+
+                bars.appendChild(bar);
+            }
+
+            line.appendChild(label);
+            line.appendChild(bars);
+
+            visualizer.appendChild(line);
+        }
+    );
+
+    section.appendChild(visualizer);
+
+    const controls =
+        document.createElement("div");
+
+    controls.className =
+        "ticket021-controls";
+
+    function makeSlider(
+        key,
+        labelText,
+        min,
+        max,
+        step,
+        value,
+        suffix
+    ) {
+        const wrap =
+            document.createElement("label");
+
+        wrap.className =
+            "ticket021-slider";
+
+        const top =
+            document.createElement("span");
+
+        const label =
+            document.createElement("em");
+
+        label.textContent = labelText;
+
+        const output =
+            document.createElement("strong");
+
+        top.appendChild(label);
+        top.appendChild(output);
+
+        const input =
+            document.createElement("input");
+
+        input.type = "range";
+        input.min = String(min);
+        input.max = String(max);
+        input.step = String(step);
+        input.value = String(value);
+
+        wrap.appendChild(top);
+        wrap.appendChild(input);
+
+        controls.appendChild(wrap);
+
+        return {
+            key: key,
+            input: input,
+            output: output,
+            suffix: suffix || ""
+        };
+    }
+
+    const verified =
+        isEchoTicket021AudioVerified();
+
+    const sliders = [
+        makeSlider(
+            "mix",
+            ECHO_TICKET021_TEXT.mix,
+            0,
+            100,
+            1,
+            verified ? 22 : 82,
+            "%"
+        ),
+        makeSlider(
+            "wall",
+            ECHO_TICKET021_TEXT.wall,
+            0,
+            100,
+            1,
+            verified ? 88 : 34,
+            "%"
+        ),
+        makeSlider(
+            "cancel",
+            ECHO_TICKET021_TEXT.cancel,
+            0,
+            100,
+            1,
+            verified ? 64 : 0,
+            "%"
+        ),
+        makeSlider(
+            "ui",
+            ECHO_TICKET021_TEXT.ui,
+            0,
+            100,
+            1,
+            verified ? 50 : 12,
+            "%"
+        ),
+        makeSlider(
+            "offset",
+            ECHO_TICKET021_TEXT.offset,
+            -12,
+            12,
+            0.5,
+            verified ? 0 : -9,
+            ""
+        )
+    ];
+
+    section.appendChild(controls);
+
+    const scoreBox =
+        document.createElement("div");
+
+    scoreBox.className =
+        "ticket021-score-box";
+
+    const scoreTop =
+        document.createElement("div");
+
+    scoreTop.className =
+        "ticket021-score-top";
+
+    const scoreLabel =
+        document.createElement("span");
+
+    scoreLabel.textContent =
+        ECHO_TICKET021_TEXT.score;
+
+    const scoreValue =
+        document.createElement("strong");
+
+    scoreValue.textContent = "0.0%";
+
+    scoreTop.appendChild(scoreLabel);
+    scoreTop.appendChild(scoreValue);
+
+    const meter =
+        document.createElement("div");
+
+    meter.className =
+        "ticket021-score-meter";
+
+    const meterFill =
+        document.createElement("span");
+
+    meter.appendChild(meterFill);
+
+    const hint =
+        document.createElement("p");
+
+    scoreBox.appendChild(scoreTop);
+    scoreBox.appendChild(meter);
+    scoreBox.appendChild(hint);
+
+    section.appendChild(scoreBox);
+
+    const transcript =
+        document.createElement("div");
+
+    transcript.className =
+        "ticket021-transcript";
+
+    const transcriptTitle =
+        document.createElement("strong");
+
+    transcriptTitle.textContent =
+        ECHO_TICKET021_TEXT.transcriptTitle;
+
+    const transcriptBody =
+        document.createElement("p");
+
+    transcript.appendChild(transcriptTitle);
+    transcript.appendChild(transcriptBody);
+
+    section.appendChild(transcript);
+
+    const actions =
+        document.createElement("div");
+
+    actions.className =
+        "ticket021-actions";
+
+    const listenButton =
+        document.createElement("button");
+
+    listenButton.type = "button";
+    listenButton.textContent =
+        ECHO_TICKET021_TEXT.listen;
+
+    const resetButton =
+        document.createElement("button");
+
+    resetButton.type = "button";
+    resetButton.textContent =
+        ECHO_TICKET021_TEXT.reset;
+
+    const lockButton =
+        document.createElement("button");
+
+    lockButton.type = "button";
+    lockButton.textContent =
+        ECHO_TICKET021_TEXT.lock;
+    lockButton.disabled = true;
+
+    actions.appendChild(listenButton);
+    actions.appendChild(resetButton);
+    actions.appendChild(lockButton);
+
+    section.appendChild(actions);
+
+    const result =
+        document.createElement("div");
+
+    result.className =
+        "ticket021-result";
+
+    result.hidden = true;
+
+    section.appendChild(result);
+    body.appendChild(section);
+
+    const state = {
+        mix: verified ? 22 : 82,
+        wall: verified ? 88 : 34,
+        cancel: verified ? 64 : 0,
+        ui: verified ? 50 : 12,
+        offset: verified ? 0 : -9
+    };
+
+    const target = {
+        mix: 22,
+        wall: 88,
+        cancel: 64,
+        ui: 50,
+        offset: 0
+    };
+
+    function getScore() {
+        const diff =
+            Math.abs(state.mix - target.mix) * 0.55 +
+            Math.abs(state.wall - target.wall) * 0.42 +
+            Math.abs(state.cancel - target.cancel) * 0.38 +
+            Math.abs(state.ui - target.ui) * 0.46 +
+            Math.abs(state.offset - target.offset) * 3.3;
+
+        return clampEchoTicket021(
+            100 - diff,
+            0,
+            100
+        );
+    }
+
+    function getTranscript(score) {
+        if (score >= 92) {
+            return ECHO_TICKET021_TEXT
+                .transcriptHigh;
+        }
+
+        if (score >= 62) {
+            return ECHO_TICKET021_TEXT
+                .transcriptMid;
+        }
+
+        return ECHO_TICKET021_TEXT
+            .transcriptLow;
+    }
+
+    function render() {
+        sliders.forEach(
+            function (slider) {
+                state[slider.key] =
+                    Number(
+                        slider.input.value
+                    );
+
+                slider.output.textContent =
+                    slider.input.value +
+                    slider.suffix;
+            }
+        );
+
+        const score = getScore();
+
+        scoreValue.textContent =
+            score.toFixed(1) + "%";
+
+        meterFill.style.width =
+            score.toFixed(1) + "%";
+
+        scoreBox.classList.toggle(
+            "is-ready",
+            score >= 92
+        );
+
+        hint.textContent =
+            score >= 92
+                ? ECHO_TICKET021_TEXT.ready
+                : ECHO_TICKET021_TEXT.searching;
+
+        transcriptBody.textContent =
+            getTranscript(score);
+
+        visualizer.style.setProperty(
+            "--mix-gain",
+            state.mix / 100
+        );
+
+        visualizer.style.setProperty(
+            "--wall-gain",
+            state.wall / 100
+        );
+
+        visualizer.style.setProperty(
+            "--cancel-gain",
+            state.cancel / 100
+        );
+
+        visualizer.style.setProperty(
+            "--ui-gain",
+            state.ui / 100
+        );
+
+        visualizer.style.setProperty(
+            "--phase-offset",
+            state.offset + "px"
+        );
+
+        lockButton.disabled =
+            score < 92 ||
+            isEchoTicket021AudioVerified();
+    }
+
+    sliders.forEach(
+        function (slider) {
+            slider.input.addEventListener(
+                "input",
+                render
+            );
+        }
+    );
+
+    listenButton.addEventListener(
+        "click",
+        function () {
+            transcript.classList.remove(
+                "is-flash"
+            );
+
+            void transcript.offsetWidth;
+
+            transcript.classList.add(
+                "is-flash"
+            );
+
+            render();
+        }
+    );
+
+    resetButton.addEventListener(
+        "click",
+        function () {
+            const defaults = {
+                mix: 82,
+                wall: 34,
+                cancel: 0,
+                ui: 12,
+                offset: -9
+            };
+
+            sliders.forEach(
+                function (slider) {
+                    slider.input.value =
+                        String(
+                            defaults[
+                            slider.key
+                            ]
+                        );
+                }
+            );
+
+            result.hidden = true;
+            render();
+        }
+    );
+
+    lockButton.addEventListener(
+        "click",
+        function () {
+            const score = getScore();
+
+            if (score < 92) {
+                return;
+            }
+
+            localStorage.setItem(
+                "echorest_ticket021_audio_verified_v1",
+                "1"
+            );
+
+            addInvestigationLog(
+                "ticket021_audio_separation_verified",
+                ECHO_TICKET021_TEXT.lockedLog,
+                true
+            );
+
+            result.hidden = false;
+
+            result.textContent =
+                ECHO_TICKET021_TEXT.success;
+
+            result.classList.add(
+                "is-success"
+            );
+
+            badge.textContent = "VERIFIED";
+            badge.classList.add("is-verified");
+
+            lockButton.disabled = true;
+
+            setMaintenanceTicketSeenLevel(
+                "ticket_audio_insert",
+                getMaintenanceTicketRevealLevel(
+                    "ticket_audio_insert"
+                )
+            );
+
+            renderWorkConsole();
+        }
+    );
+
+    if (isEchoTicket021AudioVerified()) {
+        result.hidden = false;
+
+        result.textContent =
+            ECHO_TICKET021_TEXT.verified;
+
+        result.classList.add(
+            "is-success"
+        );
+    }
+
+    render();
+}
+
+window.echoRestTicket021 = {
+    isVerified:
+        isEchoTicket021AudioVerified,
+
+    reset: function () {
+        localStorage.removeItem(
+            "echorest_ticket021_audio_verified_v1"
+        );
+
+        renderWorkConsole();
+    }
+};
+
 function renderWorkConsole() {
     const root = document.getElementById("repairerWorkspace");
     if (!root) return;
 
     const summaryEl = root.querySelector("#workspaceSummary");
     const goalsEl = root.querySelector("#workspaceGoals");
+    const evidenceEl = root.querySelector("#workspaceEvidence");
+    const externalEl = root.querySelector("#workspaceExternal");
     const checklistEl = root.querySelector("#workspaceChecklist");
     const logEl = root.querySelector("#workspaceLog");
 
-    if (!summaryEl || !goalsEl || !checklistEl || !logEl) return;
+    if (
+        !summaryEl ||
+        !goalsEl ||
+        !evidenceEl ||
+        !externalEl ||
+        !checklistEl ||
+        !logEl
+    ) {
+        return;
+    }
 
     const investigationLogs = getInvestigationLogs();
     const searchHistory = getSearchHistory();
@@ -2049,6 +5552,12 @@ function renderWorkConsole() {
         row.appendChild(wrap);
         goalsEl.appendChild(row);
     });
+
+    renderEvidenceWorkspace(evidenceEl);
+    syncEchoEvidenceCaptureButtons();
+    applyEchoEvidenceRouteGates();
+    renderEchoEvidencePost404Index();
+    renderEchoExternalMonitor(externalEl);
 
     checklistEl.innerHTML = "";
 
@@ -3157,17 +6666,20 @@ function renderBoardSearchChipsByStage() {
 }
 
 function getThreadSequenceUnlocks() {
-    const viewed01 = Number(localStorage.getItem("echo_thread01_visit_count") || "0") > 0;
-    const repaired02 = localStorage.getItem("echo_thread02_resume_repaired") === "true";
-    const repaired03 = localStorage.getItem("echo_thread03_audio_repaired") === "true";
-    const repaired04 = localStorage.getItem("echo_thread04_draft_repaired") === "true";
+    const repaired04 =
+        localStorage.getItem("echo_thread04_draft_repaired") === "true";
+
+    const evidenceLinks =
+        typeof getEchoEvidenceLinkCount === "function"
+            ? getEchoEvidenceLinkCount()
+            : 0;
 
     return {
         thread01: true,
-        thread02: viewed01,
-        thread03: repaired02,
-        thread04: repaired03,
-        thread05: repaired04
+        thread02: true,
+        thread03: true,
+        thread04: true,
+        thread05: evidenceLinks >= 2 || repaired04
     };
 }
 
@@ -6617,6 +10129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     ensureWorkConsole();
+    initEchoEvidenceSystem();
     renderWorkConsole();
 });
 
@@ -6627,3 +10140,1192 @@ document.addEventListener("DOMContentLoaded", function () {
         maybeTriggerAnomalyHint();
     }, 180);
 });
+
+/* =========================
+   Evidence Investigation Loop
+   ========================= */
+
+const ECHO_EVIDENCE_STORAGE_KEY =
+    "echorest_evidence_state_v1";
+
+const ECHO_EVIDENCE_TEXT = {
+    section:
+        "\u8bc1\u636e\u5de5\u4f5c\u533a",
+
+    progress:
+        "\u5df2\u786e\u8ba4\u5173\u8054",
+
+    empty:
+        "\u5c1a\u672a\u4ece\u5e16\u5b50\u4e2d\u4fdd\u5b58\u8bc1\u636e\u3002",
+
+    locked:
+        "\u672a\u53d6\u5f97",
+
+    selected:
+        "\u5df2\u9009\u62e9",
+
+    linked:
+        "LINKED",
+
+    compare:
+        "\u6bd4\u5bf9\u4e24\u6761\u8bc1\u636e",
+
+    clear:
+        "\u6e05\u7a7a",
+
+    chooseTwo:
+        "\u8bf7\u9009\u62e9\u4e24\u6761\u5df2\u4fdd\u5b58\u7684\u8bc1\u636e\u3002",
+
+    noMatch:
+        "\u672a\u53d1\u73b0\u53ef\u4ee5\u7a33\u5b9a\u5199\u5165\u7684\u5171\u540c\u5b57\u6bb5\u3002\u8fd9\u6b21\u6bd4\u5bf9\u4ecd\u5df2\u4fdd\u7559\u5728\u672c\u5730\u8bb0\u5f55\u4e2d\u3002",
+
+    duplicate:
+        "\u8be5\u5173\u8054\u5df2\u7ecf\u88ab\u5de5\u4f5c\u533a\u786e\u8ba4\u3002",
+
+    collected:
+        "\u5df2\u4fdd\u5b58\u5230\u5de5\u4f5c\u533a",
+
+    unavailable:
+        "\u9700\u5148\u6062\u590d\u8be5\u9644\u4ef6",
+
+    futureLogTitle:
+        "\u63d0\u524d\u5199\u5165\u7684 #034 \u8bb0\u5f55",
+
+    futureLogBody:
+        "[04:04:03] #034 \u5df2\u6536\u5230\u5f53\u524d\u7ef4\u4fee\u5458\u7684\u65f6\u95f4\u6e90\u5224\u65ad\u3002",
+
+    futureLogButton:
+        "\u4fdd\u5b58\u5f02\u5e38\u5199\u5165\u65f6\u95f4",
+
+    threadLocked:
+        "\u9700\u5148\u786e\u8ba4 2 \u7ec4\u8de8\u9875\u5173\u8054",
+
+    mirrorLocked:
+        "\u9700\u5148\u786e\u8ba4 3 \u7ec4\u8de8\u9875\u5173\u8054",
+
+    indexNone:
+        "\u672a\u53d6\u5f97\u53ef\u786e\u8ba4\u5173\u8054",
+
+    indexOne:
+        "\u5df2\u6062\u590d 1 \u4e2a\u5b57\u6bb5",
+
+    indexTwo:
+        "\u68c0\u6d4b\u5230\u672a\u767b\u8bb0\u4e3b\u9898\u5f15\u7528",
+
+    indexThree:
+        "\u4e3b\u9898\u7ed3\u6784\u6b63\u5728\u5f62\u6210",
+
+    imageFragment:
+        "\u4e24\u4efd\u6765\u6e90\u4e0d\u540c\u7684\u56fe\u50cf\u5171\u7528\u540c\u4e00\u7ec4\u7ea2\u8272\u8fb9\u7f18\u6570\u636e\u3002",
+
+    audioFragment:
+        "\u5899\u5185\u6572\u51fb\u58f0\u662f\u5728\u9644\u4ef6\u88ab\u91cd\u65b0\u52a0\u8f7d\u540e\u624d\u5199\u5165\u7684\u3002",
+
+    timeFragment:
+        "\u672a\u767b\u8bb0\u4eba\u7269\u56fe\u5c42\u7684\u7b2c\u4e00\u6b21\u5199\u5165\u65e9\u4e8e\u7a3f\u4ef6\u521b\u5efa\u65f6\u95f4\u3002"
+};
+
+const ECHO_EVIDENCE_DEFINITIONS = {
+    red_cluster: {
+        source: "THREAD_01 / IMAGE",
+
+        title:
+            "\u7ea2\u8272\u679c\u5b9e\u5c40\u90e8",
+
+        description:
+            "\u7ea2\u8272\u533a\u57df\u7684\u8fb9\u7f18\u4e0e\u539f\u56fe\u5176\u4ed6\u90e8\u5206\u7684\u538b\u7f29\u65b9\u5f0f\u4e0d\u540c\u3002"
+    },
+
+    parcel_red_mark: {
+        source: "THREAD_02 / LABEL",
+
+        title:
+            "\u7269\u6d41\u5e95\u5355\u7ea2\u8272\u6c61\u8ff9",
+
+        description:
+            "\u591a\u4efd\u626b\u63cf\u4e2d\u7684\u6c61\u8ff9\u4fdd\u6301\u4e86\u5b8c\u5168\u76f8\u540c\u7684\u50cf\u7d20\u8fb9\u7f18\u3002"
+    },
+
+    wall_hollow: {
+        source: "THREAD_03 / IMAGE",
+
+        title:
+            "\u5899\u4f53\u7f3a\u635f\u8f6e\u5ed3",
+
+        description:
+            "\u7f3a\u635f\u4f4d\u7f6e\u4f1a\u53d8\uff0c\u4f46\u5b83\u5728\u56fe\u50cf\u4e2d\u5360\u636e\u7684\u6bd4\u4f8b\u59cb\u7ec8\u4e00\u81f4\u3002"
+    },
+
+    knock_audio: {
+        source: "THREAD_03 / AUDIO",
+
+        title:
+            "\u5899\u5185\u6572\u51fb\u80cc\u666f\u58f0\u9053",
+
+        description:
+            "\u6572\u51fb\u95f4\u9694\u4e0e\u9644\u4ef6\u91cd\u65b0\u52a0\u8f7d\u65f6\u7684\u63d0\u793a\u97f3\u8282\u594f\u4e00\u81f4\u3002"
+    },
+
+    back_figure: {
+        source: "THREAD_04 / DRAFT",
+
+        title:
+            "\u672a\u767b\u8bb0\u80cc\u5f71\u56fe\u5c42",
+
+        description:
+            "\u8be5\u4eba\u7269\u4e0d\u5b58\u5728\u4e8e\u4efb\u4f55\u53ef\u89c1\u8349\u7a3f\uff0c\u4f46\u62e5\u6709\u66f4\u65e9\u7684\u5199\u5165\u65f6\u95f4\u3002"
+    },
+
+    future_log: {
+        source: "WORKSPACE / #034",
+
+        title:
+            "\u63d0\u524d\u5199\u5165\u7684\u7ef4\u4fee\u8bb0\u5f55",
+
+        description:
+            "\u8bb0\u5f55\u58f0\u79f0\u5df2\u6536\u5230\u5f53\u524d\u7ef4\u4fee\u5458\u5c1a\u672a\u505a\u51fa\u7684\u5224\u65ad\u3002"
+    }
+};
+
+const ECHO_EVIDENCE_RULES = {
+    "parcel_red_mark::red_cluster": {
+        id:
+            "image_origin_match",
+
+        logCode:
+            "evidence_link_image_origin",
+
+        message:
+            "\u5c40\u90e8\u53e0\u52a0\u5b8c\u6210\u3002\u7ea2\u8272\u679c\u5b9e\u4e0e\u7269\u6d41\u5e95\u5355\u4e0a\u7684\u6c61\u8ff9\u5171\u7528\u540c\u4e00\u7ec4\u8fb9\u7f18\u6570\u636e\uff0c\u4f46\u4e24\u4efd\u6587\u4ef6\u7684\u6765\u6e90\u4e0d\u540c\u3002"
+    },
+
+    "knock_audio::wall_hollow": {
+        id:
+            "wall_audio_match",
+
+        logCode:
+            "evidence_link_wall_audio",
+
+        message:
+            "\u65f6\u95f4\u8f74\u5bf9\u9f50\u5b8c\u6210\u3002\u6572\u51fb\u58f0\u5e76\u975e\u539f\u59cb\u5f55\u97f3\u7684\u8fde\u7eed\u80cc\u666f\uff0c\u5b83\u5728\u5899\u6d1e\u9644\u4ef6\u88ab\u91cd\u65b0\u52a0\u8f7d\u540e\u624d\u51fa\u73b0\u3002"
+    },
+
+    "back_figure::future_log": {
+        id:
+            "figure_time_match",
+
+        logCode:
+            "evidence_link_figure_time",
+
+        message:
+            "\u5199\u5165\u8bb0\u5f55\u5bf9\u9f50\u5b8c\u6210\u3002\u80cc\u5f71\u56fe\u5c42\u5728\u7a3f\u4ef6\u88ab\u521b\u5efa\u4e4b\u524d\u5df2\u7ecf\u51fa\u73b0\u5728 #034 \u7684\u7ef4\u4fee\u8bb0\u5f55\u4e2d\u3002"
+    }
+};
+
+function makeEchoEvidencePairKey(
+    firstId,
+    secondId
+) {
+    return [firstId, secondId]
+        .sort()
+        .join("::");
+}
+
+function getDefaultEchoEvidenceState() {
+    return {
+        found: [],
+        selected: [],
+        links: [],
+        attempts: [],
+        lastResult: "",
+        lastSuccess: false
+    };
+}
+
+function loadEchoEvidenceState() {
+    const fallback =
+        getDefaultEchoEvidenceState();
+
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                ECHO_EVIDENCE_STORAGE_KEY
+            ) || "null"
+        );
+
+        if (
+            !parsed ||
+            typeof parsed !== "object"
+        ) {
+            return fallback;
+        }
+
+        return {
+            found:
+                Array.isArray(parsed.found)
+                    ? parsed.found
+                    : [],
+
+            selected:
+                Array.isArray(parsed.selected)
+                    ? parsed.selected.slice(0, 2)
+                    : [],
+
+            links:
+                Array.isArray(parsed.links)
+                    ? parsed.links
+                    : [],
+
+            attempts:
+                Array.isArray(parsed.attempts)
+                    ? parsed.attempts
+                    : [],
+
+            lastResult:
+                typeof parsed.lastResult === "string"
+                    ? parsed.lastResult
+                    : "",
+
+            lastSuccess:
+                Boolean(parsed.lastSuccess)
+        };
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function saveEchoEvidenceState(state) {
+    localStorage.setItem(
+        ECHO_EVIDENCE_STORAGE_KEY,
+        JSON.stringify(state)
+    );
+
+    syncEchoEvidenceUnlockKeys(state);
+}
+
+function echoHasEvidenceLink(linkId) {
+    return loadEchoEvidenceState()
+        .links
+        .indexOf(linkId) !== -1;
+}
+
+function getEchoEvidenceLinkCount() {
+    return loadEchoEvidenceState().links.length;
+}
+
+function isEchoEvidenceFound(evidenceId) {
+    return loadEchoEvidenceState()
+        .found
+        .indexOf(evidenceId) !== -1;
+}
+
+function canCollectEchoEvidenceButton(button) {
+    const requirement =
+        button.getAttribute(
+            "data-evidence-requires"
+        );
+
+    if (!requirement) {
+        return true;
+    }
+
+    return (
+        localStorage.getItem(requirement) === "true" ||
+        localStorage.getItem(requirement) === "1"
+    );
+}
+
+function collectEchoEvidence(evidenceId) {
+    if (!ECHO_EVIDENCE_DEFINITIONS[evidenceId]) {
+        return;
+    }
+
+    const state =
+        loadEchoEvidenceState();
+
+    if (
+        state.found.indexOf(evidenceId) === -1
+    ) {
+        state.found.push(evidenceId);
+        saveEchoEvidenceState(state);
+
+        addInvestigationLog(
+            "evidence_collect_" + evidenceId,
+
+            "\u5df2\u4fdd\u5b58\u8bc1\u636e\uff1a" +
+            ECHO_EVIDENCE_DEFINITIONS[
+                evidenceId
+            ].title,
+
+            false
+        );
+    }
+
+    syncEchoEvidenceCaptureButtons();
+    renderWorkConsole();
+    renderEchoEvidencePost404Index();
+    applyEchoEvidenceRouteGates();
+}
+
+function toggleEchoEvidenceSelection(
+    evidenceId
+) {
+    const state =
+        loadEchoEvidenceState();
+
+    if (
+        state.found.indexOf(evidenceId) === -1
+    ) {
+        return;
+    }
+
+    const index =
+        state.selected.indexOf(evidenceId);
+
+    if (index !== -1) {
+        state.selected.splice(index, 1);
+    } else {
+        if (state.selected.length >= 2) {
+            state.selected.shift();
+        }
+
+        state.selected.push(evidenceId);
+    }
+
+    saveEchoEvidenceState(state);
+    renderWorkConsole();
+}
+
+function compareEchoEvidenceSelection(
+    resultEl
+) {
+    const state =
+        loadEchoEvidenceState();
+
+    if (state.selected.length !== 2) {
+        showEchoEvidenceCompareResult(
+            resultEl,
+            ECHO_EVIDENCE_TEXT.chooseTwo,
+            false
+        );
+
+        return;
+    }
+
+    const pairKey =
+        makeEchoEvidencePairKey(
+            state.selected[0],
+            state.selected[1]
+        );
+
+    const rule =
+        ECHO_EVIDENCE_RULES[pairKey];
+
+    if (!rule) {
+        state.attempts.push({
+            pair: pairKey,
+            time: Date.now(),
+            matched: false
+        });
+
+        state.lastResult =
+            ECHO_EVIDENCE_TEXT.noMatch;
+
+        state.lastSuccess = false;
+
+        saveEchoEvidenceState(state);
+
+        showEchoEvidenceCompareResult(
+            resultEl,
+            ECHO_EVIDENCE_TEXT.noMatch,
+            false
+        );
+
+        return;
+    }
+
+    if (
+        state.links.indexOf(rule.id) !== -1
+    ) {
+        state.lastResult =
+            ECHO_EVIDENCE_TEXT.duplicate;
+
+        state.lastSuccess = true;
+
+        saveEchoEvidenceState(state);
+
+        showEchoEvidenceCompareResult(
+            resultEl,
+            ECHO_EVIDENCE_TEXT.duplicate,
+            true
+        );
+
+        return;
+    }
+
+    state.links.push(rule.id);
+
+    state.attempts.push({
+        pair: pairKey,
+        time: Date.now(),
+        matched: true
+    });
+
+    state.selected = [];
+    state.lastResult = rule.message;
+    state.lastSuccess = true;
+
+    saveEchoEvidenceState(state);
+
+    addInvestigationLog(
+        rule.logCode,
+        rule.message,
+        true
+    );
+
+    showEchoEvidenceCompareResult(
+        resultEl,
+        rule.message,
+        true
+    );
+
+    renderWorkConsole();
+    renderEchoEvidencePost404Index();
+    applyEchoEvidenceRouteGates();
+}
+
+function showEchoEvidenceCompareResult(
+    resultEl,
+    text,
+    success
+) {
+    if (!resultEl) {
+        return;
+    }
+
+    resultEl.hidden = false;
+    resultEl.textContent = text;
+
+    resultEl.classList.toggle(
+        "is-success",
+        Boolean(success)
+    );
+
+    resultEl.classList.toggle(
+        "is-failed",
+        !success
+    );
+}
+
+function syncEchoEvidenceUnlockKeys(state) {
+    const current =
+        state || loadEchoEvidenceState();
+
+    localStorage.setItem(
+        "echorest_thread05_unlocked",
+        current.links.length >= 2
+            ? "1"
+            : "0"
+    );
+
+    localStorage.setItem(
+        "echorest_mirror_evidence_unlocked",
+        current.links.length >= 3
+            ? "1"
+            : "0"
+    );
+}
+
+function isFutureLogEvidenceAvailable() {
+    return (
+        isEchoEvidenceFound("back_figure") ||
+        localStorage.getItem(
+            "echo_thread04_draft_repaired"
+        ) === "true"
+    );
+}
+
+function renderEvidenceWorkspace(container) {
+    if (!container) {
+        return;
+    }
+
+    const state =
+        loadEchoEvidenceState();
+
+    container.innerHTML = "";
+
+    const title =
+        document.createElement("p");
+
+    title.className =
+        "workspace-section-label";
+
+    title.textContent =
+        ECHO_EVIDENCE_TEXT.section;
+
+    container.appendChild(title);
+
+    const head =
+        document.createElement("div");
+
+    head.className =
+        "workspace-evidence-head";
+
+    const progress =
+        document.createElement("span");
+
+    progress.textContent =
+        ECHO_EVIDENCE_TEXT.progress;
+
+    const count =
+        document.createElement("strong");
+
+    count.textContent =
+        state.links.length +
+        " / " +
+        Object.keys(
+            ECHO_EVIDENCE_RULES
+        ).length;
+
+    head.appendChild(progress);
+    head.appendChild(count);
+    container.appendChild(head);
+
+    if (
+        isFutureLogEvidenceAvailable() &&
+        state.found.indexOf("future_log") === -1
+    ) {
+        const future =
+            document.createElement("div");
+
+        future.className =
+            "workspace-future-log";
+
+        const futureTitle =
+            document.createElement("strong");
+
+        futureTitle.textContent =
+            ECHO_EVIDENCE_TEXT.futureLogTitle;
+
+        const futureBody =
+            document.createElement("p");
+
+        futureBody.textContent =
+            ECHO_EVIDENCE_TEXT.futureLogBody;
+
+        const futureButton =
+            document.createElement("button");
+
+        futureButton.type = "button";
+
+        futureButton.textContent =
+            ECHO_EVIDENCE_TEXT.futureLogButton;
+
+        futureButton.addEventListener(
+            "click",
+            function () {
+                collectEchoEvidence(
+                    "future_log"
+                );
+            }
+        );
+
+        future.appendChild(futureTitle);
+        future.appendChild(futureBody);
+        future.appendChild(futureButton);
+
+        container.appendChild(future);
+    }
+
+    const grid =
+        document.createElement("div");
+
+    grid.className =
+        "workspace-evidence-grid";
+
+    Object.keys(
+        ECHO_EVIDENCE_DEFINITIONS
+    ).forEach(function (evidenceId) {
+        const definition =
+            ECHO_EVIDENCE_DEFINITIONS[
+            evidenceId
+            ];
+
+        const found =
+            state.found.indexOf(
+                evidenceId
+            ) !== -1;
+
+        const selected =
+            state.selected.indexOf(
+                evidenceId
+            ) !== -1;
+
+        const linked =
+            Object.keys(
+                ECHO_EVIDENCE_RULES
+            ).some(function (pairKey) {
+                const rule =
+                    ECHO_EVIDENCE_RULES[
+                    pairKey
+                    ];
+
+                return (
+                    pairKey
+                        .split("::")
+                        .indexOf(evidenceId) !== -1 &&
+                    state.links.indexOf(
+                        rule.id
+                    ) !== -1
+                );
+            });
+
+        const card =
+            document.createElement("button");
+
+        card.type = "button";
+
+        card.className =
+            "workspace-evidence-card";
+
+        if (!found) {
+            card.classList.add(
+                "is-locked"
+            );
+
+            card.disabled = true;
+
+            card.textContent =
+                ECHO_EVIDENCE_TEXT.locked;
+        } else {
+            if (selected) {
+                card.classList.add(
+                    "is-selected"
+                );
+            }
+
+            if (linked) {
+                card.classList.add(
+                    "is-linked"
+                );
+            }
+
+            const source =
+                document.createElement("span");
+
+            source.className =
+                "workspace-evidence-source";
+
+            source.textContent =
+                definition.source;
+
+            const cardTitle =
+                document.createElement("strong");
+
+            cardTitle.textContent =
+                definition.title;
+
+            const description =
+                document.createElement("small");
+
+            description.textContent =
+                definition.description;
+
+            card.appendChild(source);
+            card.appendChild(cardTitle);
+            card.appendChild(description);
+
+            if (linked) {
+                const linkedBadge =
+                    document.createElement("em");
+
+                linkedBadge.textContent =
+                    ECHO_EVIDENCE_TEXT.linked;
+
+                card.appendChild(
+                    linkedBadge
+                );
+            }
+
+            card.addEventListener(
+                "click",
+                function () {
+                    toggleEchoEvidenceSelection(
+                        evidenceId
+                    );
+                }
+            );
+        }
+
+        grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+
+    if (!state.found.length) {
+        const empty =
+            document.createElement("p");
+
+        empty.className =
+            "workspace-evidence-empty";
+
+        empty.textContent =
+            ECHO_EVIDENCE_TEXT.empty;
+
+        container.appendChild(empty);
+    }
+
+    const compare =
+        document.createElement("div");
+
+    compare.className =
+        "workspace-evidence-compare";
+
+    const slots =
+        document.createElement("div");
+
+    slots.className =
+        "workspace-evidence-slots";
+
+    for (let i = 0; i < 2; i++) {
+        const slot =
+            document.createElement("span");
+
+        const evidenceId =
+            state.selected[i];
+
+        slot.textContent =
+            evidenceId &&
+                ECHO_EVIDENCE_DEFINITIONS[
+                evidenceId
+                ]
+                ? ECHO_EVIDENCE_DEFINITIONS[
+                    evidenceId
+                ].title
+                : "--";
+
+        slot.classList.toggle(
+            "has-value",
+            Boolean(evidenceId)
+        );
+
+        slots.appendChild(slot);
+    }
+
+    const actions =
+        document.createElement("div");
+
+    actions.className =
+        "workspace-evidence-actions";
+
+    const compareButton =
+        document.createElement("button");
+
+    compareButton.type = "button";
+
+    compareButton.textContent =
+        ECHO_EVIDENCE_TEXT.compare;
+
+    compareButton.disabled =
+        state.selected.length !== 2;
+
+    const clearButton =
+        document.createElement("button");
+
+    clearButton.type = "button";
+
+    clearButton.textContent =
+        ECHO_EVIDENCE_TEXT.clear;
+
+    const result =
+        document.createElement("div");
+
+    result.className =
+        "workspace-evidence-result";
+
+    result.hidden =
+        !state.lastResult;
+
+    if (state.lastResult) {
+        result.textContent =
+            state.lastResult;
+
+        result.classList.toggle(
+            "is-success",
+            state.lastSuccess
+        );
+
+        result.classList.toggle(
+            "is-failed",
+            !state.lastSuccess
+        );
+    }
+
+    compareButton.addEventListener(
+        "click",
+        function () {
+            compareEchoEvidenceSelection(
+                result
+            );
+        }
+    );
+
+    clearButton.addEventListener(
+        "click",
+        function () {
+            const current =
+                loadEchoEvidenceState();
+
+            current.selected = [];
+
+            saveEchoEvidenceState(current);
+            renderWorkConsole();
+        }
+    );
+
+    actions.appendChild(compareButton);
+    actions.appendChild(clearButton);
+
+    compare.appendChild(slots);
+    compare.appendChild(actions);
+    compare.appendChild(result);
+
+    container.appendChild(compare);
+}
+
+function syncEchoEvidenceCaptureButtons() {
+    document
+        .querySelectorAll("[data-evidence-id]")
+        .forEach(function (button) {
+            const evidenceId =
+                button.getAttribute(
+                    "data-evidence-id"
+                );
+
+            const collected =
+                isEchoEvidenceFound(evidenceId);
+
+            const available =
+                canCollectEchoEvidenceButton(
+                    button
+                );
+
+            if (
+                !button.dataset
+                    .echoEvidenceDefaultText
+            ) {
+                button.dataset
+                    .echoEvidenceDefaultText =
+                    button.textContent.trim();
+            }
+
+            button.classList.toggle(
+                "is-collected",
+                collected
+            );
+
+            button.classList.toggle(
+                "is-unavailable",
+                !available && !collected
+            );
+
+            button.disabled =
+                collected || !available;
+
+            if (collected) {
+                button.textContent =
+                    ECHO_EVIDENCE_TEXT.collected;
+            } else if (!available) {
+                button.textContent =
+                    ECHO_EVIDENCE_TEXT.unavailable;
+            } else {
+                button.textContent =
+                    button.dataset
+                        .echoEvidenceDefaultText;
+            }
+
+            if (
+                !button.dataset
+                    .echoEvidenceBound
+            ) {
+                button.addEventListener(
+                    "click",
+                    function () {
+                        if (
+                            !canCollectEchoEvidenceButton(
+                                button
+                            )
+                        ) {
+                            return;
+                        }
+
+                        collectEchoEvidence(
+                            evidenceId
+                        );
+                    }
+                );
+
+                button.dataset
+                    .echoEvidenceBound = "1";
+            }
+        });
+}
+
+function applyEchoEvidenceRouteGates() {
+    const linkCount =
+        getEchoEvidenceLinkCount();
+
+    if (
+        document.body &&
+        document.body.classList.contains(
+            "page-forum-board"
+        )
+    ) {
+        renderBoardThreadSequenceLocks();
+    }
+
+    document
+        .querySelectorAll(
+            "[data-evidence-gate]"
+        )
+        .forEach(function (link) {
+            const required = Number(
+                link.getAttribute(
+                    "data-evidence-gate"
+                ) || "0"
+            );
+
+            const locked =
+                linkCount < required;
+
+            if (
+                !link.dataset.echoGateText
+            ) {
+                link.dataset.echoGateText =
+                    link.textContent.trim();
+            }
+
+            link.classList.toggle(
+                "evidence-route-locked",
+                locked
+            );
+
+            link.setAttribute(
+                "aria-disabled",
+                locked ? "true" : "false"
+            );
+
+            link.title = locked
+                ? (
+                    required >= 3
+                        ? ECHO_EVIDENCE_TEXT
+                            .mirrorLocked
+                        : ECHO_EVIDENCE_TEXT
+                            .threadLocked
+                )
+                : "";
+
+            if (
+                !link.dataset.echoGateBound
+            ) {
+                link.addEventListener(
+                    "click",
+                    function (event) {
+                        const need = Number(
+                            link.getAttribute(
+                                "data-evidence-gate"
+                            ) || "0"
+                        );
+
+                        if (
+                            getEchoEvidenceLinkCount() <
+                            need
+                        ) {
+                            event.preventDefault();
+
+                            link.classList.remove(
+                                "evidence-gate-pulse"
+                            );
+
+                            void link.offsetWidth;
+
+                            link.classList.add(
+                                "evidence-gate-pulse"
+                            );
+                        }
+                    }
+                );
+
+                link.dataset.echoGateBound =
+                    "1";
+            }
+        });
+
+    const threadCard =
+        document.getElementById(
+            "thread05Card"
+        );
+
+    if (threadCard) {
+        const state =
+            threadCard.querySelector(
+                ".thread-state"
+            );
+
+        if (state) {
+            state.textContent =
+                linkCount >= 2
+                    ? "\u5df2\u5f00\u653e"
+                    : (
+                        linkCount +
+                        " / 2 \u5173\u8054"
+                    );
+
+            state.classList.toggle(
+                "state-danger",
+                linkCount < 2
+            );
+
+            state.classList.toggle(
+                "state-warning",
+                linkCount >= 2
+            );
+        }
+    }
+}
+
+function renderEchoEvidencePost404Index() {
+    const stateEl =
+        document.getElementById(
+            "evidenceIndexState"
+        );
+
+    if (!stateEl) {
+        return;
+    }
+
+    const state =
+        loadEchoEvidenceState();
+
+    const count =
+        state.links.length;
+
+    stateEl.textContent =
+        count <= 0
+            ? ECHO_EVIDENCE_TEXT.indexNone
+            : (
+                count === 1
+                    ? ECHO_EVIDENCE_TEXT
+                        .indexOne
+                    : (
+                        count === 2
+                            ? ECHO_EVIDENCE_TEXT
+                                .indexTwo
+                            : ECHO_EVIDENCE_TEXT
+                                .indexThree
+                    )
+            );
+
+    const mapping = {
+        image: {
+            link:
+                "image_origin_match",
+
+            text:
+                ECHO_EVIDENCE_TEXT
+                    .imageFragment
+        },
+
+        audio: {
+            link:
+                "wall_audio_match",
+
+            text:
+                ECHO_EVIDENCE_TEXT
+                    .audioFragment
+        },
+
+        time: {
+            link:
+                "figure_time_match",
+
+            text:
+                ECHO_EVIDENCE_TEXT
+                    .timeFragment
+        }
+    };
+
+    Object.keys(mapping).forEach(
+        function (key) {
+            const element =
+                document.querySelector(
+                    '[data-evidence-fragment="' +
+                    key +
+                    '"]'
+                );
+
+            if (!element) {
+                return;
+            }
+
+            const unlocked =
+                state.links.indexOf(
+                    mapping[key].link
+                ) !== -1;
+
+            element.classList.toggle(
+                "locked",
+                !unlocked
+            );
+
+            const paragraph =
+                element.querySelector("p");
+
+            if (
+                paragraph &&
+                unlocked
+            ) {
+                paragraph.textContent =
+                    mapping[key].text;
+            }
+        }
+    );
+}
+
+function initEchoEvidenceSystem() {
+    syncEchoEvidenceUnlockKeys(
+        loadEchoEvidenceState()
+    );
+
+    syncEchoEvidenceCaptureButtons();
+    applyEchoEvidenceRouteGates();
+    renderEchoEvidencePost404Index();
+
+    window.echoRestEvidence = {
+        getState:
+            loadEchoEvidenceState,
+
+        collect:
+            collectEchoEvidence,
+
+        reset: function () {
+            localStorage.removeItem(
+                ECHO_EVIDENCE_STORAGE_KEY
+            );
+
+            localStorage.removeItem(
+                "echorest_thread05_unlocked"
+            );
+
+            localStorage.removeItem(
+                "echorest_mirror_evidence_unlocked"
+            );
+
+            syncEchoEvidenceCaptureButtons();
+            applyEchoEvidenceRouteGates();
+            renderEchoEvidencePost404Index();
+            renderWorkConsole();
+        }
+    };
+}

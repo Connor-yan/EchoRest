@@ -2,7 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\assets",
-    "\\assets\\js",
+    "\\assets\\css",
     "\\assets\\textures",
     "\\data",
     "\\pages",
@@ -11,6 +11,6 @@
     "\\pages\\forum",
     "\\pages\\restore"
   ],
-  "SelectedNode": "\\dashboard.html",
+  "SelectedNode": "\\assets\\css\\style.css",
   "PreviewInSolutionExplorer": false
 }
