@@ -197,9 +197,154 @@
                         </div>
                     </div>
 
+                    <section class="thread03-wall-audit"
+                             id="thread03WallAudit">
+
+                        <div class="thread03-wall-audit-head">
+                            <div>
+                                <span>CACHE FRAME COMPARISON</span>
+                                <strong>比对墙洞附件的三个缓存版本</strong>
+                            </div>
+
+                            <em id="thread03WallAuditStatus">
+                                PENDING
+                            </em>
+                        </div>
+
+                        <p class="thread03-wall-audit-intro">
+                            三份缓存都来自同一个附件，但裁切范围、墙纸纹理和压缩区域并不一致。
+                            逐一检查每一份缓存，再判断墙洞真正依附在哪一层。
+                        </p>
+
+                        <div class="thread03-wall-frame-grid">
+                            <button class="thread03-wall-frame"
+                                    type="button"
+                                    data-thread03-wall-frame="frame_a"
+                                    data-readout="缓存 A 中，墙洞位于水渍左侧。可见直径为 22 像素。">
+
+                                <span>CACHE A</span>
+
+                                <div class="thread03-wall-preview"
+                                     data-wall-preview="a"
+                                     aria-hidden="true">
+                                </div>
+
+                                <strong>原始上传缓存</strong>
+                                <small>等待检查</small>
+                            </button>
+
+                            <button class="thread03-wall-frame"
+                                    type="button"
+                                    data-thread03-wall-frame="frame_b"
+                                    data-readout="缓存 B 的墙纸纹理整体向右偏移，水渍位置也发生变化；墙洞仍位于画面同一坐标，直径仍为 22 像素。">
+
+                                <span>CACHE B</span>
+
+                                <div class="thread03-wall-preview"
+                                     data-wall-preview="b"
+                                     aria-hidden="true">
+                                </div>
+
+                                <strong>重新压缩缓存</strong>
+                                <small>等待检查</small>
+                            </button>
+
+                            <button class="thread03-wall-frame"
+                                    type="button"
+                                    data-thread03-wall-frame="frame_c"
+                                    data-readout="缓存 C 的画面经过裁切和缩放，但墙洞没有跟随墙面比例变化，仍保持 22 像素，并停留在相同画面坐标。">
+
+                                <span>CACHE C</span>
+
+                                <div class="thread03-wall-preview"
+                                     data-wall-preview="c"
+                                     aria-hidden="true">
+                                </div>
+
+                                <strong>缩略图缓存</strong>
+                                <small>等待检查</small>
+                            </button>
+                        </div>
+
+                        <div class="thread03-wall-readout">
+                            <span>FRAME READOUT</span>
+
+                            <p id="thread03WallReadout">
+                                尚未检查缓存版本。
+                            </p>
+                        </div>
+
+                        <div class="thread03-wall-progress">
+                            <span id="thread03WallProgress">
+                                0 / 3 FRAMES
+                            </span>
+
+                            <span id="thread03WallMistakes">
+                                误判：0
+                            </span>
+                        </div>
+
+                        <div class="thread03-wall-conclusion">
+                            <p>
+                                三份缓存中，哪一种解释最符合检查结果？
+                            </p>
+
+                            <div class="thread03-wall-conclusion-options">
+                                <button type="button"
+                                        data-thread03-wall-conclusion="moisture"
+                                        data-readout="潮湿和墙体开裂可以改变洞口边缘，但无法解释照片裁切变化后，墙洞仍保持相同像素尺寸和画面坐标。"
+                                        disabled>
+                                    墙体受潮导致裂缝反复扩大
+                                </button>
+
+                                <button type="button"
+                                        data-thread03-wall-conclusion="camera"
+                                        data-readout="拍摄角度变化可以改变墙面透视，但墙洞应当跟随墙面纹理一起移动，而不是固定在画面坐标中。"
+                                        disabled>
+                                    拍摄者每次站在不同位置
+                                </button>
+
+                                <button type="button"
+                                        data-thread03-wall-conclusion="overlay"
+                                        data-readout="墙纸纹理、裁切范围和缩放比例都发生变化，只有墙洞保持相同像素尺寸与位置。它更像被写在附件上层的独立图层。"
+                                        disabled>
+                                    墙洞属于附件图层，而不是墙面
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="thread03-wall-actions">
+                            <span id="thread03WallSelection">
+                                尚未选择结论
+                            </span>
+
+                            <button id="thread03WallCommit"
+                                    type="button"
+                                    disabled>
+                                提交墙体图层判断
+                            </button>
+                        </div>
+
+                        <div class="thread03-wall-result hidden"
+                             id="thread03WallResult">
+
+                            <strong>WALL LAYER CONFLICT RECORDED</strong>
+
+                            <p>
+                                墙面纹理会随缓存版本移动，墙洞却固定在相同画面坐标。
+                                当前附件无法证明现实墙面中存在同样的缺口。
+                            </p>
+
+                            <p>
+                                该缺损更像一个独立图层，被重复写入每一份墙体照片。
+                            </p>
+                        </div>
+                    </section>
+
                     <div class="evidence-capture-row">
                         <button class="evidence-capture-btn"
                                 type="button"
+                                data-evidence-requires="echorest_thread03_wall_audit_v1"
                                 data-evidence-id="wall_hollow">
                             保存墙体缺损轮廓
                         </button>
@@ -252,7 +397,8 @@
                                 墙体音频缓存
                             </h2>
 
-                            <p class="forum-post-meta">
+                            <p class="forum-post-meta"
+                               id="thread03AudioMeta">
                                 来源：本地附件 / 状态：无法播放
                             </p>
                         </div>
@@ -296,27 +442,253 @@
 
                     <div id="audioRecoveredBlock"
                          class="hidden">
-                        <p class="audio-transcript-title">
-                            [转写缓存 / audio_wall_behind.wav]
-                        </p>
 
-                        <div class="audio-transcript-box">
-                            <p>……阿姨什么时候回来？</p>
-                            <p>……我不是故意的。</p>
-                            <p>……墙那边有人。</p>
-                            <p>……不要让他看见洞。</p>
-                        </div>
+                        <section class="thread03-transcript-record">
+                            <div class="thread03-transcript-head">
+                                <div>
+                                    <span>VOICE TRANSCRIPT CACHE</span>
+                                    <strong>audio_wall_behind.wav</strong>
+                                </div>
+
+                                <em id="thread03TranscriptStatus">
+                                    VOICE ONLY
+                                </em>
+                            </div>
+
+                            <p class="thread03-transcript-warning">
+                                当前恢复结果只包含可识别人声。
+                                持续低频与重复敲击仍混合在背景声道中。
+                            </p>
+
+                            <div class="audio-transcript-box">
+                                <p>
+                                    <span>00:03</span>
+                                    ……阿姨什么时候回来？
+                                </p>
+
+                                <p>
+                                    <span>00:07</span>
+                                    ……我不是故意的。
+                                </p>
+
+                                <p>
+                                    <span>00:11</span>
+                                    ……墙那边有人。
+                                </p>
+
+                                <p>
+                                    <span>00:15</span>
+                                    ……不要让他看见洞。
+                                </p>
+                            </div>
+                        </section>
+
+                        <section class="thread03-knock-audit is-locked"
+                                 id="thread03KnockAudit">
+
+                            <div class="thread03-knock-head">
+                                <div>
+                                    <span>BACKGROUND CHANNEL REVIEW</span>
+                                    <strong>标记分离声道中的重复敲击</strong>
+                                </div>
+
+                                <em id="thread03KnockStatus">
+                                    LOCKED
+                                </em>
+                            </div>
+
+                            <div class="thread03-knock-requirements">
+                                <div>
+                                    <span>人声转写</span>
+                                    <strong id="thread03KnockTranscriptRequirement">
+                                        已恢复
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>背景声道</span>
+                                    <strong id="thread03KnockTicketRequirement">
+                                        需要报修单 #021
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <p class="thread03-knock-intro">
+                                完成 #021 声道分离后，检查八个时间切片。
+                                选出四个包含同一组敲击轮廓的位置。
+                            </p>
+
+                            <div class="thread03-waveform"
+                                 id="thread03Waveform">
+
+                                <button type="button"
+                                        class="thread03-wave-slice"
+                                        data-thread03-knock-time="02"
+                                        disabled>
+                                    <span>00:02</span>
+                                    <i style="--wave-height: 28%;"></i>
+                                    <small>CH 01</small>
+                                </button>
+
+                                <button type="button"
+                                        class="thread03-wave-slice"
+                                        data-thread03-knock-time="04"
+                                        disabled>
+                                    <span>00:04</span>
+                                    <i style="--wave-height: 86%;"></i>
+                                    <small>CH 02</small>
+                                </button>
+
+                                <button type="button"
+                                        class="thread03-wave-slice"
+                                        data-thread03-knock-time="06"
+                                        disabled>
+                                    <span>00:06</span>
+                                    <i style="--wave-height: 41%;"></i>
+                                    <small>CH 03</small>
+                                </button>
+
+                                <button type="button"
+                                        class="thread03-wave-slice"
+                                        data-thread03-knock-time="08"
+                                        disabled>
+                                    <span>00:08</span>
+                                    <i style="--wave-height: 82%;"></i>
+                                    <small>CH 04</small>
+                                </button>
+
+                                <button type="button"
+                                        class="thread03-wave-slice"
+                                        data-thread03-knock-time="10"
+                                        disabled>
+                                    <span>00:10</span>
+                                    <i style="--wave-height: 35%;"></i>
+                                    <small>CH 05</small>
+                                </button>
+
+                                <button type="button"
+                                        class="thread03-wave-slice"
+                                        data-thread03-knock-time="12"
+                                        disabled>
+                                    <span>00:12</span>
+                                    <i style="--wave-height: 88%;"></i>
+                                    <small>CH 06</small>
+                                </button>
+
+                                <button type="button"
+                                        class="thread03-wave-slice"
+                                        data-thread03-knock-time="14"
+                                        disabled>
+                                    <span>00:14</span>
+                                    <i style="--wave-height: 46%;"></i>
+                                    <small>CH 07</small>
+                                </button>
+
+                                <button type="button"
+                                        class="thread03-wave-slice"
+                                        data-thread03-knock-time="16"
+                                        disabled>
+                                    <span>00:16</span>
+                                    <i style="--wave-height: 84%;"></i>
+                                    <small>CH 08</small>
+                                </button>
+                            </div>
+
+                            <div class="thread03-knock-readout">
+                                <span>WAVEFORM READOUT</span>
+
+                                <p id="thread03KnockReadout">
+                                    背景声道尚未分离。
+                                </p>
+                            </div>
+
+                            <div class="thread03-knock-marker-actions">
+                                <div>
+                                    <span id="thread03KnockMarkerProgress">
+                                        0 / 4 MARKERS
+                                    </span>
+
+                                    <span id="thread03KnockMarkerMistakes">
+                                        误判：0
+                                    </span>
+                                </div>
+
+                                <button id="thread03KnockMarkerCommit"
+                                        type="button"
+                                        disabled>
+                                    提交敲击位置
+                                </button>
+                            </div>
+
+                            <section class="thread03-knock-origin hidden"
+                                     id="thread03KnockOrigin">
+
+                                <p>
+                                    四次敲击均以四秒间隔出现。
+                                    这组声音最可能在什么时候进入附件？
+                                </p>
+
+                                <div class="thread03-knock-origin-options">
+                                    <button type="button"
+                                            data-thread03-knock-origin="original"
+                                            disabled>
+                                        录音开始时就在房间环境中
+                                    </button>
+
+                                    <button type="button"
+                                            data-thread03-knock-origin="voice_bleed"
+                                            disabled>
+                                        来自人声轨道的麦克风串音
+                                    </button>
+
+                                    <button type="button"
+                                            data-thread03-knock-origin="reload_insert"
+                                            disabled>
+                                        附件重新加载后才被写入
+                                    </button>
+                                </div>
+
+                                <div class="thread03-knock-origin-actions">
+                                    <span id="thread03KnockOriginSelection">
+                                        尚未选择声源结论
+                                    </span>
+
+                                    <button id="thread03KnockOriginCommit"
+                                            type="button"
+                                            disabled>
+                                        提交声源判断
+                                    </button>
+                                </div>
+                            </section>
+
+                            <div class="thread03-knock-result hidden"
+                                 id="thread03KnockResult">
+
+                                <strong>BACKGROUND INSERTION RECORDED</strong>
+
+                                <p>
+                                    四次敲击并不连续存在于原始人声录音中。
+                                    它们是在附件重新加载后，以固定间隔写入背景声道。
+                                </p>
+
+                                <p>
+                                    当前记录无法确认声音来自真实墙体，
+                                    但系统已经将它归档为“墙体另一侧的内部声源”。
+                                </p>
+                            </div>
+                        </section>
 
                         <div class="evidence-capture-row">
                             <button class="evidence-capture-btn"
                                     type="button"
                                     data-evidence-id="knock_audio"
-                                    data-evidence-requires="echo_thread03_audio_repaired">
+                                    data-evidence-requires="echorest_thread03_knock_audit_v1">
                                 保存分离后的背景声道
                             </button>
 
-                            <span class="evidence-capture-note">
-                                记录敲击间隔与附件重新加载提示音
+                            <span class="evidence-capture-note"
+                                  id="thread03KnockEvidenceNote">
+                                需要先完成 #021 与背景声道判断
                             </span>
                         </div>
                     </div>
@@ -381,8 +753,14 @@
                         <p>
                             评论三：
                             <span class="deleted-comment-frag"
-                                  data-hover="他不在隔壁。">
+                                  id="thread03DeletedCommentText"
+                                  data-hover="恢复内容尚未确认。">
                                 他不在【此评论被楼主删除】
+                            </span>
+
+                            <span class="thread03-deleted-comment-state"
+                                  id="thread03DeletedCommentState">
+                                CACHE PARTIAL
                             </span>
                         </p>
                     </div>
@@ -441,6 +819,105 @@
                             cache/ad/wall_repair_ad_cache.jpg
                         </div>
                     </div>
+                </div>
+            </article>
+
+            <article class="forum-post forum-post-system hidden"
+                     id="thread03WallSourceRecord">
+
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="news-badge">
+                            SYS
+                        </div>
+
+                        <div>
+                            <h2 class="forum-post-author">
+                                墙体声源登记记录
+                            </h2>
+
+                            <p class="forum-post-meta"
+                               id="thread03WallSourceMeta">
+                                来源：建筑检测缓存 / 状态：等待关联
+                            </p>
+                        </div>
+                    </div>
+
+                    <span class="forum-post-floor">
+                        INSERT
+                    </span>
+                </div>
+
+                <div class="forum-post-body">
+                    <section class="thread03-source-registration">
+
+                        <div class="thread03-source-registration-head">
+                            <div>
+                                <span>WALL SOURCE REGISTRATION</span>
+                                <strong>自动建筑检测记录</strong>
+                            </div>
+
+                            <em id="thread03WallSourceStatus">
+                                PENDING
+                            </em>
+                        </div>
+
+                        <div class="thread03-source-registration-grid">
+                            <div>
+                                <span>墙后登记空间</span>
+
+                                <strong id="thread03RegisteredSpace">
+                                    未读取
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>墙体空腔检测</span>
+
+                                <strong id="thread03WallCavity">
+                                    未读取
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>内部声源状态</span>
+
+                                <strong id="thread03InternalSource">
+                                    未读取
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>声源方向</span>
+
+                                <strong id="thread03SourceDirection">
+                                    未读取
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="thread03-source-registration-note">
+                            <span>REGISTRATION NOTE</span>
+
+                            <p id="thread03WallSourceNote">
+                                需要先在工作区确认墙体缺损轮廓与背景敲击声道之间的关联。
+                            </p>
+                        </div>
+
+                        <div class="thread03-source-registration-conflict hidden"
+                             id="thread03WallSourceConflict">
+
+                            <strong>BUILDING RECORD CONFLICT</strong>
+
+                            <p>
+                                建筑图未登记墙后空间，墙体检测也未发现可容纳声源的空腔。
+                            </p>
+
+                            <p>
+                                以上结果不影响内部声源登记。
+                            </p>
+                        </div>
+                    </section>
                 </div>
             </article>
 

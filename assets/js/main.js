@@ -579,6 +579,191 @@ function saveThread01PhotoInspectionState(
     );
 }
 
+
+/* =========================
+   THREAD 01 Narrative Sync
+   ========================= */
+
+function syncThread01NarrativeState() {
+    const photoState = (
+        typeof loadThread01PhotoInspectionState ===
+        "function"
+    )
+        ? loadThread01PhotoInspectionState()
+        : {
+            committed: false
+        };
+
+    const photoCommitted =
+        photoState.committed === true ||
+        localStorage.getItem(
+            "echorest_thread01_room_trace_v1"
+        ) === "1";
+
+    const aligned =
+        typeof isEchoTicket013Verified ===
+            "function"
+            ? isEchoTicket013Verified()
+            : (
+                localStorage.getItem(
+                    "echorest_ticket013_image_verified_v1"
+                ) === "1"
+            );
+
+    const audited =
+        typeof isEchoTicket013AuditVerified ===
+            "function"
+            ? isEchoTicket013AuditVerified()
+            : (
+                localStorage.getItem(
+                    "echorest_ticket013_source_audit_v1"
+                ) === "1"
+            );
+
+    const roomNumbers =
+        document.querySelectorAll(
+            "[data-thread01-room-number]"
+        );
+
+    roomNumbers.forEach(
+        function (roomNumber) {
+            roomNumber.textContent =
+                photoCommitted ||
+                    aligned ||
+                    audited
+                    ? "404"
+                    : "\u2014\u2014";
+
+            roomNumber.classList.toggle(
+                "is-recovered",
+                photoCommitted ||
+                aligned ||
+                audited
+            );
+        }
+    );
+
+    const attachment =
+        document.getElementById(
+            "thread01AttachmentRecord"
+        );
+
+    const stateLabel =
+        document.getElementById(
+            "thread01AttachmentState"
+        );
+
+    const source =
+        document.getElementById(
+            "thread01AttachmentSource"
+        );
+
+    const address =
+        document.getElementById(
+            "thread01AttachmentAddress"
+        );
+
+    const rewrite =
+        document.getElementById(
+            "thread01SourceRewrite"
+        );
+
+    if (attachment) {
+        attachment.classList.toggle(
+            "is-aligned",
+            aligned &&
+            !audited
+        );
+
+        attachment.classList.toggle(
+            "is-confirmed",
+            audited
+        );
+    }
+
+    if (audited) {
+        if (stateLabel) {
+            stateLabel.textContent =
+                "SOURCE CONFIRMED";
+
+            stateLabel.classList.add(
+                "is-confirmed"
+            );
+        }
+
+        if (source) {
+            source.textContent =
+                "\u7269\u6d41\u9644\u4ef6\u540c\u6e90\u6838\u9a8c";
+        }
+
+        if (address) {
+            address.textContent =
+                "4\u53f7\u697c / \u897f\u4fa7\u5899\u9762 / \u2014404";
+        }
+
+        if (rewrite) {
+            rewrite.classList.remove(
+                "hidden"
+            );
+        }
+
+        return;
+    }
+
+    if (aligned) {
+        if (stateLabel) {
+            stateLabel.textContent =
+                "ALIGNED";
+
+            stateLabel.classList.remove(
+                "is-confirmed"
+            );
+        }
+
+        if (source) {
+            source.textContent =
+                "\u56fe\u50cf\u540c\u6e90\u5173\u7cfb\u5df2\u9501\u5b9a";
+        }
+
+        if (address) {
+            address.textContent =
+                "\u7b49\u5f85\u7ed3\u8bba\u590d\u6838";
+        }
+
+        if (rewrite) {
+            rewrite.classList.add(
+                "hidden"
+            );
+        }
+
+        return;
+    }
+
+    if (stateLabel) {
+        stateLabel.textContent =
+            "SOURCE UNRESOLVED";
+
+        stateLabel.classList.remove(
+            "is-confirmed"
+        );
+    }
+
+    if (source) {
+        source.textContent =
+            "\u672a\u5339\u914d";
+    }
+
+    if (address) {
+        address.textContent =
+            "\u672a\u8bfb\u53d6";
+    }
+
+    if (rewrite) {
+        rewrite.classList.add(
+            "hidden"
+        );
+    }
+}
 function initThread01PhotoInvestigation() {
     const root =
         document.getElementById(
@@ -892,12 +1077,486 @@ function handleThread02Page(now) {
     }
 
     initThread02LogisticsAudit();
+    syncThread02NarrativeState();
 
     localStorage.setItem(
         "echo_last_thread02_time",
         now
     );
 }
+
+/* =========================
+   THREAD 02 Narrative Sync
+   ========================= */
+
+function getEchoThread02PhotoCommitted() {
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                "echorest_thread01_photo_inspection_v1"
+            ) || "{}"
+        );
+
+        return (
+            parsed.committed === true ||
+            localStorage.getItem(
+                "echorest_thread01_room_trace_v1"
+            ) === "1"
+        );
+    } catch (error) {
+        return (
+            localStorage.getItem(
+                "echorest_thread01_room_trace_v1"
+            ) === "1"
+        );
+    }
+}
+
+function getEchoThread02Ticket013Aligned() {
+    if (
+        typeof isEchoTicket013Verified ===
+        "function"
+    ) {
+        return isEchoTicket013Verified();
+    }
+
+    return (
+        localStorage.getItem(
+            "echorest_ticket013_image_verified_v1"
+        ) === "1"
+    );
+}
+
+function getEchoThread02Ticket013Audited() {
+    if (
+        typeof isEchoTicket013AuditVerified ===
+        "function"
+    ) {
+        return isEchoTicket013AuditVerified();
+    }
+
+    return (
+        localStorage.getItem(
+            "echorest_ticket013_source_audit_v1"
+        ) === "1"
+    );
+}
+
+function getEchoThread02LogisticsCommitted() {
+    return (
+        localStorage.getItem(
+            "echorest_thread02_logistics_audit_v1"
+        ) === "1"
+    );
+}
+
+function syncThread02NarrativeState() {
+    const trackingRecord =
+        document.getElementById(
+            "thread02TrackingRecord"
+        );
+
+    const trackingState =
+        document.getElementById(
+            "thread02TrackingState"
+        );
+
+    const trackingAddress =
+        document.getElementById(
+            "thread02TrackingAddress"
+        );
+
+    const floorMatch =
+        document.getElementById(
+            "thread02FloorMatch"
+        );
+
+    const deliveryStatus =
+        document.getElementById(
+            "thread02DeliveryStatus"
+        );
+    const courierCache =
+        document.getElementById(
+            "thread02CourierCache"
+        );
+
+    const courierStatus =
+        document.getElementById(
+            "thread02CourierStatus"
+        );
+
+    const courierReplyText =
+        document.getElementById(
+            "thread02CourierReplyText"
+        );
+
+    const courierResidual =
+        document.getElementById(
+            "thread02CourierResidual"
+        );
+
+    const courierCorrected =
+        document.getElementById(
+            "thread02CourierCorrected"
+        );
+
+    const waybillAddress =
+        document.getElementById(
+            "thread02WaybillAddress"
+        );
+
+    const redMarkRelation =
+        document.getElementById(
+            "thread02RedMarkRelation"
+        );
+
+    const rewrite =
+        document.getElementById(
+            "thread02DeliveryRewrite"
+        );
+
+    /*
+     * 当前页面不存在 THREAD 02 的相关元素时，
+     * 直接结束，避免影响其他页面。
+     */
+    if (
+        !trackingRecord &&
+        !trackingState &&
+        !trackingAddress &&
+        !floorMatch &&
+        !deliveryStatus &&
+        !waybillAddress &&
+        !redMarkRelation &&
+        !rewrite &&
+        !courierCache &&
+        !courierStatus &&
+        !courierReplyText &&
+        !courierResidual &&
+        !courierCorrected
+    ) {
+        return;
+    }
+
+    const photoCommitted =
+        getEchoThread02PhotoCommitted();
+
+    const aligned =
+        getEchoThread02Ticket013Aligned();
+
+    const audited =
+        getEchoThread02Ticket013Audited();
+
+    const logisticsCommitted =
+        getEchoThread02LogisticsCommitted();
+
+    const sequenceCommitted =
+        localStorage.getItem(
+            "echorest_thread02_sequence_audit_v1"
+        ) === "1";
+
+
+    if (courierCache) {
+        courierCache.classList.toggle(
+            "is-recovered",
+            sequenceCommitted &&
+            !audited
+        );
+
+        courierCache.classList.toggle(
+            "is-corrected",
+            audited
+        );
+    }
+
+    if (audited) {
+        if (courierStatus) {
+            courierStatus.textContent =
+                "DESCRIPTION WITHDRAWN";
+        }
+
+        if (courierReplyText) {
+            courierReplyText.textContent =
+                "\u8be5\u7528\u6237\u5df2\u64a4\u56de\u63cf\u8ff0\u3002";
+        }
+
+        if (courierResidual) {
+            courierResidual.classList.add(
+                "hidden"
+            );
+        }
+
+        if (courierCorrected) {
+            courierCorrected.classList.remove(
+                "hidden"
+            );
+        }
+    } else if (sequenceCommitted) {
+        if (courierStatus) {
+            courierStatus.textContent =
+                "LOCAL CACHE DIFFERENCE";
+        }
+
+        if (courierReplyText) {
+            courierReplyText.textContent =
+                "\u8fd9\u4e2a\u5355\u6211\u5e94\u8be5\u9001\u8fc7\uff0c\u4f46\u7cfb\u7edf\u91cc\u7684\u5730\u5740\u548c\u6211\u8bb0\u5f97\u7684\u4e0d\u592a\u4e00\u6837\u3002";
+        }
+
+        if (courierResidual) {
+            courierResidual.classList.remove(
+                "hidden"
+            );
+        }
+
+        if (courierCorrected) {
+            courierCorrected.classList.add(
+                "hidden"
+            );
+        }
+    } else {
+        if (courierStatus) {
+            courierStatus.textContent =
+                "VISIBLE NOTE";
+        }
+
+        if (courierReplyText) {
+            courierReplyText.textContent =
+                "\u8fd9\u4e2a\u5355\u6211\u5e94\u8be5\u9001\u8fc7\uff0c\u4f46\u7cfb\u7edf\u91cc\u7684\u5730\u5740\u548c\u6211\u8bb0\u5f97\u7684\u4e0d\u592a\u4e00\u6837\u3002";
+        }
+
+        if (courierResidual) {
+            courierResidual.classList.add(
+                "hidden"
+            );
+        }
+
+        if (courierCorrected) {
+            courierCorrected.classList.add(
+                "hidden"
+            );
+        }
+    }
+    /*
+     * 房间号只会在照片局部检查、#013 对齐
+     * 或 #013 推理完成后恢复。
+     *
+     * 仅完成物流补写判断时，不会自动恢复 404。
+     */
+    const roomNumberRecovered =
+        photoCommitted ||
+        aligned ||
+        audited;
+
+    /*
+     * 物流记录外框状态。
+     */
+    if (trackingRecord) {
+        trackingRecord.classList.toggle(
+            "is-cross-referenced",
+            photoCommitted &&
+            !aligned &&
+            !audited
+        );
+
+        trackingRecord.classList.toggle(
+            "is-aligned",
+            aligned &&
+            !audited
+        );
+
+        trackingRecord.classList.toggle(
+            "is-confirmed",
+            audited
+        );
+    }
+
+    /*
+     * 地址字段恢复。
+     */
+    if (trackingAddress) {
+        trackingAddress.textContent =
+            roomNumberRecovered
+                ? "4\u53f7\u697c / \u897f\u4fa7\u5899\u9762 / \u2014404"
+                : "\u5b57\u6bb5\u635f\u574f / \u2014?04";
+    }
+
+    if (waybillAddress) {
+        waybillAddress.textContent =
+            roomNumberRecovered
+                ? "4\u53f7\u697c / \u897f\u4fa7\u5899\u9762 / \u2014404"
+                : "4\u53f7\u697c / \u897f\u4fa7\u5899\u9762 / \u2014?04";
+    }
+
+    /*
+     * 最高优先级：
+     * #013 推理复核完成。
+     */
+    if (audited) {
+        if (trackingState) {
+            trackingState.textContent =
+                "SOURCE CONFIRMED";
+
+            trackingState.classList.add(
+                "is-confirmed"
+            );
+        }
+
+        if (floorMatch) {
+            floorMatch.textContent =
+                "\u65e0\u5339\u914d\u623f\u95f4";
+        }
+
+        if (deliveryStatus) {
+            deliveryStatus.textContent =
+                "\u5f02\u5e38\u5df2\u89e3\u9664 / \u53ef\u6295\u9012";
+        }
+
+        if (redMarkRelation) {
+            redMarkRelation.textContent =
+                "\u7ea2\u8272\u56fe\u6837\u540c\u6e90\u5173\u7cfb\u5df2\u786e\u8ba4";
+        }
+
+        if (rewrite) {
+            rewrite.classList.remove(
+                "hidden"
+            );
+        }
+
+        return;
+    }
+
+    /*
+     * 第二优先级：
+     * #013 图像对齐完成，但尚未通过推理复核。
+     */
+    if (aligned) {
+        if (trackingState) {
+            trackingState.textContent =
+                "ALIGNED";
+
+            trackingState.classList.remove(
+                "is-confirmed"
+            );
+        }
+
+        if (floorMatch) {
+            floorMatch.textContent =
+                "\u65e0\u5339\u914d\u623f\u95f4";
+        }
+
+        if (deliveryStatus) {
+            deliveryStatus.textContent =
+                "\u7b49\u5f85\u7ed3\u8bba\u590d\u6838";
+        }
+
+        if (redMarkRelation) {
+            redMarkRelation.textContent =
+                "\u56fe\u50cf\u540c\u6e90\u5173\u7cfb\u5df2\u9501\u5b9a";
+        }
+
+        if (rewrite) {
+            rewrite.classList.add(
+                "hidden"
+            );
+        }
+
+        return;
+    }
+
+    /*
+     * 第三层：
+     * THREAD 01 照片已经检查。
+     *
+     * 如果第二阶段物流推理也完成，
+     * BACKFILL IDENTIFIED 优先于 CROSS-REFERENCE。
+     */
+    if (photoCommitted) {
+        if (trackingState) {
+            trackingState.textContent =
+                sequenceCommitted
+                    ? "BACKFILL IDENTIFIED"
+                    : "CROSS-REFERENCE";
+
+            trackingState.classList.remove(
+                "is-confirmed"
+            );
+        }
+
+        if (floorMatch) {
+            floorMatch.textContent =
+                "\u65e0\u5339\u914d\u623f\u95f4";
+        }
+
+        if (deliveryStatus) {
+            deliveryStatus.textContent =
+                sequenceCommitted
+                    ? "\u8865\u5199\u8bb0\u5f55\u5df2\u5b9a\u4f4d"
+                    : (
+                        logisticsCommitted
+                            ? "\u4eba\u5de5\u590d\u6838\u5b8c\u6210"
+                            : "\u8bb0\u5f55\u6709\u6548"
+                    );
+        }
+
+        if (redMarkRelation) {
+            redMarkRelation.textContent =
+                "\u53d1\u73b0\u4e0e THREAD 01 \u7ea2\u679c\u8fb9\u7f18\u76f8\u4f3c\u7684\u56fe\u6837";
+        }
+
+        if (rewrite) {
+            rewrite.classList.add(
+                "hidden"
+            );
+        }
+
+        return;
+    }
+
+    /*
+     * 尚未完成 THREAD 01 照片检查时的状态。
+     */
+    if (trackingState) {
+        trackingState.textContent =
+            sequenceCommitted
+                ? "BACKFILL IDENTIFIED"
+                : (
+                    logisticsCommitted
+                        ? "FIELD AUDITED"
+                        : "ORDER CONFLICT"
+                );
+
+        trackingState.classList.remove(
+            "is-confirmed"
+        );
+    }
+
+    if (floorMatch) {
+        floorMatch.textContent =
+            "\u672a\u6267\u884c\u5339\u914d";
+    }
+
+    if (deliveryStatus) {
+        deliveryStatus.textContent =
+            sequenceCommitted
+                ? "\u8865\u5199\u8bb0\u5f55\u5df2\u5b9a\u4f4d"
+                : (
+                    logisticsCommitted
+                        ? "\u4eba\u5de5\u590d\u6838\u5b8c\u6210"
+                        : "\u8bb0\u5f55\u6709\u6548"
+                );
+    }
+
+    if (redMarkRelation) {
+        redMarkRelation.textContent =
+            "\u6ca1\u6709\u53ef\u6bd4\u8f83\u6765\u6e90";
+    }
+
+    if (rewrite) {
+        rewrite.classList.add(
+            "hidden"
+        );
+    }
+}
+
 
 /* =========================
    THREAD 02 Logistics Audit
@@ -1231,6 +1890,7 @@ function initThread02LogisticsAudit() {
             );
 
             render();
+            syncThread02NarrativeState();
 
             if (
                 typeof
@@ -2102,14 +2762,24 @@ function getMaintenanceTicketRevealLevel(ticketId) {
     }
 
     if (ticketId === "ticket_clock_rewrite") {
-        if (found404 || post404Compared) return 3;
         if (
-            echoHasEvidenceLink("figure_time_match") ||
+            isEchoTicket034Verified() ||
+            found404 ||
+            post404Compared
+        ) {
+            return 3;
+        }
+
+        if (
+            echoHasEvidenceLink(
+                "figure_time_match"
+            ) ||
             repaired04 ||
             found0404
         ) {
             return 2;
         }
+
         return 1;
     }
 
@@ -2269,6 +2939,14 @@ function getMaintenanceTicketDetail(ticketId) {
     }
 
     if (ticketId === "ticket_clock_rewrite") {
+        const visibleFieldCount =
+            level >= 3
+                ? 5
+                : (
+                    level >= 2
+                        ? 4
+                        : 2
+                );
         const rows = [
             {
                 key: "\u5bf9\u5e94\u7a3f\u4ef6",
@@ -2302,7 +2980,10 @@ function getMaintenanceTicketDetail(ticketId) {
             type: "time",
             label: "ECHO_REST / TIME TRACE",
             title: "\u62a5\u4fee\u5355 #034 / \u65f6\u95f4\u6233\u4e0e\u9875\u5e8f\u56de\u5199\u5bf9\u7167",
-            subtitle: "\u7c7b\u578b\uff1a\u7a3f\u4ef6\u9875\u5e8f\u504f\u79fb / \u5f53\u524d\u53ef\u89c1\u5b57\u6bb5 " + level + " / 5",
+            subtitle:
+                "\u7c7b\u578b\uff1a\u7a3f\u4ef6\u9875\u5e8f\u504f\u79fb / \u5f53\u524d\u53ef\u89c1\u5b57\u6bb5 " +
+                visibleFieldCount +
+                " / 5",
             statusTag: level >= 3 ? "\u5b8c\u6574\u590d\u6838" : (level >= 2 ? "\u5df2\u8ffd\u52a0\u5b57\u6bb5" : "\u90e8\u5206\u5f00\u653e"),
             statusClass: level >= 3 ? "full" : (level >= 2 ? "mid" : "partial"),
             newFields:
@@ -2564,6 +3245,10 @@ function openMaintenanceTicketDetail(ticketId) {
 
     if (ticketId === "ticket_audio_insert") {
         appendEchoTicket021AudioTool(body);
+    }
+
+    if (ticketId === "ticket_clock_rewrite") {
+        appendEchoTicket034TimeTool(body);
     }
 
     footer.textContent = detail.footer;
@@ -4206,6 +4891,603 @@ function isEchoTicket034Verified() {
     );
 }
 
+const ECHO_TICKET034_AUDIT_STATE_KEY =
+    "echorest_ticket034_time_audit_state_v1";
+
+function loadEchoTicket034AuditState() {
+    try {
+        const parsed =
+            JSON.parse(
+                localStorage.getItem(
+                    ECHO_TICKET034_AUDIT_STATE_KEY
+                ) || "{}"
+            );
+
+        return {
+            inspected:
+                Array.isArray(
+                    parsed.inspected
+                )
+                    ? parsed.inspected
+                    : [],
+
+            selected:
+                typeof parsed.selected ===
+                    "string"
+                    ? parsed.selected
+                    : "",
+
+            mistakes:
+                Number.isFinite(
+                    Number(parsed.mistakes)
+                )
+                    ? Number(parsed.mistakes)
+                    : 0,
+
+            message:
+                typeof parsed.message ===
+                    "string"
+                    ? parsed.message
+                    : ""
+        };
+    } catch (error) {
+        return {
+            inspected: [],
+            selected: "",
+            mistakes: 0,
+            message: ""
+        };
+    }
+}
+
+function saveEchoTicket034AuditState(
+    state
+) {
+    localStorage.setItem(
+        ECHO_TICKET034_AUDIT_STATE_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function appendEchoTicket034TimeTool(
+    body
+) {
+    if (!body) {
+        return;
+    }
+
+    const section =
+        document.createElement("section");
+
+    section.className =
+        "maintenance-ticket-note-block";
+
+    const head =
+        document.createElement("div");
+
+    head.className =
+        "maintenance-ticket-title-row";
+
+    const title =
+        document.createElement("div");
+
+    title.className =
+        "maintenance-ticket-note-title";
+
+    title.textContent =
+        "\u65f6\u95f4\u951a\u70b9\u590d\u6838";
+
+    const badge =
+        document.createElement("span");
+
+    badge.className =
+        "maintenance-ticket-badge";
+
+    head.appendChild(title);
+    head.appendChild(badge);
+    section.appendChild(head);
+
+    const intro =
+        document.createElement("p");
+
+    intro.className =
+        "maintenance-ticket-note-body";
+
+    section.appendChild(intro);
+
+    const unlocked =
+        typeof echoHasEvidenceLink ===
+        "function" &&
+        echoHasEvidenceLink(
+            "figure_time_match"
+        );
+
+    if (!unlocked) {
+        badge.textContent =
+            "LOCKED";
+
+        intro.textContent =
+            "\u9700\u8981\u5148\u5728\u8bc1\u636e\u5de5\u4f5c\u533a\u5b8c\u6210\u201c\u672a\u767b\u8bb0\u80cc\u5f71\u56fe\u5c42 + \u672a\u53d1\u751f\u7684\u8bbf\u95ee\u8bb0\u5f55\u201d\u5173\u8054\u3002";
+
+        section.classList.add(
+            "is-locked"
+        );
+
+        body.appendChild(section);
+        return;
+    }
+
+    intro.textContent =
+        "\u4f9d\u6b21\u68c0\u67e5\u4e94\u6761\u65f6\u5e8f\u8bb0\u5f55\uff0c\u5224\u65ad 04:04 \u5728\u7a3f\u4ef6\u3001\u7f13\u5b58\u3001\u56fe\u5c42\u4e0e\u672a\u6765\u8bbf\u95ee\u4e4b\u95f4\u7684\u4f5c\u7528\u3002";
+
+    const traceData = [
+        {
+            id: "post",
+            label:
+                "POST / 03:58",
+
+            message:
+                "\u6295\u7a3f\u8bb0\u5f55\u53d1\u751f\u5728\u9644\u4ef6\u5c01\u5b58\u4e4b\u524d\uff0c\u4f5c\u8005\u4e0e\u8bbe\u5907\u5b57\u6bb5\u53ef\u6b63\u5e38\u8ffd\u6eaf\u3002"
+        },
+        {
+            id: "seal",
+            label:
+                "SEAL / 04:03:58",
+
+            message:
+                "\u538b\u7f29\u5305\u5728 04:03:58 \u5b8c\u6210\u54c8\u5e0c\u5c01\u5b58\u3002\u6b64\u540e\u7684\u65b0\u56fe\u5c42\u4e0d\u5e94\u8be5\u5c5e\u4e8e\u539f\u59cb\u6295\u7a3f\u3002"
+        },
+        {
+            id: "figure",
+            label:
+                "FIGURE / 04:04:17",
+
+            message:
+                "\u80cc\u5f71\u56fe\u5c42\u5728\u9644\u4ef6\u5c01\u5b58\u5b8c\u6210\u540e\u9996\u6b21\u5199\u5165\uff0c\u4e14\u6ca1\u6709\u4f5c\u8005\u548c\u8bbe\u5907\u8bb0\u5f55\u3002"
+        },
+        {
+            id: "future",
+            label:
+                "VISIT / NEXT DAY 04:04",
+
+            message:
+                "\u5c1a\u672a\u53d1\u751f\u7684 THREAD 04 \u8bbf\u95ee\u5df2\u7ecf\u5305\u542b\u5f53\u524d\u5904\u7406\u4eba\u3001\u5f53\u524d\u4f1a\u8bdd\u548c COMPLETED \u72b6\u6001\u3002"
+        },
+        {
+            id: "anchor",
+            label:
+                "CACHE + WRITE / 04:04",
+
+            message:
+                "\u9875\u9762\u65f6\u95f4\u7ee7\u7eed\u524d\u8fdb\uff0c\u4f46\u7f13\u5b58\u65f6\u95f4\u3001\u56fe\u5c42\u5199\u5165\u4e0e\u4e0b\u4e00\u6b21\u8bbf\u95ee\u90fd\u91cd\u590d\u843d\u5728 04:04\u3002"
+        }
+    ];
+
+    const traceList =
+        document.createElement("div");
+
+    traceList.className =
+        "maintenance-ticket-meta";
+
+    section.appendChild(traceList);
+
+    const readout =
+        document.createElement("p");
+
+    readout.className =
+        "maintenance-ticket-note-body";
+
+    const stats =
+        document.createElement("p");
+
+    stats.className =
+        "maintenance-ticket-note-body";
+
+    const conclusionTitle =
+        document.createElement("div");
+
+    conclusionTitle.className =
+        "maintenance-ticket-note-title";
+
+    conclusionTitle.textContent =
+        "\u9009\u62e9\u65f6\u5e8f\u7ed3\u8bba";
+
+    const conclusionList =
+        document.createElement("div");
+
+    conclusionList.className =
+        "maintenance-ticket-meta";
+
+    const conclusionData = [
+        {
+            id: "clock_error",
+
+            label:
+                "\u9875\u9762\u65f6\u949f\u663e\u793a\u9519\u8bef"
+        },
+        {
+            id: "missing_page",
+
+            label:
+                "\u666e\u901a\u7f3a\u9875\u5bfc\u81f4\u7f13\u5b58\u91cd\u590d"
+        },
+        {
+            id: "writeback_anchor",
+
+            label:
+                "04:04 \u662f\u91cd\u590d\u56de\u5199\u951a\u70b9\uff0c\u672a\u6765\u8bbf\u95ee\u5df2\u88ab\u63d0\u524d\u767b\u8bb0"
+        }
+    ];
+
+    const actions =
+        document.createElement("div");
+
+    actions.className =
+        "ticket034-audit-actions";
+
+    const submitButton =
+        document.createElement("button");
+
+    submitButton.type = "button";
+
+    submitButton.className =
+        "maintenance-ticket-btn";
+
+    submitButton.textContent =
+        "\u63d0\u4ea4\u65f6\u95f4\u951a\u70b9\u5224\u65ad";
+
+    actions.appendChild(submitButton);
+
+    const result =
+        document.createElement("div");
+
+    result.className =
+        "maintenance-ticket-fresh-note";
+
+    result.hidden = true;
+
+    section.appendChild(readout);
+    section.appendChild(stats);
+    section.appendChild(
+        conclusionTitle
+    );
+    section.appendChild(
+        conclusionList
+    );
+    section.appendChild(actions);
+    section.appendChild(result);
+
+    body.appendChild(section);
+
+    const state =
+        loadEchoTicket034AuditState();
+
+    const traceButtons = [];
+    const conclusionButtons = [];
+
+    traceData.forEach(
+        function (item) {
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.type = "button";
+
+            button.className =
+                "maintenance-ticket-btn";
+
+            button.style.display =
+                "block";
+
+            button.style.width =
+                "100%";
+
+            button.style.marginBottom =
+                "8px";
+
+            button.style.textAlign =
+                "left";
+
+            button.dataset.traceId =
+                item.id;
+
+            button.addEventListener(
+                "click",
+                function () {
+                    if (
+                        isEchoTicket034Verified()
+                    ) {
+                        return;
+                    }
+
+                    if (
+                        state.inspected.indexOf(
+                            item.id
+                        ) === -1
+                    ) {
+                        state.inspected.push(
+                            item.id
+                        );
+                    }
+
+                    state.message =
+                        item.message;
+
+                    saveEchoTicket034AuditState(
+                        state
+                    );
+
+                    render();
+                }
+            );
+
+            traceList.appendChild(
+                button
+            );
+
+            traceButtons.push({
+                button: button,
+                item: item
+            });
+        }
+    );
+
+    conclusionData.forEach(
+        function (item) {
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.type = "button";
+
+            button.className =
+                "maintenance-ticket-btn";
+
+            button.style.display =
+                "block";
+
+            button.style.width =
+                "100%";
+
+            button.style.marginBottom =
+                "8px";
+
+            button.style.textAlign =
+                "left";
+
+            button.dataset.conclusionId =
+                item.id;
+
+            button.addEventListener(
+                "click",
+                function () {
+                    if (
+                        state.inspected.length <
+                        traceData.length ||
+                        isEchoTicket034Verified()
+                    ) {
+                        return;
+                    }
+
+                    state.selected =
+                        item.id;
+
+                    state.message =
+                        item.id ===
+                            "writeback_anchor"
+                            ? "\u6240\u6709\u5f02\u5e38\u8bb0\u5f55\u90fd\u5728 04:04 \u5f62\u6210\u4e86\u540c\u4e00\u4e2a\u56de\u5199\u951a\u70b9\u3002"
+                            : "\u8be5\u7ed3\u8bba\u65e0\u6cd5\u540c\u65f6\u89e3\u91ca\u5c01\u5b58\u540e\u56fe\u5c42\u548c\u672a\u6765\u5b8c\u6210\u65e5\u5fd7\u3002";
+
+                    saveEchoTicket034AuditState(
+                        state
+                    );
+
+                    render();
+                }
+            );
+
+            conclusionList.appendChild(
+                button
+            );
+
+            conclusionButtons.push({
+                button: button,
+                item: item
+            });
+        }
+    );
+
+    function render() {
+        const verified =
+            isEchoTicket034Verified();
+
+        const allInspected =
+            state.inspected.length >=
+            traceData.length;
+
+        badge.textContent =
+            verified
+                ? "VERIFIED"
+                : (
+                    allInspected
+                        ? "READY"
+                        : "PENDING"
+                );
+
+        traceButtons.forEach(
+            function (entry) {
+                const checked =
+                    state.inspected.indexOf(
+                        entry.item.id
+                    ) !== -1;
+
+                entry.button.textContent =
+                    (
+                        checked
+                            ? "[CHECKED] "
+                            : "[OPEN] "
+                    ) +
+                    entry.item.label;
+
+                entry.button.disabled =
+                    verified;
+            }
+        );
+
+        conclusionButtons.forEach(
+            function (entry) {
+                const selected =
+                    state.selected ===
+                    entry.item.id;
+
+                entry.button.textContent =
+                    (
+                        selected
+                            ? "[SELECTED] "
+                            : ""
+                    ) +
+                    entry.item.label;
+
+                entry.button.disabled =
+                    !allInspected ||
+                    verified;
+            }
+        );
+
+        stats.textContent =
+            "TRACE CHECK " +
+            state.inspected.length +
+            " / " +
+            traceData.length +
+            "  /  " +
+            "\u8bef\u5224\uff1a" +
+            state.mistakes;
+
+        submitButton.disabled =
+            !allInspected ||
+            !state.selected ||
+            verified;
+
+        actions.hidden =
+            verified;
+
+        if (verified) {
+            readout.textContent =
+                "\u5df2\u786e\u8ba4 04:04 \u4e3a\u7a3f\u4ef6\u3001\u7f13\u5b58\u3001\u56fe\u5c42\u4e0e\u672a\u6765\u8bbf\u95ee\u7684\u91cd\u590d\u56de\u5199\u951a\u70b9\u3002";
+
+            result.hidden = false;
+
+            result.textContent =
+                "VERIFIED / \u5c1a\u672a\u53d1\u751f\u7684\u8bbf\u95ee\u5df2\u88ab\u63a5\u53d7\u4e3a\u5df2\u5b8c\u6210\u4e8b\u4ef6\u3002";
+
+            return;
+        }
+
+        readout.textContent =
+            state.message ||
+            "\u5c1a\u672a\u68c0\u67e5\u65f6\u5e8f\u8bb0\u5f55\u3002";
+
+        result.hidden = true;
+    }
+
+    submitButton.addEventListener(
+        "click",
+        function () {
+            if (
+                state.inspected.length <
+                traceData.length ||
+                !state.selected ||
+                isEchoTicket034Verified()
+            ) {
+                return;
+            }
+
+            if (
+                state.selected !==
+                "writeback_anchor"
+            ) {
+                state.mistakes += 1;
+                state.selected = "";
+
+                state.message =
+                    "\u8be5\u7ed3\u8bba\u65e0\u6cd5\u89e3\u91ca\u4e3a\u4ec0\u4e48\u5c01\u5b58\u540e\u56fe\u5c42\u4e0e\u672a\u6765\u8bbf\u95ee\u90fd\u843d\u5728 04:04\u3002";
+
+                saveEchoTicket034AuditState(
+                    state
+                );
+
+                render();
+                return;
+            }
+
+            localStorage.setItem(
+                ECHO_TICKET034_VERIFY_KEY,
+                "1"
+            );
+
+            state.message =
+                "\u65f6\u95f4\u951a\u70b9\u590d\u6838\u5df2\u5b8c\u6210\u3002";
+
+            saveEchoTicket034AuditState(
+                state
+            );
+
+            addInvestigationLog(
+                "ticket034_time_anchor_verified",
+
+                "\u62a5\u4fee\u5355 #034 \u5df2\u5b8c\u6210\uff1a04:04 \u88ab\u786e\u8ba4\u4e3a\u91cd\u590d\u56de\u5199\u951a\u70b9\uff0c\u672a\u6765\u8bbf\u95ee\u5df2\u88ab\u63a5\u53d7\u4e3a\u5df2\u5b8c\u6210\u4e8b\u4ef6\u3002",
+
+                true
+            );
+
+            setMaintenanceTicketSeenLevel(
+                "ticket_clock_rewrite",
+                3
+            );
+
+            if (
+                typeof
+                syncThread04NarrativeState ===
+                "function"
+            ) {
+                syncThread04NarrativeState();
+            }
+
+            render();
+            renderWorkConsole();
+
+            window.setTimeout(
+                function () {
+                    openMaintenanceTicketDetail(
+                        "ticket_clock_rewrite"
+                    );
+                },
+                120
+            );
+        }
+    );
+
+    render();
+}
+
+window.echoRestTicket034 = {
+    isVerified:
+        isEchoTicket034Verified,
+
+    reset: function () {
+        localStorage.removeItem(
+            ECHO_TICKET034_VERIFY_KEY
+        );
+
+        localStorage.removeItem(
+            ECHO_TICKET034_AUDIT_STATE_KEY
+        );
+
+        renderWorkConsole();
+    }
+};
 function getEchoExternalMonitorStage() {
     const ticket013Done =
         typeof isEchoTicket013AuditVerified ===
@@ -4218,7 +5500,8 @@ function getEchoExternalMonitorStage() {
             );
 
     const ticket021Done =
-        typeof isEchoTicket021AudioVerified === "function"
+        typeof isEchoTicket021AudioVerified ===
+            "function"
             ? isEchoTicket021AudioVerified()
             : (
                 localStorage.getItem(
@@ -4229,11 +5512,129 @@ function getEchoExternalMonitorStage() {
     const ticket034Done =
         isEchoTicket034Verified();
 
+    const thread03WallDone =
+        localStorage.getItem(
+            "echorest_thread03_wall_audit_v1"
+        ) === "1";
+
+    const thread03KnockDone =
+        localStorage.getItem(
+            "echorest_thread03_knock_audit_v1"
+        ) === "1";
+
+    let wallAudioLinked = false;
+
+    if (
+        typeof hasThread03WallAudioLink ===
+        "function"
+    ) {
+        wallAudioLinked =
+            hasThread03WallAudioLink();
+    } else {
+        try {
+            const evidenceState =
+                JSON.parse(
+                    localStorage.getItem(
+                        "echorest_evidence_state_v1"
+                    ) || "{}"
+                );
+
+            const links =
+                Array.isArray(
+                    evidenceState.links
+                )
+                    ? evidenceState.links
+                    : [];
+
+            wallAudioLinked =
+                links.some(
+                    function (entry) {
+                        if (
+                            typeof entry ===
+                            "string"
+                        ) {
+                            return (
+                                entry ===
+                                "wall_audio_match" ||
+                                (
+                                    entry.indexOf(
+                                        "wall_hollow"
+                                    ) !== -1 &&
+                                    entry.indexOf(
+                                        "knock_audio"
+                                    ) !== -1
+                                )
+                            );
+                        }
+
+                        if (
+                            !entry ||
+                            typeof entry !==
+                            "object"
+                        ) {
+                            return false;
+                        }
+
+                        const ids = [
+                            entry.id,
+                            entry.key,
+                            entry.linkId,
+                            entry.link_id,
+                            entry.result,
+                            entry.rule,
+                            entry.pairId,
+                            entry.pair_id
+                        ];
+
+                        if (
+                            ids.indexOf(
+                                "wall_audio_match"
+                            ) !== -1
+                        ) {
+                            return true;
+                        }
+
+                        const evidenceIds = [
+                            entry.left,
+                            entry.right,
+                            entry.a,
+                            entry.b,
+                            entry.first,
+                            entry.second,
+                            entry.source,
+                            entry.target,
+                            entry.evidenceA,
+                            entry.evidenceB,
+                            entry.evidence_a,
+                            entry.evidence_b
+                        ];
+
+                        return (
+                            evidenceIds.indexOf(
+                                "wall_hollow"
+                            ) !== -1 &&
+                            evidenceIds.indexOf(
+                                "knock_audio"
+                            ) !== -1
+                        );
+                    }
+                );
+        } catch (error) {
+            wallAudioLinked = false;
+        }
+    }
+
+    const thread03ExternalConfirmed =
+        ticket021Done &&
+        thread03WallDone &&
+        thread03KnockDone &&
+        wallAudioLinked;
+
     if (ticket034Done) {
         return 3;
     }
 
-    if (ticket021Done) {
+    if (thread03ExternalConfirmed) {
         return 2;
     }
 
@@ -4351,12 +5752,18 @@ function getEchoExternalMonitorModel(stage) {
                 },
                 {
                     key:
+                        "\u5efa\u7b51\u56fe\u767b\u8bb0\u7a7a\u95f4",
+
+                    value:
+                        "0 / 17"
+                },
+                {
+                    key:
                         ECHO_EXTERNAL_MONITOR_TEXT
                             .cavity,
 
                     value:
-                        ECHO_EXTERNAL_MONITOR_TEXT
-                            .cavityNone
+                        "17 / 17 \u672a\u53d1\u73b0"
                 },
                 {
                     key:
@@ -4364,8 +5771,7 @@ function getEchoExternalMonitorModel(stage) {
                             .wallSource,
 
                     value:
-                        ECHO_EXTERNAL_MONITOR_TEXT
-                            .active
+                        "17 / 17 / \u5899\u4f53\u53e6\u4e00\u4fa7"
                 },
                 {
                     key:
@@ -4373,13 +5779,12 @@ function getEchoExternalMonitorModel(stage) {
                             .sameRhythm,
 
                     value:
-                        "04 / 04 / 04"
+                        "00:04 / 00:08 / 00:12 / 00:16"
                 }
             ],
 
             notice:
-                ECHO_EXTERNAL_MONITOR_TEXT
-                    .noticeAudio
+                "\u68c0\u7d22\u5230 17 \u4efd\u65e0\u5730\u7406\u5173\u8054\u7684\u4f4f\u6237\u62a5\u544a\u3002\u6240\u6709\u5efa\u7b51\u56fe\u5747\u672a\u767b\u8bb0\u5bf9\u5e94\u7a7a\u95f4\uff0c\u5899\u4f53\u7a7a\u8154\u68c0\u6d4b\u5747\u4e3a\u9634\u6027\uff0c\u4f46\u58f0\u6e90\u5b9a\u4f4d\u4ecd\u4e00\u81f4\u6307\u5411\u5899\u4f53\u53e6\u4e00\u4fa7\u3002"
         };
     }
 
@@ -7387,7 +8792,7 @@ function createInjectedThread04Block(id, meta, text) {
             "match_result = \u5f53\u524d\u6d41\u7a0b\u4e0e\u65e7\u8bb0\u5f55\u53d1\u751f\u9ad8\u5ea6\u91cd\u5408"
         ],
 
-        fileRestore: "\u6587\u4ef6\uff1arestore_loop_0404.log\n\u72b6\u6001\uff1a\u6301\u7eed\u5199\u5165\n\u5907\u6ce8\uff1a04:04 \u4e0d\u662f\u949f\u70b9\u3002\u540c\u6b65\u5931\u8d25\u540e\uff0c\u7f13\u5b58\u4f1a\u88ab\u62d6\u56de\u8fd9\u4e2a\u4f4d\u7f6e\u91cd\u65b0\u5199\u5165\u3002",        fileFruit: "\u6587\u4ef6\uff1aunknown_fruit_photo.tmp\n\u72b6\u6001\uff1a\u56fe\u50cf\u9884\u89c8\u5931\u8d25\n\u5907\u6ce8\uff1a\u7167\u7247\u4e2d\u6709\u9633\u53f0\u3001\u7ea2\u679c\u5b50\u3001\u9e1f\u722a\u75d5\uff0c\u4ee5\u53ca\u4e00\u4e2a\u4e0d\u5e94\u8be5\u51fa\u73b0\u5728\u53cd\u5149\u91cc\u7684\u7528\u6237\u5934\u50cf\u3002",
+        fileRestore: "\u6587\u4ef6\uff1arestore_loop_0404.log\n\u72b6\u6001\uff1a\u6301\u7eed\u5199\u5165\n\u5907\u6ce8\uff1a04:04 \u4e0d\u662f\u949f\u70b9\u3002\u540c\u6b65\u5931\u8d25\u540e\uff0c\u7f13\u5b58\u4f1a\u88ab\u62d6\u56de\u8fd9\u4e2a\u4f4d\u7f6e\u91cd\u65b0\u5199\u5165\u3002", fileFruit: "\u6587\u4ef6\uff1aunknown_fruit_photo.tmp\n\u72b6\u6001\uff1a\u56fe\u50cf\u9884\u89c8\u5931\u8d25\n\u5907\u6ce8\uff1a\u7167\u7247\u4e2d\u6709\u9633\u53f0\u3001\u7ea2\u679c\u5b50\u3001\u9e1f\u722a\u75d5\uff0c\u4ee5\u53ca\u4e00\u4e2a\u4e0d\u5e94\u8be5\u51fa\u73b0\u5728\u53cd\u5149\u91cc\u7684\u7528\u6237\u5934\u50cf\u3002",
         file404: "\u6587\u4ef6\uff1apost_404.index\n\u72b6\u6001\uff1a\u7981\u6b62\u4fee\u590d\n\u5907\u6ce8\uff1a\u8fd9\u4e0d\u662f\u7f3a\u5931\u9875\u9762\u3002\u5b83\u6b63\u5728\u7b49\u5f85\u4e00\u4e2a\u4f1a\u4fee\u590d\u5b83\u7684\u4eba\u3002",
 
         morse: "\u89e3\u7801\u7ed3\u679c\uff1aSOS / \u4e0d\u8981\u6253\u5f00 post_404 / \u4f60\u4e0d\u662f\u7b2c\u4e00\u4e2a\u3002",
@@ -7830,7 +9235,7 @@ function createInjectedThread04Block(id, meta, text) {
             overlay.appendChild(block);
         }
 
-        
+
 
         const terminal = document.createElement("div");
         terminal.className = "t05-fear-terminal";
@@ -9511,7 +10916,7 @@ document.addEventListener("DOMContentLoaded", function () {
         panel.classList.remove("hidden");
         panel.innerHTML =
             "<strong>" + title + "</strong>\n\n" +
-            "<span class=\"" + (danger ? "danger" : "soft") + "\">" +
+            '<span class="' + (danger ? "danger" : "soft") + '">' +
             body +
             "</span>";
     }
@@ -9947,7 +11352,7 @@ document.addEventListener("DOMContentLoaded", function () {
         panel.classList.remove("hidden");
         panel.innerHTML =
             "<strong>" + title + "</strong>\n\n" +
-            "<span class=\"" + (danger ? "danger" : "soft") + "\">" +
+            '<span class="' + (danger ? "danger" : "soft") + '">' +
             body +
             "</span>";
     }
@@ -10130,6 +11535,28 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     ensureWorkConsole();
     initEchoEvidenceSystem();
+
+    if (
+        typeof initThread02SequenceAudit ===
+        "function"
+    ) {
+        initThread02SequenceAudit();
+    }
+
+    if (
+        typeof syncThread01NarrativeState ===
+        "function"
+    ) {
+        syncThread01NarrativeState();
+    }
+
+    if (
+        typeof syncThread02NarrativeState ===
+        "function"
+    ) {
+        syncThread02NarrativeState();
+    }
+
     renderWorkConsole();
 });
 
@@ -11293,6 +12720,4610 @@ function renderEchoEvidencePost404Index() {
     );
 }
 
+/* =========================
+   THREAD 02 Sequence Audit
+   ========================= */
+
+const ECHO_THREAD02_SEQUENCE_KEY =
+    "echorest_thread02_sequence_audit_v1";
+
+const ECHO_THREAD02_SEQUENCE_STATE_KEY =
+    "echorest_thread02_sequence_state_v1";
+
+function loadThread02SequenceState() {
+    const fallback = {
+        selected: "",
+        mistakes: 0,
+        committed: false,
+        message: ""
+    };
+
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                ECHO_THREAD02_SEQUENCE_STATE_KEY
+            ) || "null"
+        );
+
+        if (
+            !parsed ||
+            typeof parsed !== "object"
+        ) {
+            return fallback;
+        }
+
+        return {
+            selected:
+                typeof parsed.selected === "string"
+                    ? parsed.selected
+                    : "",
+
+            mistakes:
+                Number.isFinite(
+                    Number(parsed.mistakes)
+                )
+                    ? Number(parsed.mistakes)
+                    : 0,
+
+            committed:
+                parsed.committed === true ||
+                localStorage.getItem(
+                    ECHO_THREAD02_SEQUENCE_KEY
+                ) === "1",
+
+            message:
+                typeof parsed.message === "string"
+                    ? parsed.message
+                    : ""
+        };
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function saveThread02SequenceState(state) {
+    localStorage.setItem(
+        ECHO_THREAD02_SEQUENCE_STATE_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function isThread02LogisticsComplete() {
+    const value =
+        localStorage.getItem(
+            "echorest_thread02_logistics_audit_v1"
+        );
+
+    return (
+        value === "1" ||
+        value === "true"
+    );
+}
+
+function isThread02SequenceComplete() {
+    return (
+        localStorage.getItem(
+            ECHO_THREAD02_SEQUENCE_KEY
+        ) === "1"
+    );
+}
+
+function renderThread02SequenceAudit() {
+    const section =
+        document.getElementById(
+            "thread02SequenceAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const status =
+        document.getElementById(
+            "thread02SequenceStatus"
+        );
+
+    const readout =
+        document.getElementById(
+            "thread02SequenceReadout"
+        );
+
+    const selection =
+        document.getElementById(
+            "thread02SequenceSelection"
+        );
+
+    const mistakes =
+        document.getElementById(
+            "thread02SequenceMistakes"
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread02SequenceCommit"
+        );
+
+    const result =
+        document.getElementById(
+            "thread02SequenceResult"
+        );
+
+    const options =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread02-sequence]"
+            )
+        );
+
+    const unlocked =
+        isThread02LogisticsComplete();
+
+    const state =
+        loadThread02SequenceState();
+
+    const committed =
+        state.committed ||
+        isThread02SequenceComplete();
+
+    section.classList.toggle(
+        "is-locked",
+        !unlocked
+    );
+
+    section.classList.toggle(
+        "is-complete",
+        committed
+    );
+
+    options.forEach(
+        function (button) {
+            const optionId =
+                button.getAttribute(
+                    "data-thread02-sequence"
+                );
+
+            button.disabled =
+                !unlocked ||
+                committed;
+
+            button.classList.toggle(
+                "is-selected",
+                state.selected === optionId
+            );
+
+            button.classList.toggle(
+                "is-backfilled",
+                committed &&
+                optionId ===
+                "address_validation"
+            );
+        }
+    );
+
+    if (status) {
+        if (committed) {
+            status.textContent =
+                "VERIFIED";
+        } else if (unlocked) {
+            status.textContent =
+                "READY";
+        } else {
+            status.textContent =
+                "LOCKED";
+        }
+    }
+
+    if (selection) {
+        selection.textContent =
+            state.selected
+                ? (
+                    "\u5df2\u9009\u62e9\uff1a" +
+                    getThread02SequenceLabel(
+                        state.selected
+                    )
+                )
+                : "\u672a\u9009\u62e9\u8bb0\u5f55";
+    }
+
+    if (mistakes) {
+        mistakes.textContent =
+            "\u8bef\u5224\uff1a" +
+            state.mistakes;
+    }
+
+    if (readout) {
+        if (committed) {
+            readout.textContent =
+                "\u5df2\u786e\u8ba4 04:18 \u7684\u5730\u5740\u6821\u9a8c\u4e3a\u4e8b\u540e\u8865\u5199\u8bb0\u5f55\u3002";
+        } else if (state.message) {
+            readout.textContent =
+                state.message;
+        } else if (unlocked) {
+            readout.textContent =
+                "\u5e95\u5355\u51b2\u7a81\u5df2\u786e\u8ba4\u3002\u8bf7\u9009\u62e9\u4e00\u6761\u4f60\u8ba4\u4e3a\u662f\u7cfb\u7edf\u4e8b\u540e\u8865\u5199\u7684\u8bb0\u5f55\u3002";
+        } else {
+            readout.textContent =
+                "\u9700\u8981\u5148\u5b8c\u6210\u5e95\u5355\u51b2\u7a81\u6838\u5bf9\u3002";
+        }
+    }
+
+    if (commitButton) {
+        commitButton.disabled =
+            !unlocked ||
+            !state.selected ||
+            committed;
+
+        commitButton.textContent =
+            committed
+                ? "\u8865\u5199\u8bb0\u5f55\u5df2\u786e\u8ba4"
+                : "\u63d0\u4ea4\u8865\u5199\u8bb0\u5f55\u5224\u65ad";
+    }
+
+    if (result) {
+        result.classList.toggle(
+            "hidden",
+            !committed
+        );
+    }
+
+    const backfilledEntry =
+        document.getElementById(
+            "thread02BackfilledEntry"
+        );
+
+    const backfilledNote =
+        document.getElementById(
+            "thread02BackfilledNote"
+        );
+
+    if (backfilledEntry) {
+        backfilledEntry.classList.toggle(
+            "is-backfilled",
+            committed
+        );
+    }
+
+    if (backfilledNote) {
+        backfilledNote.textContent =
+            committed
+                ? "BACKFILLED RECORD / \u5199\u5165\u6765\u6e90\uff1a\u81ea\u52a8\u5730\u5740\u8865\u5168"
+                : "\u5730\u5740\u6765\u6e90\uff1a\u7cfb\u7edf\u81ea\u52a8\u8865\u5168";
+    }
+}
+
+function getThread02SequenceLabel(
+    optionId
+) {
+    const labels = {
+        signed:
+            "04:04 / \u5305\u88f9\u5df2\u7b7e\u6536",
+
+        terminal:
+            "04:07 / \u8fdb\u5165\u672b\u7aef\u914d\u9001\u7f51\u70b9",
+
+        pickup:
+            "04:11 / \u5feb\u4ef6\u5b8c\u6210\u63fd\u6536",
+
+        address_validation:
+            "04:18 / \u5730\u5740\u6821\u9a8c\u901a\u8fc7"
+    };
+
+    return (
+        labels[optionId] ||
+        optionId
+    );
+}
+
+function initThread02SequenceAudit() {
+    const section =
+        document.getElementById(
+            "thread02SequenceAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const options =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread02-sequence]"
+            )
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread02SequenceCommit"
+        );
+
+    options.forEach(
+        function (button) {
+            if (
+                button.dataset
+                    .thread02SequenceBound ===
+                "1"
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+                    if (
+                        !isThread02LogisticsComplete() ||
+                        isThread02SequenceComplete()
+                    ) {
+                        return;
+                    }
+
+                    const state =
+                        loadThread02SequenceState();
+
+                    state.selected =
+                        button.getAttribute(
+                            "data-thread02-sequence"
+                        ) || "";
+
+                    state.message =
+                        button.getAttribute(
+                            "data-readout"
+                        ) || "";
+
+                    saveThread02SequenceState(
+                        state
+                    );
+
+                    renderThread02SequenceAudit();
+                }
+            );
+
+            button.dataset
+                .thread02SequenceBound =
+                "1";
+        }
+    );
+
+    if (
+        commitButton &&
+        commitButton.dataset
+            .thread02SequenceBound !==
+        "1"
+    ) {
+        commitButton.addEventListener(
+            "click",
+            function () {
+                if (
+                    !isThread02LogisticsComplete() ||
+                    isThread02SequenceComplete()
+                ) {
+                    return;
+                }
+
+                const state =
+                    loadThread02SequenceState();
+
+                if (!state.selected) {
+                    return;
+                }
+
+                if (
+                    state.selected !==
+                    "address_validation"
+                ) {
+                    state.mistakes += 1;
+                    state.selected = "";
+
+                    state.message =
+                        "\u8be5\u8bb0\u5f55\u7684\u65f6\u95f4\u987a\u5e8f\u5f02\u5e38\uff0c\u4f46\u5b83\u4ecd\u7136\u5728\u63cf\u8ff0\u5305\u88f9\u7684\u8fd0\u8f93\u72b6\u6001\u3002\u8bf7\u7ee7\u7eed\u5bfb\u627e\u90a3\u6761\u4e3a\u5730\u5740\u5408\u6cd5\u6027\u63d0\u4f9b\u4e8b\u540e\u7ed3\u8bba\u7684\u8bb0\u5f55\u3002";
+
+                    saveThread02SequenceState(
+                        state
+                    );
+
+                    renderThread02SequenceAudit();
+
+                    return;
+                }
+
+                state.committed = true;
+
+                state.message =
+                    "\u5730\u5740\u6821\u9a8c\u5e76\u672a\u53d1\u751f\u5728\u6295\u9012\u4e4b\u524d\u3002\u5b83\u662f\u5728\u7b7e\u6536\u8bb0\u5f55\u5df2\u7ecf\u5b8c\u6210\u540e\uff0c\u88ab\u7cfb\u7edf\u8865\u5199\u8fdb\u8fd9\u6761\u7269\u6d41\u94fe\u7684\u3002";
+
+                localStorage.setItem(
+                    ECHO_THREAD02_SEQUENCE_KEY,
+                    "1"
+                );
+
+                saveThread02SequenceState(
+                    state
+                );
+
+                if (
+                    typeof addInvestigationLog ===
+                    "function"
+                ) {
+                    addInvestigationLog(
+                        "thread02_backfilled_record",
+                        "\u5df2\u786e\u8ba4 THREAD 02 \u4e2d 04:18 \u7684\u5730\u5740\u6821\u9a8c\u4e3a\u4e8b\u540e\u8865\u5199\u8bb0\u5f55\u3002",
+                        true
+                    );
+                }
+
+                renderThread02SequenceAudit();
+
+                if (
+                    typeof
+                    syncEchoEvidenceCaptureButtons ===
+                    "function"
+                ) {
+                    syncEchoEvidenceCaptureButtons();
+                }
+
+                if (
+                    typeof
+                    syncThread02NarrativeState ===
+                    "function"
+                ) {
+                    syncThread02NarrativeState();
+                }
+
+                if (
+                    typeof renderWorkConsole ===
+                    "function"
+                ) {
+                    renderWorkConsole();
+                }
+            }
+        );
+
+        commitButton.dataset
+            .thread02SequenceBound =
+            "1";
+    }
+
+    const logisticsCommit =
+        document.getElementById(
+            "thread02LogisticsCommit"
+        );
+
+    if (
+        logisticsCommit &&
+        logisticsCommit.dataset
+            .thread02SequenceWatcher !==
+        "1"
+    ) {
+        logisticsCommit.addEventListener(
+            "click",
+            function () {
+                setTimeout(
+                    function () {
+                        renderThread02SequenceAudit();
+
+                        if (
+                            typeof
+                            syncEchoEvidenceCaptureButtons ===
+                            "function"
+                        ) {
+                            syncEchoEvidenceCaptureButtons();
+                        }
+                    },
+                    0
+                );
+            }
+        );
+
+        logisticsCommit.dataset
+            .thread02SequenceWatcher =
+            "1";
+    }
+
+    renderThread02SequenceAudit();
+
+    window.echoRestThread02Sequence = {
+        isComplete:
+            isThread02SequenceComplete,
+
+        reset: function () {
+            localStorage.removeItem(
+                ECHO_THREAD02_SEQUENCE_KEY
+            );
+
+            localStorage.removeItem(
+                ECHO_THREAD02_SEQUENCE_STATE_KEY
+            );
+
+            renderThread02SequenceAudit();
+
+            if (
+                typeof
+                syncEchoEvidenceCaptureButtons ===
+                "function"
+            ) {
+                syncEchoEvidenceCaptureButtons();
+            }
+        }
+    };
+}
+
+/* =========================
+   THREAD 03 Wall Audit
+   ========================= */
+
+const ECHO_THREAD03_WALL_KEY =
+    "echorest_thread03_wall_audit_v1";
+
+const ECHO_THREAD03_WALL_STATE_KEY =
+    "echorest_thread03_wall_audit_state_v1";
+
+function getDefaultThread03WallState() {
+    return {
+        inspected: [],
+        selected: "",
+        mistakes: 0,
+        committed: false,
+        message: ""
+    };
+}
+
+function loadThread03WallState() {
+    const fallback =
+        getDefaultThread03WallState();
+
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                ECHO_THREAD03_WALL_STATE_KEY
+            ) || "null"
+        );
+
+        if (
+            !parsed ||
+            typeof parsed !== "object"
+        ) {
+            return fallback;
+        }
+
+        return {
+            inspected:
+                Array.isArray(parsed.inspected)
+                    ? parsed.inspected
+                    : [],
+
+            selected:
+                typeof parsed.selected === "string"
+                    ? parsed.selected
+                    : "",
+
+            mistakes:
+                Number.isFinite(
+                    Number(parsed.mistakes)
+                )
+                    ? Number(parsed.mistakes)
+                    : 0,
+
+            committed:
+                parsed.committed === true ||
+                localStorage.getItem(
+                    ECHO_THREAD03_WALL_KEY
+                ) === "1",
+
+            message:
+                typeof parsed.message === "string"
+                    ? parsed.message
+                    : ""
+        };
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function saveThread03WallState(state) {
+    localStorage.setItem(
+        ECHO_THREAD03_WALL_STATE_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function isThread03WallAuditComplete() {
+    return (
+        localStorage.getItem(
+            ECHO_THREAD03_WALL_KEY
+        ) === "1"
+    );
+}
+
+function renderThread03WallAudit() {
+    const section =
+        document.getElementById(
+            "thread03WallAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const status =
+        document.getElementById(
+            "thread03WallAuditStatus"
+        );
+
+    const readout =
+        document.getElementById(
+            "thread03WallReadout"
+        );
+
+    const progress =
+        document.getElementById(
+            "thread03WallProgress"
+        );
+
+    const mistakes =
+        document.getElementById(
+            "thread03WallMistakes"
+        );
+
+    const selection =
+        document.getElementById(
+            "thread03WallSelection"
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread03WallCommit"
+        );
+
+    const result =
+        document.getElementById(
+            "thread03WallResult"
+        );
+
+    const evidenceNote =
+        document.getElementById(
+            "thread03WallEvidenceNote"
+        );
+
+    const frameButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread03-wall-frame]"
+            )
+        );
+
+    const conclusionButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread03-wall-conclusion]"
+            )
+        );
+
+    const state =
+        loadThread03WallState();
+
+    const committed =
+        state.committed ||
+        isThread03WallAuditComplete();
+
+    const allInspected =
+        state.inspected.length >= 3;
+
+    section.classList.toggle(
+        "is-complete",
+        committed
+    );
+
+    frameButtons.forEach(
+        function (button) {
+            const frameId =
+                button.getAttribute(
+                    "data-thread03-wall-frame"
+                );
+
+            const inspected =
+                state.inspected.indexOf(
+                    frameId
+                ) !== -1;
+
+            button.classList.toggle(
+                "is-inspected",
+                inspected
+            );
+
+            button.disabled =
+                committed;
+
+            const small =
+                button.querySelector("small");
+
+            if (small) {
+                small.textContent =
+                    inspected
+                        ? "INSPECTED"
+                        : "\u7b49\u5f85\u68c0\u67e5";
+            }
+        }
+    );
+
+    conclusionButtons.forEach(
+        function (button) {
+            const conclusionId =
+                button.getAttribute(
+                    "data-thread03-wall-conclusion"
+                );
+
+            button.disabled =
+                !allInspected ||
+                committed;
+
+            button.classList.toggle(
+                "is-selected",
+                state.selected ===
+                conclusionId
+            );
+
+            button.classList.toggle(
+                "is-verified",
+                committed &&
+                conclusionId === "overlay"
+            );
+        }
+    );
+
+    if (status) {
+        status.textContent =
+            committed
+                ? "VERIFIED"
+                : (
+                    allInspected
+                        ? "READY"
+                        : "PENDING"
+                );
+    }
+
+    if (progress) {
+        progress.textContent =
+            Math.min(
+                state.inspected.length,
+                3
+            ) +
+            " / 3 FRAMES";
+    }
+
+    if (mistakes) {
+        mistakes.textContent =
+            "\u8bef\u5224\uff1a" +
+            state.mistakes;
+    }
+
+    if (readout) {
+        if (committed) {
+            readout.textContent =
+                "\u5df2\u786e\u8ba4\u5899\u6d1e\u4f4d\u4e8e\u9644\u4ef6\u56fe\u5c42\uff0c\u800c\u4e0d\u662f\u7a33\u5b9a\u4f9d\u9644\u5728\u5899\u9762\u7eb9\u7406\u4e2d\u3002";
+        } else if (state.message) {
+            readout.textContent =
+                state.message;
+        } else {
+            readout.textContent =
+                "\u5c1a\u672a\u68c0\u67e5\u7f13\u5b58\u7248\u672c\u3002";
+        }
+    }
+
+    if (selection) {
+        selection.textContent =
+            state.selected
+                ? (
+                    "\u5df2\u9009\u62e9\uff1a" +
+                    getThread03WallConclusionLabel(
+                        state.selected
+                    )
+                )
+                : "\u5c1a\u672a\u9009\u62e9\u7ed3\u8bba";
+    }
+
+    if (commitButton) {
+        commitButton.disabled =
+            !allInspected ||
+            !state.selected ||
+            committed;
+
+        commitButton.textContent =
+            committed
+                ? "\u5899\u4f53\u56fe\u5c42\u5df2\u786e\u8ba4"
+                : "\u63d0\u4ea4\u5899\u4f53\u56fe\u5c42\u5224\u65ad";
+    }
+
+    if (result) {
+        result.classList.toggle(
+            "hidden",
+            !committed
+        );
+    }
+
+    if (evidenceNote) {
+        evidenceNote.textContent =
+            committed
+                ? "\u5899\u6d1e\u56fe\u5c42\u5728\u4e0d\u540c\u7f13\u5b58\u4e2d\u4fdd\u6301\u76f8\u540c\u50cf\u7d20\u8f6e\u5ed3"
+                : "\u9700\u8981\u5148\u5b8c\u6210\u4e09\u4e2a\u7f13\u5b58\u7248\u672c\u7684\u56fe\u5c42\u6bd4\u5bf9";
+    }
+}
+
+function getThread03WallConclusionLabel(
+    conclusionId
+) {
+    const labels = {
+        moisture:
+            "\u5899\u4f53\u53d7\u6f6e\u5bfc\u81f4\u88c2\u7f1d\u6269\u5927",
+
+        camera:
+            "\u62cd\u6444\u8005\u6539\u53d8\u4e86\u4f4d\u7f6e",
+
+        overlay:
+            "\u5899\u6d1e\u5c5e\u4e8e\u9644\u4ef6\u56fe\u5c42"
+    };
+
+    return (
+        labels[conclusionId] ||
+        conclusionId
+    );
+}
+
+function initThread03WallAudit() {
+    const section =
+        document.getElementById(
+            "thread03WallAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const frameButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread03-wall-frame]"
+            )
+        );
+
+    const conclusionButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread03-wall-conclusion]"
+            )
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread03WallCommit"
+        );
+
+    frameButtons.forEach(
+        function (button) {
+            if (
+                button.dataset
+                    .thread03WallBound === "1"
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+                    if (
+                        isThread03WallAuditComplete()
+                    ) {
+                        return;
+                    }
+
+                    const frameId =
+                        button.getAttribute(
+                            "data-thread03-wall-frame"
+                        );
+
+                    const state =
+                        loadThread03WallState();
+
+                    if (
+                        state.inspected.indexOf(
+                            frameId
+                        ) === -1
+                    ) {
+                        state.inspected.push(
+                            frameId
+                        );
+                    }
+
+                    state.message =
+                        button.getAttribute(
+                            "data-readout"
+                        ) || "";
+
+                    saveThread03WallState(
+                        state
+                    );
+
+                    renderThread03WallAudit();
+                }
+            );
+
+            button.dataset
+                .thread03WallBound = "1";
+        }
+    );
+
+    conclusionButtons.forEach(
+        function (button) {
+            if (
+                button.dataset
+                    .thread03WallBound === "1"
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+                    const state =
+                        loadThread03WallState();
+
+                    if (
+                        state.inspected.length < 3 ||
+                        isThread03WallAuditComplete()
+                    ) {
+                        return;
+                    }
+
+                    state.selected =
+                        button.getAttribute(
+                            "data-thread03-wall-conclusion"
+                        ) || "";
+
+                    state.message =
+                        button.getAttribute(
+                            "data-readout"
+                        ) || "";
+
+                    saveThread03WallState(
+                        state
+                    );
+
+                    renderThread03WallAudit();
+                }
+            );
+
+            button.dataset
+                .thread03WallBound = "1";
+        }
+    );
+
+    if (
+        commitButton &&
+        commitButton.dataset
+            .thread03WallBound !== "1"
+    ) {
+        commitButton.addEventListener(
+            "click",
+            function () {
+                const state =
+                    loadThread03WallState();
+
+                if (
+                    state.inspected.length < 3 ||
+                    !state.selected ||
+                    isThread03WallAuditComplete()
+                ) {
+                    return;
+                }
+
+                if (
+                    state.selected !== "overlay"
+                ) {
+                    state.mistakes += 1;
+                    state.selected = "";
+
+                    state.message =
+                        "\u8be5\u7ed3\u8bba\u65e0\u6cd5\u89e3\u91ca\u5899\u9762\u7eb9\u7406\u3001\u88c1\u5207\u548c\u7f29\u653e\u53d8\u5316\u540e\uff0c\u5899\u6d1e\u4ecd\u4fdd\u6301\u76f8\u540c\u50cf\u7d20\u4f4d\u7f6e\u4e0e\u5c3a\u5bf8\u3002";
+
+                    saveThread03WallState(
+                        state
+                    );
+
+                    renderThread03WallAudit();
+
+                    return;
+                }
+
+                state.committed = true;
+
+                state.message =
+                    "\u5899\u6d1e\u5df2\u88ab\u786e\u8ba4\u4e3a\u72ec\u7acb\u9644\u4ef6\u56fe\u5c42\u3002";
+
+                localStorage.setItem(
+                    ECHO_THREAD03_WALL_KEY,
+                    "1"
+                );
+
+                saveThread03WallState(
+                    state
+                );
+
+                if (
+                    typeof addInvestigationLog ===
+                    "function"
+                ) {
+                    addInvestigationLog(
+                        "thread03_wall_layer",
+                        "\u5df2\u786e\u8ba4 THREAD 03 \u5899\u6d1e\u5728\u591a\u4e2a\u7f13\u5b58\u7248\u672c\u4e2d\u56fa\u5b9a\u4e8e\u540c\u4e00\u56fe\u50cf\u5750\u6807\u3002",
+                        true
+                    );
+                }
+
+                renderThread03WallAudit();
+
+                if (
+                    typeof
+                    syncEchoEvidenceCaptureButtons ===
+                    "function"
+                ) {
+                    syncEchoEvidenceCaptureButtons();
+                }
+
+                if (
+                    typeof renderWorkConsole ===
+                    "function"
+                ) {
+                    renderWorkConsole();
+                }
+            }
+        );
+
+        commitButton.dataset
+            .thread03WallBound = "1";
+    }
+
+    renderThread03WallAudit();
+
+    window.echoRestThread03Wall = {
+        isComplete:
+            isThread03WallAuditComplete,
+
+        reset: function () {
+            localStorage.removeItem(
+                ECHO_THREAD03_WALL_KEY
+            );
+
+            localStorage.removeItem(
+                ECHO_THREAD03_WALL_STATE_KEY
+            );
+
+            renderThread03WallAudit();
+
+            if (
+                typeof
+                syncEchoEvidenceCaptureButtons ===
+                "function"
+            ) {
+                syncEchoEvidenceCaptureButtons();
+            }
+        }
+    };
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        initThread03WallAudit();
+    }
+);
+
+/* =========================
+   THREAD 03 Knock Audit
+   ========================= */
+
+const ECHO_THREAD03_KNOCK_KEY =
+    "echorest_thread03_knock_audit_v1";
+
+const ECHO_THREAD03_KNOCK_STATE_KEY =
+    "echorest_thread03_knock_audit_state_v1";
+
+const ECHO_THREAD03_CORRECT_KNOCK_TIMES = [
+    "04",
+    "08",
+    "12",
+    "16"
+];
+
+function getDefaultThread03KnockState() {
+    return {
+        selectedTimes: [],
+        markersCommitted: false,
+        originSelected: "",
+        mistakes: 0,
+        committed: false,
+        message: ""
+    };
+}
+
+function loadThread03KnockState() {
+    const fallback =
+        getDefaultThread03KnockState();
+
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                ECHO_THREAD03_KNOCK_STATE_KEY
+            ) || "null"
+        );
+
+        if (
+            !parsed ||
+            typeof parsed !== "object"
+        ) {
+            return fallback;
+        }
+
+        return {
+            selectedTimes:
+                Array.isArray(
+                    parsed.selectedTimes
+                )
+                    ? parsed.selectedTimes
+                    : [],
+
+            markersCommitted:
+                parsed.markersCommitted === true,
+
+            originSelected:
+                typeof parsed.originSelected ===
+                    "string"
+                    ? parsed.originSelected
+                    : "",
+
+            mistakes:
+                Number.isFinite(
+                    Number(parsed.mistakes)
+                )
+                    ? Number(parsed.mistakes)
+                    : 0,
+
+            committed:
+                parsed.committed === true ||
+                localStorage.getItem(
+                    ECHO_THREAD03_KNOCK_KEY
+                ) === "1",
+
+            message:
+                typeof parsed.message === "string"
+                    ? parsed.message
+                    : ""
+        };
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function saveThread03KnockState(state) {
+    localStorage.setItem(
+        ECHO_THREAD03_KNOCK_STATE_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function isThread03TranscriptRepaired() {
+    const value =
+        localStorage.getItem(
+            "echo_thread03_audio_repaired"
+        );
+
+    return (
+        value !== null &&
+        value !== "0" &&
+        value !== "false"
+    );
+}
+
+function isThread03Ticket021Verified() {
+    if (
+        typeof
+        isEchoTicket021AudioVerified ===
+        "function"
+    ) {
+        return (
+            isEchoTicket021AudioVerified() ===
+            true
+        );
+    }
+
+    const value =
+        localStorage.getItem(
+            "echorest_ticket021_audio_verified_v1"
+        );
+
+    return (
+        value === "1" ||
+        value === "true" ||
+        value === "verified" ||
+        value === "VERIFIED"
+    );
+}
+
+function isThread03KnockAuditComplete() {
+    return (
+        localStorage.getItem(
+            ECHO_THREAD03_KNOCK_KEY
+        ) === "1"
+    );
+}
+
+function areThread03KnockTimesCorrect(
+    selectedTimes
+) {
+    if (
+        !Array.isArray(selectedTimes) ||
+        selectedTimes.length !==
+        ECHO_THREAD03_CORRECT_KNOCK_TIMES
+            .length
+    ) {
+        return false;
+    }
+
+    const selected =
+        selectedTimes
+            .slice()
+            .sort();
+
+    const correct =
+        ECHO_THREAD03_CORRECT_KNOCK_TIMES
+            .slice()
+            .sort();
+
+    return correct.every(
+        function (time, index) {
+            return (
+                selected[index] === time
+            );
+        }
+    );
+}
+
+function getThread03KnockOriginLabel(
+    originId
+) {
+    const labels = {
+        original:
+            "\u5f55\u97f3\u5f00\u59cb\u65f6\u5c31\u5728\u623f\u95f4\u73af\u5883\u4e2d",
+
+        voice_bleed:
+            "\u6765\u81ea\u4eba\u58f0\u8f68\u9053\u7684\u9ea6\u514b\u98ce\u4e32\u97f3",
+
+        reload_insert:
+            "\u9644\u4ef6\u91cd\u65b0\u52a0\u8f7d\u540e\u624d\u88ab\u5199\u5165"
+    };
+
+    return (
+        labels[originId] ||
+        originId
+    );
+}
+
+function getThread03KnockOriginReadout(
+    originId
+) {
+    const messages = {
+        original:
+            "\u539f\u59cb\u4eba\u58f0\u8f6c\u5199\u4e2d\u6ca1\u6709\u4fdd\u7559\u8fd9\u7ec4\u7a33\u5b9a\u6572\u51fb\uff0c\u65e0\u6cd5\u8bc1\u660e\u5b83\u5728\u5f55\u97f3\u5f00\u59cb\u65f6\u5c31\u5b58\u5728\u3002",
+
+        voice_bleed:
+            "\u4e32\u97f3\u5e94\u4e0e\u8bf4\u8bdd\u65f6\u95f4\u91cd\u5408\uff0c\u4f46\u56db\u6b21\u6572\u51fb\u4ee5\u56fa\u5b9a\u95f4\u9694\u51fa\u73b0\uff0c\u4e0e\u4eba\u58f0\u8282\u594f\u65e0\u5173\u3002",
+
+        reload_insert:
+            "\u6572\u51fb\u53ea\u5b58\u5728\u4e8e\u91cd\u65b0\u5206\u79bb\u7684\u80cc\u666f\u58f0\u9053\uff0c\u5e76\u4ee5\u56db\u79d2\u95f4\u9694\u91cd\u590d\uff0c\u4e0e\u9644\u4ef6\u91cd\u65b0\u52a0\u8f7d\u63d0\u793a\u7684\u5199\u5165\u65f6\u95f4\u4e00\u81f4\u3002"
+    };
+
+    return (
+        messages[originId] ||
+        ""
+    );
+}
+
+function renderThread03KnockAudit() {
+    const section =
+        document.getElementById(
+            "thread03KnockAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const status =
+        document.getElementById(
+            "thread03KnockStatus"
+        );
+
+    const transcriptStatus =
+        document.getElementById(
+            "thread03TranscriptStatus"
+        );
+
+    const transcriptRequirement =
+        document.getElementById(
+            "thread03KnockTranscriptRequirement"
+        );
+
+    const ticketRequirement =
+        document.getElementById(
+            "thread03KnockTicketRequirement"
+        );
+
+    const readout =
+        document.getElementById(
+            "thread03KnockReadout"
+        );
+
+    const markerProgress =
+        document.getElementById(
+            "thread03KnockMarkerProgress"
+        );
+
+    const markerMistakes =
+        document.getElementById(
+            "thread03KnockMarkerMistakes"
+        );
+
+    const markerCommit =
+        document.getElementById(
+            "thread03KnockMarkerCommit"
+        );
+
+    const originSection =
+        document.getElementById(
+            "thread03KnockOrigin"
+        );
+
+    const originSelection =
+        document.getElementById(
+            "thread03KnockOriginSelection"
+        );
+
+    const originCommit =
+        document.getElementById(
+            "thread03KnockOriginCommit"
+        );
+
+    const result =
+        document.getElementById(
+            "thread03KnockResult"
+        );
+
+    const evidenceNote =
+        document.getElementById(
+            "thread03KnockEvidenceNote"
+        );
+
+    const audioMeta =
+        document.getElementById(
+            "thread03AudioMeta"
+        );
+
+    const waveButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread03-knock-time]"
+            )
+        );
+
+    const originButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread03-knock-origin]"
+            )
+        );
+
+    const transcriptRepaired =
+        isThread03TranscriptRepaired();
+
+    const ticketVerified =
+        isThread03Ticket021Verified();
+
+    const unlocked =
+        transcriptRepaired &&
+        ticketVerified;
+
+    const state =
+        loadThread03KnockState();
+
+    const committed =
+        state.committed ||
+        isThread03KnockAuditComplete();
+
+    const markersCommitted =
+        state.markersCommitted ||
+        committed;
+
+    section.classList.toggle(
+        "is-locked",
+        !unlocked
+    );
+
+    section.classList.toggle(
+        "is-separated",
+        unlocked &&
+        !committed
+    );
+
+    section.classList.toggle(
+        "is-complete",
+        committed
+    );
+
+    if (status) {
+        if (committed) {
+            status.textContent =
+                "VERIFIED";
+        } else if (markersCommitted) {
+            status.textContent =
+                "SOURCE REVIEW";
+        } else if (unlocked) {
+            status.textContent =
+                "READY";
+        } else {
+            status.textContent =
+                "LOCKED";
+        }
+    }
+
+    if (transcriptStatus) {
+        if (committed) {
+            transcriptStatus.textContent =
+                "INSERTION VERIFIED";
+        } else if (ticketVerified) {
+            transcriptStatus.textContent =
+                "CHANNEL SEPARATED";
+        } else {
+            transcriptStatus.textContent =
+                "VOICE ONLY";
+        }
+    }
+
+    if (transcriptRequirement) {
+        transcriptRequirement.textContent =
+            transcriptRepaired
+                ? "\u5df2\u6062\u590d"
+                : "\u5c1a\u672a\u6062\u590d";
+    }
+
+    if (ticketRequirement) {
+        ticketRequirement.textContent =
+            ticketVerified
+                ? "\u80cc\u666f\u58f0\u9053\u5df2\u5206\u79bb"
+                : "\u9700\u8981\u62a5\u4fee\u5355 #021";
+    }
+
+    waveButtons.forEach(
+        function (button) {
+            const time =
+                button.getAttribute(
+                    "data-thread03-knock-time"
+                );
+
+            const selected =
+                state.selectedTimes.indexOf(
+                    time
+                ) !== -1;
+
+            const verified =
+                markersCommitted &&
+                ECHO_THREAD03_CORRECT_KNOCK_TIMES
+                    .indexOf(time) !== -1;
+
+            button.disabled =
+                !unlocked ||
+                markersCommitted ||
+                committed;
+
+            button.classList.toggle(
+                "is-selected",
+                selected &&
+                !markersCommitted
+            );
+
+            button.classList.toggle(
+                "is-verified",
+                verified
+            );
+
+            button.setAttribute(
+                "aria-pressed",
+                selected
+                    ? "true"
+                    : "false"
+            );
+        }
+    );
+
+    if (markerProgress) {
+        markerProgress.textContent =
+            Math.min(
+                state.selectedTimes.length,
+                4
+            ) +
+            " / 4 MARKERS";
+    }
+
+    if (markerMistakes) {
+        markerMistakes.textContent =
+            "\u8bef\u5224\uff1a" +
+            state.mistakes;
+    }
+
+    if (markerCommit) {
+        markerCommit.disabled =
+            !unlocked ||
+            state.selectedTimes.length !== 4 ||
+            markersCommitted ||
+            committed;
+
+        markerCommit.textContent =
+            markersCommitted
+                ? "\u6572\u51fb\u4f4d\u7f6e\u5df2\u786e\u8ba4"
+                : "\u63d0\u4ea4\u6572\u51fb\u4f4d\u7f6e";
+    }
+
+    if (readout) {
+        if (committed) {
+            readout.textContent =
+                "\u5df2\u786e\u8ba4\u56db\u6b21\u6572\u51fb\u5728\u9644\u4ef6\u91cd\u65b0\u52a0\u8f7d\u540e\u5199\u5165\u80cc\u666f\u58f0\u9053\u3002";
+        } else if (state.message) {
+            readout.textContent =
+                state.message;
+        } else if (!transcriptRepaired) {
+            readout.textContent =
+                "\u9700\u8981\u5148\u6062\u590d\u4eba\u58f0\u8f6c\u5199\u3002";
+        } else if (!ticketVerified) {
+            readout.textContent =
+                "\u80cc\u666f\u58f0\u9053\u5c1a\u672a\u5206\u79bb\u3002";
+        } else {
+            readout.textContent =
+                "\u80cc\u666f\u58f0\u9053\u5df2\u5206\u79bb\u3002\u8bf7\u6807\u8bb0\u56db\u4e2a\u5305\u542b\u540c\u7ec4\u6572\u51fb\u8f6e\u5ed3\u7684\u65f6\u95f4\u5207\u7247\u3002";
+        }
+    }
+
+    if (originSection) {
+        originSection.classList.toggle(
+            "hidden",
+            !markersCommitted
+        );
+    }
+
+    originButtons.forEach(
+        function (button) {
+            const originId =
+                button.getAttribute(
+                    "data-thread03-knock-origin"
+                );
+
+            button.disabled =
+                !markersCommitted ||
+                committed;
+
+            button.classList.toggle(
+                "is-selected",
+                state.originSelected ===
+                originId &&
+                !committed
+            );
+
+            button.classList.toggle(
+                "is-verified",
+                committed &&
+                originId ===
+                "reload_insert"
+            );
+        }
+    );
+
+    if (originSelection) {
+        originSelection.textContent =
+            state.originSelected
+                ? (
+                    "\u5df2\u9009\u62e9\uff1a" +
+                    getThread03KnockOriginLabel(
+                        state.originSelected
+                    )
+                )
+                : "\u5c1a\u672a\u9009\u62e9\u58f0\u6e90\u7ed3\u8bba";
+    }
+
+    if (originCommit) {
+        originCommit.disabled =
+            !markersCommitted ||
+            !state.originSelected ||
+            committed;
+
+        originCommit.textContent =
+            committed
+                ? "\u58f0\u6e90\u5224\u65ad\u5df2\u786e\u8ba4"
+                : "\u63d0\u4ea4\u58f0\u6e90\u5224\u65ad";
+    }
+
+    if (result) {
+        result.classList.toggle(
+            "hidden",
+            !committed
+        );
+    }
+
+    if (evidenceNote) {
+        evidenceNote.textContent =
+            committed
+                ? "\u56db\u6b21\u6572\u51fb\u5df2\u4ece\u91cd\u65b0\u52a0\u8f7d\u7684\u80cc\u666f\u58f0\u9053\u4e2d\u5b9a\u4f4d"
+                : "\u9700\u8981\u5148\u5b8c\u6210 #021 \u4e0e\u80cc\u666f\u58f0\u9053\u5224\u65ad";
+    }
+
+    if (audioMeta) {
+        if (committed) {
+            audioMeta.textContent =
+                "\u6765\u6e90\uff1a\u672c\u5730\u9644\u4ef6 / \u72b6\u6001\uff1a\u80cc\u666f\u63d2\u5165\u5df2\u786e\u8ba4";
+        } else if (ticketVerified) {
+            audioMeta.textContent =
+                "\u6765\u6e90\uff1a\u672c\u5730\u9644\u4ef6 / \u72b6\u6001\uff1a\u80cc\u666f\u58f0\u9053\u5df2\u5206\u79bb";
+        } else if (transcriptRepaired) {
+            audioMeta.textContent =
+                "\u6765\u6e90\uff1a\u672c\u5730\u9644\u4ef6 / \u72b6\u6001\uff1a\u4eba\u58f0\u8f6c\u5199\u5df2\u6062\u590d";
+        } else {
+            audioMeta.textContent =
+                "\u6765\u6e90\uff1a\u672c\u5730\u9644\u4ef6 / \u72b6\u6001\uff1a\u65e0\u6cd5\u64ad\u653e";
+        }
+    }
+}
+
+function initThread03KnockAudit() {
+    const section =
+        document.getElementById(
+            "thread03KnockAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const waveButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread03-knock-time]"
+            )
+        );
+
+    const originButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread03-knock-origin]"
+            )
+        );
+
+    const markerCommit =
+        document.getElementById(
+            "thread03KnockMarkerCommit"
+        );
+
+    const originCommit =
+        document.getElementById(
+            "thread03KnockOriginCommit"
+        );
+
+    waveButtons.forEach(
+        function (button) {
+            if (
+                button.dataset
+                    .thread03KnockBound === "1"
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+                    if (
+                        !isThread03TranscriptRepaired() ||
+                        !isThread03Ticket021Verified() ||
+                        isThread03KnockAuditComplete()
+                    ) {
+                        return;
+                    }
+
+                    const state =
+                        loadThread03KnockState();
+
+                    if (state.markersCommitted) {
+                        return;
+                    }
+
+                    const time =
+                        button.getAttribute(
+                            "data-thread03-knock-time"
+                        );
+
+                    const existingIndex =
+                        state.selectedTimes.indexOf(
+                            time
+                        );
+
+                    if (existingIndex !== -1) {
+                        state.selectedTimes.splice(
+                            existingIndex,
+                            1
+                        );
+
+                        state.message =
+                            "\u5df2\u53d6\u6d88 00:" +
+                            time +
+                            " \u7684\u6572\u51fb\u6807\u8bb0\u3002";
+                    } else if (
+                        state.selectedTimes.length >=
+                        4
+                    ) {
+                        state.message =
+                            "\u53ea\u80fd\u63d0\u4ea4\u56db\u4e2a\u6572\u51fb\u4f4d\u7f6e\u3002\u8bf7\u5148\u53d6\u6d88\u4e00\u4e2a\u5df2\u9009\u65f6\u95f4\u5207\u7247\u3002";
+                    } else {
+                        state.selectedTimes.push(
+                            time
+                        );
+
+                        state.message =
+                            "\u5df2\u6807\u8bb0 00:" +
+                            time +
+                            " \u7684\u80cc\u666f\u58f0\u9053\u5cf0\u503c\u3002";
+                    }
+
+                    state.selectedTimes.sort();
+
+                    saveThread03KnockState(
+                        state
+                    );
+
+                    renderThread03KnockAudit();
+                }
+            );
+
+            button.dataset
+                .thread03KnockBound = "1";
+        }
+    );
+
+    if (
+        markerCommit &&
+        markerCommit.dataset
+            .thread03KnockBound !== "1"
+    ) {
+        markerCommit.addEventListener(
+            "click",
+            function () {
+                const state =
+                    loadThread03KnockState();
+
+                if (
+                    !isThread03TranscriptRepaired() ||
+                    !isThread03Ticket021Verified() ||
+                    state.selectedTimes.length !== 4 ||
+                    state.markersCommitted ||
+                    isThread03KnockAuditComplete()
+                ) {
+                    return;
+                }
+
+                if (
+                    !areThread03KnockTimesCorrect(
+                        state.selectedTimes
+                    )
+                ) {
+                    state.mistakes += 1;
+                    state.selectedTimes = [];
+
+                    state.message =
+                        "\u6240\u9009\u65f6\u95f4\u5207\u7247\u6ca1\u6709\u5f62\u6210\u7a33\u5b9a\u7684\u56db\u79d2\u95f4\u9694\u3002\u8bf7\u91cd\u65b0\u6807\u8bb0\u56db\u4e2a\u9ad8\u5f3a\u5ea6\u6572\u51fb\u5cf0\u503c\u3002";
+
+                    saveThread03KnockState(
+                        state
+                    );
+
+                    renderThread03KnockAudit();
+
+                    return;
+                }
+
+                state.markersCommitted = true;
+
+                state.message =
+                    "\u5df2\u5b9a\u4f4d 00:04\u300100:08\u300100:12 \u548c 00:16 \u7684\u56db\u6b21\u6572\u51fb\u3002\u5b83\u4eec\u4ee5\u56db\u79d2\u95f4\u9694\u91cd\u590d\u3002";
+
+                saveThread03KnockState(
+                    state
+                );
+
+                renderThread03KnockAudit();
+            }
+        );
+
+        markerCommit.dataset
+            .thread03KnockBound = "1";
+    }
+
+    originButtons.forEach(
+        function (button) {
+            if (
+                button.dataset
+                    .thread03KnockBound === "1"
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+                    const state =
+                        loadThread03KnockState();
+
+                    if (
+                        !state.markersCommitted ||
+                        isThread03KnockAuditComplete()
+                    ) {
+                        return;
+                    }
+
+                    state.originSelected =
+                        button.getAttribute(
+                            "data-thread03-knock-origin"
+                        ) || "";
+
+                    state.message =
+                        getThread03KnockOriginReadout(
+                            state.originSelected
+                        );
+
+                    saveThread03KnockState(
+                        state
+                    );
+
+                    renderThread03KnockAudit();
+                }
+            );
+
+            button.dataset
+                .thread03KnockBound = "1";
+        }
+    );
+
+    if (
+        originCommit &&
+        originCommit.dataset
+            .thread03KnockBound !== "1"
+    ) {
+        originCommit.addEventListener(
+            "click",
+            function () {
+                const state =
+                    loadThread03KnockState();
+
+                if (
+                    !state.markersCommitted ||
+                    !state.originSelected ||
+                    isThread03KnockAuditComplete()
+                ) {
+                    return;
+                }
+
+                if (
+                    state.originSelected !==
+                    "reload_insert"
+                ) {
+                    state.mistakes += 1;
+                    state.originSelected = "";
+
+                    state.message =
+                        "\u8be5\u7ed3\u8bba\u65e0\u6cd5\u89e3\u91ca\u6572\u51fb\u4e3a\u4ec0\u4e48\u53ea\u5728\u9644\u4ef6\u91cd\u65b0\u52a0\u8f7d\u540e\u7684\u80cc\u666f\u58f0\u9053\u4e2d\u51fa\u73b0\u3002";
+
+                    saveThread03KnockState(
+                        state
+                    );
+
+                    renderThread03KnockAudit();
+
+                    return;
+                }
+
+                state.committed = true;
+
+                state.message =
+                    "\u6572\u51fb\u5df2\u786e\u8ba4\u4e3a\u9644\u4ef6\u91cd\u65b0\u52a0\u8f7d\u540e\u5199\u5165\u7684\u80cc\u666f\u58f0\u9053\u5185\u5bb9\u3002";
+
+                localStorage.setItem(
+                    ECHO_THREAD03_KNOCK_KEY,
+                    "1"
+                );
+
+                saveThread03KnockState(
+                    state
+                );
+
+                if (
+                    typeof addInvestigationLog ===
+                    "function"
+                ) {
+                    addInvestigationLog(
+                        "thread03_knock_insertion",
+                        "\u5df2\u786e\u8ba4 THREAD 03 \u56db\u6b21\u6572\u51fb\u5728\u9644\u4ef6\u91cd\u65b0\u52a0\u8f7d\u540e\u5199\u5165\u80cc\u666f\u58f0\u9053\u3002",
+                        true
+                    );
+                }
+
+                renderThread03KnockAudit();
+
+                if (
+                    typeof
+                    syncEchoEvidenceCaptureButtons ===
+                    "function"
+                ) {
+                    syncEchoEvidenceCaptureButtons();
+                }
+
+                if (
+                    typeof renderWorkConsole ===
+                    "function"
+                ) {
+                    renderWorkConsole();
+                }
+            }
+        );
+
+        originCommit.dataset
+            .thread03KnockBound = "1";
+    }
+
+    const repairButton =
+        document.getElementById(
+            "repairAudioBtn"
+        );
+
+    if (
+        repairButton &&
+        repairButton.dataset
+            .thread03KnockRefreshBound !==
+        "1"
+    ) {
+        repairButton.addEventListener(
+            "click",
+            function () {
+                setTimeout(
+                    renderThread03KnockAudit,
+                    0
+                );
+            }
+        );
+
+        repairButton.dataset
+            .thread03KnockRefreshBound =
+            "1";
+    }
+
+    if (
+        document.body.dataset
+            .thread03KnockRefreshBound !==
+        "1"
+    ) {
+        document.addEventListener(
+            "click",
+            function () {
+                setTimeout(
+                    function () {
+                        if (
+                            document.getElementById(
+                                "thread03KnockAudit"
+                            )
+                        ) {
+                            renderThread03KnockAudit();
+                        }
+                    },
+                    0
+                );
+            }
+        );
+
+        document.body.dataset
+            .thread03KnockRefreshBound =
+            "1";
+    }
+
+    renderThread03KnockAudit();
+
+    window.echoRestThread03Knock = {
+        isComplete:
+            isThread03KnockAuditComplete,
+
+        refresh:
+            renderThread03KnockAudit,
+
+        reset: function () {
+            localStorage.removeItem(
+                ECHO_THREAD03_KNOCK_KEY
+            );
+
+            localStorage.removeItem(
+                ECHO_THREAD03_KNOCK_STATE_KEY
+            );
+
+            renderThread03KnockAudit();
+
+            if (
+                typeof
+                syncEchoEvidenceCaptureButtons ===
+                "function"
+            ) {
+                syncEchoEvidenceCaptureButtons();
+            }
+        }
+    };
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        initThread03KnockAudit();
+    }
+);
+
+/* =========================
+   THREAD 03 Narrative State
+   ========================= */
+
+const ECHO_THREAD03_WALL_AUDIO_LINK =
+    "wall_audio_match";
+
+function getThread03EvidenceState() {
+    if (
+        window.echoRestEvidence &&
+        typeof
+        window.echoRestEvidence.getState ===
+        "function"
+    ) {
+        try {
+            return (
+                window.echoRestEvidence.getState() ||
+                {}
+            );
+        } catch (error) {
+            /* Fall through to local storage. */
+        }
+    }
+
+    try {
+        return JSON.parse(
+            localStorage.getItem(
+                "echorest_evidence_state_v1"
+            ) || "{}"
+        );
+    } catch (error) {
+        return {};
+    }
+}
+
+function doesThread03LinkEntryMatch(entry) {
+    if (!entry) {
+        return false;
+    }
+
+    if (typeof entry === "string") {
+        if (
+            entry ===
+            ECHO_THREAD03_WALL_AUDIO_LINK
+        ) {
+            return true;
+        }
+
+        return (
+            entry.indexOf("wall_hollow") !== -1 &&
+            entry.indexOf("knock_audio") !== -1
+        );
+    }
+
+    if (typeof entry !== "object") {
+        return false;
+    }
+
+    const directValues = [
+        entry.id,
+        entry.key,
+        entry.linkId,
+        entry.link_id,
+        entry.result,
+        entry.rule,
+        entry.pairId,
+        entry.pair_id
+    ];
+
+    const directMatch =
+        directValues.some(
+            function (value) {
+                return (
+                    value ===
+                    ECHO_THREAD03_WALL_AUDIO_LINK
+                );
+            }
+        );
+
+    if (directMatch) {
+        return true;
+    }
+
+    const possibleEvidenceIds = [
+        entry.left,
+        entry.right,
+        entry.a,
+        entry.b,
+        entry.first,
+        entry.second,
+        entry.source,
+        entry.target,
+        entry.evidenceA,
+        entry.evidenceB,
+        entry.evidence_a,
+        entry.evidence_b
+    ].filter(
+        function (value) {
+            return (
+                typeof value === "string"
+            );
+        }
+    );
+
+    return (
+        possibleEvidenceIds.indexOf(
+            "wall_hollow"
+        ) !== -1 &&
+        possibleEvidenceIds.indexOf(
+            "knock_audio"
+        ) !== -1
+    );
+}
+
+function hasThread03WallAudioLink() {
+    const state =
+        getThread03EvidenceState();
+
+    const links =
+        Array.isArray(state.links)
+            ? state.links
+            : [];
+
+    return links.some(
+        doesThread03LinkEntryMatch
+    );
+}
+
+function syncThread03NarrativeState() {
+    const record =
+        document.getElementById(
+            "thread03WallSourceRecord"
+        );
+
+    const registration =
+        record
+            ? record.querySelector(
+                ".thread03-source-registration"
+            )
+            : null;
+
+    const meta =
+        document.getElementById(
+            "thread03WallSourceMeta"
+        );
+
+    const status =
+        document.getElementById(
+            "thread03WallSourceStatus"
+        );
+
+    const registeredSpace =
+        document.getElementById(
+            "thread03RegisteredSpace"
+        );
+
+    const wallCavity =
+        document.getElementById(
+            "thread03WallCavity"
+        );
+
+    const internalSource =
+        document.getElementById(
+            "thread03InternalSource"
+        );
+
+    const sourceDirection =
+        document.getElementById(
+            "thread03SourceDirection"
+        );
+
+    const note =
+        document.getElementById(
+            "thread03WallSourceNote"
+        );
+
+    const conflict =
+        document.getElementById(
+            "thread03WallSourceConflict"
+        );
+
+    const deletedText =
+        document.getElementById(
+            "thread03DeletedCommentText"
+        );
+
+    const deletedState =
+        document.getElementById(
+            "thread03DeletedCommentState"
+        );
+
+    const deletedLine =
+        deletedText
+            ? deletedText.closest(
+                ".deleted-comment-line"
+            )
+            : null;
+
+    if (
+        !record &&
+        !deletedText &&
+        !deletedState
+    ) {
+        return;
+    }
+
+    const wallComplete =
+        localStorage.getItem(
+            "echorest_thread03_wall_audit_v1"
+        ) === "1";
+
+    const knockComplete =
+        localStorage.getItem(
+            "echorest_thread03_knock_audit_v1"
+        ) === "1";
+
+    const investigationsComplete =
+        wallComplete &&
+        knockComplete;
+
+    const evidenceLinked =
+        investigationsComplete &&
+        hasThread03WallAudioLink();
+
+    if (record) {
+        record.classList.toggle(
+            "hidden",
+            !investigationsComplete
+        );
+    }
+
+    if (registration) {
+        registration.classList.toggle(
+            "is-waiting",
+            investigationsComplete &&
+            !evidenceLinked
+        );
+
+        registration.classList.toggle(
+            "is-registered",
+            evidenceLinked
+        );
+    }
+
+    if (!investigationsComplete) {
+        if (deletedText) {
+            deletedText.textContent =
+                "\u4ed6\u4e0d\u5728\u3010\u6b64\u8bc4\u8bba\u88ab\u697c\u4e3b\u5220\u9664\u3011";
+
+            deletedText.setAttribute(
+                "data-hover",
+                "\u6062\u590d\u5185\u5bb9\u5c1a\u672a\u786e\u8ba4\u3002"
+            );
+        }
+
+        if (deletedState) {
+            deletedState.textContent =
+                "CACHE PARTIAL";
+        }
+
+        if (deletedLine) {
+            deletedLine.classList.remove(
+                "is-recovered",
+                "is-normalized"
+            );
+        }
+
+        return;
+    }
+
+    if (!evidenceLinked) {
+        if (meta) {
+            meta.textContent =
+                "\u6765\u6e90\uff1a\u5efa\u7b51\u68c0\u6d4b\u7f13\u5b58 / \u72b6\u6001\uff1a\u7b49\u5f85\u8bc1\u636e\u5173\u8054";
+        }
+
+        if (status) {
+            status.textContent =
+                "WAITING LINK";
+        }
+
+        if (registeredSpace) {
+            registeredSpace.textContent =
+                "\u4e0d\u5b58\u5728";
+        }
+
+        if (wallCavity) {
+            wallCavity.textContent =
+                "\u672a\u53d1\u73b0";
+        }
+
+        if (internalSource) {
+            internalSource.textContent =
+                "\u7b49\u5f85\u5173\u8054";
+        }
+
+        if (sourceDirection) {
+            sourceDirection.textContent =
+                "\u672a\u5b9a\u4f4d";
+        }
+
+        if (note) {
+            note.textContent =
+                "\u5899\u4f53\u7f3a\u635f\u8f6e\u5ed3\u4e0e\u80cc\u666f\u6572\u51fb\u58f0\u9053\u5747\u5df2\u6062\u590d\u3002\u8bf7\u5728\u5de5\u4f5c\u533a\u5b8c\u6210\u4e24\u4efd\u8bc1\u636e\u7684\u5173\u8054\u3002";
+        }
+
+        if (conflict) {
+            conflict.classList.add(
+                "hidden"
+            );
+        }
+
+        if (deletedText) {
+            deletedText.textContent =
+                "\u4ed6\u4e0d\u5728\u9694\u58c1\u3002\u4ed6\u5728\u8fd9\u9762\u5899\u91cc\u9762\u3002";
+
+            deletedText.setAttribute(
+                "data-hover",
+                "\u8be5\u5185\u5bb9\u6765\u81ea\u5220\u9664\u524d\u7f13\u5b58\u3002"
+            );
+        }
+
+        if (deletedState) {
+            deletedState.textContent =
+                "CACHE RECOVERED";
+        }
+
+        if (deletedLine) {
+            deletedLine.classList.add(
+                "is-recovered"
+            );
+
+            deletedLine.classList.remove(
+                "is-normalized"
+            );
+        }
+
+        return;
+    }
+
+    if (meta) {
+        meta.textContent =
+            "\u6765\u6e90\uff1a\u5efa\u7b51\u68c0\u6d4b\u7f13\u5b58 / \u72b6\u6001\uff1a\u5185\u90e8\u58f0\u6e90\u5df2\u767b\u8bb0";
+    }
+
+    if (status) {
+        status.textContent =
+            "INTERNAL SOURCE REGISTERED";
+    }
+
+    if (registeredSpace) {
+        registeredSpace.textContent =
+            "\u4e0d\u5b58\u5728";
+    }
+
+    if (wallCavity) {
+        wallCavity.textContent =
+            "\u672a\u53d1\u73b0";
+    }
+
+    if (internalSource) {
+        internalSource.textContent =
+            "\u6d3b\u52a8\u4e2d";
+    }
+
+    if (sourceDirection) {
+        sourceDirection.textContent =
+            "\u5899\u4f53\u53e6\u4e00\u4fa7";
+    }
+
+    if (note) {
+        note.textContent =
+            "\u5efa\u7b51\u8bb0\u5f55\u4e0d\u652f\u6301\u8be5\u58f0\u6e90\u5b58\u5728\uff0c\u4f46\u7cfb\u7edf\u5df2\u5c06\u5176\u767b\u8bb0\u4e3a\u5899\u4f53\u5185\u90e8\u6d3b\u52a8\u3002";
+    }
+
+    if (conflict) {
+        conflict.classList.remove(
+            "hidden"
+        );
+    }
+
+    if (deletedText) {
+        deletedText.textContent =
+            "\u8be5\u63cf\u8ff0\u4e0e\u5efa\u7b51\u8bb0\u5f55\u4e0d\u4e00\u81f4\uff0c\u5df2\u9690\u85cf\u3002";
+
+        deletedText.setAttribute(
+            "data-hover",
+            "\u7cfb\u7edf\u6821\u6b63\u65f6\u95f4\u665a\u4e8e\u58f0\u6e90\u767b\u8bb0\u3002"
+        );
+    }
+
+    if (deletedState) {
+        deletedState.textContent =
+            "SYSTEM NORMALIZED";
+    }
+
+    if (deletedLine) {
+        deletedLine.classList.remove(
+            "is-recovered"
+        );
+
+        deletedLine.classList.add(
+            "is-normalized"
+        );
+    }
+}
+
+function initThread03NarrativeState() {
+    syncThread03NarrativeState();
+
+    if (
+        document.body.dataset
+            .thread03NarrativeBound ===
+        "1"
+    ) {
+        return;
+    }
+
+    document.addEventListener(
+        "click",
+        function () {
+            setTimeout(
+                function () {
+                    syncThread03NarrativeState();
+                },
+                0
+            );
+        }
+    );
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+            if (
+                event.key ===
+                "echorest_evidence_state_v1" ||
+                event.key ===
+                "echorest_thread03_wall_audit_v1" ||
+                event.key ===
+                "echorest_thread03_knock_audit_v1"
+            ) {
+                syncThread03NarrativeState();
+            }
+        }
+    );
+
+    document.body.dataset
+        .thread03NarrativeBound =
+        "1";
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        initThread03NarrativeState();
+    }
+);
+
+window.echoRestThread03Narrative = {
+    refresh:
+        syncThread03NarrativeState,
+
+    hasLink:
+        hasThread03WallAudioLink
+};
+
+/* =========================
+   THREAD 04 Layer Audit
+   ========================= */
+
+const ECHO_THREAD04_LAYER_KEY =
+    "echorest_thread04_layer_audit_v1";
+
+const ECHO_THREAD04_LAYER_STATE_KEY =
+    "echorest_thread04_layer_audit_state_v1";
+
+function getDefaultThread04LayerState() {
+    return {
+        inspected: [],
+        selected: "",
+        mistakes: 0,
+        committed: false,
+        message: ""
+    };
+}
+
+function loadThread04LayerState() {
+    const fallback =
+        getDefaultThread04LayerState();
+
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                ECHO_THREAD04_LAYER_STATE_KEY
+            ) || "null"
+        );
+
+        if (
+            !parsed ||
+            typeof parsed !== "object"
+        ) {
+            return fallback;
+        }
+
+        return {
+            inspected:
+                Array.isArray(parsed.inspected)
+                    ? parsed.inspected
+                    : [],
+
+            selected:
+                typeof parsed.selected === "string"
+                    ? parsed.selected
+                    : "",
+
+            mistakes:
+                Number.isFinite(
+                    Number(parsed.mistakes)
+                )
+                    ? Number(parsed.mistakes)
+                    : 0,
+
+            committed:
+                parsed.committed === true ||
+                localStorage.getItem(
+                    ECHO_THREAD04_LAYER_KEY
+                ) === "1",
+
+            message:
+                typeof parsed.message === "string"
+                    ? parsed.message
+                    : ""
+        };
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function saveThread04LayerState(state) {
+    localStorage.setItem(
+        ECHO_THREAD04_LAYER_STATE_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function isThread04DraftRepaired() {
+    const value =
+        localStorage.getItem(
+            "echo_thread04_draft_repaired"
+        );
+
+    return (
+        value !== null &&
+        value !== "0" &&
+        value !== "false"
+    );
+}
+
+function isThread04LayerAuditComplete() {
+    return (
+        localStorage.getItem(
+            ECHO_THREAD04_LAYER_KEY
+        ) === "1"
+    );
+}
+
+function getThread04LayerConclusionLabel(
+    conclusionId
+) {
+    const labels = {
+        revision:
+            "\u6f2b\u753b\u5bb6\u5728\u53d1\u9001\u538b\u7f29\u5305\u524d\u8fdb\u884c\u4e86\u666e\u901a\u4fee\u6539",
+
+        clock:
+            "\u65f6\u949f\u5185\u5bb9\u5bfc\u81f4\u5176\u4ed6\u56fe\u5c42\u65f6\u95f4\u635f\u574f",
+
+        sealed_insert:
+            "\u80cc\u5f71\u56fe\u5c42\u5728\u538b\u7f29\u5305\u5c01\u5b58\u540e\u624d\u88ab\u5199\u5165"
+    };
+
+    return (
+        labels[conclusionId] ||
+        conclusionId
+    );
+}
+
+function getThread04LayerConclusionReadout(
+    conclusionId
+) {
+    const messages = {
+        revision:
+            "\u666e\u901a\u4fee\u6539\u5e94\u5f53\u53d1\u751f\u5728\u9644\u4ef6\u5c01\u5b58\u4e4b\u524d\uff0c\u5e76\u4fdd\u7559\u4f5c\u8005\u4e0e\u7f16\u8f91\u8bbe\u5907\u8bb0\u5f55\u3002",
+
+        clock:
+            "\u65f6\u949f\u663e\u793a 04:04 \u53ea\u662f\u753b\u9762\u5185\u5bb9\uff0c\u4e0d\u80fd\u4fee\u6539\u538b\u7f29\u5305\u5df2\u7ecf\u5c01\u5b58\u7684\u65f6\u95f4\u987a\u5e8f\u3002",
+
+        sealed_insert:
+            "\u538b\u7f29\u5305\u4e8e 04:03:58 \u5b8c\u6210\u54c8\u5e0c\u5c01\u5b58\uff0c\u80cc\u5f71\u56fe\u5c42\u5374\u5728 04:04:17 \u9996\u6b21\u5199\u5165\uff0c\u4e14\u6ca1\u6709\u4f5c\u8005\u4e0e\u6765\u6e90\u8bb0\u5f55\u3002"
+    };
+
+    return (
+        messages[conclusionId] ||
+        ""
+    );
+}
+
+function renderThread04LayerAudit() {
+    const section =
+        document.getElementById(
+            "thread04LayerAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const status =
+        document.getElementById(
+            "thread04LayerAuditStatus"
+        );
+
+    const readout =
+        document.getElementById(
+            "thread04LayerReadout"
+        );
+
+    const progress =
+        document.getElementById(
+            "thread04LayerProgress"
+        );
+
+    const mistakes =
+        document.getElementById(
+            "thread04LayerMistakes"
+        );
+
+    const selection =
+        document.getElementById(
+            "thread04LayerSelection"
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread04LayerCommit"
+        );
+
+    const result =
+        document.getElementById(
+            "thread04LayerResult"
+        );
+
+    const evidenceNote =
+        document.getElementById(
+            "thread04LayerEvidenceNote"
+        );
+
+    const layerButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread04-layer]"
+            )
+        );
+
+    const conclusionButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread04-layer-conclusion]"
+            )
+        );
+
+    const repaired =
+        isThread04DraftRepaired();
+
+    const state =
+        loadThread04LayerState();
+
+    const committed =
+        state.committed ||
+        isThread04LayerAuditComplete();
+
+    const allInspected =
+        state.inspected.length >= 4;
+
+    section.classList.toggle(
+        "is-complete",
+        committed
+    );
+
+    layerButtons.forEach(
+        function (button) {
+            const layerId =
+                button.getAttribute(
+                    "data-thread04-layer"
+                );
+
+            const inspected =
+                state.inspected.indexOf(
+                    layerId
+                ) !== -1;
+
+            button.disabled =
+                !repaired ||
+                committed;
+
+            button.classList.toggle(
+                "is-inspected",
+                inspected
+            );
+        }
+    );
+
+    conclusionButtons.forEach(
+        function (button) {
+            const conclusionId =
+                button.getAttribute(
+                    "data-thread04-layer-conclusion"
+                );
+
+            button.disabled =
+                !repaired ||
+                !allInspected ||
+                committed;
+
+            button.classList.toggle(
+                "is-selected",
+                state.selected ===
+                conclusionId
+            );
+
+            button.classList.toggle(
+                "is-verified",
+                committed &&
+                conclusionId ===
+                "sealed_insert"
+            );
+        }
+    );
+
+    if (status) {
+        if (committed) {
+            status.textContent =
+                "VERIFIED";
+        } else if (!repaired) {
+            status.textContent =
+                "LOCKED";
+        } else if (allInspected) {
+            status.textContent =
+                "READY";
+        } else {
+            status.textContent =
+                "PENDING";
+        }
+    }
+
+    if (progress) {
+        progress.textContent =
+            Math.min(
+                state.inspected.length,
+                4
+            ) +
+            " / 4 LAYERS";
+    }
+
+    if (mistakes) {
+        mistakes.textContent =
+            "\u8bef\u5224\uff1a" +
+            state.mistakes;
+    }
+
+    if (readout) {
+        if (committed) {
+            readout.textContent =
+                "\u5df2\u786e\u8ba4 FIGURE_BACK \u5728\u9644\u4ef6\u5c01\u5b58\u5b8c\u6210\u540e\u9996\u6b21\u5199\u5165\u3002";
+        } else if (state.message) {
+            readout.textContent =
+                state.message;
+        } else if (!repaired) {
+            readout.textContent =
+                "\u9700\u8981\u5148\u6062\u590d\u6f2b\u753b\u6b8b\u9875\u3002";
+        } else {
+            readout.textContent =
+                "\u5c1a\u672a\u68c0\u67e5\u7a3f\u4ef6\u56fe\u5c42\u3002";
+        }
+    }
+
+    if (selection) {
+        selection.textContent =
+            state.selected
+                ? (
+                    "\u5df2\u9009\u62e9\uff1a" +
+                    getThread04LayerConclusionLabel(
+                        state.selected
+                    )
+                )
+                : "\u5c1a\u672a\u9009\u62e9\u7ed3\u8bba";
+    }
+
+    if (commitButton) {
+        commitButton.disabled =
+            !repaired ||
+            !allInspected ||
+            !state.selected ||
+            committed;
+
+        commitButton.textContent =
+            committed
+                ? "\u56fe\u5c42\u6765\u6e90\u5df2\u786e\u8ba4"
+                : "\u63d0\u4ea4\u56fe\u5c42\u6765\u6e90\u5224\u65ad";
+    }
+
+    if (result) {
+        result.classList.toggle(
+            "hidden",
+            !committed
+        );
+    }
+
+    if (evidenceNote) {
+        evidenceNote.textContent =
+            committed
+                ? "\u80cc\u5f71\u56fe\u5c42\u7684\u9996\u6b21\u5199\u5165\u65f6\u95f4\u665a\u4e8e\u9644\u4ef6\u5c01\u5b58"
+                : "\u9700\u8981\u5148\u786e\u8ba4\u5c01\u5b58\u540e\u5199\u5165\u7684\u5f02\u5e38\u56fe\u5c42";
+    }
+}
+
+function initThread04LayerAudit() {
+    const section =
+        document.getElementById(
+            "thread04LayerAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const layerButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread04-layer]"
+            )
+        );
+
+    const conclusionButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread04-layer-conclusion]"
+            )
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread04LayerCommit"
+        );
+
+    layerButtons.forEach(
+        function (button) {
+            if (
+                button.dataset
+                    .thread04LayerBound === "1"
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+                    if (
+                        !isThread04DraftRepaired() ||
+                        isThread04LayerAuditComplete()
+                    ) {
+                        return;
+                    }
+
+                    const layerId =
+                        button.getAttribute(
+                            "data-thread04-layer"
+                        );
+
+                    const state =
+                        loadThread04LayerState();
+
+                    if (
+                        state.inspected.indexOf(
+                            layerId
+                        ) === -1
+                    ) {
+                        state.inspected.push(
+                            layerId
+                        );
+                    }
+
+                    state.message =
+                        button.getAttribute(
+                            "data-readout"
+                        ) || "";
+
+                    saveThread04LayerState(
+                        state
+                    );
+
+                    renderThread04LayerAudit();
+                }
+            );
+
+            button.dataset
+                .thread04LayerBound = "1";
+        }
+    );
+
+    conclusionButtons.forEach(
+        function (button) {
+            if (
+                button.dataset
+                    .thread04LayerBound === "1"
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+                    const state =
+                        loadThread04LayerState();
+
+                    if (
+                        !isThread04DraftRepaired() ||
+                        state.inspected.length < 4 ||
+                        isThread04LayerAuditComplete()
+                    ) {
+                        return;
+                    }
+
+                    state.selected =
+                        button.getAttribute(
+                            "data-thread04-layer-conclusion"
+                        ) || "";
+
+                    state.message =
+                        getThread04LayerConclusionReadout(
+                            state.selected
+                        );
+
+                    saveThread04LayerState(
+                        state
+                    );
+
+                    renderThread04LayerAudit();
+                }
+            );
+
+            button.dataset
+                .thread04LayerBound = "1";
+        }
+    );
+
+    if (
+        commitButton &&
+        commitButton.dataset
+            .thread04LayerBound !== "1"
+    ) {
+        commitButton.addEventListener(
+            "click",
+            function () {
+                const state =
+                    loadThread04LayerState();
+
+                if (
+                    !isThread04DraftRepaired() ||
+                    state.inspected.length < 4 ||
+                    !state.selected ||
+                    isThread04LayerAuditComplete()
+                ) {
+                    return;
+                }
+
+                if (
+                    state.selected !==
+                    "sealed_insert"
+                ) {
+                    state.mistakes += 1;
+                    state.selected = "";
+
+                    state.message =
+                        "\u8be5\u7ed3\u8bba\u65e0\u6cd5\u89e3\u91ca\u56fe\u5c42\u4e3a\u4ec0\u4e48\u5728\u538b\u7f29\u5305\u54c8\u5e0c\u5c01\u5b58\u5b8c\u6210\u540e\u624d\u51fa\u73b0\u3002";
+
+                    saveThread04LayerState(
+                        state
+                    );
+
+                    renderThread04LayerAudit();
+
+                    return;
+                }
+
+                state.committed = true;
+
+                state.message =
+                    "\u80cc\u5f71\u56fe\u5c42\u5df2\u786e\u8ba4\u4e3a\u5c01\u5b58\u540e\u5199\u5165\u7684\u672a\u767b\u8bb0\u9644\u4ef6\u5185\u5bb9\u3002";
+
+                localStorage.setItem(
+                    ECHO_THREAD04_LAYER_KEY,
+                    "1"
+                );
+
+                saveThread04LayerState(
+                    state
+                );
+
+                if (
+                    typeof addInvestigationLog ===
+                    "function"
+                ) {
+                    addInvestigationLog(
+                        "thread04_unregistered_layer",
+                        "\u5df2\u786e\u8ba4 THREAD 04 \u80cc\u5f71\u56fe\u5c42\u5728\u9644\u4ef6\u5c01\u5b58\u540e\u9996\u6b21\u5199\u5165\u3002",
+                        true
+                    );
+                }
+
+                renderThread04LayerAudit();
+
+                if (
+                    typeof
+                    syncEchoEvidenceCaptureButtons ===
+                    "function"
+                ) {
+                    syncEchoEvidenceCaptureButtons();
+                }
+
+                if (
+                    typeof renderWorkConsole ===
+                    "function"
+                ) {
+                    renderWorkConsole();
+                }
+            }
+        );
+
+        commitButton.dataset
+            .thread04LayerBound = "1";
+    }
+
+    const repairButton =
+        document.getElementById(
+            "repairDraftBtn"
+        );
+
+    if (
+        repairButton &&
+        repairButton.dataset
+            .thread04LayerRefreshBound !==
+        "1"
+    ) {
+        repairButton.addEventListener(
+            "click",
+            function () {
+                setTimeout(
+                    function () {
+                        renderThread04LayerAudit();
+                    },
+                    0
+                );
+            }
+        );
+
+        repairButton.dataset
+            .thread04LayerRefreshBound =
+            "1";
+    }
+
+    renderThread04LayerAudit();
+
+    window.echoRestThread04Layer = {
+        isComplete:
+            isThread04LayerAuditComplete,
+
+        refresh:
+            renderThread04LayerAudit,
+
+        reset: function () {
+            localStorage.removeItem(
+                ECHO_THREAD04_LAYER_KEY
+            );
+
+            localStorage.removeItem(
+                ECHO_THREAD04_LAYER_STATE_KEY
+            );
+
+            renderThread04LayerAudit();
+
+            if (
+                typeof
+                syncEchoEvidenceCaptureButtons ===
+                "function"
+            ) {
+                syncEchoEvidenceCaptureButtons();
+            }
+        }
+    };
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        initThread04LayerAudit();
+    }
+);
+
+/* =========================
+   THREAD 04 Future Audit
+   ========================= */
+
+const ECHO_THREAD04_FUTURE_KEY =
+    "echorest_thread04_future_audit_v1";
+
+const ECHO_THREAD04_FUTURE_STATE_KEY =
+    "echorest_thread04_future_audit_state_v1";
+
+function getDefaultThread04FutureState() {
+    return {
+        inspected: [],
+        selected: "",
+        mistakes: 0,
+        committed: false,
+        message: ""
+    };
+}
+
+function loadThread04FutureState() {
+    const fallback =
+        getDefaultThread04FutureState();
+
+    try {
+        const parsed = JSON.parse(
+            localStorage.getItem(
+                ECHO_THREAD04_FUTURE_STATE_KEY
+            ) || "null"
+        );
+
+        if (
+            !parsed ||
+            typeof parsed !== "object"
+        ) {
+            return fallback;
+        }
+
+        return {
+            inspected:
+                Array.isArray(parsed.inspected)
+                    ? parsed.inspected
+                    : [],
+
+            selected:
+                typeof parsed.selected === "string"
+                    ? parsed.selected
+                    : "",
+
+            mistakes:
+                Number.isFinite(
+                    Number(parsed.mistakes)
+                )
+                    ? Number(parsed.mistakes)
+                    : 0,
+
+            committed:
+                parsed.committed === true ||
+                localStorage.getItem(
+                    ECHO_THREAD04_FUTURE_KEY
+                ) === "1",
+
+            message:
+                typeof parsed.message === "string"
+                    ? parsed.message
+                    : ""
+        };
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function saveThread04FutureState(state) {
+    localStorage.setItem(
+        ECHO_THREAD04_FUTURE_STATE_KEY,
+        JSON.stringify(state)
+    );
+}
+
+function isThread04LayerAuditReady() {
+    if (
+        typeof isThread04LayerAuditComplete ===
+        "function"
+    ) {
+        return (
+            isThread04LayerAuditComplete() ===
+            true
+        );
+    }
+
+    return (
+        localStorage.getItem(
+            "echorest_thread04_layer_audit_v1"
+        ) === "1"
+    );
+}
+
+function isThread04FutureAuditComplete() {
+    return (
+        localStorage.getItem(
+            ECHO_THREAD04_FUTURE_KEY
+        ) === "1"
+    );
+}
+
+function getThread04FutureConclusionLabel(
+    conclusionId
+) {
+    const labels = {
+        clock_error:
+            "\u9875\u9762\u65f6\u949f\u9519\u8bef\u5bfc\u81f4\u6240\u6709\u65e5\u5fd7\u65f6\u95f4\u635f\u574f",
+
+        duplicate_cache:
+            "\u7cfb\u7edf\u590d\u5236\u4e86\u4e00\u6761\u8fc7\u53bb\u7684\u666e\u901a\u8bbf\u95ee\u7f13\u5b58",
+
+        future_completion:
+            "\u5c1a\u672a\u53d1\u751f\u7684\u8bbf\u95ee\u88ab\u63d0\u524d\u5199\u6210\u5df2\u5b8c\u6210\u4e8b\u4ef6"
+    };
+
+    return (
+        labels[conclusionId] ||
+        conclusionId
+    );
+}
+
+function getThread04FutureConclusionReadout(
+    conclusionId
+) {
+    const messages = {
+        clock_error:
+            "\u9875\u9762\u65f6\u949f\u5f02\u5e38\u53ef\u4ee5\u5f71\u54cd\u663e\u793a\u65f6\u95f4\uff0c\u4f46\u65e0\u6cd5\u89e3\u91ca\u65e5\u5fd7\u4e2d\u4e3a\u4ec0\u4e48\u5df2\u7ecf\u5b58\u5728\u5f53\u524d\u5904\u7406\u4eba\u3001\u5f53\u524d\u4f1a\u8bdd\u548c\u5b8c\u6210\u72b6\u6001\u3002",
+
+        duplicate_cache:
+            "\u82e5\u8be5\u8bb0\u5f55\u53ea\u662f\u8fc7\u53bb\u7f13\u5b58\u7684\u590d\u5236\uff0c\u5b83\u4e0d\u5e94\u8be5\u5305\u542b\u5f53\u524d\u5904\u7406\u4eba\u548c\u672c\u6b21\u4f1a\u8bdd\u7f16\u53f7\u3002",
+
+        future_completion:
+            "\u8bb0\u5f55\u7684\u6267\u884c\u65e5\u671f\u4f4d\u4e8e\u5f53\u524d\u65e5\u671f\u4e4b\u540e\uff0c\u4f46\u5b83\u5df2\u7ecf\u5199\u5165\u672c\u6b21\u5904\u7406\u4eba\u3001\u4f1a\u8bdd\u7f16\u53f7\u4e0e COMPLETED \u72b6\u6001\u3002"
+    };
+
+    return (
+        messages[conclusionId] ||
+        ""
+    );
+}
+
+function getThread04TomorrowLabel() {
+    const tomorrow =
+        new Date();
+
+    tomorrow.setDate(
+        tomorrow.getDate() + 1
+    );
+
+    const year =
+        String(
+            tomorrow.getFullYear()
+        );
+
+    const month =
+        String(
+            tomorrow.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            tomorrow.getDate()
+        ).padStart(2, "0");
+
+    return (
+        "\u660e\u65e5 / " +
+        year +
+        "-" +
+        month +
+        "-" +
+        day +
+        " / 04:04"
+    );
+}
+
+function getThread04IdentityText(
+    elementId,
+    fallback
+) {
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+    if (!element) {
+        return fallback;
+    }
+
+    const value =
+        String(
+            element.textContent || ""
+        ).trim();
+
+    if (
+        !value ||
+        value ===
+        "\u672a\u8bfb\u53d6"
+    ) {
+        return fallback;
+    }
+
+    return value;
+}
+
+function renderThread04FutureAudit() {
+    const section =
+        document.getElementById(
+            "thread04FutureAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const status =
+        document.getElementById(
+            "thread04FutureAuditStatus"
+        );
+
+    const readout =
+        document.getElementById(
+            "thread04FutureReadout"
+        );
+
+    const progress =
+        document.getElementById(
+            "thread04FutureProgress"
+        );
+
+    const mistakes =
+        document.getElementById(
+            "thread04FutureMistakes"
+        );
+
+    const selection =
+        document.getElementById(
+            "thread04FutureSelection"
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread04FutureCommit"
+        );
+
+    const result =
+        document.getElementById(
+            "thread04FutureResult"
+        );
+
+    const evidenceNote =
+        document.getElementById(
+            "thread04FutureEvidenceNote"
+        );
+
+    const futureVisitTime =
+        document.getElementById(
+            "thread04FutureVisitTime"
+        );
+
+    const futureVisitWorker =
+        document.getElementById(
+            "thread04FutureVisitWorker"
+        );
+
+    const futureVisitSession =
+        document.getElementById(
+            "thread04FutureVisitSession"
+        );
+
+    const entryButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread04-future-entry]"
+            )
+        );
+
+    const conclusionButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread04-future-conclusion]"
+            )
+        );
+
+    const unlocked =
+        isThread04LayerAuditReady();
+
+    const state =
+        loadThread04FutureState();
+
+    const committed =
+        state.committed ||
+        isThread04FutureAuditComplete();
+
+    const allInspected =
+        state.inspected.length >= 4;
+
+    if (futureVisitTime) {
+        futureVisitTime.textContent =
+            getThread04TomorrowLabel();
+    }
+
+    if (futureVisitWorker) {
+        futureVisitWorker.textContent =
+            getThread04IdentityText(
+                "thread04WorkerValue",
+                "CURRENT WORKER"
+            );
+    }
+
+    if (futureVisitSession) {
+        futureVisitSession.textContent =
+            getThread04IdentityText(
+                "thread04SessionValue",
+                "CURRENT SESSION"
+            );
+    }
+
+    section.classList.toggle(
+        "is-locked",
+        !unlocked
+    );
+
+    section.classList.toggle(
+        "is-ready",
+        unlocked &&
+        !committed
+    );
+
+    section.classList.toggle(
+        "is-complete",
+        committed
+    );
+
+    entryButtons.forEach(
+        function (button) {
+            const entryId =
+                button.getAttribute(
+                    "data-thread04-future-entry"
+                );
+
+            const inspected =
+                state.inspected.indexOf(
+                    entryId
+                ) !== -1;
+
+            button.disabled =
+                !unlocked ||
+                committed;
+
+            button.classList.toggle(
+                "is-inspected",
+                inspected
+            );
+
+            button.classList.toggle(
+                "is-verified",
+                committed &&
+                entryId === "future_visit"
+            );
+        }
+    );
+
+    conclusionButtons.forEach(
+        function (button) {
+            const conclusionId =
+                button.getAttribute(
+                    "data-thread04-future-conclusion"
+                );
+
+            button.disabled =
+                !unlocked ||
+                !allInspected ||
+                committed;
+
+            button.classList.toggle(
+                "is-selected",
+                state.selected ===
+                conclusionId
+            );
+
+            button.classList.toggle(
+                "is-verified",
+                committed &&
+                conclusionId ===
+                "future_completion"
+            );
+        }
+    );
+
+    if (status) {
+        if (committed) {
+            status.textContent =
+                "VERIFIED";
+        } else if (!unlocked) {
+            status.textContent =
+                "LOCKED";
+        } else if (allInspected) {
+            status.textContent =
+                "READY";
+        } else {
+            status.textContent =
+                "PENDING";
+        }
+    }
+
+    if (progress) {
+        progress.textContent =
+            Math.min(
+                state.inspected.length,
+                4
+            ) +
+            " / 4 ENTRIES";
+    }
+
+    if (mistakes) {
+        mistakes.textContent =
+            "\u8bef\u5224\uff1a" +
+            state.mistakes;
+    }
+
+    if (readout) {
+        if (committed) {
+            readout.textContent =
+                "\u5df2\u786e\u8ba4 ENTRY 04 \u8bb0\u5f55\u4e86\u4e00\u6b21\u5c1a\u672a\u53d1\u751f\u7684 THREAD 04 \u8bbf\u95ee\u3002";
+        } else if (state.message) {
+            readout.textContent =
+                state.message;
+        } else if (!unlocked) {
+            readout.textContent =
+                "\u9700\u8981\u5148\u5b8c\u6210\u672a\u767b\u8bb0\u80cc\u5f71\u56fe\u5c42\u5ba1\u8ba1\u3002";
+        } else {
+            readout.textContent =
+                "\u56fe\u5c42\u5ba1\u8ba1\u5df2\u5b8c\u6210\u3002\u8bf7\u4f9d\u6b21\u68c0\u67e5\u56db\u6761\u8bbf\u95ee\u5199\u5165\u8bb0\u5f55\u3002";
+        }
+    }
+
+    if (selection) {
+        selection.textContent =
+            state.selected
+                ? (
+                    "\u5df2\u9009\u62e9\uff1a" +
+                    getThread04FutureConclusionLabel(
+                        state.selected
+                    )
+                )
+                : "\u5c1a\u672a\u9009\u62e9\u7ed3\u8bba";
+    }
+
+    if (commitButton) {
+        commitButton.disabled =
+            !unlocked ||
+            !allInspected ||
+            !state.selected ||
+            committed;
+
+        commitButton.textContent =
+            committed
+                ? "\u8bbf\u95ee\u65f6\u5e8f\u5df2\u786e\u8ba4"
+                : "\u63d0\u4ea4\u8bbf\u95ee\u65f6\u5e8f\u5224\u65ad";
+    }
+
+    if (result) {
+        result.classList.toggle(
+            "hidden",
+            !committed
+        );
+    }
+
+    if (evidenceNote) {
+        evidenceNote.textContent =
+            committed
+                ? "\u672a\u53d1\u751f\u7684\u8bbf\u95ee\u5df2\u5305\u542b\u5f53\u524d\u5904\u7406\u4eba\u3001\u4f1a\u8bdd\u4e0e\u5b8c\u6210\u72b6\u6001"
+                : "\u9700\u8981\u5148\u786e\u8ba4\u63d0\u524d\u5199\u5165\u7684\u672a\u6765\u4e8b\u4ef6";
+    }
+}
+
+function initThread04FutureAudit() {
+    const section =
+        document.getElementById(
+            "thread04FutureAudit"
+        );
+
+    if (!section) {
+        return;
+    }
+
+    const entryButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread04-future-entry]"
+            )
+        );
+
+    const conclusionButtons =
+        Array.from(
+            document.querySelectorAll(
+                "[data-thread04-future-conclusion]"
+            )
+        );
+
+    const commitButton =
+        document.getElementById(
+            "thread04FutureCommit"
+        );
+
+    entryButtons.forEach(
+        function (button) {
+            if (
+                button.dataset
+                    .thread04FutureBound === "1"
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+                    if (
+                        !isThread04LayerAuditReady() ||
+                        isThread04FutureAuditComplete()
+                    ) {
+                        return;
+                    }
+
+                    const entryId =
+                        button.getAttribute(
+                            "data-thread04-future-entry"
+                        );
+
+                    const state =
+                        loadThread04FutureState();
+
+                    if (
+                        state.inspected.indexOf(
+                            entryId
+                        ) === -1
+                    ) {
+                        state.inspected.push(
+                            entryId
+                        );
+                    }
+
+                    state.message =
+                        button.getAttribute(
+                            "data-readout"
+                        ) || "";
+
+                    saveThread04FutureState(
+                        state
+                    );
+
+                    renderThread04FutureAudit();
+                }
+            );
+
+            button.dataset
+                .thread04FutureBound =
+                "1";
+        }
+    );
+
+    conclusionButtons.forEach(
+        function (button) {
+            if (
+                button.dataset
+                    .thread04FutureBound === "1"
+            ) {
+                return;
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+                    const state =
+                        loadThread04FutureState();
+
+                    if (
+                        !isThread04LayerAuditReady() ||
+                        state.inspected.length < 4 ||
+                        isThread04FutureAuditComplete()
+                    ) {
+                        return;
+                    }
+
+                    state.selected =
+                        button.getAttribute(
+                            "data-thread04-future-conclusion"
+                        ) || "";
+
+                    state.message =
+                        getThread04FutureConclusionReadout(
+                            state.selected
+                        );
+
+                    saveThread04FutureState(
+                        state
+                    );
+
+                    renderThread04FutureAudit();
+                }
+            );
+
+            button.dataset
+                .thread04FutureBound =
+                "1";
+        }
+    );
+
+    if (
+        commitButton &&
+        commitButton.dataset
+            .thread04FutureBound !== "1"
+    ) {
+        commitButton.addEventListener(
+            "click",
+            function () {
+                const state =
+                    loadThread04FutureState();
+
+                if (
+                    !isThread04LayerAuditReady() ||
+                    state.inspected.length < 4 ||
+                    !state.selected ||
+                    isThread04FutureAuditComplete()
+                ) {
+                    return;
+                }
+
+                if (
+                    state.selected !==
+                    "future_completion"
+                ) {
+                    state.mistakes += 1;
+                    state.selected = "";
+
+                    state.message =
+                        "\u8be5\u7ed3\u8bba\u65e0\u6cd5\u89e3\u91ca\u65e5\u5fd7\u4e3a\u4ec0\u4e48\u5df2\u7ecf\u5305\u542b\u5f53\u524d\u5904\u7406\u4eba\u3001\u5f53\u524d\u4f1a\u8bdd\u548c\u5b8c\u6210\u72b6\u6001\u3002";
+
+                    saveThread04FutureState(
+                        state
+                    );
+
+                    renderThread04FutureAudit();
+
+                    return;
+                }
+
+                state.committed = true;
+
+                state.message =
+                    "\u672a\u6765\u8bbf\u95ee\u5df2\u786e\u8ba4\u4e3a\u63d0\u524d\u5199\u5165\u7684\u5b8c\u6210\u4e8b\u4ef6\u3002";
+
+                localStorage.setItem(
+                    ECHO_THREAD04_FUTURE_KEY,
+                    "1"
+                );
+
+                saveThread04FutureState(
+                    state
+                );
+
+                if (
+                    typeof addInvestigationLog ===
+                    "function"
+                ) {
+                    addInvestigationLog(
+                        "thread04_future_event",
+                        "\u5df2\u786e\u8ba4 THREAD 04 \u5b58\u5728\u4e00\u6761\u5c1a\u672a\u53d1\u751f\u4f46\u72b6\u6001\u5df2\u5b8c\u6210\u7684\u8bbf\u95ee\u8bb0\u5f55\u3002",
+                        true
+                    );
+                }
+
+                renderThread04FutureAudit();
+
+                if (
+                    typeof
+                    syncEchoEvidenceCaptureButtons ===
+                    "function"
+                ) {
+                    syncEchoEvidenceCaptureButtons();
+                }
+
+                if (
+                    typeof renderWorkConsole ===
+                    "function"
+                ) {
+                    renderWorkConsole();
+                }
+            }
+        );
+
+        commitButton.dataset
+            .thread04FutureBound =
+            "1";
+    }
+
+    renderThread04FutureAudit();
+
+    window.setTimeout(
+        function () {
+            renderThread04FutureAudit();
+        },
+        0
+    );
+
+    window.setTimeout(
+        function () {
+            renderThread04FutureAudit();
+        },
+        250
+    );
+
+    window.echoRestThread04Future = {
+        isComplete:
+            isThread04FutureAuditComplete,
+
+        refresh:
+            renderThread04FutureAudit,
+
+        reset: function () {
+            localStorage.removeItem(
+                ECHO_THREAD04_FUTURE_KEY
+            );
+
+            localStorage.removeItem(
+                ECHO_THREAD04_FUTURE_STATE_KEY
+            );
+
+            renderThread04FutureAudit();
+
+            if (
+                typeof
+                syncEchoEvidenceCaptureButtons ===
+                "function"
+            ) {
+                syncEchoEvidenceCaptureButtons();
+            }
+        }
+    };
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        initThread04FutureAudit();
+    }
+);
+
+/* =========================
+   THREAD 04 Narrative State
+   ========================= */
+
+const ECHO_THREAD04_FIGURE_TIME_LINK =
+    "figure_time_match";
+
+function getThread04NarrativeEvidenceState() {
+    let evidenceApi = null;
+
+    if (
+        typeof echoRestEvidence !==
+        "undefined" &&
+        echoRestEvidence &&
+        typeof echoRestEvidence.getState ===
+        "function"
+    ) {
+        evidenceApi =
+            echoRestEvidence;
+    } else if (
+        window.echoRestEvidence &&
+        typeof
+        window.echoRestEvidence.getState ===
+        "function"
+    ) {
+        evidenceApi =
+            window.echoRestEvidence;
+    }
+
+    if (evidenceApi) {
+        try {
+            return (
+                evidenceApi.getState() ||
+                {}
+            );
+        } catch (error) {
+            /* Fall through to storage. */
+        }
+    }
+
+    try {
+        return JSON.parse(
+            localStorage.getItem(
+                "echorest_evidence_state_v1"
+            ) || "{}"
+        );
+    } catch (error) {
+        return {};
+    }
+}
+
+function doesThread04FigureTimeLinkMatch(
+    entry
+) {
+    if (!entry) {
+        return false;
+    }
+
+    if (typeof entry === "string") {
+        if (
+            entry ===
+            ECHO_THREAD04_FIGURE_TIME_LINK
+        ) {
+            return true;
+        }
+
+        return (
+            entry.indexOf(
+                "back_figure"
+            ) !== -1 &&
+            entry.indexOf(
+                "future_log"
+            ) !== -1
+        );
+    }
+
+    if (typeof entry !== "object") {
+        return false;
+    }
+
+    const directValues = [
+        entry.id,
+        entry.key,
+        entry.linkId,
+        entry.link_id,
+        entry.result,
+        entry.rule,
+        entry.pairId,
+        entry.pair_id
+    ];
+
+    if (
+        directValues.indexOf(
+            ECHO_THREAD04_FIGURE_TIME_LINK
+        ) !== -1
+    ) {
+        return true;
+    }
+
+    const directEvidenceValues = [
+        entry.left,
+        entry.right,
+        entry.a,
+        entry.b,
+        entry.first,
+        entry.second,
+        entry.source,
+        entry.target,
+        entry.evidenceA,
+        entry.evidenceB,
+        entry.evidence_a,
+        entry.evidence_b
+    ].filter(
+        function (value) {
+            return (
+                typeof value === "string"
+            );
+        }
+    );
+
+    if (
+        directEvidenceValues.indexOf(
+            "back_figure"
+        ) !== -1 &&
+        directEvidenceValues.indexOf(
+            "future_log"
+        ) !== -1
+    ) {
+        return true;
+    }
+
+    const arrayCandidates = [
+        entry.evidenceIds,
+        entry.evidence_ids,
+        entry.items,
+        entry.pair,
+        entry.evidence
+    ];
+
+    return arrayCandidates.some(
+        function (values) {
+            return (
+                Array.isArray(values) &&
+                values.indexOf(
+                    "back_figure"
+                ) !== -1 &&
+                values.indexOf(
+                    "future_log"
+                ) !== -1
+            );
+        }
+    );
+}
+
+function hasThread04FigureTimeLink() {
+    const state =
+        getThread04NarrativeEvidenceState();
+
+    const links =
+        Array.isArray(state.links)
+            ? state.links
+            : [];
+
+    return links.some(
+        doesThread04FigureTimeLinkMatch
+    );
+}
+
+function isThread04Ticket034Complete() {
+    if (
+        typeof isEchoTicket034Verified ===
+        "function"
+    ) {
+        try {
+            return (
+                isEchoTicket034Verified() ===
+                true
+            );
+        } catch (error) {
+            return false;
+        }
+    }
+
+    const possibleKeys = [
+        "echorest_ticket034_verified_v1",
+        "echorest_ticket034_time_verified_v1",
+        "echorest_ticket034_clock_verified_v1"
+    ];
+
+    return possibleKeys.some(
+        function (key) {
+            const value =
+                localStorage.getItem(key);
+
+            return (
+                value === "1" ||
+                value === "true" ||
+                value === "verified" ||
+                value === "VERIFIED"
+            );
+        }
+    );
+}
+
+function getThread04TemporalVisitLabel() {
+    if (
+        typeof getThread04TomorrowLabel ===
+        "function"
+    ) {
+        return getThread04TomorrowLabel();
+    }
+
+    const tomorrow =
+        new Date();
+
+    tomorrow.setDate(
+        tomorrow.getDate() + 1
+    );
+
+    const year =
+        String(
+            tomorrow.getFullYear()
+        );
+
+    const month =
+        String(
+            tomorrow.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            tomorrow.getDate()
+        ).padStart(2, "0");
+
+    return (
+        "\u660e\u65e5 / " +
+        year +
+        "-" +
+        month +
+        "-" +
+        day +
+        " / 04:04"
+    );
+}
+
+function getThread04TemporalIdentity(
+    elementId,
+    fallback
+) {
+    if (
+        typeof getThread04IdentityText ===
+        "function"
+    ) {
+        return getThread04IdentityText(
+            elementId,
+            fallback
+        );
+    }
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+    if (!element) {
+        return fallback;
+    }
+
+    const value =
+        String(
+            element.textContent || ""
+        ).trim();
+
+    if (
+        !value ||
+        value ===
+        "\u672a\u8bfb\u53d6"
+    ) {
+        return fallback;
+    }
+
+    return value;
+}
+
+function syncThread04NarrativeState() {
+    const record =
+        document.getElementById(
+            "thread04FigureTemporalRecord"
+        );
+
+    const sourcePanel =
+        document.getElementById(
+            "thread04TemporalSource"
+        );
+
+    const meta =
+        document.getElementById(
+            "thread04FigureTemporalMeta"
+        );
+
+    const status =
+        document.getElementById(
+            "thread04FigureTemporalStatus"
+        );
+
+    const figureSource =
+        document.getElementById(
+            "thread04FigureSource"
+        );
+
+    const visitTime =
+        document.getElementById(
+            "thread04FigureVisitTime"
+        );
+
+    const worker =
+        document.getElementById(
+            "thread04FigureWorker"
+        );
+
+    const session =
+        document.getElementById(
+            "thread04FigureSession"
+        );
+
+    const eventStatus =
+        document.getElementById(
+            "thread04FigureEventStatus"
+        );
+
+    const timeConflict =
+        document.getElementById(
+            "thread04FigureTimeConflict"
+        );
+
+    const note =
+        document.getElementById(
+            "thread04FigureTemporalNote"
+        );
+
+    const conflict =
+        document.getElementById(
+            "thread04FigureTemporalConflict"
+        );
+
+    const deletedText =
+        document.getElementById(
+            "thread04DeletedCommentText"
+        );
+
+    const deletedState =
+        document.getElementById(
+            "thread04DeletedCommentState"
+        );
+
+    const deletedLine =
+        deletedText
+            ? deletedText.closest(
+                ".deleted-comment-line"
+            )
+            : null;
+
+    if (
+        !record &&
+        !deletedText &&
+        !deletedState
+    ) {
+        return;
+    }
+
+    const layerComplete =
+        localStorage.getItem(
+            "echorest_thread04_layer_audit_v1"
+        ) === "1";
+
+    const futureComplete =
+        localStorage.getItem(
+            "echorest_thread04_future_audit_v1"
+        ) === "1";
+
+    const figureTimeLinked =
+        layerComplete &&
+        futureComplete &&
+        hasThread04FigureTimeLink();
+
+    const ticket034Complete =
+        figureTimeLinked &&
+        isThread04Ticket034Complete();
+
+    if (record) {
+        record.classList.toggle(
+            "hidden",
+            !figureTimeLinked
+        );
+    }
+
+    if (sourcePanel) {
+        sourcePanel.classList.toggle(
+            "is-linked",
+            figureTimeLinked &&
+            !ticket034Complete
+        );
+
+        sourcePanel.classList.toggle(
+            "is-corrected",
+            ticket034Complete
+        );
+    }
+
+    /*
+     * No evidence link yet.
+     */
+
+    if (!figureTimeLinked) {
+        if (conflict) {
+            conflict.classList.add(
+                "hidden"
+            );
+        }
+
+        if (deletedText) {
+            deletedText.textContent =
+                "\u4e0d\u662f\u3010\u6b64\u8bc4\u8bba\u88ab\u697c\u4e3b\u5220\u9664\u3011";
+
+            deletedText.setAttribute(
+                "data-hover",
+                "\u6062\u590d\u5185\u5bb9\u5c1a\u672a\u786e\u8ba4\u3002"
+            );
+        }
+
+        if (deletedState) {
+            deletedState.textContent =
+                "CACHE PARTIAL";
+        }
+
+        if (deletedLine) {
+            deletedLine.classList.remove(
+                "is-thread04-recovered",
+                "is-thread04-normalized"
+            );
+        }
+
+        return;
+    }
+
+    const visitLabel =
+        getThread04TemporalVisitLabel();
+
+    const workerLabel =
+        getThread04TemporalIdentity(
+            "thread04WorkerValue",
+            "CURRENT WORKER"
+        );
+
+    const sessionLabel =
+        getThread04TemporalIdentity(
+            "thread04SessionValue",
+            "CURRENT SESSION"
+        );
+
+    if (figureSource) {
+        figureSource.textContent =
+            "\u4e0b\u4e00\u6b21 THREAD 04 \u8bbf\u95ee";
+    }
+
+    if (visitTime) {
+        visitTime.textContent =
+            visitLabel;
+    }
+
+    if (worker) {
+        worker.textContent =
+            workerLabel;
+    }
+
+    if (session) {
+        session.textContent =
+            sessionLabel;
+    }
+
+    /*
+     * Evidence linked, #034 not completed.
+     */
+
+    if (!ticket034Complete) {
+        if (meta) {
+            meta.textContent =
+                "\u6765\u6e90\uff1a\u7a3f\u4ef6\u4e0e\u8bbf\u95ee\u65e5\u5fd7\u4ea4\u53c9\u7f13\u5b58 / \u72b6\u6001\uff1a\u672a\u6765\u6765\u6e90\u5df2\u5b9a\u4f4d";
+        }
+
+        if (status) {
+            status.textContent =
+                "FUTURE SOURCE LINKED";
+        }
+
+        if (eventStatus) {
+            eventStatus.textContent =
+                "\u7b49\u5f85\u53d1\u751f";
+        }
+
+        if (timeConflict) {
+            timeConflict.textContent =
+                "\u672a\u89e3\u51b3";
+        }
+
+        if (note) {
+            note.textContent =
+                "\u80cc\u5f71\u56fe\u5c42\u7684\u5199\u5165\u6765\u6e90\u5df2\u6307\u5411\u4e0b\u4e00\u6b21 THREAD 04 \u8bbf\u95ee\u3002\u8be5\u8bbf\u95ee\u5c1a\u672a\u53d1\u751f\uff0c\u4f46\u4eba\u7269\u56fe\u5c42\u5df2\u5b58\u5728\u4e8e\u5f53\u524d\u9644\u4ef6\u3002";
+        }
+
+        if (conflict) {
+            conflict.classList.remove(
+                "hidden"
+            );
+        }
+
+        if (deletedText) {
+            deletedText.textContent =
+                "\u4e0d\u662f\u697c\u4e0a\u3002\u58f0\u97f3\u662f\u4ece\u660e\u5929\u4f20\u4e0b\u6765\u7684\u3002";
+
+            deletedText.setAttribute(
+                "data-hover",
+                "\u8be5\u5185\u5bb9\u6765\u81ea\u5220\u9664\u524d\u7f13\u5b58\u3002"
+            );
+        }
+
+        if (deletedState) {
+            deletedState.textContent =
+                "CACHE RECOVERED";
+        }
+
+        if (deletedLine) {
+            deletedLine.classList.add(
+                "is-thread04-recovered"
+            );
+
+            deletedLine.classList.remove(
+                "is-thread04-normalized"
+            );
+        }
+
+        return;
+    }
+
+    /*
+     * #034 completed.
+     */
+
+    if (meta) {
+        meta.textContent =
+            "\u6765\u6e90\uff1a\u7a3f\u4ef6\u4e0e\u8bbf\u95ee\u65e5\u5fd7\u4ea4\u53c9\u7f13\u5b58 / \u72b6\u6001\uff1a\u65f6\u95f4\u8bb0\u5f55\u5df2\u6821\u6b63";
+    }
+
+    if (status) {
+        status.textContent =
+            "TEMPORAL RECORD ACCEPTED";
+    }
+
+    if (eventStatus) {
+        eventStatus.textContent =
+            "\u5df2\u5b8c\u6210";
+    }
+
+    if (timeConflict) {
+        timeConflict.textContent =
+            "\u5df2\u89e3\u9664";
+    }
+
+    if (note) {
+        note.textContent =
+            "\u7cfb\u7edf\u5df2\u5c06\u5c1a\u672a\u53d1\u751f\u7684\u8bbf\u95ee\u56de\u5199\u4e3a\u5df2\u5b8c\u6210\u4e8b\u4ef6\u3002\u80cc\u5f71\u56fe\u5c42\u73b0\u5df2\u88ab\u5f52\u5165\u5f53\u524d\u9644\u4ef6\u5386\u53f2\u3002";
+    }
+
+    if (conflict) {
+        conflict.classList.remove(
+            "hidden"
+        );
+    }
+
+    if (deletedText) {
+        deletedText.textContent =
+            "\u8be5\u63cf\u8ff0\u4e0e\u6821\u6b63\u540e\u7684\u65f6\u95f4\u8bb0\u5f55\u4e0d\u4e00\u81f4\uff0c\u5df2\u9690\u85cf\u3002";
+
+        deletedText.setAttribute(
+            "data-hover",
+            "\u7cfb\u7edf\u6821\u6b63\u65f6\u95f4\u665a\u4e8e\u672a\u6765\u8bbf\u95ee\u8bb0\u5f55\u3002"
+        );
+    }
+
+    if (deletedState) {
+        deletedState.textContent =
+            "SYSTEM NORMALIZED";
+    }
+
+    if (deletedLine) {
+        deletedLine.classList.remove(
+            "is-thread04-recovered"
+        );
+
+        deletedLine.classList.add(
+            "is-thread04-normalized"
+        );
+    }
+}
+
+function initThread04NarrativeState() {
+    syncThread04NarrativeState();
+
+    if (
+        document.body.dataset
+            .thread04NarrativeBound ===
+        "1"
+    ) {
+        return;
+    }
+
+    document.addEventListener(
+        "click",
+        function () {
+            window.setTimeout(
+                function () {
+                    syncThread04NarrativeState();
+                },
+                0
+            );
+
+            window.setTimeout(
+                function () {
+                    syncThread04NarrativeState();
+                },
+                250
+            );
+        }
+    );
+
+    window.addEventListener(
+        "storage",
+        function (event) {
+            if (
+                event.key ===
+                "echorest_evidence_state_v1" ||
+                event.key ===
+                "echorest_thread04_layer_audit_v1" ||
+                event.key ===
+                "echorest_thread04_future_audit_v1" ||
+                (
+                    event.key &&
+                    event.key.indexOf(
+                        "ticket034"
+                    ) !== -1
+                )
+            ) {
+                syncThread04NarrativeState();
+            }
+        }
+    );
+
+    document.body.dataset
+        .thread04NarrativeBound =
+        "1";
+
+    window.setTimeout(
+        function () {
+            syncThread04NarrativeState();
+        },
+        0
+    );
+
+    window.setTimeout(
+        function () {
+            syncThread04NarrativeState();
+        },
+        300
+    );
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        initThread04NarrativeState();
+    }
+);
+
+window.echoRestThread04Narrative = {
+    refresh:
+        syncThread04NarrativeState,
+
+    hasLink:
+        hasThread04FigureTimeLink,
+
+    isTicketComplete:
+        isThread04Ticket034Complete
+};
 function initEchoEvidenceSystem() {
     syncEchoEvidenceUnlockKeys(
         loadEchoEvidenceState()

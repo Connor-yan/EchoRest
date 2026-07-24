@@ -7815,3 +7815,2634 @@ body.t05-repairer-recorded .thread-warning-strip {
             width: 100%;
         }
 }
+
+/* =========================
+   Shared Thread Record Cards
+   ========================= */
+
+.thread-record-card {
+    margin: 14px 0;
+    overflow: hidden;
+    border: 1px solid rgba(191, 211, 201, 0.18);
+    background: repeating-linear-gradient( 0deg, rgba(210, 225, 216, 0.016) 0, rgba(210, 225, 216, 0.016) 1px, transparent 1px, transparent 7px ), rgba(10, 15, 13, 0.88);
+}
+
+.thread-record-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(191, 211, 201, 0.13);
+    background: rgba(220, 229, 221, 0.025);
+}
+
+    .thread-record-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread-record-head span {
+        color: #738b82;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread-record-head strong {
+        color: #d5e1db;
+        font: 11px Consolas, "Courier New", monospace;
+    }
+
+    .thread-record-head em {
+        flex: 0 0 auto;
+        padding: 4px 7px;
+        border: 1px solid rgba(213, 168, 89, 0.32);
+        color: #d4ad69;
+        font: normal 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.08em;
+    }
+
+        .thread-record-head em.is-confirmed {
+            border-color: rgba(126, 236, 199, 0.46);
+            color: #a1f0d5;
+        }
+
+.thread-record-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.thread-record-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+    padding: 9px 11px;
+    border-right: 1px solid rgba(191, 211, 201, 0.09);
+    border-bottom: 1px solid rgba(191, 211, 201, 0.09);
+}
+
+    .thread-record-row > span {
+        flex: 0 0 auto;
+        color: #74877f;
+        font-size: 9px;
+    }
+
+    .thread-record-row > strong {
+        min-width: 0;
+        color: #cdd9d3;
+        font: 9px Consolas, "Courier New", monospace;
+        text-align: right;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .thread-record-row
+    .thread-record-conflict {
+        color: #e2ad7b;
+    }
+
+.thread-record-warning {
+    margin: 0;
+    padding: 9px 11px;
+    border-left: 2px solid rgba(216, 154, 87, 0.42);
+    background: rgba(216, 154, 87, 0.025);
+    color: #aa9c88;
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+/* =========================
+   Thread System Rewrite
+   ========================= */
+
+.thread-system-rewrite {
+    margin-top: 13px;
+    padding: 12px;
+    border: 1px solid rgba(210, 89, 78, 0.28);
+    background: linear-gradient( 180deg, rgba(45, 17, 15, 0.2), rgba(10, 10, 9, 0.9) );
+    box-shadow: inset 0 0 20px rgba(220, 65, 55, 0.025);
+}
+
+.thread-system-rewrite-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+    .thread-system-rewrite-head span {
+        color: #d78e82;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread-system-rewrite-head em {
+        padding: 3px 6px;
+        border: 1px solid rgba(218, 99, 84, 0.36);
+        color: #e09b8e;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread-system-rewrite > p {
+    margin: 9px 0 0;
+    color: #c4b1ac;
+    font-size: 10px;
+    line-height: 1.65;
+}
+
+.thread-system-rewrite-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 10px;
+}
+
+    .thread-system-rewrite-grid > div {
+        min-width: 0;
+        padding: 8px;
+        border: 1px solid rgba(218, 99, 84, 0.13);
+        background: rgba(218, 99, 84, 0.018);
+    }
+
+    .thread-system-rewrite-grid span,
+    .thread-system-rewrite-grid strong {
+        display: block;
+    }
+
+    .thread-system-rewrite-grid span {
+        color: #8f7772;
+        font-size: 8px;
+    }
+
+    .thread-system-rewrite-grid strong {
+        margin-top: 6px;
+        color: #e3c5bf;
+        font: 9px Consolas, "Courier New", monospace;
+        overflow-wrap: anywhere;
+    }
+
+.thread-system-rewrite
+.thread-system-rewrite-note {
+    color: #8e7470;
+    font-size: 9px;
+}
+
+/* =========================
+   Thread Reply Anomaly
+   ========================= */
+
+.reply-line-anomaly {
+    border-left: 2px solid rgba(204, 92, 82, 0.35);
+    background: rgba(204, 92, 82, 0.018);
+}
+
+.thread01-reply-redacted {
+    display: inline-block;
+    min-width: 28px;
+    padding: 0 4px;
+    color: transparent;
+    background: repeating-linear-gradient( 90deg, rgba(185, 202, 195, 0.3) 0, rgba(185, 202, 195, 0.3) 3px, transparent 3px, transparent 6px );
+    user-select: none;
+}
+
+    .thread01-reply-redacted.is-recovered {
+        color: #e2b5aa;
+        background: none;
+        user-select: text;
+    }
+
+@media (max-width: 720px) {
+    .thread-record-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thread-record-row {
+        border-right: 0;
+    }
+
+    .thread-system-rewrite-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thread-record-head {
+        flex-direction: column;
+    }
+}
+
+/* =========================
+   THREAD 01 Same Reply Author
+   ========================= */
+
+.reply-line-same-author {
+    position: relative;
+    border-left: 2px solid rgba(178, 79, 72, 0.38);
+    background: linear-gradient( 90deg, rgba(137, 41, 40, 0.035), transparent );
+}
+
+    
+
+
+/* 相同用户名 */
+
+.reply-same-author-name {
+    display: block;
+    margin-bottom: 5px;
+    color: rgba(194, 146, 136, 0.76);
+    font: 8px Consolas, "Courier New", monospace;
+    letter-spacing: 0.08em;
+}
+
+/* 连续回复时减少间距，制造重复出现感 */
+
+.reply-line-same-author +
+.reply-line-same-author {
+    margin-top: 2px;
+}
+
+
+
+
+
+/* =========================
+   THREAD 01 Repeated Author
+   ========================= */
+
+.reply-line-same-author {
+    position: relative;
+    border-left: 2px solid rgba(172, 76, 70, 0.34);
+    background: rgba(130, 41, 39, 0.018);
+}
+
+    /* 不修改头像本身，让它继续使用全站统一占位样式 */
+
+    .reply-line-same-author
+    .reply-avatar-slot {
+        flex: 0 0 auto;
+    }
+
+    /* 评论正文容器 */
+
+    .reply-line-same-author
+    .reply-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* 与普通论坛用户名一致的轻量显示 */
+
+    .reply-line-same-author
+    .reply-author-name {
+        display: block;
+        margin-bottom: 5px;
+        color: rgba(177, 145, 137, 0.72);
+        font: 9px Consolas, "Courier New", monospace;
+        letter-spacing: 0.04em;
+    }
+
+    /* 避免新增的 div 破坏原来的段落间距 */
+
+    .reply-line-same-author
+    .reply-content p {
+        margin: 0;
+        color: inherit;
+        line-height: inherit;
+    }
+
+    /* 连续出现时保持统一，不再制造特殊头像变化 */
+
+    .reply-line-same-author +
+    .reply-line-same-author {
+        margin-top: 8px;
+    }
+
+    /* 只给重复出现的后续评论极轻微变化 */
+
+    .reply-line-same-author +
+    .reply-line-same-author {
+        border-left-color: rgba(172, 76, 70, 0.42);
+    }
+
+
+
+/* =========================
+   THREAD 02 Delivery Story
+   ========================= */
+
+.thread02-delivery-report {
+    margin: 14px 0;
+    padding: 13px 14px;
+    border-left: 2px solid rgba(126, 236, 199, 0.24);
+    background: rgba(126, 236, 199, 0.018);
+}
+
+.thread02-delivery-report-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+    .thread02-delivery-report-head span {
+        color: #759b8f;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread02-delivery-report-head em {
+        padding: 3px 6px;
+        border: 1px solid rgba(126, 236, 199, 0.2);
+        color: #91b9ac;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread02-delivery-report p {
+    margin: 7px 0;
+    color: inherit;
+    line-height: 1.75;
+}
+
+/* =========================
+   THREAD 02 Tracking Record
+   ========================= */
+
+.thread02-tracking-record {
+    margin: 14px 0;
+    overflow: hidden;
+    border: 1px solid rgba(191, 211, 201, 0.18);
+    background: repeating-linear-gradient( 0deg, rgba(210, 225, 216, 0.015) 0, rgba(210, 225, 216, 0.015) 1px, transparent 1px, transparent 7px ), rgba(9, 14, 12, 0.9);
+}
+
+.thread02-tracking-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.thread02-tracking-entry {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 13px;
+    align-items: center;
+    min-width: 0;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(191, 211, 201, 0.09);
+}
+
+    .thread02-tracking-entry > span {
+        color: #829990;
+        font: 10px Consolas, "Courier New", monospace;
+    }
+
+    .thread02-tracking-entry > div {
+        min-width: 0;
+    }
+
+    .thread02-tracking-entry strong,
+    .thread02-tracking-entry small {
+        display: block;
+    }
+
+    .thread02-tracking-entry strong {
+        color: #d4dfda;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .thread02-tracking-entry small {
+        margin-top: 4px;
+        color: #71837c;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread02-tracking-entry.is-warning {
+        border-left: 2px solid rgba(213, 85, 76, 0.58);
+        background: rgba(213, 85, 76, 0.035);
+    }
+
+        .thread02-tracking-entry.is-warning > span,
+        .thread02-tracking-entry.is-warning strong {
+            color: #e2aaa1;
+        }
+
+    .thread02-tracking-entry.is-system {
+        border-left: 2px solid rgba(209, 168, 83, 0.38);
+        background: rgba(209, 168, 83, 0.022);
+    }
+
+        .thread02-tracking-entry.is-system > span,
+        .thread02-tracking-entry.is-system small {
+            color: #b9a570;
+        }
+
+/* 底部三项汇总 */
+
+.thread02-tracking-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+    .thread02-tracking-summary > div {
+        min-width: 0;
+        padding: 10px 11px;
+        border-right: 1px solid rgba(191, 211, 201, 0.09);
+        border-bottom: 1px solid rgba(191, 211, 201, 0.09);
+    }
+
+    .thread02-tracking-summary span,
+    .thread02-tracking-summary strong {
+        display: block;
+    }
+
+    .thread02-tracking-summary span {
+        color: #71857d;
+        font-size: 8px;
+    }
+
+    .thread02-tracking-summary strong {
+        margin-top: 6px;
+        color: #d0dcd6;
+        font: 9px Consolas, "Courier New", monospace;
+        overflow-wrap: anywhere;
+    }
+
+        .thread02-tracking-summary
+        strong.is-conflict {
+            color: #dea282;
+        }
+
+.thread02-tracking-warning {
+    margin: 0;
+    padding: 9px 11px;
+    border-left: 2px solid rgba(213, 85, 76, 0.44);
+    background: rgba(213, 85, 76, 0.025);
+    color: #ae8c86;
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+/* 调查入口连接块 */
+
+.thread02-audit-bridge {
+    margin: 13px 0 8px;
+    padding: 10px 11px;
+    border: 1px dashed rgba(126, 236, 199, 0.18);
+    background: rgba(126, 236, 199, 0.015);
+}
+
+    .thread02-audit-bridge span {
+        color: #78a194;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.11em;
+    }
+
+    .thread02-audit-bridge p {
+        margin: 7px 0 0;
+        color: #93ada4;
+        font-size: 9px;
+        line-height: 1.6;
+    }
+
+@media (max-width: 720px) {
+    .thread02-tracking-entry {
+        grid-template-columns: 58px minmax(0, 1fr);
+        gap: 9px;
+    }
+
+    .thread02-tracking-summary {
+        grid-template-columns: 1fr;
+    }
+
+        .thread02-tracking-summary > div {
+            border-right: 0;
+        }
+}
+
+/* =========================
+   THREAD 02 Narrative States
+   ========================= */
+
+.thread02-tracking-record.is-cross-referenced {
+    border-color: rgba(188, 160, 83, 0.32);
+    box-shadow: inset 0 0 22px rgba(188, 160, 83, 0.02);
+}
+
+    .thread02-tracking-record.is-cross-referenced
+    #thread02TrackingState {
+        border-color: rgba(188, 160, 83, 0.42);
+        color: #d2bb78;
+    }
+
+.thread02-tracking-record.is-aligned {
+    border-color: rgba(220, 175, 82, 0.43);
+    box-shadow: inset 0 0 24px rgba(220, 175, 82, 0.025);
+}
+
+    .thread02-tracking-record.is-aligned
+    #thread02TrackingState {
+        border-color: rgba(220, 175, 82, 0.52);
+        color: #e1c274;
+    }
+
+.thread02-tracking-record.is-confirmed {
+    border-color: rgba(126, 236, 199, 0.44);
+    box-shadow: inset 0 0 26px rgba(126, 236, 199, 0.03);
+}
+
+    .thread02-tracking-record.is-confirmed
+    #thread02TrackingState {
+        border-color: rgba(126, 236, 199, 0.58);
+        color: #a6f3d8;
+    }
+
+#thread02RedMarkRelation {
+    transition: color 0.18s ease, opacity 0.18s ease;
+}
+
+.thread02-tracking-record.is-aligned ~ .thread02-audit-bridge {
+    border-color: rgba(220, 175, 82, 0.3);
+}
+
+.thread02-tracking-record.is-confirmed ~ .thread02-audit-bridge {
+    border-color: rgba(126, 236, 199, 0.32);
+}
+
+/* =========================
+   THREAD 02 Sequence Audit
+   ========================= */
+
+.thread02-sequence-audit {
+    margin: 15px 0;
+    overflow: hidden;
+    border: 1px solid rgba(204, 169, 86, 0.28);
+    background: repeating-linear-gradient( 0deg, rgba(218, 186, 104, 0.014) 0, rgba(218, 186, 104, 0.014) 1px, transparent 1px, transparent 7px ), rgba(12, 13, 10, 0.92);
+    transition: border-color 0.18s ease, opacity 0.18s ease;
+}
+
+.thread02-sequence-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(204, 169, 86, 0.16);
+}
+
+    .thread02-sequence-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread02-sequence-head span {
+        color: #9f8c5b;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread02-sequence-head strong {
+        color: #d8ceb1;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .thread02-sequence-head em {
+        padding: 4px 7px;
+        border: 1px solid rgba(204, 169, 86, 0.3);
+        color: #ccb36f;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread02-sequence-intro {
+    margin: 0;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(204, 169, 86, 0.1);
+    color: #9e9888;
+    font-size: 9px;
+    line-height: 1.65;
+}
+
+.thread02-sequence-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 11px;
+}
+
+.thread02-sequence-option {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid rgba(193, 202, 195, 0.13);
+    background: rgba(193, 202, 195, 0.018);
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+    .thread02-sequence-option:hover:not(:disabled) {
+        border-color: rgba(211, 177, 91, 0.45);
+        background: rgba(211, 177, 91, 0.035);
+    }
+
+    .thread02-sequence-option > span {
+        color: #998b65;
+        font: 10px Consolas, "Courier New", monospace;
+    }
+
+    .thread02-sequence-option > div {
+        min-width: 0;
+    }
+
+    .thread02-sequence-option strong,
+    .thread02-sequence-option small {
+        display: block;
+    }
+
+    .thread02-sequence-option strong {
+        color: #d1d8d3;
+        font-size: 9px;
+        font-weight: 500;
+    }
+
+    .thread02-sequence-option small {
+        margin-top: 4px;
+        color: #77837d;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread02-sequence-option.is-selected {
+        border-color: rgba(219, 179, 79, 0.68);
+        background: rgba(219, 179, 79, 0.06);
+        box-shadow: inset 3px 0 0 rgba(219, 179, 79, 0.5);
+    }
+
+    .thread02-sequence-option.is-backfilled {
+        border-color: rgba(203, 82, 73, 0.52);
+        background: rgba(203, 82, 73, 0.045);
+    }
+
+        .thread02-sequence-option.is-backfilled small {
+            color: #d69085;
+        }
+
+    .thread02-sequence-option:disabled {
+        cursor: default;
+    }
+
+.thread02-sequence-audit.is-locked {
+    opacity: 0.55;
+    border-color: rgba(180, 190, 184, 0.12);
+}
+
+    .thread02-sequence-audit.is-locked
+    .thread02-sequence-option {
+        filter: grayscale(0.65);
+    }
+
+.thread02-sequence-readout {
+    margin: 0 11px 11px;
+    padding: 10px;
+    border: 1px solid rgba(204, 169, 86, 0.14);
+    background: rgba(204, 169, 86, 0.018);
+}
+
+    .thread02-sequence-readout span {
+        color: #978557;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.1em;
+    }
+
+    .thread02-sequence-readout p {
+        margin: 7px 0 0;
+        color: #b6b2a3;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread02-sequence-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 11px;
+    border-top: 1px solid rgba(204, 169, 86, 0.1);
+}
+
+    .thread02-sequence-actions > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread02-sequence-actions span {
+        color: #948a72;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread02-sequence-actions button {
+        padding: 8px 10px;
+        border: 1px solid rgba(211, 177, 91, 0.4);
+        background: rgba(211, 177, 91, 0.05);
+        color: #d8c68f;
+        font: 8px Consolas, "Courier New", monospace;
+        cursor: pointer;
+    }
+
+        .thread02-sequence-actions button:disabled {
+            opacity: 0.38;
+            cursor: default;
+        }
+
+.thread02-sequence-result {
+    margin: 0 11px 11px;
+    padding: 11px;
+    border-left: 2px solid rgba(200, 78, 70, 0.5);
+    background: rgba(200, 78, 70, 0.025);
+}
+
+    .thread02-sequence-result strong {
+        color: #d78378;
+        font: 9px Consolas, "Courier New", monospace;
+        letter-spacing: 0.08em;
+    }
+
+    .thread02-sequence-result p {
+        margin: 8px 0 0;
+        color: #bba5a0;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+/* 时间线被确认为补写 */
+
+.thread02-tracking-entry.is-backfilled {
+    border-left: 3px solid rgba(202, 72, 64, 0.7);
+    background: linear-gradient( 90deg, rgba(202, 72, 64, 0.075), rgba(202, 72, 64, 0.012) );
+}
+
+    .thread02-tracking-entry.is-backfilled > span,
+    .thread02-tracking-entry.is-backfilled strong {
+        color: #e4a097;
+    }
+
+    .thread02-tracking-entry.is-backfilled small {
+        color: #c97d73;
+    }
+
+.thread02-sequence-audit.is-complete {
+    border-color: rgba(201, 80, 71, 0.38);
+}
+
+@media (max-width: 720px) {
+    .thread02-sequence-options {
+        grid-template-columns: 1fr;
+    }
+
+    .thread02-sequence-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+        .thread02-sequence-actions button {
+            width: 100%;
+        }
+}
+
+/* =========================
+   THREAD 02 Courier Cache
+   ========================= */
+
+.thread02-courier-cache {
+    margin: 15px 0;
+    overflow: hidden;
+    border: 1px solid rgba(187, 200, 193, 0.16);
+    background: repeating-linear-gradient( 0deg, rgba(210, 222, 215, 0.012) 0, rgba(210, 222, 215, 0.012) 1px, transparent 1px, transparent 7px ), rgba(10, 14, 12, 0.9);
+    transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.thread02-courier-cache-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(187, 200, 193, 0.1);
+}
+
+    .thread02-courier-cache-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread02-courier-cache-head span {
+        color: #768b83;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.11em;
+    }
+
+    .thread02-courier-cache-head strong {
+        color: #cdd8d2;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .thread02-courier-cache-head em {
+        padding: 4px 7px;
+        border: 1px solid rgba(171, 190, 181, 0.23);
+        color: #91a49d;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+/* 保留现有头像占位，不重新绘制头像 */
+
+.thread02-courier-reply {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 12px;
+}
+
+    .thread02-courier-reply
+    .reply-avatar-slot {
+        flex: 0 0 auto;
+    }
+
+.thread02-courier-reply-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.thread02-courier-name {
+    display: block;
+    margin-bottom: 6px;
+    color: #9eb0a9;
+    font: 9px Consolas, "Courier New", monospace;
+    font-weight: 500;
+}
+
+.thread02-courier-reply-body p {
+    margin: 0;
+    color: #bec9c4;
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+/* 第二阶段：恢复出的撤回前缓存 */
+
+.thread02-courier-fragment {
+    margin: 0 12px 12px;
+    padding: 10px 11px;
+    border-left: 2px solid rgba(204, 168, 80, 0.48);
+    background: rgba(204, 168, 80, 0.025);
+}
+
+.thread02-courier-fragment-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+    .thread02-courier-fragment-head span {
+        color: #a5905b;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.1em;
+    }
+
+    .thread02-courier-fragment-head em {
+        color: #bda66d;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread02-courier-fragment p,
+.thread02-courier-correction p {
+    margin: 9px 0 0;
+    color: #d0c3a4;
+    font-size: 10px;
+    line-height: 1.65;
+}
+
+.thread02-courier-fragment small,
+.thread02-courier-correction small {
+    display: block;
+    margin-top: 7px;
+    color: #817b6d;
+    font: 8px Consolas, "Courier New", monospace;
+}
+
+/* #013 完成后的系统校正 */
+
+.thread02-courier-correction {
+    margin: 0 12px 12px;
+    padding: 10px 11px;
+    border-left: 2px solid rgba(198, 79, 70, 0.5);
+    background: rgba(198, 79, 70, 0.025);
+}
+
+    .thread02-courier-correction
+    .thread02-courier-fragment-head span {
+        color: #bc7770;
+    }
+
+    .thread02-courier-correction
+    .thread02-courier-fragment-head em {
+        color: #ca8981;
+    }
+
+    .thread02-courier-correction p {
+        color: #c8aaa5;
+    }
+
+/* 三个状态的外框变化 */
+
+.thread02-courier-cache.is-recovered {
+    border-color: rgba(204, 168, 80, 0.32);
+}
+
+    .thread02-courier-cache.is-recovered
+    #thread02CourierStatus {
+        border-color: rgba(204, 168, 80, 0.38);
+        color: #c9af6e;
+    }
+
+.thread02-courier-cache.is-corrected {
+    border-color: rgba(198, 79, 70, 0.34);
+    background: rgba(28, 12, 11, 0.88);
+}
+
+    .thread02-courier-cache.is-corrected
+    #thread02CourierStatus {
+        border-color: rgba(198, 79, 70, 0.4);
+        color: #cc837b;
+    }
+
+    .thread02-courier-cache.is-corrected
+    .thread02-courier-reply-body p {
+        color: #837573;
+    }
+
+@media (max-width: 720px) {
+    .thread02-courier-cache-head {
+        flex-direction: column;
+    }
+
+    .thread02-courier-fragment-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+
+
+/* =========================
+   THREAD 03 Wall Audit
+   ========================= */
+
+.thread03-wall-audit {
+    margin: 15px 0;
+    overflow: hidden;
+    border: 1px solid rgba(154, 183, 171, 0.22);
+    background: repeating-linear-gradient( 0deg, rgba(198, 216, 207, 0.012) 0, rgba(198, 216, 207, 0.012) 1px, transparent 1px, transparent 7px ), rgba(9, 14, 12, 0.92);
+}
+
+.thread03-wall-audit-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(154, 183, 171, 0.13);
+}
+
+    .thread03-wall-audit-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread03-wall-audit-head span {
+        color: #78978c;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread03-wall-audit-head strong {
+        color: #d0dbd6;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .thread03-wall-audit-head em {
+        padding: 4px 7px;
+        border: 1px solid rgba(154, 183, 171, 0.28);
+        color: #91aa9f;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread03-wall-audit-intro {
+    margin: 0;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(154, 183, 171, 0.1);
+    color: #94a59e;
+    font-size: 9px;
+    line-height: 1.65;
+}
+
+.thread03-wall-frame-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 11px;
+}
+
+.thread03-wall-frame {
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid rgba(180, 198, 189, 0.14);
+    background: rgba(180, 198, 189, 0.018);
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+    .thread03-wall-frame:hover:not(:disabled) {
+        border-color: rgba(126, 236, 199, 0.4);
+        background: rgba(126, 236, 199, 0.03);
+    }
+
+    .thread03-wall-frame > span {
+        display: block;
+        margin-bottom: 7px;
+        color: #769589;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread03-wall-frame > strong,
+    .thread03-wall-frame > small {
+        display: block;
+    }
+
+    .thread03-wall-frame > strong {
+        margin-top: 8px;
+        color: #cad5d0;
+        font-size: 9px;
+        font-weight: 500;
+    }
+
+    .thread03-wall-frame > small {
+        margin-top: 4px;
+        color: #71847c;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+/* 缓存墙面预览 */
+
+.thread03-wall-preview {
+    position: relative;
+    height: 92px;
+    overflow: hidden;
+    border: 1px solid rgba(174, 188, 181, 0.12);
+    background: repeating-linear-gradient( 90deg, rgba(152, 149, 132, 0.11) 0, rgba(152, 149, 132, 0.11) 9px, rgba(104, 111, 103, 0.07) 9px, rgba(104, 111, 103, 0.07) 18px ), rgba(39, 42, 38, 0.86);
+}
+
+    .thread03-wall-preview::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 22px;
+        height: 22px;
+        border-radius: 48% 52% 44% 56%;
+        background: radial-gradient( circle, rgba(0, 0, 0, 0.95) 0, rgba(5, 7, 6, 0.92) 45%, rgba(91, 80, 70, 0.7) 58%, transparent 70% );
+        transform: translate(-50%, -50%);
+    }
+
+    .thread03-wall-preview::after {
+        content: "";
+        position: absolute;
+        width: 34px;
+        height: 55px;
+        border-radius: 50%;
+        background: rgba(75, 88, 79, 0.16);
+        filter: blur(7px);
+    }
+
+    .thread03-wall-preview[data-wall-preview="a"] {
+        background-position: 0 0;
+    }
+
+        .thread03-wall-preview[data-wall-preview="a"]::after {
+            left: 14%;
+            top: 19%;
+        }
+
+    .thread03-wall-preview[data-wall-preview="b"] {
+        background-position: 17px 0;
+    }
+
+        .thread03-wall-preview[data-wall-preview="b"]::after {
+            right: 8%;
+            top: 25%;
+        }
+
+    .thread03-wall-preview[data-wall-preview="c"] {
+        background-size: 27px 100%;
+        background-position: -11px 0;
+    }
+
+        .thread03-wall-preview[data-wall-preview="c"]::after {
+            left: 6%;
+            bottom: -8px;
+        }
+
+.thread03-wall-frame.is-inspected {
+    border-color: rgba(126, 236, 199, 0.38);
+    box-shadow: inset 3px 0 0 rgba(126, 236, 199, 0.34);
+}
+
+    .thread03-wall-frame.is-inspected small {
+        color: #92d5bd;
+    }
+
+.thread03-wall-readout {
+    margin: 0 11px 10px;
+    padding: 10px;
+    border: 1px solid rgba(154, 183, 171, 0.14);
+    background: rgba(154, 183, 171, 0.018);
+}
+
+    .thread03-wall-readout span {
+        color: #78978c;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.1em;
+    }
+
+    .thread03-wall-readout p {
+        margin: 7px 0 0;
+        color: #adbcb5;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread03-wall-progress {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 11px 10px;
+    color: #7f9189;
+    font: 8px Consolas, "Courier New", monospace;
+}
+
+.thread03-wall-conclusion {
+    padding: 11px;
+    border-top: 1px solid rgba(154, 183, 171, 0.1);
+}
+
+    .thread03-wall-conclusion > p {
+        margin: 0 0 9px;
+        color: #a5b4ad;
+        font-size: 9px;
+    }
+
+.thread03-wall-conclusion-options {
+    display: grid;
+    gap: 7px;
+}
+
+    .thread03-wall-conclusion-options button {
+        padding: 9px 10px;
+        border: 1px solid rgba(180, 198, 189, 0.13);
+        background: rgba(180, 198, 189, 0.015);
+        color: #b9c4bf;
+        font-size: 9px;
+        text-align: left;
+        cursor: pointer;
+    }
+
+        .thread03-wall-conclusion-options
+        button:hover:not(:disabled) {
+            border-color: rgba(126, 236, 199, 0.4);
+        }
+
+        .thread03-wall-conclusion-options
+        button.is-selected {
+            border-color: rgba(215, 177, 83, 0.56);
+            background: rgba(215, 177, 83, 0.045);
+            color: #d6c38f;
+        }
+
+        .thread03-wall-conclusion-options
+        button.is-verified {
+            border-color: rgba(126, 236, 199, 0.52);
+            background: rgba(126, 236, 199, 0.04);
+            color: #a7e5ce;
+        }
+
+        .thread03-wall-conclusion-options
+        button:disabled {
+            opacity: 0.42;
+            cursor: default;
+        }
+
+.thread03-wall-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 11px;
+    border-top: 1px solid rgba(154, 183, 171, 0.1);
+}
+
+    .thread03-wall-actions span {
+        color: #84958e;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread03-wall-actions button {
+        padding: 8px 10px;
+        border: 1px solid rgba(126, 236, 199, 0.32);
+        background: rgba(126, 236, 199, 0.04);
+        color: #9dd8c2;
+        font: 8px Consolas, "Courier New", monospace;
+        cursor: pointer;
+    }
+
+        .thread03-wall-actions button:disabled {
+            opacity: 0.36;
+            cursor: default;
+        }
+
+.thread03-wall-result {
+    margin: 0 11px 11px;
+    padding: 10px 11px;
+    border-left: 2px solid rgba(197, 85, 76, 0.48);
+    background: rgba(197, 85, 76, 0.025);
+}
+
+    .thread03-wall-result strong {
+        color: #d78b82;
+        font: 9px Consolas, "Courier New", monospace;
+        letter-spacing: 0.08em;
+    }
+
+    .thread03-wall-result p {
+        margin: 8px 0 0;
+        color: #bba7a2;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread03-wall-audit.is-complete {
+    border-color: rgba(126, 236, 199, 0.36);
+}
+
+@media (max-width: 720px) {
+    .thread03-wall-frame-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thread03-wall-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+        .thread03-wall-actions button {
+            width: 100%;
+        }
+}
+
+/* =========================
+   THREAD 03 Audio Investigation
+   ========================= */
+
+.thread03-transcript-record,
+.thread03-knock-audit {
+    margin: 14px 0;
+    overflow: hidden;
+    border: 1px solid rgba(154, 183, 171, 0.2);
+    background: repeating-linear-gradient( 0deg, rgba(198, 216, 207, 0.012) 0, rgba(198, 216, 207, 0.012) 1px, transparent 1px, transparent 7px ), rgba(9, 14, 12, 0.92);
+}
+
+.thread03-transcript-head,
+.thread03-knock-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(154, 183, 171, 0.12);
+}
+
+    .thread03-transcript-head > div,
+    .thread03-knock-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread03-transcript-head span,
+    .thread03-knock-head span {
+        color: #78978c;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread03-transcript-head strong,
+    .thread03-knock-head strong {
+        color: #d0dbd6;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .thread03-transcript-head em,
+    .thread03-knock-head em {
+        padding: 4px 7px;
+        border: 1px solid rgba(154, 183, 171, 0.28);
+        color: #91aa9f;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread03-transcript-warning,
+.thread03-knock-intro {
+    margin: 0;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(154, 183, 171, 0.09);
+    color: #93a49d;
+    font-size: 9px;
+    line-height: 1.65;
+}
+
+/* 转写内容 */
+
+.thread03-transcript-record
+.audio-transcript-box {
+    margin: 11px;
+}
+
+    .thread03-transcript-record
+    .audio-transcript-box p {
+        display: grid;
+        grid-template-columns: 52px minmax(0, 1fr);
+        gap: 10px;
+        margin: 0;
+        padding: 8px 9px;
+        border-bottom: 1px solid rgba(154, 183, 171, 0.08);
+    }
+
+        .thread03-transcript-record
+        .audio-transcript-box p span {
+            color: #718d82;
+            font: 8px Consolas, "Courier New", monospace;
+        }
+
+/* 前置条件 */
+
+.thread03-knock-requirements {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+    .thread03-knock-requirements > div {
+        min-width: 0;
+        padding: 9px 11px;
+        border-right: 1px solid rgba(154, 183, 171, 0.09);
+        border-bottom: 1px solid rgba(154, 183, 171, 0.09);
+    }
+
+    .thread03-knock-requirements span,
+    .thread03-knock-requirements strong {
+        display: block;
+    }
+
+    .thread03-knock-requirements span {
+        color: #73877f;
+        font-size: 8px;
+    }
+
+    .thread03-knock-requirements strong {
+        margin-top: 5px;
+        color: #bcc9c3;
+        font: 9px Consolas, "Courier New", monospace;
+    }
+
+/* 波形切片 */
+
+.thread03-waveform {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 5px;
+    padding: 11px;
+}
+
+.thread03-wave-slice {
+    min-width: 0;
+    padding: 7px 4px;
+    border: 1px solid rgba(164, 187, 176, 0.13);
+    background: rgba(164, 187, 176, 0.018);
+    color: inherit;
+    text-align: center;
+    cursor: pointer;
+}
+
+    .thread03-wave-slice > span,
+    .thread03-wave-slice > small {
+        display: block;
+        font: 7px Consolas, "Courier New", monospace;
+    }
+
+    .thread03-wave-slice > span {
+        color: #7e968c;
+    }
+
+    .thread03-wave-slice > small {
+        margin-top: 6px;
+        color: #65786f;
+    }
+
+    .thread03-wave-slice > i {
+        display: block;
+        width: 5px;
+        height: var(--wave-height);
+        min-height: 12px;
+        max-height: 62px;
+        margin: 8px auto 0;
+        background: rgba(147, 188, 172, 0.55);
+        box-shadow: 0 0 6px rgba(126, 236, 199, 0.08);
+    }
+
+    .thread03-wave-slice:hover:not(:disabled) {
+        border-color: rgba(126, 236, 199, 0.4);
+    }
+
+    .thread03-wave-slice.is-selected {
+        border-color: rgba(211, 176, 82, 0.58);
+        background: rgba(211, 176, 82, 0.045);
+    }
+
+        .thread03-wave-slice.is-selected > i {
+            background: rgba(223, 185, 88, 0.78);
+        }
+
+    .thread03-wave-slice.is-verified {
+        border-color: rgba(196, 78, 69, 0.5);
+        background: rgba(196, 78, 69, 0.035);
+    }
+
+        .thread03-wave-slice.is-verified > i {
+            background: rgba(211, 101, 91, 0.82);
+        }
+
+    .thread03-wave-slice:disabled {
+        cursor: default;
+    }
+
+/* 读取信息与操作 */
+
+.thread03-knock-readout {
+    margin: 0 11px 10px;
+    padding: 10px;
+    border: 1px solid rgba(154, 183, 171, 0.13);
+    background: rgba(154, 183, 171, 0.018);
+}
+
+    .thread03-knock-readout span {
+        color: #78978c;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.1em;
+    }
+
+    .thread03-knock-readout p {
+        margin: 7px 0 0;
+        color: #adbbb5;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread03-knock-marker-actions,
+.thread03-knock-origin-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 11px;
+    border-top: 1px solid rgba(154, 183, 171, 0.1);
+}
+
+    .thread03-knock-marker-actions > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread03-knock-marker-actions span,
+    .thread03-knock-origin-actions span {
+        color: #82948c;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread03-knock-marker-actions button,
+    .thread03-knock-origin-actions button {
+        padding: 8px 10px;
+        border: 1px solid rgba(126, 236, 199, 0.32);
+        background: rgba(126, 236, 199, 0.035);
+        color: #9dd8c2;
+        font: 8px Consolas, "Courier New", monospace;
+        cursor: pointer;
+    }
+
+        .thread03-knock-marker-actions button:disabled,
+        .thread03-knock-origin-actions button:disabled {
+            opacity: 0.36;
+            cursor: default;
+        }
+
+/* 声源判断 */
+
+.thread03-knock-origin {
+    margin: 0 11px 11px;
+    border: 1px solid rgba(199, 165, 79, 0.18);
+    background: rgba(199, 165, 79, 0.015);
+}
+
+    .thread03-knock-origin > p {
+        margin: 0;
+        padding: 10px;
+        color: #ada58e;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread03-knock-origin-options {
+    display: grid;
+    gap: 6px;
+    padding: 0 10px 10px;
+}
+
+    .thread03-knock-origin-options button {
+        padding: 9px 10px;
+        border: 1px solid rgba(191, 199, 194, 0.13);
+        background: rgba(191, 199, 194, 0.015);
+        color: #b8c3be;
+        font-size: 9px;
+        text-align: left;
+        cursor: pointer;
+    }
+
+        .thread03-knock-origin-options
+        button.is-selected {
+            border-color: rgba(211, 176, 82, 0.55);
+            color: #d2bd82;
+        }
+
+        .thread03-knock-origin-options
+        button.is-verified {
+            border-color: rgba(126, 236, 199, 0.5);
+            color: #a6e1ca;
+        }
+
+/* 最终结果 */
+
+.thread03-knock-result {
+    margin: 0 11px 11px;
+    padding: 10px 11px;
+    border-left: 2px solid rgba(196, 78, 69, 0.5);
+    background: rgba(196, 78, 69, 0.025);
+}
+
+    .thread03-knock-result strong {
+        color: #d8877e;
+        font: 9px Consolas, "Courier New", monospace;
+        letter-spacing: 0.08em;
+    }
+
+    .thread03-knock-result p {
+        margin: 8px 0 0;
+        color: #baa5a0;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+/* 锁定与完成状态 */
+
+.thread03-knock-audit.is-locked {
+    opacity: 0.56;
+}
+
+.thread03-knock-audit.is-separated {
+    border-color: rgba(208, 170, 78, 0.34);
+}
+
+.thread03-knock-audit.is-complete {
+    opacity: 1;
+    border-color: rgba(126, 236, 199, 0.38);
+}
+
+@media (max-width: 720px) {
+    .thread03-waveform {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .thread03-knock-requirements {
+        grid-template-columns: 1fr;
+    }
+
+    .thread03-knock-marker-actions,
+    .thread03-knock-origin-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+        .thread03-knock-marker-actions button,
+        .thread03-knock-origin-actions button {
+            width: 100%;
+        }
+}
+
+
+/* =========================
+   THREAD 03 Source Registration
+   ========================= */
+
+.thread03-source-registration {
+    overflow: hidden;
+    border: 1px solid rgba(151, 177, 166, 0.2);
+    background: repeating-linear-gradient( 0deg, rgba(193, 211, 202, 0.012) 0, rgba(193, 211, 202, 0.012) 1px, transparent 1px, transparent 7px ), rgba(8, 13, 11, 0.94);
+}
+
+.thread03-source-registration-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(151, 177, 166, 0.12);
+}
+
+    .thread03-source-registration-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread03-source-registration-head span {
+        color: #759087;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread03-source-registration-head strong {
+        color: #cbd7d1;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .thread03-source-registration-head em {
+        padding: 4px 7px;
+        border: 1px solid rgba(151, 177, 166, 0.28);
+        color: #8fa69c;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread03-source-registration-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+    .thread03-source-registration-grid > div {
+        min-width: 0;
+        padding: 11px 12px;
+        border-right: 1px solid rgba(151, 177, 166, 0.09);
+        border-bottom: 1px solid rgba(151, 177, 166, 0.09);
+    }
+
+    .thread03-source-registration-grid span,
+    .thread03-source-registration-grid strong {
+        display: block;
+    }
+
+    .thread03-source-registration-grid span {
+        color: #71837c;
+        font-size: 8px;
+    }
+
+    .thread03-source-registration-grid strong {
+        margin-top: 6px;
+        color: #bdc9c3;
+        font: 10px Consolas, "Courier New", monospace;
+        font-weight: 500;
+    }
+
+.thread03-source-registration-note {
+    margin: 11px;
+    padding: 10px 11px;
+    border: 1px solid rgba(151, 177, 166, 0.13);
+    background: rgba(151, 177, 166, 0.018);
+}
+
+    .thread03-source-registration-note span {
+        color: #758f85;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.1em;
+    }
+
+    .thread03-source-registration-note p {
+        margin: 7px 0 0;
+        color: #aab8b1;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread03-source-registration-conflict {
+    margin: 0 11px 11px;
+    padding: 10px 11px;
+    border-left: 2px solid rgba(198, 78, 69, 0.52);
+    background: rgba(198, 78, 69, 0.027);
+}
+
+    .thread03-source-registration-conflict strong {
+        color: #d8847b;
+        font: 9px Consolas, "Courier New", monospace;
+        letter-spacing: 0.08em;
+    }
+
+    .thread03-source-registration-conflict p {
+        margin: 8px 0 0;
+        color: #b9a29e;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+/* Waiting for the evidence link */
+
+.thread03-source-registration.is-waiting {
+    border-color: rgba(205, 169, 79, 0.32);
+}
+
+    .thread03-source-registration.is-waiting
+    .thread03-source-registration-head em {
+        border-color: rgba(205, 169, 79, 0.4);
+        color: #cfb269;
+    }
+
+    .thread03-source-registration.is-waiting
+    .thread03-source-registration-grid strong {
+        color: #c9bc98;
+    }
+
+/* Registered impossible source */
+
+.thread03-source-registration.is-registered {
+    border-color: rgba(198, 78, 69, 0.4);
+    background: repeating-linear-gradient( 0deg, rgba(198, 78, 69, 0.012) 0, rgba(198, 78, 69, 0.012) 1px, transparent 1px, transparent 7px ), rgba(22, 9, 9, 0.94);
+}
+
+    .thread03-source-registration.is-registered
+    .thread03-source-registration-head em {
+        border-color: rgba(198, 78, 69, 0.44);
+        color: #d1847b;
+    }
+
+    .thread03-source-registration.is-registered
+    #thread03InternalSource,
+    .thread03-source-registration.is-registered
+    #thread03SourceDirection {
+        color: #df8d83;
+    }
+
+/* Deleted reply state */
+
+.thread03-deleted-comment-state {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 5px;
+    border: 1px solid rgba(164, 179, 171, 0.18);
+    color: #788b82;
+    font: 7px Consolas, "Courier New", monospace;
+    vertical-align: middle;
+}
+
+.deleted-comment-line.is-recovered
+.thread03-deleted-comment-state {
+    border-color: rgba(205, 169, 79, 0.38);
+    color: #c6a95f;
+}
+
+.deleted-comment-line.is-recovered
+.deleted-comment-frag {
+    color: #c7b27b;
+}
+
+.deleted-comment-line.is-normalized
+.thread03-deleted-comment-state {
+    border-color: rgba(198, 78, 69, 0.4);
+    color: #cc8279;
+}
+
+.deleted-comment-line.is-normalized
+.deleted-comment-frag {
+    color: #897674;
+}
+
+@media (max-width: 720px) {
+    .thread03-source-registration-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thread03-source-registration-head {
+        flex-direction: column;
+    }
+}
+
+/* =========================
+   THREAD 04 Layer Audit
+   ========================= */
+
+.thread04-layer-audit {
+    margin: 15px 0;
+    overflow: hidden;
+    border: 1px solid rgba(175, 164, 194, 0.22);
+    background: repeating-linear-gradient( 0deg, rgba(207, 197, 221, 0.012) 0, rgba(207, 197, 221, 0.012) 1px, transparent 1px, transparent 7px ), rgba(12, 10, 16, 0.92);
+}
+
+.thread04-layer-audit-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(175, 164, 194, 0.12);
+}
+
+    .thread04-layer-audit-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread04-layer-audit-head span {
+        color: #9485a6;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread04-layer-audit-head strong {
+        color: #d3ccdc;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .thread04-layer-audit-head em {
+        padding: 4px 7px;
+        border: 1px solid rgba(175, 164, 194, 0.28);
+        color: #a99bb8;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread04-layer-audit-intro {
+    margin: 0;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(175, 164, 194, 0.09);
+    color: #a49cac;
+    font-size: 9px;
+    line-height: 1.65;
+}
+
+.thread04-layer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 11px;
+}
+
+.thread04-layer-entry {
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid rgba(190, 181, 203, 0.13);
+    background: rgba(190, 181, 203, 0.018);
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+    .thread04-layer-entry:hover:not(:disabled) {
+        border-color: rgba(194, 159, 223, 0.42);
+        background: rgba(194, 159, 223, 0.035);
+    }
+
+    .thread04-layer-entry > span,
+    .thread04-layer-entry > strong,
+    .thread04-layer-entry > small {
+        display: block;
+    }
+
+    .thread04-layer-entry > span {
+        color: #8f81a0;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread04-layer-entry > strong {
+        margin-top: 7px;
+        color: #d0c8d7;
+        font: 10px Consolas, "Courier New", monospace;
+        font-weight: 500;
+    }
+
+    .thread04-layer-entry > small {
+        margin-top: 7px;
+        color: #817989;
+        font-size: 8px;
+        line-height: 1.65;
+    }
+
+    .thread04-layer-entry.is-inspected {
+        border-color: rgba(194, 159, 223, 0.42);
+        box-shadow: inset 3px 0 0 rgba(194, 159, 223, 0.36);
+    }
+
+        .thread04-layer-entry.is-inspected small {
+            color: #ad9cbb;
+        }
+
+.thread04-layer-readout {
+    margin: 0 11px 10px;
+    padding: 10px;
+    border: 1px solid rgba(175, 164, 194, 0.14);
+    background: rgba(175, 164, 194, 0.018);
+}
+
+    .thread04-layer-readout span {
+        color: #9485a6;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.1em;
+    }
+
+    .thread04-layer-readout p {
+        margin: 7px 0 0;
+        color: #b9b1c1;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread04-layer-progress {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 11px 10px;
+    color: #8c8493;
+    font: 8px Consolas, "Courier New", monospace;
+}
+
+.thread04-layer-conclusion {
+    padding: 11px;
+    border-top: 1px solid rgba(175, 164, 194, 0.1);
+}
+
+    .thread04-layer-conclusion > p {
+        margin: 0 0 9px;
+        color: #aaa1b1;
+        font-size: 9px;
+    }
+
+.thread04-layer-conclusion-options {
+    display: grid;
+    gap: 7px;
+}
+
+    .thread04-layer-conclusion-options button {
+        padding: 9px 10px;
+        border: 1px solid rgba(190, 181, 203, 0.13);
+        background: rgba(190, 181, 203, 0.015);
+        color: #bbb3c2;
+        font-size: 9px;
+        text-align: left;
+        cursor: pointer;
+    }
+
+        .thread04-layer-conclusion-options
+        button:hover:not(:disabled) {
+            border-color: rgba(194, 159, 223, 0.42);
+        }
+
+        .thread04-layer-conclusion-options
+        button.is-selected {
+            border-color: rgba(215, 175, 82, 0.56);
+            background: rgba(215, 175, 82, 0.04);
+            color: #d4c18d;
+        }
+
+        .thread04-layer-conclusion-options
+        button.is-verified {
+            border-color: rgba(194, 159, 223, 0.56);
+            background: rgba(194, 159, 223, 0.045);
+            color: #d7bce9;
+        }
+
+        .thread04-layer-conclusion-options
+        button:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+.thread04-layer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 11px;
+    border-top: 1px solid rgba(175, 164, 194, 0.1);
+}
+
+    .thread04-layer-actions span {
+        color: #8c8493;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread04-layer-actions button {
+        padding: 8px 10px;
+        border: 1px solid rgba(194, 159, 223, 0.34);
+        background: rgba(194, 159, 223, 0.035);
+        color: #c8acd9;
+        font: 8px Consolas, "Courier New", monospace;
+        cursor: pointer;
+    }
+
+        .thread04-layer-actions button:disabled {
+            opacity: 0.36;
+            cursor: default;
+        }
+
+.thread04-layer-result {
+    margin: 0 11px 11px;
+    padding: 10px 11px;
+    border-left: 2px solid rgba(199, 81, 72, 0.5);
+    background: rgba(199, 81, 72, 0.025);
+}
+
+    .thread04-layer-result strong {
+        color: #d88a81;
+        font: 9px Consolas, "Courier New", monospace;
+        letter-spacing: 0.08em;
+    }
+
+    .thread04-layer-result p {
+        margin: 8px 0 0;
+        color: #baa5a1;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread04-layer-audit.is-complete {
+    border-color: rgba(194, 159, 223, 0.42);
+}
+
+@media (max-width: 720px) {
+    .thread04-layer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thread04-layer-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+        .thread04-layer-actions button {
+            width: 100%;
+        }
+}
+
+
+/* =========================
+   THREAD 04 Future Ledger
+   ========================= */
+
+.thread04-future-audit {
+    margin: 15px 0;
+    overflow: hidden;
+    border: 1px solid rgba(160, 154, 193, 0.22);
+    background: repeating-linear-gradient( 0deg, rgba(202, 197, 220, 0.012) 0, rgba(202, 197, 220, 0.012) 1px, transparent 1px, transparent 7px ), rgba(11, 10, 16, 0.93);
+    transition: opacity 0.18s ease, border-color 0.18s ease;
+}
+
+.thread04-future-audit-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(160, 154, 193, 0.12);
+}
+
+    .thread04-future-audit-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread04-future-audit-head span {
+        color: #8c82a3;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread04-future-audit-head strong {
+        color: #d0cad9;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .thread04-future-audit-head em {
+        padding: 4px 7px;
+        border: 1px solid rgba(160, 154, 193, 0.28);
+        color: #a097b4;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread04-future-audit-intro {
+    margin: 0;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(160, 154, 193, 0.09);
+    color: #9f98aa;
+    font-size: 9px;
+    line-height: 1.65;
+}
+
+.thread04-future-entry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 11px;
+}
+
+.thread04-future-entry {
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid rgba(187, 180, 203, 0.13);
+    background: rgba(187, 180, 203, 0.018);
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+    .thread04-future-entry:hover:not(:disabled) {
+        border-color: rgba(190, 157, 221, 0.44);
+        background: rgba(190, 157, 221, 0.035);
+    }
+
+    .thread04-future-entry > span,
+    .thread04-future-entry > strong,
+    .thread04-future-entry > small {
+        display: block;
+    }
+
+    .thread04-future-entry > span {
+        color: #8d82a2;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread04-future-entry > strong {
+        margin-top: 7px;
+        color: #cdc7d5;
+        font: 10px Consolas, "Courier New", monospace;
+        font-weight: 500;
+    }
+
+    .thread04-future-entry > small {
+        display: grid;
+        grid-template-columns: 70px minmax(0, 1fr);
+        gap: 4px 8px;
+        margin-top: 8px;
+    }
+
+    .thread04-future-entry small b,
+    .thread04-future-entry small i {
+        min-width: 0;
+        font: normal 8px Consolas, "Courier New", monospace;
+        overflow-wrap: anywhere;
+    }
+
+    .thread04-future-entry small b {
+        color: #777182;
+    }
+
+    .thread04-future-entry small i {
+        color: #9f98a8;
+    }
+
+    .thread04-future-entry.is-inspected {
+        border-color: rgba(190, 157, 221, 0.43);
+        box-shadow: inset 3px 0 0 rgba(190, 157, 221, 0.35);
+    }
+
+        .thread04-future-entry.is-inspected small i {
+            color: #b4a7c2;
+        }
+
+    .thread04-future-entry.is-future {
+        background: rgba(183, 158, 210, 0.025);
+    }
+
+    .thread04-future-entry.is-verified {
+        border-color: rgba(199, 79, 70, 0.52);
+        background: rgba(199, 79, 70, 0.03);
+    }
+
+        .thread04-future-entry.is-verified > strong,
+        .thread04-future-entry.is-verified small i {
+            color: #d88c83;
+        }
+
+.thread04-future-readout {
+    margin: 0 11px 10px;
+    padding: 10px;
+    border: 1px solid rgba(160, 154, 193, 0.14);
+    background: rgba(160, 154, 193, 0.018);
+}
+
+    .thread04-future-readout span {
+        color: #8c82a3;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.1em;
+    }
+
+    .thread04-future-readout p {
+        margin: 7px 0 0;
+        color: #b5afbd;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread04-future-progress {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 11px 10px;
+    color: #888190;
+    font: 8px Consolas, "Courier New", monospace;
+}
+
+.thread04-future-conclusion {
+    padding: 11px;
+    border-top: 1px solid rgba(160, 154, 193, 0.1);
+}
+
+    .thread04-future-conclusion > p {
+        margin: 0 0 9px;
+        color: #a8a1af;
+        font-size: 9px;
+    }
+
+.thread04-future-conclusion-options {
+    display: grid;
+    gap: 7px;
+}
+
+    .thread04-future-conclusion-options button {
+        padding: 9px 10px;
+        border: 1px solid rgba(187, 180, 203, 0.13);
+        background: rgba(187, 180, 203, 0.015);
+        color: #bbb4c2;
+        font-size: 9px;
+        text-align: left;
+        cursor: pointer;
+    }
+
+        .thread04-future-conclusion-options
+        button:hover:not(:disabled) {
+            border-color: rgba(190, 157, 221, 0.44);
+        }
+
+        .thread04-future-conclusion-options
+        button.is-selected {
+            border-color: rgba(215, 175, 82, 0.56);
+            background: rgba(215, 175, 82, 0.04);
+            color: #d5c18c;
+        }
+
+        .thread04-future-conclusion-options
+        button.is-verified {
+            border-color: rgba(199, 79, 70, 0.52);
+            background: rgba(199, 79, 70, 0.03);
+            color: #d58c83;
+        }
+
+        .thread04-future-conclusion-options
+        button:disabled,
+        .thread04-future-entry:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+.thread04-future-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 11px;
+    border-top: 1px solid rgba(160, 154, 193, 0.1);
+}
+
+    .thread04-future-actions span {
+        color: #888190;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+    .thread04-future-actions button {
+        padding: 8px 10px;
+        border: 1px solid rgba(190, 157, 221, 0.34);
+        background: rgba(190, 157, 221, 0.035);
+        color: #c7acd7;
+        font: 8px Consolas, "Courier New", monospace;
+        cursor: pointer;
+    }
+
+        .thread04-future-actions button:disabled {
+            opacity: 0.36;
+            cursor: default;
+        }
+
+.thread04-future-result {
+    margin: 0 11px 11px;
+    padding: 10px 11px;
+    border-left: 2px solid rgba(199, 79, 70, 0.52);
+    background: rgba(199, 79, 70, 0.027);
+}
+
+    .thread04-future-result strong {
+        color: #d88b82;
+        font: 9px Consolas, "Courier New", monospace;
+        letter-spacing: 0.08em;
+    }
+
+    .thread04-future-result p {
+        margin: 8px 0 0;
+        color: #baa4a0;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+/* Locked until the back figure is verified */
+
+.thread04-future-audit.is-locked {
+    opacity: 0.55;
+}
+
+.thread04-future-audit.is-ready {
+    opacity: 1;
+    border-color: rgba(190, 157, 221, 0.34);
+}
+
+.thread04-future-audit.is-complete {
+    opacity: 1;
+    border-color: rgba(199, 79, 70, 0.4);
+}
+
+@media (max-width: 720px) {
+    .thread04-future-entry-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thread04-future-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+        .thread04-future-actions button {
+            width: 100%;
+        }
+}
+
+
+/* =========================
+   THREAD 04 Temporal Source
+   ========================= */
+
+.thread04-temporal-source {
+    overflow: hidden;
+    border: 1px solid rgba(164, 153, 193, 0.22);
+    background: repeating-linear-gradient( 0deg, rgba(204, 196, 222, 0.012) 0, rgba(204, 196, 222, 0.012) 1px, transparent 1px, transparent 7px ), rgba(11, 9, 16, 0.94);
+    transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.thread04-temporal-source-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 12px;
+    border-bottom: 1px solid rgba(164, 153, 193, 0.12);
+}
+
+    .thread04-temporal-source-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .thread04-temporal-source-head span {
+        color: #8e82a3;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.12em;
+    }
+
+    .thread04-temporal-source-head strong {
+        color: #d0cad9;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .thread04-temporal-source-head em {
+        padding: 4px 7px;
+        border: 1px solid rgba(164, 153, 193, 0.28);
+        color: #a197b4;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.thread04-temporal-source-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+    .thread04-temporal-source-grid > div {
+        min-width: 0;
+        padding: 11px 12px;
+        border-right: 1px solid rgba(164, 153, 193, 0.09);
+        border-bottom: 1px solid rgba(164, 153, 193, 0.09);
+    }
+
+    .thread04-temporal-source-grid span,
+    .thread04-temporal-source-grid strong {
+        display: block;
+    }
+
+    .thread04-temporal-source-grid span {
+        color: #787182;
+        font-size: 8px;
+    }
+
+    .thread04-temporal-source-grid strong {
+        margin-top: 6px;
+        color: #bdb7c7;
+        font: 10px Consolas, "Courier New", monospace;
+        font-weight: 500;
+        overflow-wrap: anywhere;
+    }
+
+.thread04-temporal-source-note {
+    margin: 11px;
+    padding: 10px 11px;
+    border: 1px solid rgba(164, 153, 193, 0.14);
+    background: rgba(164, 153, 193, 0.018);
+}
+
+    .thread04-temporal-source-note span {
+        color: #8e82a3;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: 0.1em;
+    }
+
+    .thread04-temporal-source-note p {
+        margin: 7px 0 0;
+        color: #b1aaba;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+.thread04-temporal-source-conflict {
+    margin: 0 11px 11px;
+    padding: 10px 11px;
+    border-left: 2px solid rgba(199, 79, 70, 0.52);
+    background: rgba(199, 79, 70, 0.027);
+}
+
+    .thread04-temporal-source-conflict strong {
+        color: #d98980;
+        font: 9px Consolas, "Courier New", monospace;
+        letter-spacing: 0.08em;
+    }
+
+    .thread04-temporal-source-conflict p {
+        margin: 8px 0 0;
+        color: #baa4a0;
+        font-size: 9px;
+        line-height: 1.65;
+    }
+
+/* Evidence link found, but #034 not completed */
+
+.thread04-temporal-source.is-linked {
+    border-color: rgba(210, 171, 76, 0.36);
+}
+
+    .thread04-temporal-source.is-linked
+    .thread04-temporal-source-head em {
+        border-color: rgba(210, 171, 76, 0.42);
+        color: #ceb163;
+    }
+
+    .thread04-temporal-source.is-linked
+    #thread04FigureSource,
+    .thread04-temporal-source.is-linked
+    #thread04FigureVisitTime,
+    .thread04-temporal-source.is-linked
+    #thread04FigureEventStatus {
+        color: #d2bc7d;
+    }
+
+/* #034 has rewritten the time conflict */
+
+.thread04-temporal-source.is-corrected {
+    border-color: rgba(199, 79, 70, 0.42);
+    background: repeating-linear-gradient( 0deg, rgba(199, 79, 70, 0.012) 0, rgba(199, 79, 70, 0.012) 1px, transparent 1px, transparent 7px ), rgba(23, 9, 10, 0.94);
+}
+
+    .thread04-temporal-source.is-corrected
+    .thread04-temporal-source-head em {
+        border-color: rgba(199, 79, 70, 0.46);
+        color: #d1857c;
+    }
+
+    .thread04-temporal-source.is-corrected
+    #thread04FigureEventStatus,
+    .thread04-temporal-source.is-corrected
+    #thread04FigureTimeConflict {
+        color: #df8e84;
+    }
+
+/* THREAD 04 deleted reply states */
+
+.thread04-deleted-comment-state {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 5px;
+    border: 1px solid rgba(164, 153, 193, 0.2);
+    color: #81778f;
+    font: 7px Consolas, "Courier New", monospace;
+    vertical-align: middle;
+}
+
+.deleted-comment-line.is-thread04-recovered
+.thread04-deleted-comment-state {
+    border-color: rgba(210, 171, 76, 0.4);
+    color: #caae62;
+}
+
+.deleted-comment-line.is-thread04-recovered
+#thread04DeletedCommentText {
+    color: #c7b37b;
+}
+
+.deleted-comment-line.is-thread04-normalized
+.thread04-deleted-comment-state {
+    border-color: rgba(199, 79, 70, 0.42);
+    color: #ce8279;
+}
+
+.deleted-comment-line.is-thread04-normalized
+#thread04DeletedCommentText {
+    color: #897573;
+}
+
+@media (max-width: 720px) {
+    .thread04-temporal-source-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thread04-temporal-source-head {
+        flex-direction: column;
+    }
+}
+
+/* =========================
+   Ticket 034 Audit Actions
+   ========================= */
+
+.ticket034-audit-actions {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    width: auto;
+    margin: 12px 0 0;
+    padding: 12px 0 0;
+    border-top: 1px solid rgba(190, 174, 130, 0.16);
+    background: transparent;
+    box-shadow: none;
+    z-index: auto;
+}
+
+    .ticket034-audit-actions[hidden] {
+        display: none;
+    }
+
+    .ticket034-audit-actions
+    .maintenance-ticket-btn {
+        margin: 0;
+    }

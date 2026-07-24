@@ -222,16 +222,173 @@
                             </div>
                         </div>
 
+                        <section class="thread04-layer-audit"
+                                 id="thread04LayerAudit">
+
+                            <div class="thread04-layer-audit-head">
+                                <div>
+                                    <span>MANUSCRIPT LAYER LEDGER</span>
+                                    <strong>检查第 17 页的图层写入顺序</strong>
+                                </div>
+
+                                <em id="thread04LayerAuditStatus">
+                                    PENDING
+                                </em>
+                            </div>
+
+                            <p class="thread04-layer-audit-intro">
+                                投稿附件已封存，但恢复记录显示部分图层仍在封存后继续写入。
+                                依次检查四个图层，再判断哪一项不属于漫画家的原始稿件。
+                            </p>
+
+                            <div class="thread04-layer-grid">
+
+                                <button class="thread04-layer-entry"
+                                        type="button"
+                                        data-thread04-layer="base"
+                                        data-readout="基础分镜图层创建于一个月前。画布尺寸、笔刷记录和作者字段均与其他稿件一致。">
+
+                                    <span>LAYER 00</span>
+                                    <strong>BASE_PANEL</strong>
+
+                                    <small>
+                                        创建：一个月前<br />
+                                        作者：漫画家本人<br />
+                                        状态：正常
+                                    </small>
+                                </button>
+
+                                <button class="thread04-layer-entry"
+                                        type="button"
+                                        data-thread04-layer="dialogue"
+                                        data-readout="对白图层在投稿当晚 03:58 完成最后修改。该时间早于压缩包封存，修改记录可以正常追溯。">
+
+                                    <span>LAYER 06</span>
+                                    <strong>DIALOGUE</strong>
+
+                                    <small>
+                                        最后修改：03:58:21<br />
+                                        作者：漫画家本人<br />
+                                        状态：正常
+                                    </small>
+                                </button>
+
+                                <button class="thread04-layer-entry"
+                                        type="button"
+                                        data-thread04-layer="clock"
+                                        data-readout="时钟图层显示 04:04，但图层元数据仍属于原始画布。时间内容异常，写入顺序暂时没有越过压缩包封存点。">
+
+                                    <span>LAYER 11</span>
+                                    <strong>CLOCK_0404</strong>
+
+                                    <small>
+                                        图像内容：04:04<br />
+                                        图层写入：03:59:46<br />
+                                        状态：内容异常
+                                    </small>
+                                </button>
+
+                                <button class="thread04-layer-entry"
+                                        type="button"
+                                        data-thread04-layer="figure"
+                                        data-readout="背影图层首次写入于 04:04:17。压缩包哈希已在 04:03:58 封存，该图层的来源和作者字段均为空。">
+
+                                    <span>LAYER 17</span>
+                                    <strong>FIGURE_BACK</strong>
+
+                                    <small>
+                                        首次写入：04:04:17<br />
+                                        作者：未登记<br />
+                                        来源：附件重新加载
+                                    </small>
+                                </button>
+                            </div>
+
+                            <div class="thread04-layer-readout">
+                                <span>LAYER READOUT</span>
+
+                                <p id="thread04LayerReadout">
+                                    尚未检查稿件图层。
+                                </p>
+                            </div>
+
+                            <div class="thread04-layer-progress">
+                                <span id="thread04LayerProgress">
+                                    0 / 4 LAYERS
+                                </span>
+
+                                <span id="thread04LayerMistakes">
+                                    误判：0
+                                </span>
+                            </div>
+
+                            <section class="thread04-layer-conclusion">
+                                <p>
+                                    哪一项最能说明背影并不属于漫画家的原始稿件？
+                                </p>
+
+                                <div class="thread04-layer-conclusion-options">
+
+                                    <button type="button"
+                                            data-thread04-layer-conclusion="revision"
+                                            disabled>
+                                        漫画家在发送压缩包前进行了普通修改
+                                    </button>
+
+                                    <button type="button"
+                                            data-thread04-layer-conclusion="clock"
+                                            disabled>
+                                        时钟画成 04:04 导致其他图层时间损坏
+                                    </button>
+
+                                    <button type="button"
+                                            data-thread04-layer-conclusion="sealed_insert"
+                                            disabled>
+                                        背影图层在压缩包封存后才被写入
+                                    </button>
+                                </div>
+                            </section>
+
+                            <div class="thread04-layer-actions">
+                                <span id="thread04LayerSelection">
+                                    尚未选择结论
+                                </span>
+
+                                <button id="thread04LayerCommit"
+                                        type="button"
+                                        disabled>
+                                    提交图层来源判断
+                                </button>
+                            </div>
+
+                            <div class="thread04-layer-result hidden"
+                                 id="thread04LayerResult">
+
+                                <strong>UNREGISTERED LAYER IDENTIFIED</strong>
+
+                                <p>
+                                    投稿压缩包于 04:03:58 完成哈希封存，
+                                    背影图层却在 04:04:17 首次写入。
+                                </p>
+
+                                <p>
+                                    该图层没有作者、源文件或编辑设备记录，
+                                    并且只在附件重新加载后出现。
+                                </p>
+                            </div>
+                        </section>
+
                         <div class="evidence-capture-row">
                             <button class="evidence-capture-btn"
                                     type="button"
                                     data-evidence-id="back_figure"
-                                    data-evidence-requires="echo_thread04_draft_repaired">
+                                    data-evidence-requires="echorest_thread04_layer_audit_v1">
                                 保存未登记背影图层
                             </button>
 
-                            <span class="evidence-capture-note">
-                                该图层在草稿创建前已留下写入时间
+                            <span class="evidence-capture-note"
+                                  id="thread04LayerEvidenceNote">
+                                需要先确认封存后写入的异常图层
                             </span>
                         </div>
 
@@ -371,6 +528,212 @@
                             cache/clock/clock_trace_0404.png
                         </div>
                     </div>
+
+                    <section class="thread04-future-audit is-locked"
+                             id="thread04FutureAudit">
+
+                        <div class="thread04-future-audit-head">
+                            <div>
+                                <span>FUTURE ACCESS LEDGER</span>
+                                <strong>检查页面缓存中的访问写入顺序</strong>
+                            </div>
+
+                            <em id="thread04FutureAuditStatus">
+                                LOCKED
+                            </em>
+                        </div>
+
+                        <p class="thread04-future-audit-intro">
+                            漫画附件的图层审计完成后，系统在同一缓存目录中发现了四条访问记录。
+                            其中一条包含完整会话信息，但对应事件尚未发生。
+                        </p>
+
+                        <div class="thread04-future-entry-grid">
+
+                            <button class="thread04-future-entry"
+                                    type="button"
+                                    data-thread04-future-entry="draft_edit"
+                                    data-readout="03:58:21 的稿件修改发生在压缩包封存之前。作者、设备和文件哈希均可正常追溯。"
+                                    disabled>
+
+                                <span>ENTRY 01</span>
+                                <strong>稿件最后修改</strong>
+
+                                <small>
+                                    <b>执行时间</b>
+                                    <i>03:58:21</i>
+
+                                    <b>来源</b>
+                                    <i>作者设备</i>
+
+                                    <b>状态</b>
+                                    <i>COMPLETED</i>
+                                </small>
+                            </button>
+
+                            <button class="thread04-future-entry"
+                                    type="button"
+                                    data-thread04-future-entry="archive_seal"
+                                    data-readout="04:03:58 的封存记录与压缩包哈希一致。该事件早于背影图层首次写入时间。"
+                                    disabled>
+
+                                <span>ENTRY 02</span>
+                                <strong>投稿附件封存</strong>
+
+                                <small>
+                                    <b>执行时间</b>
+                                    <i>04:03:58</i>
+
+                                    <b>来源</b>
+                                    <i>投稿系统</i>
+
+                                    <b>状态</b>
+                                    <i>COMPLETED</i>
+                                </small>
+                            </button>
+
+                            <button class="thread04-future-entry"
+                                    type="button"
+                                    data-thread04-future-entry="figure_write"
+                                    data-readout="04:04:17 的背影图层写入晚于附件封存。该记录没有作者字段，来源被标记为附件重新加载。"
+                                    disabled>
+
+                                <span>ENTRY 03</span>
+                                <strong>背影图层首次写入</strong>
+
+                                <small>
+                                    <b>执行时间</b>
+                                    <i>04:04:17</i>
+
+                                    <b>来源</b>
+                                    <i>附件重新加载</i>
+
+                                    <b>状态</b>
+                                    <i>COMPLETED</i>
+                                </small>
+                            </button>
+
+                            <button class="thread04-future-entry is-future"
+                                    type="button"
+                                    data-thread04-future-entry="future_visit"
+                                    data-readout="该记录的执行时间位于当前日期之后，但已经包含当前处理人、当前会话编号和完成状态。"
+                                    disabled>
+
+                                <span>ENTRY 04</span>
+                                <strong>THREAD 04 再次访问</strong>
+
+                                <small>
+                                    <b>执行时间</b>
+
+                                    <i id="thread04FutureVisitTime">
+                                        明日 / 04:04
+                                    </i>
+
+                                    <b>处理人</b>
+
+                                    <i id="thread04FutureVisitWorker">
+                                        CURRENT WORKER
+                                    </i>
+
+                                    <b>会话</b>
+
+                                    <i id="thread04FutureVisitSession">
+                                        CURRENT SESSION
+                                    </i>
+
+                                    <b>状态</b>
+                                    <i>COMPLETED</i>
+                                </small>
+                            </button>
+                        </div>
+
+                        <div class="thread04-future-readout">
+                            <span>LEDGER READOUT</span>
+
+                            <p id="thread04FutureReadout">
+                                需要先完成未登记背影图层审计。
+                            </p>
+                        </div>
+
+                        <div class="thread04-future-progress">
+                            <span id="thread04FutureProgress">
+                                0 / 4 ENTRIES
+                            </span>
+
+                            <span id="thread04FutureMistakes">
+                                误判：0
+                            </span>
+                        </div>
+
+                        <section class="thread04-future-conclusion">
+                            <p>
+                                哪一种解释最符合这组访问记录？
+                            </p>
+
+                            <div class="thread04-future-conclusion-options">
+
+                                <button type="button"
+                                        data-thread04-future-conclusion="clock_error"
+                                        disabled>
+                                    页面时钟停在 04:04，导致所有日志显示错误
+                                </button>
+
+                                <button type="button"
+                                        data-thread04-future-conclusion="duplicate_cache"
+                                        disabled>
+                                    系统复制了一条过去的普通访问缓存
+                                </button>
+
+                                <button type="button"
+                                        data-thread04-future-conclusion="future_completion"
+                                        disabled>
+                                    尚未发生的访问被提前写成了已完成事件
+                                </button>
+                            </div>
+                        </section>
+
+                        <div class="thread04-future-actions">
+                            <span id="thread04FutureSelection">
+                                尚未选择结论
+                            </span>
+
+                            <button id="thread04FutureCommit"
+                                    type="button"
+                                    disabled>
+                                提交访问时序判断
+                            </button>
+                        </div>
+
+                        <div class="thread04-future-result hidden"
+                             id="thread04FutureResult">
+
+                            <strong>FUTURE EVENT PREWRITTEN</strong>
+
+                            <p>
+                                这不是一条缺少日期的旧缓存。
+                                记录中已经写入当前处理人、当前会话和事件完成状态。
+                            </p>
+
+                            <p>
+                                它描述的是一次尚未发生的 THREAD 04 访问，
+                                但系统已经将这次访问登记为完成。
+                            </p>
+                        </div>
+                    </section>
+
+                    <div class="evidence-capture-row">
+                        <button class="evidence-capture-btn"
+                                type="button"
+                                data-evidence-id="future_log"
+                                data-evidence-requires="echorest_thread04_future_audit_v1">
+                            保存未发生的访问记录
+                        </button>
+
+                        <span class="evidence-capture-note"
+                              id="thread04FutureEvidenceNote">
+                            需要先确认提前写入的未来事件
+                        </span>
+                    </div>
                 </div>
             </article>
 
@@ -431,8 +794,14 @@
                         <p>
                             评论二：
                             <span class="deleted-comment-frag"
-                                  data-hover="不是楼上。">
+                                  id="thread04DeletedCommentText"
+                                  data-hover="恢复内容尚未确认。">
                                 不是【此评论被楼主删除】
+                            </span>
+
+                            <span class="thread04-deleted-comment-state"
+                                  id="thread04DeletedCommentState">
+                                CACHE PARTIAL
                             </span>
                         </p>
                     </div>
@@ -441,6 +810,123 @@
                         <div class="reply-avatar-slot">头像</div>
                         <p>评论三：04:04 这个时间为什么这么眼熟？</p>
                     </div>
+                </div>
+            </article>
+
+            <article class="forum-post forum-post-system hidden"
+                     id="thread04FigureTemporalRecord">
+
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="news-badge">
+                            SYS
+                        </div>
+
+                        <div>
+                            <h2 class="forum-post-author">
+                                背影图层时间来源记录
+                            </h2>
+
+                            <p class="forum-post-meta"
+                               id="thread04FigureTemporalMeta">
+                                来源：稿件与访问日志交叉缓存 / 状态：等待关联
+                            </p>
+                        </div>
+                    </div>
+
+                    <span class="forum-post-floor">
+                        INSERT
+                    </span>
+                </div>
+
+                <div class="forum-post-body">
+                    <section class="thread04-temporal-source"
+                             id="thread04TemporalSource">
+
+                        <div class="thread04-temporal-source-head">
+                            <div>
+                                <span>FIGURE TEMPORAL SOURCE</span>
+                                <strong>未登记背影图层来源追踪</strong>
+                            </div>
+
+                            <em id="thread04FigureTemporalStatus">
+                                PENDING
+                            </em>
+                        </div>
+
+                        <div class="thread04-temporal-source-grid">
+                            <div>
+                                <span>背影图层写入来源</span>
+
+                                <strong id="thread04FigureSource">
+                                    未读取
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>对应访问时间</span>
+
+                                <strong id="thread04FigureVisitTime">
+                                    未读取
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>对应处理人</span>
+
+                                <strong id="thread04FigureWorker">
+                                    未读取
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>对应会话</span>
+
+                                <strong id="thread04FigureSession">
+                                    未读取
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>事件状态</span>
+
+                                <strong id="thread04FigureEventStatus">
+                                    未读取
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>时间冲突</span>
+
+                                <strong id="thread04FigureTimeConflict">
+                                    未读取
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="thread04-temporal-source-note">
+                            <span>SOURCE NOTE</span>
+
+                            <p id="thread04FigureTemporalNote">
+                                需要先在工作区确认未登记背影图层与未来访问日志之间的关联。
+                            </p>
+                        </div>
+
+                        <div class="thread04-temporal-source-conflict hidden"
+                             id="thread04FigureTemporalConflict">
+
+                            <strong>TEMPORAL SOURCE CONFLICT</strong>
+
+                            <p>
+                                背影图层并非来自过去的稿件修改记录。
+                                它的写入来源指向下一次 THREAD 04 访问。
+                            </p>
+
+                            <p>
+                                该访问尚未发生，但相关人物图层已经存在于当前附件中。
+                            </p>
+                        </div>
+                    </section>
                 </div>
             </article>
 
