@@ -8757,39 +8757,77 @@ function createInjectedThread04Block(id, meta, text) {
         openCache: "\u6253\u5f00 USER CACHE",
         locked: "\u9501\u5b9a\uff1a\u9700\u8981\u5148\u8bfb\u53d6\u4e0a\u4e00\u7ea7\u65e5\u5fd7\u3002",
 
-        adminTitle: "ADMIN LOG / \u65b0\u4efb\u7ba1\u7406\u5458\u4e34\u65f6\u8bb0\u5f55",
-        restoreTitle: "RESTORE LOG / \u81ea\u52a8\u4fee\u590d\u4efb\u52a1\u8bb0\u5f55",
-        cacheTitle: "USER CACHE / \u7528\u6237\u7f13\u5b58\u6b8b\u7247",
+        adminTitle:
+            "ADMIN LOG / ROOM ASSIGNMENT TRACE",
+
+        restoreTitle:
+            "RESTORE LOG / MAINTENANCE HISTORY",
+
+        cacheTitle:
+            "USER CACHE / OCCUPANCY RECORD",
 
         adminLines: [
-            "[04:00:03] MOD_005 / \u9e22 / \u6743\u9650\u540c\u6b65\u5b8c\u6210\u3002",
-            "[04:00:11] \u5de1\u67e5\u8303\u56f4\uff1athread_01, thread_02, thread_03, thread_04\u3002",
-            "[04:01:19] \u4eba\u5458\u53d8\u66f4\uff1a\u524d\u53f0\u6807\u8bb0\u4e3a\u201c\u65b0\u6765\u7684\u7ba1\u7406\u5458\u201d\u3002",
-            "[04:01:44] \u7528\u6237\u6295\u8bc9\uff1a\u591a\u4e2a\u5e16\u5b50\u663e\u793a\u3010\u65e0\u6cd5\u663e\u793a\u3011\u3002",
-            "[04:02:09] \u540e\u7aef\u6821\u9a8c\uff1a\u5185\u5bb9\u6b63\u5e38\u3002\u524d\u7aef\u663e\u793a\u5f02\u5e38\u3002",
-            "[04:03:01] \u7ba1\u7406\u5458\u5907\u6ce8\uff1a\u4e0d\u8981\u628a\u90a3\u4e2a\u76ee\u5f55\u5916\u6761\u76ee\u5f53\u6210\u666e\u901a\u5e16\u5b50\u3002\u5b83\u5bf9\u91cd\u590d\u8bfb\u53d6\u7684\u53cd\u5e94\u4e0d\u50cf\u5185\u5bb9\u9875\u3002",
-            "[04:03:48] \u5f02\u5e38\uff1a\u5f53\u524d\u7ef4\u4fee\u5458\u7f16\u53f7\u4e0e MOD_005 \u8bbf\u95ee\u8def\u5f84\u76f8\u4f3c\u5ea6 99.73%\u3002"
+            "[04:00:03] SESSION_ID: MOD_005 / IDENTITY FIELD: UNRESOLVED",
+
+            "[04:00:11] \u5de1\u67e5\u8303\u56f4\uff1aTHREAD_01 / THREAD_02 / THREAD_03 / THREAD_04",
+
+            "[04:01:44] \u524d\u53f0\u62a5\u544a\uff1a\u591a\u4e2a\u5e16\u5b50\u5b58\u5728\u7f3a\u5931\u5b57\u6bb5",
+
+            "[04:02:09] \u540e\u7aef\u6821\u9a8c\uff1a\u5bf9\u8c61\u53ef\u8bfb / \u6765\u6e90\u5b57\u6bb5\u4e3a\u7a7a",
+
+            "[04:02:41] \u81ea\u52a8\u5206\u914d\u5bf9\u8c61\uff1aROOM_404",
+
+            "[04:02:42] \u516c\u5f00\u697c\u5c42\u8868\u67e5\u8be2\uff1aNOT REGISTERED",
+
+            "[04:02:43] \u5efa\u7b51\u56fe\u5bf9\u5e94\u7a7a\u95f4\uff1a0",
+
+            "[04:02:44] \u4efb\u52a1\u5206\u914d\u72b6\u6001\uff1aACCEPTED",
+
+            "[04:02:45] WARNING / \u5bf9\u8c61\u4e0d\u5b58\u5728\uff0c\u4f46\u4efb\u52a1\u7cfb\u7edf\u4ecd\u5141\u8bb8\u7ee7\u7eed\u5199\u5165"
         ],
 
         restoreLines: [
-            "[RESTORE] thread_01/news_leaf_01\uff1a\u7531 sjahqiuhdiuq \u81ea\u52a8\u4fee\u590d\u3002",
-            "[RESTORE] thread_02/resume_wang_02\uff1a\u7531 sjahqiuhdiuq \u81ea\u52a8\u4fee\u590d\u3002",
-            "[RESTORE] thread_03/audio_wall_behind.wav\uff1a\u8f6c\u5199\u4fee\u590d\u5b8c\u6210\u3002",
-            "[RESTORE] thread_04/draft_page_17\uff1a\u6b8b\u9875\u4fee\u590d\u5b8c\u6210\u3002",
-            "[RESTORE] thread_05/admin_yuan\uff1a\u6b63\u5728\u88ab\u7b2c\u4e8c\u6b21\u6253\u5f00\u3002",
-            "[RESTORE] auto_repair_source\uff1asjahqiuhdiuq \u4ec5\u51fa\u73b0\u4e8e\u4fee\u590d\u5199\u5165\uff0c\u672a\u51fa\u73b0\u5728\u4efb\u4f55\u53ef\u89c1\u7528\u6237\u5217\u8868\u3002",
-            "[WARNING] \u5f53\u524d\u4fee\u590d\u8def\u5f84\u4e0e\u65e7\u8bb0\u5f55\u53d1\u751f\u4e0d\u5e94\u51fa\u73b0\u7684\u91cd\u5408\u3002"
+            "[04:03:01] RESTORE TARGET: ROOM_404",
+
+            "[04:03:08] #013 / ATTACHMENT SOURCE / VERIFIED",
+
+            "[04:03:09] \u5199\u5165\u5b57\u6bb5\uff1aADDRESS = 4\u53f7\u697c / \u897f\u4fa7\u5899\u9762 / \u2014404",
+
+            "[04:03:21] #021 / INTERNAL AUDIO SOURCE / VERIFIED",
+
+            "[04:03:22] \u5199\u5165\u5b57\u6bb5\uff1aACTIVITY = ACTIVE",
+
+            "[04:03:39] #034 / TIME WRITE-BACK / VERIFIED",
+
+            "[04:03:40] \u5199\u5165\u5b57\u6bb5\uff1aHISTORY = PRESENT",
+
+            "[04:03:51] \u5df2\u5b8c\u6210\u7ef4\u62a4\u8bb0\u5f55\uff1a13",
+
+            "[04:03:52] \u5bf9\u5e94\u5efa\u7b51\u7a7a\u95f4\uff1a0",
+
+            "[04:03:53] WARNING / \u7ef4\u62a4\u5386\u53f2\u5df2\u88ab\u63a5\u53d7\uff0c\u4f46\u5bf9\u8c61\u4ecd\u672a\u51fa\u73b0\u5728\u516c\u5f00\u767b\u8bb0\u4e2d"
         ],
 
         cacheLines: [
-            "cache_user_005.name = \u9e22",
-            "cache_user_005.role = \u201c\u65b0\u6765\u7684\u7ba1\u7406\u5458\u201d\uff08\u524d\u53f0\u6807\u8bb0\uff09",
-            "cache_user_005.last_input = \u4e0d\u9700\u8981\u4fee\u590d404",
-            "cache_user_005.status = \u5df2\u4ece\u524d\u7aef\u7d22\u5f15\u79fb\u9664",
-            "cache_user_005.source = previous_repairer",
-            "current_repairer.role = \u81ea\u7531\u63a5\u6848\u7ef4\u4fee\u5458",
-            "current_repairer.path = login > dashboard > board > thread_01 > thread_02 > thread_03 > thread_04 > thread_05",
-            "match_result = \u5f53\u524d\u6d41\u7a0b\u4e0e\u65e7\u8bb0\u5f55\u53d1\u751f\u9ad8\u5ea6\u91cd\u5408"
+            "[04:04:00] CACHE OBJECT: ROOM_404",
+
+            "[04:04:01] \u623f\u95f4\u767b\u8bb0\uff1aNOT REGISTERED",
+
+            "[04:04:02] \u767b\u8bb0\u4f4f\u6237\uff1aEMPTY",
+
+            "[04:04:03] \u79df\u8d41\u8bb0\u5f55\uff1aNONE",
+
+            "[04:04:04] \u5360\u7528\u72b6\u6001\uff1aOCCUPIED",
+
+            "[04:04:05] \u6700\u8fd1\u5904\u7406\u4eba\uff1aCURRENT WORKER",
+
+            "[04:04:06] \u5f53\u524d\u4f1a\u8bdd\uff1aCURRENT SESSION",
+
+            "[04:04:07] \u7cfb\u7edf\u5224\u5b9a\uff1aUSAGE FIELD AVAILABLE",
+
+            "[04:04:08] WARNING / \u4f4f\u6237\u5b57\u6bb5\u4e3a\u7a7a\uff0c\u4f46\u5360\u7528\u72b6\u6001\u5df2\u88ab\u5199\u5165",
+
+            "[04:04:09] WAITING FOR REPAIRER CONFIRMATION"
         ],
 
         fileRestore: "\u6587\u4ef6\uff1arestore_loop_0404.log\n\u72b6\u6001\uff1a\u6301\u7eed\u5199\u5165\n\u5907\u6ce8\uff1a04:04 \u4e0d\u662f\u949f\u70b9\u3002\u540c\u6b65\u5931\u8d25\u540e\uff0c\u7f13\u5b58\u4f1a\u88ab\u62d6\u56de\u8fd9\u4e2a\u4f4d\u7f6e\u91cd\u65b0\u5199\u5165\u3002", fileFruit: "\u6587\u4ef6\uff1aunknown_fruit_photo.tmp\n\u72b6\u6001\uff1a\u56fe\u50cf\u9884\u89c8\u5931\u8d25\n\u5907\u6ce8\uff1a\u7167\u7247\u4e2d\u6709\u9633\u53f0\u3001\u7ea2\u679c\u5b50\u3001\u9e1f\u722a\u75d5\uff0c\u4ee5\u53ca\u4e00\u4e2a\u4e0d\u5e94\u8be5\u51fa\u73b0\u5728\u53cd\u5149\u91cc\u7684\u7528\u6237\u5934\u50cf\u3002",
@@ -8829,13 +8867,32 @@ function createInjectedThread04Block(id, meta, text) {
     };
 
     const K = {
-        readCount: "echorest_thread05_reads",
-        admin: "echorest_t05_admin_opened",
-        restore: "echorest_t05_restore_opened",
-        cache: "echorest_t05_user_cache_opened",
-        post404: "echorest_t05_404_touched",
-        repairLog: "echorest_repair_log_extra"
+        readCount:
+            "echorest_thread05_reads",
+
+        admin:
+            "echorest_t05_admin_opened",
+
+        restore:
+            "echorest_t05_restore_opened",
+
+        cache:
+            "echorest_t05_user_cache_opened",
+
+        roomAudit:
+            "echorest_t05_room_audit_v1",
+
+        roomAuditState:
+            "echorest_t05_room_audit_state_v1",
+
+        post404:
+            "echorest_t05_404_touched",
+
+        repairLog:
+            "echorest_repair_log_extra"
     };
+
+    let t05RoomAuditRefresh = null;
 
     function t05Text() {
         return window.TXT.t05;
@@ -9037,6 +9094,642 @@ function createInjectedThread04Block(id, meta, text) {
     }
 
     function syncT05State() {
+        const adminOpened =
+            hasFlag(K.admin);
+
+        const restoreOpened =
+            hasFlag(K.restore);
+
+        const cacheOpened =
+            hasFlag(K.cache);
+
+        const roomAuditDone =
+            hasFlag(K.roomAudit);
+
+        const post404Touched =
+            hasFlag(K.post404);
+
+        const adminBtn =
+            $('[data-t05-open="admin"]');
+
+        const restoreBtn =
+            $('[data-t05-open="restore"]');
+
+        const cacheBtn =
+            $('[data-t05-open="cache"]');
+
+        const adminPanel =
+            $("#t05AdminPanel");
+
+        const restorePanel =
+            $("#t05RestorePanel");
+
+        const cachePanel =
+            $("#t05UserCachePanel");
+
+        const roomAudit =
+            $("#t05RoomAudit");
+
+        const hint =
+            $("#t05Post404Hint");
+
+        const morse =
+            $("#t05MorseComment");
+
+        const postLink =
+            $("#thread05Post404Link");
+
+        if (adminBtn) {
+            adminBtn.classList.remove(
+                "locked"
+            );
+        }
+
+        if (restoreBtn) {
+            restoreBtn.classList.toggle(
+                "locked",
+                !adminOpened
+            );
+        }
+
+        if (cacheBtn) {
+            cacheBtn.classList.toggle(
+                "locked",
+                !restoreOpened
+            );
+        }
+
+        if (
+            adminPanel &&
+            adminPanel.innerHTML.trim() ===
+            ""
+        ) {
+            adminPanel.classList.add(
+                "hidden"
+            );
+        }
+
+        if (
+            restorePanel &&
+            restorePanel.innerHTML.trim() ===
+            ""
+        ) {
+            restorePanel.classList.add(
+                "hidden"
+            );
+        }
+
+        if (
+            cachePanel &&
+            cachePanel.innerHTML.trim() ===
+            ""
+        ) {
+            cachePanel.classList.add(
+                "hidden"
+            );
+        }
+
+        const logsReady =
+            adminOpened &&
+            restoreOpened &&
+            cacheOpened;
+
+        if (roomAudit) {
+            roomAudit.classList.toggle(
+                "hidden",
+                !logsReady &&
+                !roomAuditDone
+            );
+        }
+
+        if (hint) {
+            hint.classList.toggle(
+                "hidden",
+                !roomAuditDone
+            );
+        }
+
+        if (morse) {
+            morse.classList.toggle(
+                "hidden",
+                !roomAuditDone
+            );
+        }
+
+        if (postLink) {
+            const routeOpen =
+                roomAuditDone &&
+                post404Touched;
+
+            postLink.classList.toggle(
+                "disabled-next-link",
+                !routeOpen
+            );
+
+            postLink.textContent =
+                routeOpen
+                    ? "\u6253\u5f00 post_404.index"
+                    : "post_404 \u672a\u5f00\u653e";
+
+            postLink.href =
+                "post_404.html";
+
+            postLink.style.pointerEvents =
+                routeOpen
+                    ? "auto"
+                    : "none";
+        }
+
+        if (
+            typeof t05RoomAuditRefresh ===
+            "function"
+        ) {
+            t05RoomAuditRefresh();
+        }
+    }
+
+    function saveT05RoomAuditState(
+        state
+    ) {
+        localStorage.setItem(
+            K.roomAuditState,
+            JSON.stringify(state)
+        );
+    }
+
+    function isT05RoomAuditComplete() {
+        return hasFlag(K.roomAudit);
+    }
+
+    function loadT05RoomAuditState() {
+        try {
+            const parsed =
+                JSON.parse(
+                    localStorage.getItem(
+                        K.roomAuditState
+                    ) || "{}"
+                );
+
+            return {
+                selected:
+                    Array.isArray(
+                        parsed.selected
+                    )
+                        ? parsed.selected
+                        : [],
+
+                mistakes:
+                    Number.isFinite(
+                        Number(
+                            parsed.mistakes
+                        )
+                    )
+                        ? Number(
+                            parsed.mistakes
+                        )
+                        : 0,
+
+                committed:
+                    parsed.committed ===
+                    true,
+
+                message:
+                    typeof parsed.message ===
+                        "string"
+                        ? parsed.message
+                        : ""
+            };
+        } catch (error) {
+            return {
+                selected: [],
+                mistakes: 0,
+                committed: false,
+                message: ""
+            };
+        }
+    }
+
+    function saveT05RoomAuditState(
+        state
+    ) {
+        localStorage.setItem(
+            K.roomAuditState,
+            JSON.stringify(state)
+        );
+    }
+
+    function isT05RoomAuditComplete() {
+        return hasFlag(
+            K.roomAudit
+        );
+    }
+
+    
+
+    function initT05RoomAudit() {
+        const root =
+            $("#t05RoomAudit");
+
+        if (!root) {
+            return;
+        }
+
+        const fields =
+            $all(
+                "[data-t05-room-field]",
+                root
+            );
+
+        const status =
+            $("#t05RoomAuditStatus");
+
+        const readout =
+            $("#t05RoomAuditReadout");
+
+        const progress =
+            $("#t05RoomAuditProgress");
+
+        const mistakes =
+            $("#t05RoomAuditMistakes");
+
+        const commitButton =
+            $("#t05RoomAuditCommit");
+
+        const result =
+            $("#t05RoomAuditResult");
+
+        const worker =
+            $("#t05RoomCurrentWorker");
+
+        if (
+            fields.length === 0 ||
+            !status ||
+            !readout ||
+            !progress ||
+            !mistakes ||
+            !commitButton ||
+            !result
+        ) {
+            return;
+        }
+
+        const state =
+            loadT05RoomAuditState();
+
+        if (
+            isT05RoomAuditComplete()
+        ) {
+            state.committed = true;
+        }
+
+        const requiredFields =
+            fields
+                .filter(
+                    function (field) {
+                        return (
+                            field.dataset
+                                .t05RoomAccepts ===
+                            "true"
+                        );
+                    }
+                )
+                .map(
+                    function (field) {
+                        return (
+                            field.dataset
+                                .t05RoomField ||
+                            ""
+                        );
+                    }
+                )
+                .filter(Boolean);
+
+        function logsReady() {
+            return (
+                hasFlag(K.admin) &&
+                hasFlag(K.restore) &&
+                hasFlag(K.cache)
+            );
+        }
+
+        function render() {
+            const ready =
+                logsReady();
+
+            const complete =
+                state.committed ||
+                isT05RoomAuditComplete();
+
+            if (worker) {
+                worker.textContent =
+                    localStorage.getItem(
+                        "echo_worker_id"
+                    ) ||
+                    "CURRENT WORKER";
+            }
+
+            root.classList.toggle(
+                "hidden",
+                !ready &&
+                !complete
+            );
+
+            root.classList.toggle(
+                "is-complete",
+                complete
+            );
+
+            fields.forEach(
+                function (field) {
+                    const key =
+                        field.dataset
+                            .t05RoomField ||
+                        "";
+
+                    const selected =
+                        state.selected
+                            .indexOf(key) !==
+                        -1;
+
+                    field.classList.toggle(
+                        "is-selected",
+                        selected
+                    );
+
+                    field.disabled =
+                        !ready ||
+                        complete;
+                }
+            );
+
+            const selectionReady =
+                requiredFields.every(
+                    function (key) {
+                        return (
+                            state.selected
+                                .indexOf(key) !==
+                            -1
+                        );
+                    }
+                ) &&
+                state.selected.length ===
+                requiredFields.length;
+
+            status.textContent =
+                complete
+                    ? "RECORDED"
+                    : (
+                        !ready
+                            ? "LOCKED"
+                            : (
+                                selectionReady
+                                    ? "READY"
+                                    : "PENDING"
+                            )
+                    );
+
+            status.classList.toggle(
+                "is-ready",
+                selectionReady &&
+                !complete
+            );
+
+            status.classList.toggle(
+                "is-recorded",
+                complete
+            );
+
+            progress.textContent =
+                state.selected.length +
+                " / " +
+                requiredFields.length +
+                " ACCEPTED FIELDS";
+
+            mistakes.textContent =
+                "\u8bef\u5224\uff1a" +
+                state.mistakes;
+
+            commitButton.disabled =
+                !ready ||
+                !selectionReady ||
+                complete;
+
+            result.classList.toggle(
+                "hidden",
+                !complete
+            );
+
+            if (complete) {
+                readout.textContent =
+                    "\u7cfb\u7edf\u5df2\u6839\u636e\u7ef4\u62a4\u5386\u53f2\u3001\u5360\u7528\u72b6\u6001\u4e0e\u5f53\u524d\u5904\u7406\u4eba\u8bb0\u5f55\uff0c\u63a5\u53d7 ROOM_404 \u4e3a\u6709\u6548\u7a7a\u95f4\u3002";
+            } else {
+                readout.textContent =
+                    state.message ||
+                    (
+                        ready
+                            ? "\u8bf7\u68c0\u67e5\u516d\u4e2a\u5b57\u6bb5\uff0c\u9009\u62e9\u4e09\u4e2a\u4f1a\u8ba9\u8fd0\u884c\u7cfb\u7edf\u627f\u8ba4 404 \u5b58\u5728\u7684\u8bb0\u5f55\u3002"
+                            : "\u9700\u8981\u5148\u8bfb\u53d6\u4e09\u6bb5\u7ad9\u52a1\u7f13\u5b58\u3002"
+                    );
+            }
+        }
+
+        fields.forEach(
+            function (field) {
+                field.addEventListener(
+                    "click",
+                    function () {
+                        if (
+                            state.committed ||
+                            !logsReady()
+                        ) {
+                            return;
+                        }
+
+                        const key =
+                            field.dataset
+                                .t05RoomField ||
+                            "";
+
+                        const accepts =
+                            field.dataset
+                                .t05RoomAccepts ===
+                            "true";
+
+                        const message =
+                            field.dataset
+                                .readout ||
+                            "--";
+
+                        if (!key) {
+                            return;
+                        }
+
+                        state.message =
+                            message;
+
+                        if (accepts) {
+                            const index =
+                                state.selected
+                                    .indexOf(key);
+
+                            if (index === -1) {
+                                state.selected.push(
+                                    key
+                                );
+                            } else {
+                                state.selected.splice(
+                                    index,
+                                    1
+                                );
+                            }
+                        } else {
+                            state.mistakes += 1;
+
+                            field.classList.remove(
+                                "is-rejected"
+                            );
+
+                            void field.offsetWidth;
+
+                            field.classList.add(
+                                "is-rejected"
+                            );
+
+                            window.setTimeout(
+                                function () {
+                                    field.classList
+                                        .remove(
+                                            "is-rejected"
+                                        );
+                                },
+                                360
+                            );
+                        }
+
+                        saveT05RoomAuditState(
+                            state
+                        );
+
+                        render();
+                    }
+                );
+            }
+        );
+
+        commitButton.addEventListener(
+            "click",
+            function () {
+                if (
+                    state.committed ||
+                    !logsReady()
+                ) {
+                    return;
+                }
+
+                const correct =
+                    requiredFields.every(
+                        function (key) {
+                            return (
+                                state.selected
+                                    .indexOf(key) !==
+                                -1
+                            );
+                        }
+                    ) &&
+                    state.selected.length ===
+                    requiredFields.length;
+
+                if (!correct) {
+                    state.mistakes += 1;
+
+                    state.message =
+                        "\u6240\u9009\u5b57\u6bb5\u65e0\u6cd5\u5f62\u6210\u5b8c\u6574\u7684\u7a7a\u95f4\u8fd0\u884c\u94fe\u3002";
+
+                    saveT05RoomAuditState(
+                        state
+                    );
+
+                    render();
+                    return;
+                }
+
+                state.committed = true;
+
+                state.message =
+                    "\u623f\u95f4\u767b\u8bb0\u5224\u65ad\u5df2\u5199\u5165\u7ad9\u52a1\u7cfb\u7edf\u3002";
+
+                setFlag(K.roomAudit);
+
+                localStorage.setItem(
+                    "echorest_t05_room_registered_v1",
+                    "1"
+                );
+
+                saveT05RoomAuditState(
+                    state
+                );
+
+                if (
+                    typeof
+                    addInvestigationLog ===
+                    "function"
+                ) {
+                    addInvestigationLog(
+                        "thread05_room_acceptance_verified",
+
+                        "\u5df2\u5b8c\u6210 THREAD 05 \u623f\u95f4\u5b58\u5728\u6027\u590d\u6838\uff1a\u7ef4\u62a4\u5386\u53f2\u3001\u5360\u7528\u72b6\u6001\u4e0e\u5f53\u524d\u5904\u7406\u4eba\u8bb0\u5f55\u4f7f ROOM_404 \u88ab\u7cfb\u7edf\u63a5\u53d7\u4e3a\u6709\u6548\u7a7a\u95f4\u3002",
+
+                        true
+                    );
+                }
+
+                render();
+                syncT05State();
+
+                if (
+                    typeof
+                    renderWorkConsole ===
+                    "function"
+                ) {
+                    renderWorkConsole();
+                }
+            }
+        );
+
+        t05RoomAuditRefresh =
+            render;
+
+        window.echoRestThread05RoomAudit = {
+            isComplete:
+                isT05RoomAuditComplete,
+
+            reset: function () {
+                localStorage.removeItem(
+                    K.roomAudit
+                );
+
+                localStorage.removeItem(
+                    K.roomAuditState
+                );
+
+                localStorage.removeItem(
+                    "echorest_t05_room_registered_v1"
+                );
+
+                state.selected = [];
+                state.mistakes = 0;
+                state.committed = false;
+                state.message = "";
+
+                render();
+                syncT05State();
+            }
+        };
+
+        render();
+    }
+
+    function syncT05State() {
         const adminOpened = hasFlag(K.admin);
         const restoreOpened = hasFlag(K.restore);
         const cacheOpened = hasFlag(K.cache);
@@ -9153,6 +9846,29 @@ function createInjectedThread04Block(id, meta, text) {
 
     function triggerT05Crash() {
         const T = t05Text();
+
+        if (!hasFlag(K.roomAudit)) {
+            const audit =
+                $("#t05RoomAudit");
+
+            if (
+                audit &&
+                !audit.classList.contains(
+                    "hidden"
+                )
+            ) {
+                audit.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+
+            alert(
+                "\u9700\u8981\u5148\u5b8c\u6210 404 \u623f\u95f4\u5b58\u5728\u6027\u590d\u6838\u3002"
+            );
+
+            return;
+        }
 
         setFlag(K.post404);
         addRepairLog("post404");
@@ -9401,9 +10117,13 @@ function createInjectedThread04Block(id, meta, text) {
         });
 
         $all("[data-t05-decode]").forEach(function (node) {
-            node.addEventListener("click", decodeT05Morse);
+            node.addEventListener(
+                "click",
+                decodeT05Morse
+            );
         });
 
+        initT05RoomAudit();
         syncT05State();
     }
 

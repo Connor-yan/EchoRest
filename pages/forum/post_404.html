@@ -33,7 +33,7 @@
             <h1 class="simple-title">post_404.index</h1>
 
             <div class="post404-warning-line">
-                404 不一定表示缺失。某些条目会借这个状态等待被误认。
+                该索引不在公开目录中，但部分字段已经开始返回有效结果。
             </div>
 
             <div class="thread-info-grid">
@@ -68,7 +68,7 @@
             <div class="evidence-index-head">
                 <div>
                     <p class="section-label">LOCAL RECOVERY INDEX</p>
-                    <h2 class="section-title">缺失主题残片</h2>
+                    <h2 class="section-title">目录外对象字段</h2>
                 </div>
 
                 <strong id="evidenceIndexState">
@@ -77,26 +77,49 @@
             </div>
 
             <p class="simple-text">
-                该区域只读取当前浏览器工作区中已经确认的跨页面关联。未确认内容不会写入索引。
+                该索引没有可确认的对象类型。
+                系统仍在根据当前维护会话，为它生成可读取字段。
             </p>
 
             <div class="evidence-index-grid">
                 <div class="evidence-index-fragment locked"
                      data-evidence-fragment="image">
-                    <span>IMAGE FIELD</span>
-                    <p>等待附件来源关联。</p>
+                    <span>SOURCE FIELD</span>
+
+                    <p>
+                        来源信息尚未确认。
+                        系统正在尝试将附件来源转换为对象位置。
+                    </p>
                 </div>
 
                 <div class="evidence-index-fragment locked"
                      data-evidence-fragment="audio">
-                    <span>AUDIO FIELD</span>
-                    <p>等待音频与空间记录关联。</p>
+                    <span>ACTIVITY FIELD</span>
+
+                    <p>
+                        活动信息尚未确认。
+                        系统正在尝试将持续声源转换为内部活动记录。
+                    </p>
                 </div>
 
                 <div class="evidence-index-fragment locked"
                      data-evidence-fragment="time">
-                    <span>TIME FIELD</span>
-                    <p>等待人物图层与写入时间关联。</p>
+                    <span>HISTORY FIELD</span>
+
+                    <p>
+                        历史信息尚未确认。
+                        系统正在尝试将重复写入时间转换为可追溯记录。
+                    </p>
+                </div>
+
+                <div class="evidence-index-fragment locked"
+                     data-evidence-fragment="usage">
+                    <span>USAGE FIELD</span>
+
+                    <p>
+                        使用信息尚未确认。
+                        系统正在尝试将维护会话转换为占用记录。
+                    </p>
                 </div>
             </div>
         </section>
@@ -105,43 +128,44 @@
             <p class="section-label">INDEX TRACE</p>
 
             <div class="post404-terminal">
-                <p>[04:04:00] restricted index touched</p>
-                <p>[04:04:01] repairer detected</p>
+                <p>[04:04:00] object record requested</p>
+                <p>[04:04:01] ROOM_404 fields detected</p>
 
                 <p>
-                    [04:04:02] previous repairer cache:
+                    [04:04:02] previous maintenance session:
                     <span class="post404-red">
-                        鸢 / MOD_005
+                        PREVIOUS SESSION / MOD_005<br />
+                        IDENTITY FIELD: UNRESOLVED
                     </span>
                 </p>
 
                 <p>
-                    [04:04:03] current repairer cache:
+                    [04:04:03] current maintenance session:
                     <span id="p404InlineWorker">
                         unknown
                     </span>
                 </p>
 
-                <p>[04:04:04] waiting for path comparison...</p>
+                <p>[04:04:04] waiting for completion comparison...</p>
             </div>
 
             <div class="post404-action-grid">
                 <button class="post404-action-btn"
                         type="button"
                         data-p404-action="previous">
-                    读取上一次维修路径
+                    读取上一维护会话
                 </button>
 
                 <button class="post404-action-btn"
                         type="button"
                         data-p404-action="current">
-                    读取当前维修路径
+                    读取当前维护会话
                 </button>
 
                 <button class="post404-action-btn locked"
                         type="button"
                         data-p404-action="compare">
-                    对比两个路径
+                    对比字段完成状态
                 </button>
             </div>
 
@@ -156,14 +180,14 @@
         </section>
 
         <section class="simple-card post404-fragment-card">
-            <p class="section-label">RECOVERED FRAGMENTS</p>
+            <p class="section-label">OBJECT COMPLETION TRACE</p>
 
             <div class="post404-fragment-list">
                 <div class="post404-fragment">
                     <span>FRAGMENT_01</span>
 
                     <p>
-                        “如果你能打开这里，说明你已经重复了我的路径。”
+                        上一维护会话在最终确认前中断。
                     </p>
                 </div>
 
@@ -171,7 +195,7 @@
                     <span>FRAGMENT_02</span>
 
                     <p>
-                        “不要把 404 当成错误。它会假装自己是错误。”
+                        404 状态并不表示对象缺失，只表示对象尚未被公开目录接受。
                     </p>
                 </div>
 

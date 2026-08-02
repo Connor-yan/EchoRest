@@ -10446,3 +10446,333 @@ body.t05-repairer-recorded .thread-warning-strip {
     .maintenance-ticket-btn {
         margin: 0;
     }
+
+/* =========================
+   THREAD 05 Room Audit
+   ========================= */
+
+.t05-room-audit {
+    position: relative;
+    margin-top: 22px;
+    padding: 18px;
+    border: 1px solid rgba(172, 188, 165, 0.34);
+    background: linear-gradient( 180deg, rgba(12, 20, 17, 0.96), rgba(7, 12, 10, 0.98) );
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 18px 42px rgba(0, 0, 0, 0.24);
+    overflow: hidden;
+}
+
+    .t05-room-audit::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: repeating-linear-gradient( 0deg, transparent 0, transparent 3px, rgba(255, 255, 255, 0.012) 4px );
+    }
+
+    .t05-room-audit.hidden {
+        display: none;
+    }
+
+.t05-room-audit-head {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(172, 188, 165, 0.2);
+}
+
+    .t05-room-audit-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .t05-room-audit-head span {
+        font-family: monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        color: rgba(169, 201, 184, 0.72);
+    }
+
+    .t05-room-audit-head strong {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.45;
+        color: #d7e2db;
+    }
+
+    .t05-room-audit-head em {
+        flex: 0 0 auto;
+        min-width: 76px;
+        padding: 5px 9px;
+        border: 1px solid rgba(187, 159, 102, 0.44);
+        background: rgba(187, 159, 102, 0.08);
+        font-family: monospace;
+        font-size: 11px;
+        font-style: normal;
+        text-align: center;
+        letter-spacing: 0.08em;
+        color: #cbb57f;
+    }
+
+        .t05-room-audit-head em.is-ready {
+            border-color: rgba(126, 190, 157, 0.55);
+            background: rgba(68, 132, 100, 0.16);
+            color: #a8d6bd;
+        }
+
+        .t05-room-audit-head em.is-recorded {
+            border-color: rgba(185, 94, 94, 0.62);
+            background: rgba(123, 42, 42, 0.18);
+            color: #e3aaaa;
+        }
+
+.t05-room-audit-intro {
+    position: relative;
+    z-index: 1;
+    margin: 14px 0 16px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(215, 226, 219, 0.72);
+}
+
+.t05-room-field-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.t05-room-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    min-height: 126px;
+    padding: 13px 14px;
+    border: 1px solid rgba(146, 168, 155, 0.22);
+    background: rgba(255, 255, 255, 0.025);
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+    .t05-room-field:not(:disabled):hover {
+        border-color: rgba(154, 195, 173, 0.52);
+        background: rgba(109, 156, 132, 0.08);
+        transform: translateY(-1px);
+    }
+
+    .t05-room-field:disabled {
+        cursor: not-allowed;
+        opacity: 0.46;
+    }
+
+    .t05-room-field > span {
+        font-family: monospace;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        color: rgba(161, 187, 173, 0.56);
+    }
+
+    .t05-room-field > strong {
+        font-size: 14px;
+        font-weight: 600;
+        color: #d4dfd8;
+    }
+
+    .t05-room-field > small {
+        margin-top: auto;
+        font-family: monospace;
+        font-size: 11px;
+        line-height: 1.7;
+        color: rgba(205, 218, 210, 0.6);
+    }
+
+    .t05-room-field i {
+        font-style: normal;
+        color: #d3b981;
+    }
+
+    .t05-room-field.is-selected {
+        border-color: rgba(125, 191, 157, 0.72);
+        background: rgba(76, 138, 106, 0.18);
+        box-shadow: inset 3px 0 0 rgba(139, 207, 171, 0.7);
+    }
+
+        .t05-room-field.is-selected::after {
+            content: "ACCEPTED FIELD";
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            font-family: monospace;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            color: #9ed1b4;
+        }
+
+    .t05-room-field.is-rejected {
+        border-color: rgba(181, 84, 84, 0.64);
+        background: rgba(116, 38, 38, 0.15);
+        animation: t05-room-reject 260ms linear;
+    }
+
+@keyframes t05-room-reject {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+
+    75% {
+        transform: translateX(-2px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.t05-room-audit-readout {
+    position: relative;
+    z-index: 1;
+    margin-top: 12px;
+    padding: 12px 13px;
+    border-left: 3px solid rgba(175, 153, 100, 0.58);
+    background: rgba(177, 151, 95, 0.06);
+}
+
+    .t05-room-audit-readout > span {
+        display: block;
+        margin-bottom: 6px;
+        font-family: monospace;
+        font-size: 10px;
+        letter-spacing: 0.13em;
+        color: #c5ad74;
+    }
+
+    .t05-room-audit-readout p {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.75;
+        color: rgba(220, 224, 211, 0.76);
+    }
+
+.t05-room-audit-progress {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 12px;
+    padding: 9px 0;
+    border-top: 1px solid rgba(172, 188, 165, 0.14);
+    border-bottom: 1px solid rgba(172, 188, 165, 0.14);
+    font-family: monospace;
+    font-size: 11px;
+    color: rgba(191, 209, 198, 0.72);
+}
+
+.t05-room-audit-actions {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 14px;
+}
+
+    .t05-room-audit-actions > span {
+        max-width: 62%;
+        font-size: 12px;
+        line-height: 1.6;
+        color: rgba(205, 216, 209, 0.62);
+    }
+
+    .t05-room-audit-actions button {
+        flex: 0 0 auto;
+        padding: 9px 13px;
+        border: 1px solid rgba(155, 186, 169, 0.42);
+        background: rgba(73, 112, 91, 0.16);
+        font-size: 12px;
+        color: #cfe0d6;
+        cursor: pointer;
+    }
+
+        .t05-room-audit-actions button:hover:not(:disabled) {
+            border-color: rgba(157, 211, 180, 0.68);
+            background: rgba(88, 149, 116, 0.25);
+        }
+
+        .t05-room-audit-actions button:disabled {
+            opacity: 0.36;
+            cursor: not-allowed;
+        }
+
+.t05-room-audit-result {
+    position: relative;
+    z-index: 1;
+    margin-top: 16px;
+    padding: 15px;
+    border: 1px solid rgba(183, 86, 86, 0.44);
+    background: rgba(105, 31, 31, 0.13);
+}
+
+    .t05-room-audit-result.hidden {
+        display: none;
+    }
+
+    .t05-room-audit-result strong {
+        display: block;
+        margin-bottom: 9px;
+        font-family: monospace;
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        color: #dfaaaa;
+    }
+
+    .t05-room-audit-result p {
+        margin: 6px 0 0;
+        font-size: 12px;
+        line-height: 1.75;
+        color: rgba(226, 209, 209, 0.76);
+    }
+
+.t05-room-audit.is-complete {
+    border-color: rgba(177, 82, 82, 0.48);
+    box-shadow: inset 0 0 46px rgba(100, 24, 24, 0.08), 0 18px 42px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 760px) {
+    .t05-room-field-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .t05-room-audit-head,
+    .t05-room-audit-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+        .t05-room-audit-actions > span {
+            max-width: none;
+        }
+
+        .t05-room-audit-actions button {
+            width: 100%;
+        }
+}

@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EchoRest — 鸢</title>
+    <title>EchoRest — 第一天上班……</title>
     <link rel="stylesheet" href="../../assets/css/style.css?v=20260701-investigation" />
 </head>
 
@@ -30,7 +31,7 @@
     <main class="thread-main">
         <section class="simple-card thread-head-card thread05-header">
             <p class="section-label">THREAD 05</p>
-            <h1 class="simple-title">鸢</h1>
+            <h1 class="simple-title">第一天上班……</h1>
 
             <div class="thread-info-grid">
                 <div class="thread-info-item">
@@ -73,19 +74,35 @@
                 <div class="forum-post-head">
                     <div class="forum-post-user">
                         <div class="avatar-slot" data-t05-inspect="admin">
-                            管理头像<br>admin_yuan.cache
+                            管理头像<br>admin_mod005.cache
                         </div>
 
                         <div>
-                            <h2 class="forum-post-author">楼主 / 鸢</h2>
-                            <p class="forum-post-meta">发表于：较早 / 身份：新来的管理 / 编号缓存：异常</p>
+                            <h2 class="forum-post-author">楼主 / 新来的管理</h2>
+                            <p class="forum-post-meta">
+                                发表于：较早 /
+                                身份：新来的管理 /
+                                账号字段：损坏 /
+                                缓存编号：MOD_005
+                            </p>
                         </div>
                     </div>
                     <span class="forum-post-floor">#1</span>
                 </div>
 
                 <div class="forum-post-body">
-                    <p>第一天上班……</p>
+                    <p>
+                        第一天上班......
+                    </p>
+
+                    <p>
+                        后台交给我几篇显示异常的旧帖。
+                        前台说内容已经丢失，但维修面板仍然把它们标记为“可恢复”。
+                    </p>
+
+                    <p>
+                        我先从最早的一篇开始处理。
+                    </p>
                 </div>
 
                 <div class="reply-stack">
@@ -131,8 +148,11 @@
                         </div>
 
                         <div>
-                            <h2 class="forum-post-author">楼主 / 鸢</h2>
-                            <p class="forum-post-meta">发表于：较早 / 巡查记录：前台异常</p>
+                            <h2 class="forum-post-author">楼主 / 新来的管理</h2>
+                            <p class="forum-post-meta">
+                                发表于：第一天 / 13:40 /
+                                巡查记录：前台缺页
+                            </p>
                         </div>
                     </div>
 
@@ -141,11 +161,20 @@
 
                 <div class="forum-post-body">
                     <p>
-                        隔壁好吵啊，我已经没有心情巡查
+                        今天已经有好几个人说，帖子里不断出现
                         <button class="missing-fragment" data-t05-missing>
                             【无法查看】
                         </button>
-                        了……
+                        。
+                    </p>
+
+                    <p>
+                        奇怪的是，后台预览里这些位置都有内容，
+                        只是附件来源、写入时间和对应用户全部为空。
+                    </p>
+
+                    <p>
+                        我先用站里的 EchoRest 把缺失字段补出来看看。
                     </p>
                 </div>
 
@@ -199,8 +228,11 @@
                         </div>
 
                         <div>
-                            <h2 class="forum-post-author">楼主 / 鸢</h2>
-                            <p class="forum-post-meta">发表于：较早 / 后端校验：正常</p>
+                            <h2 class="forum-post-author">楼主 / 新来的管理</h2>
+                            <p class="forum-post-meta">
+                                发表于：第一天 / 18:06 /
+                                后端校验：正常
+                            </p>
                         </div>
                     </div>
 
@@ -209,8 +241,25 @@
 
                 <div class="forum-post-body">
                     <p>
-                        你们说的帖子我都看，后端显示是正常的啊。
-                        你们试试 Echo?+?Rest，都可以直接看到。
+                        你们报的几篇我都处理过了。
+                        后端现在全部显示正常，前台应该也能直接看见。
+                    </p>
+
+                    <p>
+                        不过系统并没有恢复原文件。
+                        它只是把缺失字段重新写进了现有缓存。
+                    </p>
+
+                    <p>
+                        维修记录里还多出一个我没有填写过的来源地址：
+                    </p>
+
+                    <p class="post-note">
+                        4号楼 / 西侧墙面 / —404
+                    </p>
+
+                    <p>
+                        我查过公开楼层表，没有这个房间。
                     </p>
                 </div>
 
@@ -268,80 +317,7 @@
                 </div>
             </article>
 
-            <article class="forum-post forum-post-news">
-                <div class="forum-post-head">
-                    <div class="forum-post-user">
-                        <div class="news-badge">CACHE</div>
 
-                        <div>
-                            <h2 class="forum-post-author">管理员缓存泄漏</h2>
-
-                            <p class="forum-post-meta">
-                                来源：Temporary Admin Recovery Panel /
-                                状态：不应显示在前台
-                            </p>
-                        </div>
-                    </div>
-
-                    <span class="forum-post-floor">ADMIN</span>
-                </div>
-
-                <div class="forum-post-body">
-                    <div class="admin-cache-zone">
-                        <div class="admin-cache-title">
-                            <span>隐藏维修模块</span>
-                            <strong>Temporary Admin Recovery Panel</strong>
-                        </div>
-
-                        <p class="admin-cache-desc">
-                            该模块不属于论坛前台。它像是从管理员页面漏出来的缓存碎片。
-                            按顺序读取三个面板，可以获得 THREAD_05 的真实状态。
-                        </p>
-
-                        <div class="admin-cache-buttons">
-                            <button class="cache-action-btn"
-                                    type="button"
-                                    data-t05-open="admin">
-                                打开 ADMIN LOG
-                            </button>
-
-                            <button class="cache-action-btn locked"
-                                    type="button"
-                                    data-t05-open="restore">
-                                打开 RESTORE LOG
-                            </button>
-
-                            <button class="cache-action-btn locked"
-                                    type="button"
-                                    data-t05-open="cache">
-                                打开 USER CACHE
-                            </button>
-                        </div>
-
-                        <div id="t05AdminPanel"
-                             class="cache-output-panel hidden"></div>
-
-                        <div id="t05RestorePanel"
-                             class="cache-output-panel hidden"></div>
-
-                        <div id="t05UserCachePanel"
-                             class="cache-output-panel hidden"></div>
-
-                        <div id="t05Post404Hint"
-                             class="post404-hint hidden">
-                            <p>
-                                SYSTEM: post_404.index 已被当前维修员路径唤醒。
-                            </p>
-
-                            <button class="forbidden-repair-btn"
-                                    type="button"
-                                    data-t05-404>
-                                尝试修复 post_404.index
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </article>
 
             <article class="forum-post forum-post-warning">
                 <div class="forum-post-head">
@@ -352,10 +328,10 @@
                         </div>
 
                         <div>
-                            <h2 class="forum-post-author">楼主 / 鸢</h2>
+                            <h2 class="forum-post-author">楼主 / 新来的管理</h2>
 
                             <p class="forum-post-meta">
-                                发表于：较早 /
+                                发表于：第二天 / 04:04 /
                                 阳台缓存：图片预览失败
                             </p>
                         </div>
@@ -366,12 +342,29 @@
 
                 <div class="forum-post-body">
                     <p>
-                        好烦啊，隔壁怎么感觉一直在撞墙啊……
-                        而且我的阳台上怎么多了那么多奇怪的……红果子？
+                        昨晚开始，西侧墙后一直有人敲墙。
+                    </p>
+
+                    <p>
+                        但我查过这一层的户型图。
+                        那面墙后没有房间，也没有检测到空腔。
+                    </p>
+
+                    <p>
+                        今天凌晨，阳台上又出现了这些红果子。
+                        它们和我昨天恢复的附件里完全一样，
+                        连边缘缺损的位置都没有变化。
+                    </p>
+
+                    <p>
+                        电脑上的维修面板还在自己刷新。
+                        页面时间、缓存时间和最后修改时间，
+                        全部停在 04:04。
                     </p>
 
                     <p class="post-note">
-                        ps：你们反应的帖子我都修好了。
+                        ps：我昨晚没有继续操作，
+                        但系统显示剩余项目已经处理完成。
                     </p>
 
                     <div class="inline-image-slot image-hover-slot"
@@ -458,7 +451,7 @@
                         </div>
 
                         <div>
-                            <h2 class="forum-post-author">楼主 / 鸢</h2>
+                            <h2 class="forum-post-author">楼主 / 新来的管理</h2>
 
                             <p class="forum-post-meta">
                                 发表于：04:04 /
@@ -472,10 +465,26 @@
 
                 <div class="forum-post-body">
                     <p class="repeat-warning">
-                        不需要修复404，不需要修复404，不需要修复404，不需要修复404，
-                        不需要修复404，不需要修复404，不需要修复404，不需要修复404，
-                        不需要修复404，不需要修复404，不需要修复404，不需要修复404，
-                        不需要修复404，不需要修复404，不需要修复404，不需要修复404！
+                        不要再修复404。
+                        它不是缺失页面。
+                    </p>
+
+                    <p>
+                        每补上一条记录，
+                        系统就会多一个承认它存在的理由。
+                    </p>
+
+                    <p>
+                        附件给了它地址。<br />
+                        声音给了它内部活动。<br />
+                        时间记录给了它过去。
+                    </p>
+
+                    <p class="repeat-warning">
+                        不要替它确认最后一个字段。<br />
+                        不要替它确认最后一个字段。<br />
+                        不要替它确认最后一个字段。<br />
+                        不要替它确认最后一个字段。
                     </p>
                 </div>
 
@@ -548,6 +557,255 @@
                 </div>
             </article>
         </section>
+
+        <article class="forum-post forum-post-news">
+            <div class="forum-post-head">
+                <div class="forum-post-user">
+                    <div class="news-badge">CACHE</div>
+
+                    <div>
+                        <h2 class="forum-post-author">管理员缓存泄漏</h2>
+
+                        <p class="forum-post-meta">
+                            来源：Temporary Admin Recovery Panel /
+                            状态：不应显示在前台
+                        </p>
+                    </div>
+                </div>
+
+                <span class="forum-post-floor">ADMIN</span>
+            </div>
+
+            <div class="forum-post-body">
+                <div class="admin-cache-zone">
+                    <div class="admin-cache-title">
+                        <span>隐藏维修模块</span>
+                        <strong>Temporary Admin Recovery Panel</strong>
+                    </div>
+
+                    <p class="admin-cache-desc">
+                        该模块不属于论坛前台。它像是从管理员页面漏出来的缓存碎片。
+                        按顺序读取三个面板，可以获得 THREAD_05 的真实状态。
+                    </p>
+
+                    <div class="admin-cache-buttons">
+                        <button class="cache-action-btn"
+                                type="button"
+                                data-t05-open="admin">
+                            打开 ADMIN LOG
+                        </button>
+
+                        <button class="cache-action-btn locked"
+                                type="button"
+                                data-t05-open="restore">
+                            打开 RESTORE LOG
+                        </button>
+
+                        <button class="cache-action-btn locked"
+                                type="button"
+                                data-t05-open="cache">
+                            打开 USER CACHE
+                        </button>
+                    </div>
+
+                    <div id="t05AdminPanel"
+                         class="cache-output-panel hidden"></div>
+
+                    <div id="t05RestorePanel"
+                         class="cache-output-panel hidden"></div>
+
+                    <div id="t05UserCachePanel"
+                         class="cache-output-panel hidden"></div>
+
+                    <section class="t05-room-audit hidden"
+                             id="t05RoomAudit">
+
+                        <div class="t05-room-audit-head">
+                            <div>
+                                <span>ROOM ACCEPTANCE REVIEW</span>
+
+                                <strong>
+                                    检查系统为什么将 404 视为有效房间
+                                </strong>
+                            </div>
+
+                            <em id="t05RoomAuditStatus">
+                                LOCKED
+                            </em>
+                        </div>
+
+                        <p class="t05-room-audit-intro">
+                            三段站务记录指向同一个未登记对象。
+                            建筑资料不承认该房间存在，但部分运行字段已经把它当作正常空间处理。
+                        </p>
+
+                        <div class="t05-room-field-grid">
+
+                            <button class="t05-room-field"
+                                    type="button"
+                                    data-t05-room-field="floor_table"
+                                    data-t05-room-accepts="false"
+                                    data-readout="公开楼层表中没有 404 房间，也没有可供该编号补入的空位。"
+                                    disabled>
+
+                                <span>FIELD 01</span>
+                                <strong>公开楼层登记</strong>
+
+                                <small>
+                                    房间编号：404<br />
+                                    查询结果：NOT REGISTERED
+                                </small>
+                            </button>
+
+                            <button class="t05-room-field"
+                                    type="button"
+                                    data-t05-room-field="building_space"
+                                    data-t05-room-accepts="false"
+                                    data-readout="建筑图与墙体检测均未发现可以对应 404 的独立空间。"
+                                    disabled>
+
+                                <span>FIELD 02</span>
+                                <strong>建筑可用空间</strong>
+
+                                <small>
+                                    对应空间：0<br />
+                                    墙后空腔：未发现
+                                </small>
+                            </button>
+
+                            <button class="t05-room-field"
+                                    type="button"
+                                    data-t05-room-field="maintenance"
+                                    data-t05-room-accepts="true"
+                                    data-readout="维修系统保存了 13 条针对 404 房间的已完成工单。记录没有对应建筑空间，但处理结果全部有效。"
+                                    disabled>
+
+                                <span>FIELD 03</span>
+                                <strong>历史维护记录</strong>
+
+                                <small>
+                                    对象：ROOM_404<br />
+                                    已完成工单：13
+                                </small>
+                            </button>
+
+                            <button class="t05-room-field"
+                                    type="button"
+                                    data-t05-room-field="occupancy"
+                                    data-t05-room-accepts="true"
+                                    data-readout="住户缓存将 404 标记为正在使用。系统没有登记住户姓名，但仍持续返回占用状态。"
+                                    disabled>
+
+                                <span>FIELD 04</span>
+                                <strong>当前占用状态</strong>
+
+                                <small>
+                                    房间：404<br />
+                                    状态：OCCUPIED
+                                </small>
+                            </button>
+
+                            <button class="t05-room-field"
+                                    type="button"
+                                    data-t05-room-field="resident"
+                                    data-t05-room-accepts="false"
+                                    data-readout="住户编号和租赁记录均为空。该字段无法证明房间存在，也无法解释占用状态来自哪里。"
+                                    disabled>
+
+                                <span>FIELD 05</span>
+                                <strong>登记住户</strong>
+
+                                <small>
+                                    住户编号：未登记<br />
+                                    租赁记录：无
+                                </small>
+                            </button>
+
+                            <button class="t05-room-field"
+                                    type="button"
+                                    data-t05-room-field="handler"
+                                    data-t05-room-accepts="true"
+                                    data-readout="系统已经把当前维修员写入 404 的最近处理记录。该字段使本次访问成为房间存在的新证据。"
+                                    disabled>
+
+                                <span>FIELD 06</span>
+                                <strong>最近处理人</strong>
+
+                                <small>
+                                    处理人：
+                                    <i id="t05RoomCurrentWorker">
+                                        CURRENT WORKER
+                                    </i>
+                                    <br />
+
+                                    状态：ASSIGNED
+                                </small>
+                            </button>
+                        </div>
+
+                        <div class="t05-room-audit-readout">
+                            <span>FIELD READOUT</span>
+
+                            <p id="t05RoomAuditReadout">
+                                需要先读取三段站务缓存。
+                            </p>
+                        </div>
+
+                        <div class="t05-room-audit-progress">
+                            <span id="t05RoomAuditProgress">
+                                0 / 3 ACCEPTED FIELDS
+                            </span>
+
+                            <span id="t05RoomAuditMistakes">
+                                误判：0
+                            </span>
+                        </div>
+
+                        <div class="t05-room-audit-actions">
+                            <span>
+                                选择三个让系统承认该房间存在的运行字段
+                            </span>
+
+                            <button id="t05RoomAuditCommit"
+                                    type="button"
+                                    disabled>
+                                提交房间登记判断
+                            </button>
+                        </div>
+
+                        <div class="t05-room-audit-result hidden"
+                             id="t05RoomAuditResult">
+
+                            <strong>
+                                ROOM_404 ACCEPTED
+                            </strong>
+
+                            <p>
+                                建筑图、公开楼层表和住户登记均无法证明 404 存在。
+                            </p>
+
+                            <p>
+                                但维护历史、占用状态和当前维修员记录已经形成完整的运行链。
+                                系统因此将 404 补全为可维护、可占用、可访问的有效房间。
+                            </p>
+                        </div>
+                    </section>
+
+                    <div id="t05Post404Hint"
+                         class="post404-hint hidden">
+                        <p>
+                            SYSTEM: post_404.index 已被当前维修员路径唤醒。
+                        </p>
+
+                        <button class="forbidden-repair-btn"
+                                type="button"
+                                data-t05-404>
+                            尝试修复 post_404.index
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </article>
 
         <section class="simple-card thread-nav-card">
             <div class="thread-nav-links">
