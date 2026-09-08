@@ -5,97 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EchoRest — 工作区</title>
     <link rel="stylesheet" href="assets/css/style.css" />
-    <style>
-        /* Dashboard-specific override patch */
-        .dashboard-entry-card {
-            border: 1px solid rgba(175, 205, 228, 0.18);
-            background: linear-gradient(180deg, rgba(10, 14, 18, 0.96) 0%, rgba(6, 9, 12, 0.99) 100%);
-            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.2);
-        }
-
-        .dashboard-entry-text {
-            max-width: 720px;
-            margin-top: 10px;
-        }
-
-        .dashboard-entry-actions {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-top: 18px;
-            flex-wrap: wrap;
-        }
-
-        .dashboard-entry-mainbtn {
-            min-width: 220px;
-            min-height: 46px;
-            font-size: 15px;
-            justify-content: center;
-        }
-
-        .dashboard-entry-textlink {
-            color: #a9bfd3;
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.18s ease;
-        }
-
-            .dashboard-entry-textlink:hover {
-                color: #eef6ff;
-            }
-
-        .dashboard-secondary-card {
-            border: 1px solid rgba(175, 205, 228, 0.12);
-            background: linear-gradient(180deg, rgba(8, 12, 16, 0.9) 0%, rgba(5, 8, 11, 0.96) 100%);
-        }
-
-        .dashboard-status-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .dashboard-status-item {
-            display: grid;
-            grid-template-columns: 130px 1fr;
-            gap: 14px;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-            .dashboard-status-item:last-child {
-                border-bottom: none;
-            }
-
-        .dashboard-status-key {
-            color: #9fb5c8;
-            font-size: 12px;
-            letter-spacing: 0.08em;
-        }
-
-        .dashboard-status-value {
-            color: #e6f1fb;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        /* 如果 main.js 里还保留了动态插入入口卡，这里直接隐藏，避免重复 */
-        #dashboardEntryPanel {
-            display: none !important;
-        }
-
-        @media (max-width: 720px) {
-            .dashboard-status-item {
-                grid-template-columns: 1fr;
-                gap: 6px;
-            }
-
-            .dashboard-entry-mainbtn {
-                width: 100%;
-            }
-        }
-    </style>
+    
 </head>
 <body class="page-dashboard">
     <div class="screen-noise"></div>
@@ -117,13 +27,47 @@
         </div>
     </header>
 
+    <nav class="legacy-admin-nav" aria-label="维护后台导航">
+        <div class="legacy-admin-nav-main">
+            <span class="legacy-admin-nav-brand">
+                EchoRest Maintenance Console
+            </span>
+
+            <a href="dashboard.html" class="is-active">
+                工作台
+            </a>
+
+            <a href="pages/forum/board.html">
+                论坛恢复
+            </a>
+
+            <span class="legacy-admin-nav-disabled">
+                镜像检查
+            </span>
+
+            <span class="legacy-admin-nav-disabled">
+                管理工具
+            </span>
+        </div>
+
+        <div class="legacy-admin-nav-meta">
+            INTERNAL / RESTRICTED MAINTENANCE
+        </div>
+    </nav>
+
     <main class="dashboard-main">
         <section class="simple-card dashboard-head-card">
-            <p class="section-label">本地会话 / Session</p>
-            <h1 class="simple-title">恢复工作区已加载。</h1>
+            <p class="section-label">
+                MAINTENANCE DESKTOP / 维护工作台
+            </p>
+
+            <h1 class="simple-title">
+                EchoRest 站点维护后台
+            </h1>
 
             <p class="simple-text">
-                你已成功接入 EchoRest 的维护节点。以下为当前识别到的会话信息。
+                当前维修会话已接入。
+                请先检查公开论坛恢复任务，再处理后台异常记录。
             </p>
 
             <div class="session-grid">

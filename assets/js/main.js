@@ -180,6 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderBoardCaseStates();
         renderBoardIndexDriftState();
         renderBoardThreadSequenceLocks();
+        syncBoardFirstShiftGuide();
     }
 
     if (body.classList.contains("page-thread-01")) {
@@ -368,6 +369,37 @@ function renderDashboardEntryHint() {
         } else {
             document.body.appendChild(panel);
         }
+    }
+}
+
+function syncBoardFirstShiftGuide() {
+    const guide =
+        document.getElementById(
+            "boardFirstShiftGuide"
+        );
+
+    if (!guide) {
+        return;
+    }
+
+    const details =
+        guide.querySelector(
+            "details"
+        );
+
+    if (!details) {
+        return;
+    }
+
+    const thread01Visits =
+        Number(
+            localStorage.getItem(
+                "echo_thread01_visit_count"
+            ) || "0"
+        );
+
+    if (thread01Visits > 0) {
+        details.open = false;
     }
 }
 
@@ -10326,43 +10358,96 @@ document.addEventListener("DOMContentLoaded", function () {
     window.TXT = window.TXT || {};
 
     window.TXT.post404 = {
-        needPrevious: "\u9700\u8981\u5148\u8bfb\u53d6\u4e0a\u4e00\u6b21\u7ef4\u4fee\u8def\u5f84\u3002",
-        needCurrent: "\u9700\u8981\u5148\u8bfb\u53d6\u5f53\u524d\u7ef4\u4fee\u8def\u5f84\u3002",
+        needPrevious:
+            "\u9700\u8981\u5148\u8bfb\u53d6\u4e0a\u4e00\u7ef4\u62a4\u4f1a\u8bdd\u3002",
+        needCurrent:
+            "\u9700\u8981\u5148\u8bfb\u53d6\u5f53\u524d\u7ef4\u62a4\u4f1a\u8bdd\u3002",
 
-        statusReady: "\u53d7\u9650\u7d22\u5f15\u5df2\u88ab\u6253\u5f00\u3002\u8bf7\u8bfb\u53d6\u8def\u5f84\u8bb0\u5f55\u3002",
-        statusPrevious: "\u5df2\u8bfb\u53d6\u4e0a\u4e00\u6b21\u7ef4\u4fee\u8def\u5f84\u3002",
-        statusCurrent: "\u5df2\u8bfb\u53d6\u5f53\u524d\u7ef4\u4fee\u8def\u5f84\u3002",
-        statusCompare: "\u8def\u5f84\u6bd4\u5bf9\u5b8c\u6210\u3002\u5f53\u524d\u7ef4\u4fee\u5458\u6b63\u5728\u91cd\u590d\u9e22\u7684\u8def\u5f84\u3002",
+        statusReady:
+            "\u53d7\u9650\u7d22\u5f15\u5df2\u6253\u5f00\u3002\u8bf7\u8bfb\u53d6\u7ef4\u62a4\u4f1a\u8bdd\u8bb0\u5f55\u3002",
+        statusPrevious:
+            "\u5df2\u8bfb\u53d6\u4e0a\u4e00\u7ef4\u62a4\u4f1a\u8bdd\u3002",
+        statusCurrent:
+            "\u5df2\u8bfb\u53d6\u5f53\u524d\u7ef4\u62a4\u4f1a\u8bdd\u3002",
+        statusCompare:
+            "\u5b57\u6bb5\u5b8c\u6210\u72b6\u6001\u6bd4\u5bf9\u5b8c\u6210\u3002\u5f53\u524d\u4f1a\u8bdd\u5df2\u63d0\u4f9b\u7f3a\u5931\u7684\u6700\u540e\u5b57\u6bb5\u3002",
 
         statusLocked: "\u5f53\u524d\u7ef4\u4fee\u8def\u5f84\u4e0d\u5b8c\u6574\u3002\u8bf7\u8fd4\u56de Echo Board \u68c0\u7d22\u7f3a\u5931\u5b57\u6bb5\u3002",
         statusUnlocked: "\u8c03\u67e5\u51c6\u5165\u6761\u4ef6\u5df2\u6ee1\u8db3\u3002\u73b0\u5728\u53ef\u4ee5\u8bfb\u53d6\u8def\u5f84\u8bb0\u5f55\u3002",
         gateTitle: "\u51c6\u5165\u6761\u4ef6 / ACCESS CHECK",
         gateHint: "\u53ea\u6709\u6ee1\u8db3\u4ee5\u4e0b\u8c03\u67e5\u6761\u4ef6\uff0cpost_404 \u624d\u4f1a\u627f\u8ba4\u4f60\u4e0d\u662f\u8bef\u5165\u8005\u3002",
 
-        previousTitle: "\u4e0a\u4e00\u6b21\u7ef4\u4fee\u8def\u5f84 / MOD_005 / \u9e22",
-        currentTitle: "\u5f53\u524d\u7ef4\u4fee\u8def\u5f84 / CURRENT REPAIRER",
-        compareTitle: "\u8def\u5f84\u6bd4\u5bf9\u7ed3\u679c",
+        previousTitle:
+            "PREVIOUS SESSION / MOD_005",
 
-        previousPath: "login > dashboard > board > thread_01 > thread_02 > thread_03 > thread_04 > thread_05 > post_404",
-        currentPath: "login > dashboard > board > thread_01 > thread_02 > thread_03 > thread_04 > thread_05 > post_404",
+        currentTitle:
+            "CURRENT SESSION",
+        compareTitle:
+            "FIELD COMPLETION COMPARISON",
 
-        previousBody: "\u9e22\u5728\u6253\u5f00 post_404 \u540e\uff0c\u88ab\u79fb\u51fa\u4e86\u524d\u53f0\u7d22\u5f15\u3002\n\u6700\u540e\u4e00\u6b21\u8f93\u5165\uff1a\u4e0d\u9700\u8981\u4fee\u590d404\u3002\n\u5907\u6ce8\uff1a\u8be5\u7d22\u5f15\u5bf9\u7ef4\u4fee\u884c\u4e3a\u6709\u54cd\u5e94\u3002",
-        currentBody: "\u5f53\u524d\u7ef4\u4fee\u5458\u5df2\u8fdb\u5165\u540c\u4e00\u8def\u5f84\u3002\n\u7cfb\u7edf\u672a\u68c0\u6d4b\u5230\u65b0\u7684\u9519\u8bef\u3002\u53ea\u68c0\u6d4b\u5230\u201c\u518d\u6b21\u5c1d\u8bd5\u4fee\u590d\u201d\u8fd9\u4e2a\u884c\u4e3a\u3002",
-        compareBody: "\u76f8\u4f3c\u5ea6\uff1a99.73%\n\u5dee\u5f02\uff1a\u672a\u68c0\u6d4b\u5230\u53ef\u4fe1\u5dee\u5f02\u3002\n\u63a8\u8bba\uff1apost_404 \u4e0d\u50cf\u4e00\u4e2a\u7b49\u5f85\u88ab\u4fee\u590d\u7684\u9875\u9762\uff0c\u66f4\u50cf\u4e00\u4e2a\u4f1a\u5c06\u7ef4\u4fee\u884c\u4e3a\u5199\u5165\u8bb0\u5f55\u7684\u5165\u53e3\u3002",
+        previousPath:
+            "MAINTENANCE_SESSION_005",
+        currentPath:
+            "CURRENT_MAINTENANCE_SESSION",
 
-        hiddenFragment: "\u201c\u4e0d\u8981\u76f8\u4fe1\u540e\u53f0\u7684\u6743\u9650\u9875\u3002\u5982\u679c\u5b83\u8ba9\u4f60\u63a5\u7ba1\u6211\uff0c\u90a3\u5b83\u4e5f\u4f1a\u8ba9\u4e0b\u4e00\u4e2a\u4eba\u63a5\u7ba1\u4f60\u3002\u201d",
+        previousBody:
+            "SOURCE FIELD      CONFIRMED\n" +
+            "ACTIVITY FIELD    CONFIRMED\n" +
+            "HISTORY FIELD     CONFIRMED\n" +
+            "USAGE FIELD       MISSING\n\n" +
+            "SESSION STATUS:\n" +
+            "INTERRUPTED BEFORE FINAL CONFIRMATION",
+        currentBody:
+            "SOURCE FIELD      CONFIRMED\n" +
+            "ACTIVITY FIELD    CONFIRMED\n" +
+            "HISTORY FIELD     CONFIRMED\n" +
+            "USAGE FIELD       CONFIRMED\n\n" +
+            "SESSION STATUS:\n" +
+            "READY FOR OBJECT COMPLETION",
+        compareBody:
+            "PREVIOUS SESSION:\n" +
+            "SOURCE     CONFIRMED\n" +
+            "ACTIVITY   CONFIRMED\n" +
+            "HISTORY    CONFIRMED\n" +
+            "USAGE      MISSING\n\n" +
+            "CURRENT SESSION:\n" +
+            "SOURCE     CONFIRMED\n" +
+            "ACTIVITY   CONFIRMED\n" +
+            "HISTORY    CONFIRMED\n" +
+            "USAGE      CONFIRMED\n\n" +
+            "DIFFERENCE FOUND:\n" +
+            "USAGE FIELD\n\n" +
+            "CURRENT SESSION CAN COMPLETE OBJECT RECORD",
 
-        revealTitleStrong: "\u53d7\u9650\u7d22\u5f15\u5df2\u786e\u8ba4\u5f53\u524d\u8def\u5f84",
-        revealBodyStrong: "\u4f60\u5b8c\u6210\u7684\u4e0d\u662f\u666e\u901a\u6bd4\u5bf9\u3002post_404 \u5df2\u5c06\u5f53\u524d\u7ef4\u4fee\u884c\u4e3a\u5199\u5165\u7d22\u5f15\u3002",
-        revealWarningStrong: "\u5b83\u4e0d\u4f1a\u88ab\u4fee\u590d\u3002\u5b83\u53ea\u4f1a\u786e\u8ba4\u8c01\u8bd5\u56fe\u4fee\u5b83\u3002",
-        revealButtonStrong: "\u786e\u8ba4\u5f53\u524d\u8def\u5f84\u5df2\u88ab\u8bb0\u5f55",
+        hiddenFragment:
+            "\u4e0a\u4e00\u6b21\u7ef4\u62a4\u4f1a\u8bdd\u5728\u4f7f\u7528\u72b6\u6001\u786e\u8ba4\u524d\u4e2d\u65ad\u3002\u5f53\u524d\u4f1a\u8bdd\u5df2\u63d0\u4f9b\u7f3a\u5931\u7684\u6700\u540e\u5b57\u6bb5\u3002",
 
-        revealLine1: "\u53d7\u9650\u7d22\u5f15\u5bf9\u7ef4\u4fee\u884c\u4e3a\u5b8c\u6210\u54cd\u5e94",
-        revealLine2: "\u6b63\u5728\u5199\u5165 current_repairer.path",
-        revealLine3: "\u6b63\u5728\u6bd4\u5bf9 MOD_005 / \u9e22",
-        revealLine4: "\u5dee\u5f02\u672a\u901a\u8fc7",
-        revealLine5: "\u7f3a\u9875\u5047\u8c61\u5df2\u5931\u6548",
-        revealLine6: "\u786e\u8ba4\u7ed3\u679c\uff1a\u4fee\u590d\u8005\u5df2\u88ab\u7d22\u5f15",
+        revealTitleStrong:
+            "\u5bf9\u8c61\u5b57\u6bb5\u5df2\u5b8c\u6574",
+        revealBodyStrong:
+            "\u5f53\u524d\u7ef4\u62a4\u4f1a\u8bdd\u5df2\u63d0\u4f9b\u6700\u540e\u4e00\u4e2a\u7f3a\u5931\u5b57\u6bb5\u3002post_404 \u5df2\u5c06\u8be5\u4f1a\u8bdd\u5199\u5165\u5bf9\u8c61\u8bb0\u5f55\u3002",
+        revealWarningStrong:
+            "\u7d22\u5f15\u7c7b\u578b\u4ecd\u65e0\u6cd5\u786e\u8ba4\u3002\u5bf9\u8c61\u8bb0\u5f55\u5df2\u8fbe\u5230\u53ef\u767b\u8bb0\u72b6\u6001\u3002",
+        revealButtonStrong:
+            "\u786e\u8ba4\u5b57\u6bb5\u5b8c\u6210\u72b6\u6001",
+
+        revealLine1:
+            "\u68c0\u6d4b\u5230\u5bf9\u8c61\u5b57\u6bb5\u96c6",
+
+        revealLine2:
+            "SOURCE FIELD = CONFIRMED",
+
+        revealLine3:
+            "ACTIVITY FIELD = CONFIRMED",
+
+        revealLine4:
+            "HISTORY FIELD = CONFIRMED",
+
+        revealLine5:
+            "USAGE FIELD = CONFIRMED",
+
+        revealLine6:
+            "\u5bf9\u8c61\u8bb0\u5f55\u5df2\u8fbe\u5230\u53ef\u767b\u8bb0\u72b6\u6001",
 
         logPost404: "\u5df2\u6253\u5f00 post_404.index\u3002",
         logPost404Compare: "\u5df2\u5b8c\u6210 post_404 \u8def\u5f84\u6bd4\u5bf9\u3002"
@@ -10419,37 +10504,66 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function getPost404GateState() {
+        const evidenceState =
+            loadEchoEvidenceState();
+
+        const hasSource =
+            evidenceState.links.indexOf(
+                "image_origin_match"
+            ) !== -1;
+
+        const hasActivity =
+            evidenceState.links.indexOf(
+                "wall_audio_match"
+            ) !== -1;
+
+        const hasHistory =
+            evidenceState.links.indexOf(
+                "figure_time_match"
+            ) !== -1;
+
+        const hasUsage =
+            localStorage.getItem(
+                "echorest_t05_room_audit_v1"
+            ) === "1";
+
         const items = [
             {
-                label: "\u5df2\u4fee\u590d THREAD_04 \u6f2b\u753b\u6b8b\u9875",
-                done: localStorage.getItem("echo_thread04_draft_repaired") === "true"
-            },
-            {
-                label: "\u5df2\u786e\u8ba4 04:04 \u5173\u8054",
-                done: p404HasInvestigationCode("found_0404")
-            },
-            {
-                label: "\u5df2\u8bc6\u522b \u9e22 / MOD_005",
-                done: p404HasInvestigationCode("found_yuan_mod005")
-            },
-            {
-                label: "\u5df2\u53d1\u73b0 post_404 \u5f02\u5e38",
-                done: p404HasInvestigationCode("found_post404")
-            },
-            {
-                label: "\u5df2\u6253\u5f00 THREAD_05 \u4e09\u4e2a\u65e5\u5fd7",
+                label:
+                    "SOURCE FIELD / CONFIRMED",
                 done:
-                    localStorage.getItem("echorest_t05_admin_opened") === "1" &&
-                    localStorage.getItem("echorest_t05_restore_opened") === "1" &&
-                    localStorage.getItem("echorest_t05_user_cache_opened") === "1"
+                    hasSource
+            },
+            {
+                label:
+                    "ACTIVITY FIELD / CONFIRMED",
+                done:
+                    hasActivity
+            },
+            {
+                label:
+                    "HISTORY FIELD / CONFIRMED",
+                done:
+                    hasHistory
+            },
+            {
+                label:
+                    "USAGE FIELD / CONFIRMED",
+                done:
+                    hasUsage
             }
         ];
 
         return {
-            items: items,
-            unlocked: items.every(function (item) {
-                return item.done;
-            })
+            items:
+                items,
+
+            unlocked:
+                items.every(
+                    function (item) {
+                        return item.done;
+                    }
+                )
         };
     }
 
@@ -10493,9 +10607,9 @@ document.addEventListener("DOMContentLoaded", function () {
         html += "</div>";
 
         if (gate.unlocked) {
-            html += '<p class="post404-gate-result ok">\u51c6\u5165\u901a\u8fc7\uff1a\u4f60\u73b0\u5728\u53ef\u4ee5\u8bfb\u53d6\u8def\u5f84\u8bb0\u5f55\u3002</p>';
+            html += '<p class="post404-gate-result ok">\u51c6\u5165\u901a\u8fc7\uff1a\u5bf9\u8c61\u5b57\u6bb5\u5df2\u8fbe\u5230\u53ef\u6bd4\u5bf9\u72b6\u6001\u3002</p>';
         } else {
-            html += '<p class="post404-gate-result">\u51c6\u5165\u672a\u901a\u8fc7\uff1a\u8bf7\u7ee7\u7eed\u8c03\u67e5\u5e76\u8fd4\u56de\u3002</p>';
+            html += '<p class="post404-gate-result">\u51c6\u5165\u672a\u901a\u8fc7\uff1a\u4ecd\u6709\u5bf9\u8c61\u5b57\u6bb5\u672a\u5b8c\u6210\u5199\u5165\u3002</p>';
         }
 
         panel.innerHTML = html;
@@ -10565,7 +10679,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 900);
 
         if (matchEl && p404Has(P404_KEYS.compared)) {
-            matchEl.textContent = "99.73%";
+            matchEl.textContent = "USAGE FIELD";
         }
     }
 
@@ -10625,7 +10739,7 @@ document.addEventListener("DOMContentLoaded", function () {
             renderPost404Panel(
                 "p404ComparePanel",
                 T.compareTitle,
-                "\u9e22.path == current_repairer.path",
+                "FIELD_COMPLETION_STATUS",
                 T.compareBody,
                 true
             );
@@ -10634,7 +10748,7 @@ document.addEventListener("DOMContentLoaded", function () {
             p404AddLog(T.logPost404Compare);
 
             const matchEl = p404$("p404MatchValue");
-            if (matchEl) matchEl.textContent = "99.73%";
+            if (matchEl) matchEl.textContent = "USAGE FIELD";
 
             revealPost404Routes();
             triggerPost404Glitch();
@@ -10732,7 +10846,7 @@ document.addEventListener("DOMContentLoaded", function () {
             renderPost404Panel(
                 "p404ComparePanel",
                 p404Text().compareTitle,
-                "\u9e22.path == current_repairer.path",
+                "FIELD_COMPLETION_STATUS",
                 p404Text().compareBody,
                 true
             );
@@ -10829,7 +10943,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const body3 = document.createElement("p");
         body3.className = "t05-fear-code";
-        body3.textContent = "index_mode = confirm_only // write_target = current_repairer.path // status = accepted";
+        body3.textContent =
+            "index_mode = object_completion // write_target = object_record // status = ready";
 
         const btn = document.createElement("button");
         btn.type = "button";
@@ -10916,16 +11031,22 @@ document.addEventListener("DOMContentLoaded", function () {
     window.TXT = window.TXT || {};
 
     window.TXT.mirror = {
-        statusReady: "\u5df2\u8fdb\u5165\u672c\u5730\u4f1a\u8bdd\u955c\u50cf\u3002\u8be5\u9875\u9762\u53ea\u8bfb\u53d6\u4f60\u5f53\u524d\u6d4f\u89c8\u5668\u4e2d\u7559\u4e0b\u7684 EchoRest \u75d5\u8ff9\u3002",
+        statusReady:
+            "\u5df2\u8fdb\u5165\u5bf9\u8c61\u955c\u50cf\u9875\u3002\u8be5\u9875\u6839\u636e\u5df2\u5199\u5165\u5b57\u6bb5\u751f\u6210\u4e00\u4efd\u53ef\u89c6\u5316\u526f\u672c\u3002",
         statusLocal: "\u5df2\u8bfb\u53d6\u672c\u5730\u4f1a\u8bdd\u3002",
         statusRepair: "\u5df2\u8bfb\u53d6\u672c\u5730\u7ef4\u4fee\u8bb0\u5f55\u3002",
         statusProfile: "\u7ef4\u4fee\u5458\u955c\u50cf\u5df2\u751f\u6210\u3002\u540e\u53f0\u6743\u9650\u51b2\u7a81\u9875\u5df2\u66b4\u9732\u3002",
         needLocal: "\u9700\u8981\u5148\u8bfb\u53d6\u672c\u5730\u4f1a\u8bdd\u3002",
         needRepair: "\u9700\u8981\u5148\u8bfb\u53d6\u7ef4\u4fee\u8bb0\u5f55\u3002",
 
-        localTitle: "\u672c\u5730\u4f1a\u8bdd\u8bb0\u5f55 / LOCAL SESSION",
-        repairTitle: "\u7ef4\u4fee\u8bb0\u5f55 / REPAIR TRACE",
-        profileTitle: "\u7ef4\u4fee\u5458\u955c\u50cf / REPAIRER MIRROR",
+        localTitle:
+            "\u6765\u6e90\u4f1a\u8bdd\u5feb\u7167",
+
+        repairTitle:
+            "\u5bf9\u8c61\u5b57\u6bb5\u8bb0\u5f55",
+
+        profileTitle:
+            "\u5df2\u751f\u6210\u5bf9\u8c61\u6863\u6848",
 
         noWorker: "\u672a\u9a8c\u8bc1\u7ef4\u4fee\u5458",
         unknown: "\u672a\u77e5",
@@ -10936,7 +11057,8 @@ document.addEventListener("DOMContentLoaded", function () {
         repairRead: "\u5df2\u8bfb\u53d6\u672c\u5730\u7ef4\u4fee\u8bb0\u5f55\u3002",
         profileRead: "\u5df2\u751f\u6210\u5f53\u524d\u7ef4\u4fee\u5458\u955c\u50cf\u3002",
 
-        hiddenFragment: "\u201c\u4f60\u4ee5\u4e3a\u4f60\u5728\u6253\u5f00\u4e00\u4e2a\u7f3a\u9875\u3002\u5176\u5b9e\u4f60\u5728\u8ba9\u5b83\u786e\u8ba4\u8c01\u6765\u4fee\u5b83\u3002\u201d",
+        hiddenFragment:
+            "\u955c\u50cf\u7ed3\u679c\u4e2d\u51fa\u73b0\u4e86\u5efa\u7b51\u7c7b\u5b57\u6bb5\u3002\u8be5\u5b57\u6bb5\u4e0d\u5b58\u5728\u4e8e\u539f\u59cb\u7d22\u5f15\u4e2d\u3002",
 
         riskLow: "\u4f4e",
         riskHigh: "\u9ad8",
@@ -10944,17 +11066,32 @@ document.addEventListener("DOMContentLoaded", function () {
         conclusionSafe: "\u5c1a\u672a\u68c0\u6d4b\u5230\u5b8c\u6574\u91cd\u590d\u8def\u5f84\u3002",
         conclusionDanger: "\u68c0\u6d4b\u5230\u5b8c\u6574\u91cd\u590d\u8def\u5f84\u3002\u5f53\u524d\u7ef4\u4fee\u5458\u5df2\u88ab\u89c6\u4e3a\u53ef\u63a5\u7ba1\u5bf9\u8c61\u3002",
 
-        revealTitleStrong: "\u672c\u5730\u955c\u50cf\u5df2\u5b8c\u6210\u5f53\u524d\u8bfb\u53d6",
-        revealBodyStrong: "\u4f60\u521a\u624d\u751f\u6210\u7684\u4e0d\u50cf\u4e00\u4efd\u666e\u901a\u6458\u8981\u3002\u5b83\u66f4\u50cf\u4e00\u4e2a\u53ef\u88ab\u540e\u7eed\u7f13\u5b58\u518d\u6b21\u5f15\u7528\u7684\u672c\u5730\u5f71\u5b50\u3002",
-        revealWarningStrong: "\u9875\u9762\u672c\u8eab\u4e0d\u4f1a\u7559\u4f4f\u4f60\uff0c\u4f46\u6d4f\u89c8\u5668\u4f1a\u628a\u8fd9\u4e9b\u75d5\u8ff9\u7559\u4e0b\u3002",
-        revealButtonStrong: "\u786e\u8ba4\u5f53\u524d\u955c\u50cf\u5df2\u88ab\u8bb0\u5f55",
+        revealTitleStrong:
+            "\u955c\u50cf\u7c7b\u578b\u5f02\u5e38",
+        revealBodyStrong:
+            "\u7cfb\u7edf\u8bf7\u6c42\u7684\u662f\u7d22\u5f15\u955c\u50cf\uff0c\u8fd4\u56de\u7ed3\u679c\u5374\u5305\u542b\u53ef\u8bbf\u95ee\u7a7a\u95f4\u7ed3\u6784\u3002",
+        revealWarningStrong:
+            "\u955c\u50cf\u4e0d\u5e94\u751f\u6210\u539f\u59cb\u5bf9\u8c61\u4e2d\u4e0d\u5b58\u5728\u7684\u7ed3\u6784\u3002",
+        revealButtonStrong:
+            "\u786e\u8ba4\u955c\u50cf\u7ed3\u679c",
 
-        revealLine1: "\u5df2\u8bfb\u53d6 local session trace",
-        revealLine2: "\u5df2\u8bfb\u53d6 repair trace",
-        revealLine3: "\u6b63\u5728\u751f\u6210 current repairer mirror",
-        revealLine4: "\u5199\u5165\u76ee\u6807\uff1alocal session cache",
-        revealLine5: "\u72b6\u6001\uff1a\u53ef\u88ab\u540e\u53f0\u7ee7\u7eed\u5f15\u7528",
-        revealLine6: "\u955c\u50cf\u7ed3\u679c\uff1aaccepted",
+        revealLine1:
+            "\u5df2\u8bfb\u53d6\u5bf9\u8c61\u5b57\u6bb5",
+
+        revealLine2:
+            "SOURCE / ACTIVITY / HISTORY / USAGE",
+
+        revealLine3:
+            "\u6b63\u5728\u751f\u6210\u5bf9\u8c61\u955c\u50cf",
+
+        revealLine4:
+            "\u68c0\u6d4b\u5230\u5efa\u7b51\u7c7b\u7a7a\u95f4\u7279\u5f81",
+
+        revealLine5:
+            "\u539f\u59cb\u7d22\u5f15\u7c7b\u578b\u4e0e\u955c\u50cf\u7c7b\u578b\u4e0d\u4e00\u81f4",
+
+        revealLine6:
+            "\u7a7a\u95f4\u955c\u50cf\u751f\u6210\uff1aaccepted",
     };
 
     const MIRROR_KEYS = {
@@ -11141,7 +11278,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "last_login = " + lastLogin + "\n" +
             "post_404_touched = " + post404Touched + "\n" +
             "post_404_compared = " + post404Compared + "\n\n" +
-            "observed_path:\n" +
+            "source_session_trace:\n" +
             path;
     }
 
@@ -11159,25 +11296,102 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function renderMirrorProfilePanel() {
-        const T = mirrorText();
-        const panel = mirror$("mirrorProfilePanel");
-        if (!panel) return;
+        const T =
+            mirrorText();
 
-        const worker = localStorage.getItem("echo_worker_id") || T.noWorker;
-        const session = localStorage.getItem("echo_session_id") || "SESSION_13";
-        const fingerprint = makeMirrorFingerprint(worker + "::" + session);
-        const compared = localStorage.getItem("echorest_post404_compared") === "1";
-        const conclusion = compared ? T.conclusionDanger : T.conclusionSafe;
-        const dangerClass = compared ? "danger" : "soft";
+        const panel =
+            mirror$(
+                "mirrorProfilePanel"
+            );
 
-        panel.classList.remove("hidden");
+        if (!panel) {
+            return;
+        }
+
+        const worker =
+            localStorage.getItem(
+                "echo_worker_id"
+            ) || T.noWorker;
+
+        const session =
+            localStorage.getItem(
+                "echo_session_id"
+            ) || "SESSION_13";
+
+        const compared =
+            localStorage.getItem(
+                "echorest_post404_compared"
+            ) === "1";
+
+        const usageReady =
+            localStorage.getItem(
+                "echorest_t05_room_audit_v1"
+            ) === "1";
+
+        const objectSeed =
+            [
+                worker,
+                session,
+                "SOURCE",
+                "ACTIVITY",
+                "HISTORY",
+                usageReady
+                    ? "USAGE"
+                    : "NO_USAGE"
+            ].join("::");
+
+        const fingerprint =
+            makeMirrorFingerprint(
+                objectSeed
+            );
+
+        const objectStatus =
+            compared &&
+                usageReady
+                ? "ASSEMBLED"
+                : "INCOMPLETE";
+
+        const registerStatus =
+            compared &&
+                usageReady
+                ? "READY"
+                : "WAITING";
+
+        panel.classList.remove(
+            "hidden"
+        );
+
         panel.innerHTML =
-            "<strong>" + T.profileTitle + "</strong>\n\n" +
-            "repairer_id = " + worker + "\n" +
-            "session_id = " + session + "\n" +
-            T.fingerprint + " = " + fingerprint + "\n" +
-            "admin_conflict_candidate = " + (compared ? T.yes : T.no) + "\n\n" +
-            "<span class=\"" + dangerClass + "\">" + conclusion + "</span>";
+            "<strong>" +
+            T.profileTitle +
+            "</strong>\n\n" +
+
+            "object_type = UNRESOLVED\n" +
+
+            "source_field = CONFIRMED\n" +
+
+            "activity_field = CONFIRMED\n" +
+
+            "history_field = CONFIRMED\n" +
+
+            "usage_field = " +
+            (
+                usageReady
+                    ? "CONFIRMED"
+                    : "MISSING"
+            ) +
+            "\n\n" +
+
+            "object_fingerprint = " +
+            fingerprint +
+            "\n" +
+
+            "object_status = " +
+            objectStatus +
+            "\n" +
+
+            "registration_status = " +
+            registerStatus;
     }
 
     function getMirrorRepairLines() {
@@ -11416,7 +11630,7 @@ document.addEventListener("DOMContentLoaded", function () {
 })();
 
 /* ================================
-   ADMIN ROUTE - Permission Conflict
+    ADMIN ROUTE - Object Registration
    ================================ */
 
 (function () {
@@ -11424,32 +11638,60 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.TXT.adminRoute = {
         noWorker: "\u672a\u9a8c\u8bc1\u7ef4\u4fee\u5458",
-        statusReady: "\u5df2\u8fdb\u5165\u6743\u9650\u51b2\u7a81\u9875\u3002\u8be5\u9875\u9762\u4e0d\u5e94\u51fa\u73b0\u5728\u7ef4\u4fee\u5458\u5de5\u4f5c\u533a\u3002",
-        statusScan: "\u6743\u9650\u51b2\u7a81\u5df2\u8bfb\u53d6\u3002\u5f53\u524d\u7ef4\u4fee\u5458\u4e0e MOD_005 \u5b58\u5728\u8def\u5f84\u91cd\u53e0\u3002",
+        statusReady:
+            "\u5df2\u8fdb\u5165\u5bf9\u8c61\u767b\u8bb0\u7ec8\u7aef\u3002\u955c\u50cf\u7ed3\u679c\u5df2\u63d0\u4ea4\u81f3\u5f85\u5904\u7406\u961f\u5217\u3002",
+        statusScan:
+            "\u5bf9\u8c61\u5b57\u6bb5\u5df2\u8bfb\u53d6\u3002\u955c\u50cf\u8fd4\u56de\u7684\u7a7a\u95f4\u7279\u5f81\u5df2\u8fbe\u5230\u767b\u8bb0\u9608\u503c\u3002",
         statusTakeover: "\u63a5\u7ba1\u5931\u8d25\u3002\u7cfb\u7edf\u672a\u627e\u5230\u53ef\u5206\u79bb\u7684\u7ba1\u7406\u5458\u8eab\u4efd\u3002",
-        statusRollback: "\u56de\u6eda\u5931\u8d25\u3002\u9e22\u7684\u8bb0\u5f55\u4ecd\u7136\u6307\u5411\u5f53\u524d\u7ef4\u4fee\u5458\u3002",
-        statusLogout: "\u6ce8\u9500\u5931\u8d25\u3002\u5f53\u524d\u7ef4\u4fee\u5458\u5df2\u88ab\u5199\u5165\u4e0b\u4e00\u4e2a\u7ba1\u7406\u5458\u69fd\u4f4d\u3002",
-        needScan: "\u9700\u8981\u5148\u8bfb\u53d6\u6743\u9650\u51b2\u7a81\u3002",
-        scanTitle: "\u6743\u9650\u51b2\u7a81\u8bfb\u53d6 / PERMISSION CONFLICT",
-        takeoverTitle: "\u63a5\u7ba1\u6743\u9650 / TAKEOVER FAILED",
-        rollbackTitle: "\u56de\u6eda\u7ba1\u7406\u5458 / ROLLBACK FAILED",
-        logoutTitle: "\u6ce8\u9500\u7ef4\u4fee\u5458 / LOGOUT FAILED",
-        hiddenFragment: "\u201c\u7cfb\u7edf\u4e0d\u9700\u8981\u4f60\u9009\u5bf9\u3002\u5b83\u53ea\u9700\u8981\u4f60\u7ee7\u7eed\u505a\u51fa\u9009\u62e9\u3002\u201d",
-        logEnter: "\u5df2\u8fdb\u5165 admin terminal\u3002",
-        logScan: "\u5df2\u8bfb\u53d6\u7ba1\u7406\u5458\u6743\u9650\u51b2\u7a81\u3002",
-        logDanger: "\u5df2\u89e6\u53d1 admin terminal \u5371\u9669\u64cd\u4f5c\u3002",
+        statusRollback:
+            "\u516c\u5f00\u76ee\u5f55\u6821\u9a8c\u5b8c\u6210\u3002\u672a\u627e\u5230\u5df2\u6709\u767b\u8bb0\u9879\uff0c\u7cfb\u7edf\u5c06\u521b\u5efa\u65b0\u5bf9\u8c61\u4f4d\u3002",
+        statusLogout:
+            "\u767b\u8bb0\u8bf7\u6c42\u5df2\u63d0\u4ea4\u3002\u5bf9\u8c61\u6b63\u5728\u5199\u5165\u516c\u5f00\u7a7a\u95f4\u76ee\u5f55\u3002",
+        needScan:
+            "\u9700\u8981\u5148\u8bfb\u53d6\u5f85\u767b\u8bb0\u5bf9\u8c61\u3002",
+        scanTitle:
+            "\u8bfb\u53d6\u767b\u8bb0\u5bf9\u8c61 / OBJECT RECORD",
+        takeoverTitle:
+            "\u786e\u8ba4\u5bf9\u8c61\u7c7b\u578b / TYPE CHECK",
+        rollbackTitle:
+            "\u6821\u9a8c\u516c\u5f00\u76ee\u5f55 / DIRECTORY CHECK",
+        logoutTitle:
+            "\u63d0\u4ea4\u5bf9\u8c61\u767b\u8bb0 / REGISTER OBJECT",
+        hiddenFragment:
+            "\u7cfb\u7edf\u5e76\u4e0d\u9700\u8981\u786e\u8ba4\u8be5\u5bf9\u8c61\u539f\u672c\u662f\u5426\u5b58\u5728\u3002\u5b83\u53ea\u9700\u8981\u4e00\u4efd\u5b8c\u6574\u8bb0\u5f55\u3002",
+        logEnter:
+            "\u5df2\u8fdb\u5165\u5bf9\u8c61\u767b\u8bb0\u7ec8\u7aef\u3002",
+        logScan:
+            "\u5df2\u8bfb\u53d6\u5f85\u767b\u8bb0\u5bf9\u8c61\u3002",
+        logDanger:
+            "\u5bf9\u8c61\u767b\u8bb0\u6d41\u7a0b\u5df2\u8fdb\u5165\u5199\u5165\u9636\u6bb5\u3002",
 
-        revealTitleStrong: "\u7ba1\u7406\u5458\u51b2\u7a81\u5df2\u786e\u8ba4",
-        revealBodyStrong: "\u4f60\u521a\u624d\u89e6\u53d1\u7684\u4e0d\u50cf\u4e00\u6b21\u6743\u9650\u64cd\u4f5c\uff0c\u66f4\u50cf\u4e00\u6b21\u201c\u5f53\u524d\u5bf9\u8c61\u662f\u5426\u53ef\u88ab\u63a5\u7ba1\u201d\u7684\u786e\u8ba4\u3002",
-        revealWarningStrong: "\u540e\u53f0\u4e0d\u4e00\u5b9a\u662f\u7ed9\u4eba\u64cd\u4f5c\u7684\u5730\u65b9\uff0c\u6709\u65f6\u5b83\u53ea\u662f\u7528\u6765\u7b5b\u51fa\u8be5\u88ab\u5199\u8fdb\u53bb\u7684\u5bf9\u8c61\u3002",
-        revealButtonStrong: "\u786e\u8ba4\u5f53\u524d\u7ef4\u4fee\u5458\u5df2\u88ab\u5217\u5165\u51b2\u7a81\u8bb0\u5f55",
+        revealTitleStrong:
+            "\u5bf9\u8c61\u767b\u8bb0\u5df2\u5f00\u59cb",
+        revealBodyStrong:
+            "\u4f60\u521a\u624d\u63d0\u4ea4\u7684\u4e0d\u662f\u4e00\u6b21\u666e\u901a\u540e\u53f0\u4fee\u6539\u3002\u7cfb\u7edf\u6b63\u5728\u628a\u8fd9\u4efd\u76ee\u5f55\u5916\u5bf9\u8c61\u5199\u5165\u53ef\u8bbf\u95ee\u7a7a\u95f4\u8bb0\u5f55\u3002",
+        revealWarningStrong:
+            "\u5b57\u6bb5\u5df2\u5b8c\u6574\uff0c\u955c\u50cf\u5df2\u751f\u6210\uff0c\u5f53\u524d\u4f1a\u8bdd\u5df2\u63d0\u4f9b\u4f7f\u7528\u8bb0\u5f55\u3002\u7cfb\u7edf\u73b0\u5728\u62e5\u6709\u521b\u5efa\u8be5\u5bf9\u8c61\u6240\u9700\u7684\u5168\u90e8\u6761\u4ef6\u3002",
+        revealButtonStrong:
+            "\u786e\u8ba4\u767b\u8bb0\u5199\u5165",
 
-        revealLine1: "\u5df2\u8bfb\u53d6 permission_conflict",
-        revealLine2: "\u6b63\u5728\u5199\u5165 admin_conflict.record",
-        revealLine3: "\u76ee\u6807\u5bf9\u8c61\uff1a\u5f53\u524d\u7ef4\u4fee\u5458",
-        revealLine4: "\u5173\u8054\u7ba1\u7406\u5458\uff1a\u9e22 / MOD_005",
-        revealLine5: "\u7ed3\u679c\uff1a\u65e0\u6cd5\u5206\u79bb",
-        revealLine6: "\u72b6\u6001\uff1aaccepted_as_conflict",
+        revealLine1:
+            "\u5df2\u8bfb\u53d6 object_record",
+
+        revealLine2:
+            "\u6b63\u5728\u5efa\u7acb spatial_registry.entry",
+
+        revealLine3:
+            "SOURCE / ACTIVITY / HISTORY / USAGE = CONFIRMED",
+
+        revealLine4:
+            "\u955c\u50cf\u7c7b\u578b\uff1aSPATIAL",
+
+        revealLine5:
+            "\u516c\u5f00\u76ee\u5f55\u5bf9\u5e94\u9879\uff1aNONE",
+
+        revealLine6:
+            "\u65b0\u5bf9\u8c61\u4f4d\u6b63\u5728\u5199\u5165\uff1aaccepted",
     };
 
     const ADMIN_KEYS = {
@@ -11541,43 +11783,125 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleAdminAction(action) {
-        const T = adminText();
-
-        if (action !== "scan" && !adminHas(ADMIN_KEYS.scan)) {
-            alert(T.needScan);
-            return;
-        }
+        const T =
+            adminText();
 
         if (action === "scan") {
-            adminSet(ADMIN_KEYS.scan);
-            renderAdminPanel("adminScanPanel", T.scanTitle, buildAdminScanBody(), false);
-            updateAdminStatus(T.statusScan);
-            adminAddLog(T.logScan);
+            adminSet(
+                ADMIN_KEYS.scan
+            );
+
+            renderAdminPanel(
+                "adminScanPanel",
+                T.scanTitle,
+                buildAdminScanBody(),
+                false
+            );
+
+            updateAdminStatus(
+                T.statusScan
+            );
+
+            adminAddLog(
+                T.logScan
+            );
+
             syncAdminState();
             triggerAdminGlitch();
             return;
         }
 
         if (action === "takeover") {
-            adminSet(ADMIN_KEYS.takeover);
-            renderAdminPanel("adminTakeoverPanel", T.takeoverTitle, buildAdminTakeoverBody(), true);
-            updateAdminStatus(T.statusTakeover);
-            adminAfterDangerAction();
+            if (
+                !adminHas(
+                    ADMIN_KEYS.scan
+                )
+            ) {
+                alert(
+                    T.needScan
+                );
+                return;
+            }
+
+            adminSet(
+                ADMIN_KEYS.takeover
+            );
+
+            renderAdminPanel(
+                "adminTakeoverPanel",
+                T.takeoverTitle,
+                buildAdminTakeoverBody(),
+                true
+            );
+
+            updateAdminStatus(
+                T.statusTakeover
+            );
+
+            syncAdminState();
+            triggerAdminGlitch();
             return;
         }
 
         if (action === "rollback") {
-            adminSet(ADMIN_KEYS.rollback);
-            renderAdminPanel("adminRollbackPanel", T.rollbackTitle, buildAdminRollbackBody(), true);
-            updateAdminStatus(T.statusRollback);
-            adminAfterDangerAction();
+            if (
+                !adminHas(
+                    ADMIN_KEYS.takeover
+                )
+            ) {
+                alert(
+                    "\u9700\u8981\u5148\u5b8c\u6210\u5bf9\u8c61\u7c7b\u578b\u6821\u9a8c\u3002"
+                );
+                return;
+            }
+
+            adminSet(
+                ADMIN_KEYS.rollback
+            );
+
+            renderAdminPanel(
+                "adminRollbackPanel",
+                T.rollbackTitle,
+                buildAdminRollbackBody(),
+                true
+            );
+
+            updateAdminStatus(
+                T.statusRollback
+            );
+
+            syncAdminState();
+            triggerAdminGlitch();
             return;
         }
 
         if (action === "logout") {
-            adminSet(ADMIN_KEYS.logout);
-            renderAdminPanel("adminLogoutPanel", T.logoutTitle, buildAdminLogoutBody(), true);
-            updateAdminStatus(T.statusLogout);
+            if (
+                !adminHas(
+                    ADMIN_KEYS.rollback
+                )
+            ) {
+                alert(
+                    "\u9700\u8981\u5148\u5b8c\u6210\u516c\u5f00\u76ee\u5f55\u6821\u9a8c\u3002"
+                );
+                return;
+            }
+
+            adminSet(
+                ADMIN_KEYS.logout
+            );
+
+            renderAdminPanel(
+                "adminLogoutPanel",
+                T.logoutTitle,
+                buildAdminLogoutBody(),
+                true
+            );
+
+            updateAdminStatus(
+                T.statusLogout
+            );
+
             adminAfterDangerAction();
         }
     }
@@ -11597,36 +11921,117 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function syncAdminState() {
-        const dangerousButtons = document.querySelectorAll(
-            '[data-admin-action="takeover"], [data-admin-action="rollback"], [data-admin-action="logout"]'
-        );
+        const takeoverBtn =
+            document.querySelector(
+                '[data-admin-action="takeover"]'
+            );
 
-        dangerousButtons.forEach(function (btn) {
-            btn.classList.toggle("locked", !adminHas(ADMIN_KEYS.scan));
-        });
+        const rollbackBtn =
+            document.querySelector(
+                '[data-admin-action="rollback"]'
+            );
 
-        if (adminHas(ADMIN_KEYS.scan)) {
-            renderAdminPanel("adminScanPanel", adminText().scanTitle, buildAdminScanBody(), false);
+        const logoutBtn =
+            document.querySelector(
+                '[data-admin-action="logout"]'
+            );
+
+        if (takeoverBtn) {
+            takeoverBtn.classList.toggle(
+                "locked",
+                !adminHas(
+                    ADMIN_KEYS.scan
+                )
+            );
         }
 
-        if (adminHas(ADMIN_KEYS.takeover)) {
-            renderAdminPanel("adminTakeoverPanel", adminText().takeoverTitle, buildAdminTakeoverBody(), true);
+        if (rollbackBtn) {
+            rollbackBtn.classList.toggle(
+                "locked",
+                !adminHas(
+                    ADMIN_KEYS.takeover
+                )
+            );
         }
 
-        if (adminHas(ADMIN_KEYS.rollback)) {
-            renderAdminPanel("adminRollbackPanel", adminText().rollbackTitle, buildAdminRollbackBody(), true);
+        if (logoutBtn) {
+            logoutBtn.classList.toggle(
+                "locked",
+                !adminHas(
+                    ADMIN_KEYS.rollback
+                )
+            );
         }
 
-        if (adminHas(ADMIN_KEYS.logout)) {
-            renderAdminPanel("adminLogoutPanel", adminText().logoutTitle, buildAdminLogoutBody(), true);
+        if (
+            adminHas(
+                ADMIN_KEYS.scan
+            )
+        ) {
+            renderAdminPanel(
+                "adminScanPanel",
+                adminText().scanTitle,
+                buildAdminScanBody(),
+                false
+            );
         }
 
-        if (adminHas(ADMIN_KEYS.final)) {
+        if (
+            adminHas(
+                ADMIN_KEYS.takeover
+            )
+        ) {
+            renderAdminPanel(
+                "adminTakeoverPanel",
+                adminText().takeoverTitle,
+                buildAdminTakeoverBody(),
+                true
+            );
+        }
+
+        if (
+            adminHas(
+                ADMIN_KEYS.rollback
+            )
+        ) {
+            renderAdminPanel(
+                "adminRollbackPanel",
+                adminText().rollbackTitle,
+                buildAdminRollbackBody(),
+                true
+            );
+        }
+
+        if (
+            adminHas(
+                ADMIN_KEYS.logout
+            )
+        ) {
+            renderAdminPanel(
+                "adminLogoutPanel",
+                adminText().logoutTitle,
+                buildAdminLogoutBody(),
+                true
+            );
+        }
+
+        if (
+            adminHas(
+                ADMIN_KEYS.final
+            )
+        ) {
             revealAdminFinal();
         }
 
-        const mergeEl = admin$("adminMergeValue");
-        if (mergeEl) mergeEl.textContent = getAdminMergeRate();
+        const mergeEl =
+            admin$(
+                "adminMergeValue"
+            );
+
+        if (mergeEl) {
+            mergeEl.textContent =
+                getAdminMergeRate();
+        }
     }
 
     function renderAdminPanel(panelId, title, body, danger) {
@@ -11642,59 +12047,146 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function buildAdminScanBody() {
-        const worker = localStorage.getItem("echo_worker_id") || adminText().noWorker;
-        const session = localStorage.getItem("echo_session_id") || "SESSION_13";
-        const mirrorGenerated = localStorage.getItem("echorest_mirror_profile_generated") === "1";
-        const postCompared = localStorage.getItem("echorest_post404_compared") === "1";
+        const worker =
+            localStorage.getItem(
+                "echo_worker_id"
+            ) || adminText().noWorker;
+
+        const session =
+            localStorage.getItem(
+                "echo_session_id"
+            ) || "SESSION_13";
+
+        const mirrorGenerated =
+            localStorage.getItem(
+                "echorest_mirror_profile_generated"
+            ) === "1";
+
+        const postCompared =
+            localStorage.getItem(
+                "echorest_post404_compared"
+            ) === "1";
+
+        const usageConfirmed =
+            localStorage.getItem(
+                "echorest_t05_room_audit_v1"
+            ) === "1";
 
         return (
-            "current_admin = \u9e22 / MOD_005\n" +
-            "current_repairer = " + worker + "\n" +
-            "session_id = " + session + "\n" +
-            "mirror_profile_generated = " + mirrorGenerated + "\n" +
-            "post_404_compared = " + postCompared + "\n" +
-            "permission_conflict = true\n" +
-            "merge_candidate = true"
+            "object_source = post_404.index\n" +
+            "object_type = UNRESOLVED\n" +
+            "source_field = CONFIRMED\n" +
+            "activity_field = CONFIRMED\n" +
+            "history_field = CONFIRMED\n" +
+            "usage_field = " +
+            (
+                usageConfirmed
+                    ? "CONFIRMED"
+                    : "MISSING"
+            ) +
+            "\n\n" +
+            "mirror_generated = " +
+            mirrorGenerated +
+            "\n" +
+            "field_comparison = " +
+            postCompared +
+            "\n" +
+            "source_session = " +
+            session +
+            "\n" +
+            "source_worker = " +
+            worker +
+            "\n\n" +
+            "registration_ready = " +
+            (
+                mirrorGenerated &&
+                    postCompared &&
+                    usageConfirmed
+                    ? "true"
+                    : "false"
+            )
         );
     }
 
     function buildAdminTakeoverBody() {
         return (
-            "takeover_request = submitted\n" +
-            "target_admin = \u9e22 / MOD_005\n" +
-            "result = failed\n" +
-            "reason = target_admin cannot be separated from current_repairer\n" +
-            "new_state = shared_slot"
+            "type_check = submitted\n" +
+            "source_type = INDEX\n" +
+            "mirror_type = SPATIAL\n" +
+            "field_set = COMPLETE\n" +
+            "resolved_type = SPATIAL_OBJECT\n" +
+            "result = accepted"
         );
     }
 
     function buildAdminRollbackBody() {
         return (
-            "rollback_request = submitted\n" +
-            "target_cache = admin_yuan.cache\n" +
-            "result = failed\n" +
-            "reason = previous repairer path points to current repairer path\n" +
-            "new_state = loop_preserved"
+            "directory_check = submitted\n" +
+            "registry_scope = PUBLIC_SPATIAL_INDEX\n" +
+            "matching_entry = NONE\n" +
+            "matching_address = NONE\n" +
+            "duplicate_object = false\n" +
+            "allocation_required = true"
         );
     }
 
     function buildAdminLogoutBody() {
-        const worker = localStorage.getItem("echo_worker_id") || adminText().noWorker;
+        const worker =
+            localStorage.getItem(
+                "echo_worker_id"
+            ) || adminText().noWorker;
+
+        const session =
+            localStorage.getItem(
+                "echo_session_id"
+            ) || "SESSION_13";
 
         return (
-            "logout_request = submitted\n" +
-            "repairer = " + worker + "\n" +
-            "result = failed\n" +
-            "reason = repairer already indexed by admin_conflict\n" +
-            "next_admin_slot = current_repairer"
+            "registration_request = submitted\n" +
+            "source_object = post_404.index\n" +
+            "resolved_type = SPATIAL_OBJECT\n" +
+            "registry_scope = PUBLIC_SPATIAL_INDEX\n" +
+            "source_worker = " + worker + "\n" +
+            "source_session = " + session + "\n\n" +
+            "allocation_mode = CREATE_NEW_ENTRY\n" +
+            "registration_status = WRITING"
         );
     }
 
     function getAdminMergeRate() {
-        if (adminHas(ADMIN_KEYS.final)) return "100%";
-        if (adminHas(ADMIN_KEYS.takeover) || adminHas(ADMIN_KEYS.rollback) || adminHas(ADMIN_KEYS.logout)) return "99.98%";
-        if (adminHas(ADMIN_KEYS.scan)) return "99.73%";
-        return "\u672a\u8ba1\u7b97";
+        if (
+            adminHas(
+                ADMIN_KEYS.final
+            )
+        ) {
+            return "100%";
+        }
+
+        if (
+            adminHas(
+                ADMIN_KEYS.rollback
+            )
+        ) {
+            return "75%";
+        }
+
+        if (
+            adminHas(
+                ADMIN_KEYS.takeover
+            )
+        ) {
+            return "50%";
+        }
+
+        if (
+            adminHas(
+                ADMIN_KEYS.scan
+            )
+        ) {
+            return "25%";
+        }
+
+        return "0%";
     }
 
     function revealAdminFinal() {
@@ -11705,7 +12197,7 @@ document.addEventListener("DOMContentLoaded", function () {
             hidden.classList.remove("locked");
             hidden.classList.add("unlocked");
             hidden.innerHTML =
-                "<span>ADMIN_NOTE_03</span>" +
+                "<span>REGISTRY_NOTE_03</span>" +
                 "<p>" + adminText().hiddenFragment + "</p>";
         }
 
@@ -11834,418 +12326,441 @@ document.addEventListener("DOMContentLoaded", function () {
 })();
 
 /* ================================
-   FINAL SYNC - Shutdown Ending
+   FINAL SYNC - Registry Verification
    ================================ */
 
 (function () {
     window.TXT = window.TXT || {};
-
     window.TXT.finalSync = {
         noWorker: "\u672a\u9a8c\u8bc1\u7ef4\u4fee\u5458",
-        statusReady: "\u5df2\u8fdb\u5165\u6700\u7ec8\u540c\u6b65\u9875\u3002\u8be5\u9875\u9762\u4f1a\u7ed3\u675f\u5f53\u524d\u53ef\u89c1\u7ef4\u4fee\u6d41\u7a0b\u3002",
-        statusSync: "\u6700\u7ec8\u540c\u6b65\u5df2\u8bfb\u53d6\u3002\u5f53\u524d\u7ef4\u4fee\u5458\u6b63\u5728\u88ab\u5199\u5165\u7ba1\u7406\u5458\u69fd\u4f4d\u3002",
-        statusRecord: "\u5199\u5165\u5bf9\u8c61\u5df2\u663e\u793a\u3002\u5f53\u524d\u7ef4\u4fee\u5458\u5c06\u6210\u4e3a\u4e0b\u4e00\u8f6e\u53ef\u6062\u590d\u7f13\u5b58\u3002",
-        statusShutdown: "\u5173\u95ed\u6d41\u7a0b\u5df2\u6267\u884c\u3002\u672c\u8f6e EchoRest \u53ef\u89c1\u9875\u9762\u5df2\u7ed3\u675f\u3002",
-        needSync: "\u9700\u8981\u5148\u8bfb\u53d6\u6700\u7ec8\u540c\u6b65\u3002",
-        needRecord: "\u9700\u8981\u5148\u67e5\u770b\u5199\u5165\u5bf9\u8c61\u3002",
-        syncTitle: "\u6700\u7ec8\u540c\u6b65 / FINAL SYNC",
-        recordTitle: "\u5199\u5165\u5bf9\u8c61 / RECORDED OBJECT",
-        shutdownTitle: "\u5173\u95ed\u6d41\u7a0b / SHUTDOWN COMPLETE",
-        hiddenFragment: "\u201c\u5982\u679c\u4f60\u518d\u6b21\u6253\u5f00 EchoRest\uff0c\u8bf7\u5148\u786e\u8ba4\u4e00\u4ef6\u4e8b\uff1a\u4f60\u662f\u6765\u4fee\u590d\u5b83\uff0c\u8fd8\u662f\u6765\u88ab\u5b83\u4fee\u590d\uff1f\u201d",
-        logEnter: "\u5df2\u8fdb\u5165 final sync\u3002",
-        logSync: "\u5df2\u8bfb\u53d6\u6700\u7ec8\u540c\u6b65\u3002",
-        logRecord: "\u5df2\u67e5\u770b\u5f53\u524d\u7ef4\u4fee\u5458\u5199\u5165\u5bf9\u8c61\u3002",
-        logShutdown: "\u5df2\u6267\u884c EchoRest \u5173\u95ed\u6d41\u7a0b\u3002",
-
-        revealTitleStrong: "\u6700\u7ec8\u540c\u6b65\u5df2\u5b8c\u6210",
-        revealBodyStrong: "\u4f60\u521a\u624d\u7ed3\u675f\u7684\u4e0d\u50cf\u4e00\u6b21\u666e\u901a\u5173\u95ed\u6d41\u7a0b\uff0c\u66f4\u50cf\u4e00\u6b21\u5c06\u5f53\u524d\u7ef4\u4fee\u75d5\u8ff9\u4fdd\u5b58\u4e3a\u53ef\u540e\u7eed\u8bfb\u53d6\u5bf9\u8c61\u7684\u540c\u6b65\u3002",
-        revealWarningStrong: "\u4ece\u8fd9\u4e00\u523b\u5f00\u59cb\uff0c\u5f53\u524d\u8bbf\u95ee\u75d5\u8ff9\u4e0d\u518d\u53ea\u5c5e\u4e8e\u4f60\u81ea\u5df1\u3002",
-        revealButtonStrong: "\u786e\u8ba4\u5f53\u524d\u7ef4\u4fee\u5458\u5df2\u88ab\u5199\u5165 EchoRest",
-
-        revealLine1: "\u5df2\u8bfb\u53d6 final_sync",
-        revealLine2: "\u5df2\u8bfb\u53d6 recorded_object",
-        revealLine3: "\u6b63\u5728\u6267\u884c shutdown_complete",
-        revealLine4: "\u5199\u5165\u76ee\u6807\uff1acurrent_repairer",
-        revealLine5: "\u5199\u5165\u7ed3\u679c\uff1aarchivable",
-        revealLine6: "\u7ec8\u5c40\u72b6\u6001\uff1aaccepted_by_echorest",
+        statusReady: "\u5bf9\u8c61\u5b57\u6bb5\u5df2\u8fdb\u5165\u767b\u8bb0\u961f\u5217\u3002\u53ef\u6838\u9a8c\u767b\u8bb0\u4f9d\u636e\uff0c\u6216\u76f4\u63a5\u63d0\u4ea4\u7a7a\u95f4\u767b\u8bb0\u3002",
+        statusSync: "\u767b\u8bb0\u540c\u6b65\u5df2\u8bfb\u53d6\uff1b\u516c\u5f00\u7a7a\u95f4\u76ee\u5f55\u5c1a\u672a\u5199\u5165\u3002",
+        statusRecord: "\u5df2\u8bfb\u53d6\u5f85\u5199\u5165\u7a7a\u95f4\u6761\u76ee\u3002\u672c\u6b21\u5904\u7406\u5c1a\u672a\u63d0\u4ea4\u3002",
+        savedError: "\u5904\u7406\u8bb0\u5f55\u672a\u80fd\u4fdd\u5b58\u3002\u8bf7\u786e\u8ba4\u6d4f\u89c8\u5668\u5141\u8bb8\u672c\u5730\u5b58\u50a8\u540e\u91cd\u8bd5\uff1b\u672c\u6b21\u64cd\u4f5c\u5c1a\u672a\u5b8c\u6210\u3002",
+        closed: "\u672c\u6b21\u5904\u7406\u5df2\u751f\u6210\u56de\u6267\u3002\u4ecd\u53ef\u67e5\u9605\u6838\u9a8c\u8bb0\u5f55\uff0c\u5904\u7406\u7ed3\u679c\u4e0d\u4f1a\u518d\u6b21\u6539\u5199\u3002",
+        unread: "\u672a\u8c03\u53d6",
+        opened: "\u8bb0\u5f55\u5df2\u8c03\u53d6 / \u53ef\u8ffd\u67e5",
+        verified: "\u4f9d\u636e\u5df2\u6838\u9a8c",
+        syncTitle: "\u767b\u8bb0\u540c\u6b65 / REGISTRY SYNC",
+        recordTitle: "\u7a7a\u95f4\u6761\u76ee / SPATIAL ENTRY",
+        logEnter: "\u5df2\u8fdb\u5165\u767b\u8bb0\u524d\u6838\u9a8c\u533a\u57df\u3002",
+        logSync: "\u5df2\u8bfb\u53d6\u7a7a\u95f4\u767b\u8bb0\u540c\u6b65\u3002",
+        logRecord: "\u5df2\u67e5\u770b\u7a7a\u95f4\u767b\u8bb0\u6761\u76ee\u3002",
+        progress: "\u5df2\u6838\u9a8c ",
+        emptyNote: "\u5c1a\u672a\u5f62\u6210\u6838\u9a8c\u8bb0\u5f55\u3002\u53ef\u4ece\u6838\u9a8c\u5de5\u4f5c\u533a\u8c03\u53d6\u767b\u8bb0\u4f9d\u636e\u3002",
+        findings: {
+            directory: "\u76ee\u5f55\u5f02\u5e38\uff1a\u767b\u8bb0\u524d\u65e0\u5bf9\u5e94\u7a7a\u95f4\uff0c\u7f16\u53f7\u6765\u81ea\u8865\u5168\u540e\u7684\u5bf9\u8c61\u5b57\u6bb5\u3002",
+            source: "\u7d22\u5f15\u4fdd\u7559\uff1a\u516c\u5f00\u7a7a\u95f4\u767b\u8bb0\u4e0d\u4f1a\u6d88\u8017 post_404.index\u3002",
+            usage: "\u4f1a\u8bdd\u6765\u6e90\uff1aUSAGE \u6700\u540e\u4e00\u9879\u5f15\u7528\u672c\u6b21\u767b\u8bb0\u7684\u7ef4\u62a4\u4f1a\u8bdd\u3002"
+        },
+        outcomes: {
+            ACCEPTED: {
+                title: "SPATIAL REGISTRATION COMPLETE",
+                description: "\u65b0\u7a7a\u95f4\u6761\u76ee\u5df2\u5199\u5165\u516c\u5f00\u7a7a\u95f4\u76ee\u5f55\u3002\u7cfb\u7edf\u73b0\u5728\u5141\u8bb8\u8be5\u5730\u5740\u8fd4\u56de\u6709\u6548\u8bbf\u95ee\u7ed3\u679c\u3002",
+                address: "\u8be5\u5730\u5740\u5728\u672c\u6b21\u767b\u8bb0\u524d\u65e0\u5bf9\u5e94\u7a7a\u95f4\u6761\u76ee\u3002\u73b0\u5728\uff0c\u516c\u5f00\u76ee\u5f55\u627f\u8ba4\u5b83\u5b58\u5728\u3002",
+                note: "post_404.index \u4ecd\u88ab\u4fdd\u7559\u3002\u767b\u8bb0\u4e3a\u5b83\u589e\u52a0\u4e86\u4e00\u4e2a\u5730\u5740\uff0c\u5374\u6ca1\u6709\u8ba9\u8fd9\u4e2a\u7d22\u5f15\u6d88\u5931\u3002",
+                footer: "\u767b\u8bb0\u7ed3\u679c\u5df2\u5199\u5165\u516c\u5f00\u7a7a\u95f4\u76ee\u5f55",
+                fragment: "\u7a7a\u95f4\u767b\u8bb0\u5df2\u63a5\u53d7\u3002\u6e90\u7d22\u5f15\u4fdd\u7559\uff0c\u516c\u5f00\u67e5\u8be2\u5df2\u5f00\u653e\u3002",
+                lookup: "AVAILABLE",
+                write: "COMMITTED",
+                usage: "CONFIRMED"
+            },
+            QUARANTINED: {
+                title: "REGISTRATION HELD FOR REVIEW",
+                description: "\u76ee\u5f55\u5dee\u5f02\u5df2\u9644\u5165\u5f02\u5e38\u590d\u6838\u3002\u672c\u6b21\u7a7a\u95f4\u767b\u8bb0\u88ab\u9694\u79bb\uff0c\u516c\u5f00\u76ee\u5f55\u672a\u65b0\u589e\u8be5\u5730\u5740\u3002",
+                address: "\u8be5\u5730\u5740\u4ecd\u662f\u5019\u9009\u7f16\u53f7\uff0c\u5c1a\u672a\u6210\u4e3a\u53ef\u516c\u5f00\u8bbf\u95ee\u7684\u7a7a\u95f4\u6761\u76ee\u3002",
+                note: "\u590d\u6838\u6750\u6599\uff1a\u5386\u53f2\u76ee\u5f55\u65e0\u5bf9\u5e94\u9879 / \u5efa\u7b51\u56fe\u5bf9\u5e94\u7a7a\u95f4\u4e3a 0\u3002post_404.index \u4ecd\u7136\u53ef\u8bfb\u3002",
+                footer: "\u516c\u5f00\u5199\u5165\u5df2\u9694\u79bb\uff0c\u7b49\u5f85\u5f02\u5e38\u590d\u6838",
+                fragment: "\u5f02\u5e38\u590d\u6838\u5df2\u53d7\u7406\u3002\u5bf9\u8c61\u5b57\u6bb5\u4fdd\u7559\uff0c\u516c\u5f00\u5199\u5165\u88ab\u9694\u79bb\u3002",
+                lookup: "UNAVAILABLE",
+                write: "HELD_FOR_REVIEW",
+                usage: "CONFIRMED"
+            },
+            WITHDRAWN: {
+                title: "SESSION CONTRIBUTION WITHDRAWN",
+                description: "\u5f53\u524d\u4f1a\u8bdd\u7684\u4f7f\u7528\u8bc1\u660e\u5df2\u4ece\u672c\u6b21\u767b\u8bb0\u64a4\u56de\u3002USAGE FIELD \u5931\u53bb\u6700\u540e\u4e00\u9879\u4f9d\u636e\uff0c\u516c\u5f00\u5199\u5165\u5df2\u7ec8\u6b62\u3002",
+                address: "\u5730\u5740\u5206\u914d\u8bb0\u5f55\u4fdd\u7559\uff0c\u4f46\u6ca1\u6709\u5199\u5165\u516c\u5f00\u7a7a\u95f4\u76ee\u5f55\u3002",
+                note: "SOURCE / ACTIVITY / HISTORY \u4ecd\u7136\u4fdd\u7559\u3002\u4f60\u7684\u7ef4\u62a4\u6ca1\u6709\u6d88\u5931\uff1b\u5b83\u4e0d\u518d\u8bc1\u660e\u8fd9\u91cc\u6b63\u5728\u88ab\u4f7f\u7528\u3002",
+                footer: "\u5f53\u524d\u4f1a\u8bdd\u5f15\u7528\u5df2\u64a4\u56de\uff0c\u516c\u5f00\u5199\u5165\u5df2\u7ec8\u6b62",
+                fragment: "\u4f1a\u8bdd\u64a4\u56de\u5df2\u5b8c\u6210\u3002USAGE \u5f15\u7528\u5931\u6548\uff0c\u767b\u8bb0\u6761\u4ef6\u4e0d\u518d\u5b8c\u6574\u3002",
+                lookup: "UNAVAILABLE",
+                write: "CANCELLED",
+                usage: "WITHDRAWN"
+            }
+        }
     };
 
+    // Keep the existing keys and their meanings. Only ACCEPTED writes shutdown.
     const FINAL_KEYS = {
         visit: "echorest_final_visit_count",
         sync: "echorest_final_sync_read",
         record: "echorest_final_record_read",
         shutdown: "echorest_final_shutdown_done",
-        extraLog: "echorest_repair_log_extra"
+        extraLog: "echorest_repair_log_extra",
+        verification: "echorest_final_verification_v1"
     };
+    const INVESTIGATIONS = {
+        directory: { stem: "Directory", followup: "directory-compare" },
+        source: { stem: "Source", followup: "source-retention" },
+        usage: { stem: "Usage", followup: "usage-trace" }
+    };
+    let verification;
+    let receiptTrigger = null;
 
-    function finalText() {
-        return window.TXT.finalSync;
+    function finalText() { return window.TXT.finalSync; }
+    function final$(id) { return document.getElementById(id); }
+    function finalHas(key) { return localStorage.getItem(key) === "1"; }
+    function finalPut(id, text) {
+        const element = final$(id);
+        if (element) element.textContent = text;
     }
-
-    function final$(id) {
-        return document.getElementById(id);
+    function finalShow(id, visible) {
+        const element = final$(id);
+        if (element) element.classList.toggle("hidden", !visible);
     }
-
-    function finalHas(key) {
-        return localStorage.getItem(key) === "1";
+    function finalFocus(id) {
+        const element = final$(id);
+        if (element) element.focus();
     }
-
-    function finalSet(key) {
-        localStorage.setItem(key, "1");
+    function finalButton(action) {
+        return document.querySelector('[data-final-action="' + action + '"]');
     }
-
-    function finalAddLog(text) {
-        let logs = [];
-
+    function finalOutcome(state) {
+        // Old completed saves remain accepted without a migration or reset.
+        if (finalHas(FINAL_KEYS.shutdown)) return "ACCEPTED";
+        return state.outcome;
+    }
+    function readFinalVerification() {
+        let raw;
+        try { raw = JSON.parse(localStorage.getItem(FINAL_KEYS.verification) || "{}"); }
+        catch (e) { raw = {}; }
+        if (!raw || typeof raw !== "object" || Array.isArray(raw)) raw = {};
+        const state = { directory: 0, source: 0, usage: 0, outcome: null };
+        Object.keys(INVESTIGATIONS).forEach(function (key) {
+            if ([0, 1, 2].includes(raw[key])) state[key] = raw[key];
+        });
+        if (Object.prototype.hasOwnProperty.call(finalText().outcomes, raw.outcome)) {
+            state.outcome = raw.outcome;
+        }
+        const subject = raw.subject;
+        state.subject = subject && typeof subject.worker === "string" && subject.worker &&
+            typeof subject.session === "string" && subject.session
+            ? { worker: subject.worker, session: subject.session }
+            : {
+                worker: localStorage.getItem("echo_worker_id") || finalText().noWorker,
+                session: localStorage.getItem("echo_session_id") || "SESSION_13"
+            };
+        return state;
+    }
+    function saveFinalVerification(next) {
         try {
-            logs = JSON.parse(localStorage.getItem(FINAL_KEYS.extraLog) || "[]");
+            localStorage.setItem(FINAL_KEYS.verification, JSON.stringify(next));
+            verification = next;
+            return true;
         } catch (e) {
-            logs = [];
-        }
-
-        if (!logs.includes(text)) {
-            logs.push(text);
-            localStorage.setItem(FINAL_KEYS.extraLog, JSON.stringify(logs));
+            finalPut("finalStatusText", finalText().savedError);
+            return false;
         }
     }
-
+    function finalAddLog(text) {
+        // This log is shared with the other pages; malformed data is not an array.
+        try {
+            let logs = JSON.parse(localStorage.getItem(FINAL_KEYS.extraLog) || "[]");
+            if (!Array.isArray(logs)) logs = [];
+            if (!logs.includes(text)) {
+                logs.push(text);
+                localStorage.setItem(FINAL_KEYS.extraLog, JSON.stringify(logs));
+            }
+        } catch (e) {
+            // A receipt remains valid even if the optional shared log cannot be saved.
+        }
+    }
     function initFinalPage() {
         if (!document.body.classList.contains("page-final-shutdown")) return;
-
-        const accessGranted = localStorage.getItem("echo_access_granted");
-        const workerId = localStorage.getItem("echo_worker_id");
-
-        if (accessGranted !== "true" || !workerId) {
+        if (localStorage.getItem("echo_access_granted") !== "true" ||
+            !localStorage.getItem("echo_worker_id")) {
             alert(TXT.alertNeedLogin);
             window.location.href = "../../login.html";
             return;
         }
-
-        const T = finalText();
-        const worker = localStorage.getItem("echo_worker_id") || T.noWorker;
-        const session = localStorage.getItem("echo_session_id") || "SESSION_13";
-
-        let visit = Number(localStorage.getItem(FINAL_KEYS.visit) || "0");
-        visit += 1;
-        localStorage.setItem(FINAL_KEYS.visit, String(visit));
-
-        const workerEl = final$("finalWorkerValue");
-        const sessionEl = final$("finalSessionValue");
-        const inlineWorkerEl = final$("finalInlineWorker");
-        const blackWorkerEl = final$("finalBlackoutWorker");
-        const statusEl = final$("finalStatusText");
-
-        if (workerEl) workerEl.textContent = worker;
-        if (sessionEl) sessionEl.textContent = session;
-        if (inlineWorkerEl) inlineWorkerEl.textContent = worker;
-        if (blackWorkerEl) blackWorkerEl.textContent = worker;
-        if (statusEl) statusEl.textContent = T.statusReady;
-
-        finalAddLog(T.logEnter);
-
-        const buttons = document.querySelectorAll("[data-final-action]");
-        buttons.forEach(function (btn) {
-            btn.addEventListener("click", function () {
-                const action = btn.getAttribute("data-final-action");
-                handleFinalAction(action);
+        verification = readFinalVerification();
+        try {
+            const visits = Number(localStorage.getItem(FINAL_KEYS.visit) || "0");
+            localStorage.setItem(FINAL_KEYS.visit, String((Number.isFinite(visits) ? visits : 0) + 1));
+        } catch (e) { /* Reading remains available with restricted storage. */ }
+        document.querySelectorAll("[data-final-action]").forEach(function (button) {
+            button.addEventListener("click", function () {
+                handleFinalAction(button.getAttribute("data-final-action"));
             });
         });
-
-        const returnBtn = final$("finalBlackoutReturnBtn");
-        if (returnBtn) {
-            returnBtn.addEventListener("click", function () {
-                const blackout = final$("finalBlackout");
-                if (blackout) blackout.classList.add("hidden");
-            });
-        }
-
+        const returnButton = final$("finalBlackoutReturnBtn");
+        if (returnButton) returnButton.addEventListener("click", closeFinalReceipt);
+        const blackout = final$("finalBlackout");
+        if (blackout) blackout.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                event.preventDefault();
+                closeFinalReceipt();
+            } else if (event.key === "Tab") {
+                // This dialog has one interactive element.
+                event.preventDefault();
+                returnButton.focus();
+            }
+        });
+        window.addEventListener("storage", function (event) {
+            if (event.key === null || Object.values(FINAL_KEYS).includes(event.key)) {
+                verification = readFinalVerification();
+                syncFinalState();
+            }
+        });
+        finalAddLog(finalText().logEnter);
         syncFinalState();
-
-        document.body.classList.add("final-hard-glitch");
-        setTimeout(function () {
-            document.body.classList.remove("final-hard-glitch");
-        }, 900);
     }
-
     function handleFinalAction(action) {
-        const T = finalText();
-
-        if (action === "sync") {
-            finalSet(FINAL_KEYS.sync);
-            renderFinalPanel("finalSyncPanel", T.syncTitle, buildFinalSyncBody(), false);
-            updateFinalStatus(T.statusSync);
-            finalAddLog(T.logSync);
-            syncFinalState();
-            triggerFinalGlitch();
+        // Re-read before every action, including writes from another open Final tab.
+        verification = readFinalVerification();
+        if (action === "receipt") {
+            if (finalOutcome(verification)) openFinalReceipt();
             return;
         }
-
-        if (action === "record") {
-            if (!finalHas(FINAL_KEYS.sync)) {
-                alert(T.needSync);
+        if (action === "sync" || action === "record") {
+            try { localStorage.setItem(FINAL_KEYS[action], "1"); }
+            catch (e) {
+                finalPut("finalStatusText", finalText().savedError);
                 return;
             }
-
-            finalSet(FINAL_KEYS.record);
-            renderFinalPanel("finalRecordPanel", T.recordTitle, buildFinalRecordBody(), true);
-            updateFinalStatus(T.statusRecord);
-            finalAddLog(T.logRecord);
+            finalAddLog(action === "sync" ? finalText().logSync : finalText().logRecord);
             syncFinalState();
-            triggerFinalGlitch();
-            triggerFinalRevealOverlay("record");
-        }
-
-        if (action === "shutdown") {
-            if (!finalHas(FINAL_KEYS.record)) {
-                alert(T.needRecord);
-                return;
+            if (!finalOutcome(verification)) {
+                finalPut("finalStatusText", action === "sync" ? finalText().statusSync : finalText().statusRecord);
             }
-
-            finalSet(FINAL_KEYS.shutdown);
-            renderFinalPanel("finalShutdownPanel", T.shutdownTitle, buildFinalShutdownBody(), true);
-            updateFinalStatus(T.statusShutdown);
-            finalAddLog(T.logShutdown);
-            revealFinalEnding();
-            syncFinalState();
-            triggerFinalGlitch();
-            triggerFinalRevealOverlay("shutdown");
-
-            setTimeout(function () {
-                const blackout = final$("finalBlackout");
-                if (blackout) blackout.classList.remove("hidden");
-            }, 850);
+            finalFocus(action === "sync" ? "finalSyncPanel" : "finalRecordPanel");
+            return;
         }
+        for (const key of Object.keys(INVESTIGATIONS)) {
+            const item = INVESTIGATIONS[key];
+            if (action !== key && action !== item.followup) continue;
+            if (action === item.followup && verification[key] < 1) return;
+            const next = Object.assign({}, verification);
+            next[key] = Math.max(next[key], action === key ? 1 : 2);
+            if (!saveFinalVerification(next)) return;
+            if (next[key] === 2) finalAddLog(finalText().findings[key]);
+            syncFinalState();
+            finalFocus("final" + item.stem + (action === key ? "Panel" : "Finding"));
+            return;
+        }
+        const outcomes = { shutdown: "ACCEPTED", quarantine: "QUARANTINED", withdraw: "WITHDRAWN" };
+        if (!Object.prototype.hasOwnProperty.call(outcomes, action)) return;
+        if (finalOutcome(verification)) {
+            syncFinalState();
+            finalPut("finalStatusText", finalText().closed);
+            return;
+        }
+        if (action === "quarantine" && verification.directory !== 2) return;
+        if (action === "withdraw" && verification.usage !== 2) return;
+        const next = Object.assign({}, verification, { outcome: outcomes[action] });
+        // Store the complete receipt atomically before updating the legacy completion flag.
+        if (!saveFinalVerification(next)) return;
+        if (next.outcome === "ACCEPTED") {
+            try { localStorage.setItem(FINAL_KEYS.shutdown, "1"); }
+            catch (e) { /* The new receipt already preserves the accepted outcome. */ }
+        }
+        finalAddLog(finalText().outcomes[next.outcome].fragment);
+        syncFinalState();
+        finalFocus("finalEndingBox");
     }
-
-    function updateFinalStatus(text) {
-        const statusEl = final$("finalStatusText");
-        if (statusEl) statusEl.textContent = text;
-    }
-
     function syncFinalState() {
-        const recordBtn = document.querySelector('[data-final-action="record"]');
-        const shutdownBtn = document.querySelector('[data-final-action="shutdown"]');
-
-        if (recordBtn) {
-            recordBtn.classList.toggle("locked", !finalHas(FINAL_KEYS.sync));
-        }
-
-        if (shutdownBtn) {
-            shutdownBtn.classList.toggle("locked", !finalHas(FINAL_KEYS.record));
-        }
-
-        if (finalHas(FINAL_KEYS.sync)) {
-            renderFinalPanel("finalSyncPanel", finalText().syncTitle, buildFinalSyncBody(), false);
-        }
-
-        if (finalHas(FINAL_KEYS.record)) {
-            renderFinalPanel("finalRecordPanel", finalText().recordTitle, buildFinalRecordBody(), true);
-        }
-
-        if (finalHas(FINAL_KEYS.shutdown)) {
-            renderFinalPanel("finalShutdownPanel", finalText().shutdownTitle, buildFinalShutdownBody(), true);
-            revealFinalEnding();
-        }
-
-        const slotEl = final$("finalSlotValue");
-        const closeEl = final$("finalCloseValue");
-
-        if (slotEl) {
-            if (finalHas(FINAL_KEYS.record)) {
-                slotEl.textContent = "current_repairer";
-            } else if (finalHas(FINAL_KEYS.sync)) {
-                slotEl.textContent = "syncing";
-            } else {
-                slotEl.textContent = "\u7b49\u5f85\u540c\u6b65";
+        const T = finalText();
+        const outcome = finalOutcome(verification);
+        const result = outcome ? T.outcomes[outcome] : null;
+        finalPut("finalWorkerValue", verification.subject.worker);
+        finalPut("finalSessionValue", verification.subject.session);
+        finalPut("finalInlineWorker", verification.subject.worker);
+        finalPut("finalSlotValue", "\u2014404");
+        finalPut("finalCloseValue", outcome || "PENDING");
+        finalPut("finalHeaderState", outcome || "\u5f85\u5199\u5165");
+        finalPut("finalCommitState", result ? result.write : "NOT_SUBMITTED");
+        finalPut("finalFooterState", result ? result.footer : "\u516c\u5f00\u7a7a\u95f4\u76ee\u5f55\u7b49\u5f85\u5199\u5165");
+        finalPut("finalStatusText", result ? result.description : T.statusReady);
+        if (result) finalPut("finalIntroText", result.description);
+        let completed = 0;
+        const notes = [];
+        Object.keys(INVESTIGATIONS).forEach(function (key) {
+            const item = INVESTIGATIONS[key];
+            const level = verification[key];
+            const card = document.querySelector('[data-final-investigation="' + key + '"]');
+            if (card) {
+                card.classList.toggle("is-read", level >= 1);
+                card.classList.toggle("is-verified", level === 2);
             }
-        }
-
-        if (closeEl) {
-            closeEl.textContent = finalHas(FINAL_KEYS.shutdown) ? "\u5df2\u6267\u884c" : "\u672a\u6267\u884c";
-        }
+            finalShow("final" + item.stem + "Panel", level >= 1);
+            finalShow("final" + item.stem + "Finding", level === 2);
+            finalPut("final" + item.stem + "State", level === 2 ? T.verified : level ? T.opened : T.unread);
+            finalButton(key).setAttribute("aria-expanded", String(level >= 1));
+            finalButton(item.followup).setAttribute("aria-expanded", String(level === 2));
+            if (level === 2) {
+                completed++;
+                notes.push(T.findings[key]);
+            }
+        });
+        finalPut("finalVerificationProgress", T.progress + completed + " / 3");
+        finalPut("finalInvestigationNote", notes.length ? notes.join("\n") : T.emptyNote);
+        [
+            { action: "shutdown", eligible: true },
+            { action: "quarantine", eligible: verification.directory === 2 },
+            { action: "withdraw", eligible: verification.usage === 2 }
+        ].forEach(function (item) {
+            const button = finalButton(item.action);
+            const disabled = Boolean(outcome) || !item.eligible;
+            button.disabled = disabled;
+            button.classList.toggle("locked", disabled);
+            if (item.action !== "shutdown") button.classList.toggle("hidden", !item.eligible || Boolean(outcome));
+        });
+        finalPut("finalCommitNote", outcome ? T.closed :
+            "\u63d0\u4ea4\u5c06\u4f7f\u8be5\u5730\u5740\u8fdb\u5165\u516c\u5f00\u7a7a\u95f4\u76ee\u5f55\u3002\u8c03\u53d6\u8bb0\u5f55\u5c5e\u4e8e\u53ef\u9009\u6838\u9a8c\uff0c\u4e0d\u662f\u767b\u8bb0\u7684\u524d\u7f6e\u6b65\u9aa4\uff1b\u63d0\u4ea4\u540e\u7684\u56de\u6267\u5c06\u56fa\u5b9a\u672c\u6b21\u5904\u7406\u7ed3\u679c\u3002");
+        renderFinalEvidence(outcome);
+        ["sync", "record"].forEach(function (action) {
+            const shown = finalHas(FINAL_KEYS[action]);
+            finalButton(action).setAttribute("aria-expanded", String(shown));
+            finalShow(action === "sync" ? "finalSyncPanel" : "finalRecordPanel", shown);
+            if (shown) renderFinalPanel(action === "sync" ? "finalSyncPanel" : "finalRecordPanel",
+                action === "sync" ? T.syncTitle : T.recordTitle,
+                action === "sync" ? buildFinalSyncBody() : buildFinalRecordBody(outcome), false);
+        });
+        finalShow("finalShutdownPanel", Boolean(outcome));
+        finalShow("finalEndingBox", Boolean(outcome));
+        if (outcome) revealFinalEnding(outcome);
     }
-
+    function renderFinalEvidence(outcome) {
+        const usage = outcome === "WITHDRAWN" ? "WITHDRAWN" : "CONFIRMED";
+        finalPut("finalDirectoryRecord", [
+            "target = PUBLIC_SPATIAL_INDEX",
+            "query = BUILDING_4 / WEST_WALL / -404",
+            "allocation = CANDIDATE_ASSIGNED",
+            "public_entry = " + (outcome === "ACCEPTED" ? "PUBLISHED" : "NOT_PUBLISHED"),
+            "historical_snapshot = ATTACHED / " + (verification.directory === 2 ? "COMPARED" : "NOT_EXPANDED")
+        ].join("\n"));
+        finalPut("finalSourceRecord", [
+            "rule = registry_commit.retention",
+            "inspection = " + (outcome === "ACCEPTED" ? "COMMIT_RECEIPT" : "ON_COMMIT_POLICY"),
+            "on_accept.source_index_state = RETAINED",
+            "on_accept.source_lookup = READABLE",
+            "on_accept.delete_source = false",
+            "current_source_index_state = RETAINED"
+        ].join("\n"));
+        finalPut("finalUsageRecord", [
+            "SOURCE   <- #013 / ATTACHMENT SOURCE",
+            "ACTIVITY <- #021 / INTERNAL AUDIO",
+            "HISTORY  <- #034 / TIME WRITE-BACK",
+            "USAGE    <- ROOM ACCEPTANCE REVIEW",
+            "",
+            "usage_field = " + usage,
+            "last_item = REGISTRATION_SESSION_REFERENCE",
+            "source_pointer = session://current / " + (verification.usage === 2 ? "RESOLVED" : "UNRESOLVED")
+        ].join("\n"));
+        finalPut("finalUsageTrace", [
+            "reference_scope = THIS_REGISTRATION",
+            "source_object = post_404.index",
+            "usage.last_item.worker = " + verification.subject.worker,
+            "usage.last_item.session = " + verification.subject.session,
+            "reference_origin = CURRENT_MAINTENANCE_SESSION",
+            "interpreted_as = SPACE_IN_USE",
+            "contribution_state = " + (outcome === "WITHDRAWN" ? "REVOKED" : "ATTACHED"),
+            "usage_field = " + usage
+        ].join("\n"));
+    }
     function renderFinalPanel(panelId, title, body, danger) {
         const panel = final$(panelId);
         if (!panel) return;
-
+        const heading = document.createElement("strong");
+        heading.textContent = title;
+        const content = document.createElement("span");
+        content.className = danger ? "danger" : "soft";
+        content.textContent = body;
+        // Worker/session values are text, never HTML.
+        panel.replaceChildren(heading, document.createTextNode("\n\n"), content);
         panel.classList.remove("hidden");
-        panel.innerHTML =
-            "<strong>" + title + "</strong>\n\n" +
-            '<span class="' + (danger ? "danger" : "soft") + '">' +
-            body +
-            "</span>";
     }
-
     function buildFinalSyncBody() {
-        const worker = localStorage.getItem("echo_worker_id") || finalText().noWorker;
-        const session = localStorage.getItem("echo_session_id") || "SESSION_13";
-
-        return (
-            "previous_admin = \u9e22 / MOD_005\n" +
-            "current_repairer = " + worker + "\n" +
-            "session_id = " + session + "\n" +
-            "admin_conflict = true\n" +
-            "merge_rate = 100%\n" +
-            "next_step = record_current_repairer"
-        );
+        return [
+            "sync_source = object_registration",
+            "source_object = post_404.index",
+            "source_worker = " + verification.subject.worker,
+            "source_session = " + verification.subject.session,
+            "",
+            "mirror_generated = " + finalHas("echorest_mirror_profile_generated"),
+            "field_comparison = " + finalHas("echorest_post404_compared"),
+            "room_audit_cache = " + (finalHas("echorest_t05_room_audit_v1") ? "CONFIRMED" : "NOT_IN_LOCAL_CACHE"),
+            "registration_stage = " + (finalOutcome(verification) || "PRE_COMMIT_VERIFICATION")
+        ].join("\n");
     }
-
-    function buildFinalRecordBody() {
-        const worker = localStorage.getItem("echo_worker_id") || finalText().noWorker;
-
-        return (
-            "record_object = current_repairer\n" +
-            "stored_name = " + worker + "\n" +
-            "stored_role = next_admin_candidate\n" +
-            "visible_forum_index = removed\n" +
-            "recoverable_cache = true\n" +
-            "note = current repairer may appear as unknown user in next loop"
-        );
+    function buildFinalRecordBody(outcome) {
+        return [
+            "record_object = SPATIAL_OBJECT",
+            "source_index = post_404.index",
+            "building = 4",
+            "position = WEST_WALL",
+            "unit = -404",
+            "public_address = 4\u53f7\u697c / \u897f\u4fa7\u5899\u9762 / \u2014404",
+            "",
+            "source_field = CONFIRMED",
+            "activity_field = CONFIRMED",
+            "history_field = CONFIRMED",
+            "usage_field = " + (outcome === "WITHDRAWN" ? "WITHDRAWN" : "CONFIRMED"),
+            "",
+            (outcome ? "submitted_by = " : "prepared_by = ") + verification.subject.worker,
+            "source_session = " + verification.subject.session,
+            "registry_status = " + (outcome || "PENDING"),
+            "public_lookup = " + (outcome === "ACCEPTED" ? "AVAILABLE" : "UNAVAILABLE")
+        ].join("\n");
     }
-
-    function buildFinalShutdownBody() {
-        return (
-            "shutdown_request = submitted\n" +
-            "visible_route = closed\n" +
-            "local_trace = preserved\n" +
-            "server_confirmation = unavailable\n" +
-            "result = echo_restored"
-        );
+    function buildFinalShutdownBody(outcome) {
+        const result = finalText().outcomes[outcome];
+        return [
+            "source_object = post_404.index",
+            "object_type = SPATIAL_OBJECT",
+            "target_registry = PUBLIC_SPATIAL_INDEX",
+            "entry_id = -404",
+            "write_state = " + result.write,
+            "public_lookup = " + result.lookup,
+            "source_index_state = RETAINED",
+            "usage_field = " + result.usage,
+            "source_worker = " + verification.subject.worker,
+            "source_session = " + verification.subject.session,
+            "",
+            "registry_status = " + outcome
+        ].join("\n");
     }
-
-    function revealFinalEnding() {
+    function revealFinalEnding(outcome) {
+        const result = finalText().outcomes[outcome];
         const hidden = final$("finalHiddenFragment");
-        const box = final$("finalEndingBox");
-
         if (hidden) {
             hidden.classList.remove("locked");
             hidden.classList.add("unlocked");
-            hidden.innerHTML =
-                "<span>FINAL_NOTE_03</span>" +
-                "<p>" + finalText().hiddenFragment + "</p>";
+            hidden.querySelector("p").textContent = result.fragment;
         }
-
-        if (box) {
-            box.classList.remove("hidden");
-        }
+        const box = final$("finalEndingBox");
+        if (box) box.setAttribute("data-final-outcome", outcome);
+        finalPut("finalEndingTitle", result.title);
+        finalPut("finalEndingDescription", result.description);
+        finalPut("finalEndingState", outcome);
+        finalPut("finalPublicLookup", result.lookup);
+        finalPut("finalAddressLabel", outcome === "ACCEPTED" ? "REGISTERED ADDRESS" : "UNPUBLISHED ADDRESS");
+        finalPut("finalAddressNote", result.address);
+        finalPut("finalOutcomeNote", result.note);
+        renderFinalPanel("finalShutdownPanel", "REGISTRY RECEIPT / " + outcome, buildFinalShutdownBody(outcome), false);
+        finalPut("finalBlackoutLabel", result.title);
+        finalPut("finalBlackoutTitle", outcome);
+        finalPut("finalBlackoutDescription", result.description);
+        finalPut("finalBlackoutCode", buildFinalShutdownBody(outcome));
     }
-
-    function triggerFinalRevealOverlay(mode) {
-        const T = finalText();
-
-        document.body.classList.remove("t05-fear-active");
-
-        const oldOverlay = document.getElementById("finalRevealOverlay");
-        if (oldOverlay) {
-            oldOverlay.remove();
-        }
-
-        const overlay = document.createElement("div");
-        overlay.id = "finalRevealOverlay";
-        overlay.className = "t05-fear-overlay final-reveal-overlay";
-
-        const veil = document.createElement("div");
-        veil.className = "t05-fear-veil";
-        overlay.appendChild(veil);
-
-        for (let i = 0; i < 30; i++) {
-            const block = document.createElement("div");
-            block.className = "t05-fear-block";
-            block.style.left = Math.floor(Math.random() * 100) + "vw";
-            block.style.top = Math.floor(Math.random() * 100) + "vh";
-            block.style.width = Math.floor(24 + Math.random() * 180) + "px";
-            block.style.height = Math.floor(10 + Math.random() * 76) + "px";
-            block.style.opacity = String(0.14 + Math.random() * 0.34);
-            block.style.animationDelay = String(Math.random() * 0.24) + "s";
-            overlay.appendChild(block);
-        }
-
-        const terminal = document.createElement("div");
-        terminal.className = "t05-fear-terminal";
-
-        const terminalLines = [
-            ">>> " + T.revealLine1,
-            ">>> " + T.revealLine2,
-            ">>> " + T.revealLine3,
-            ">>> " + T.revealLine4,
-            ">>> " + T.revealLine5,
-            ">>> " + T.revealLine6
-        ];
-
-        terminalLines.forEach(function (line, index) {
-            const div = document.createElement("div");
-            div.className = "t05-fear-terminal-line";
-            div.textContent = line;
-            div.style.animationDelay = String(index * 0.14) + "s";
-            terminal.appendChild(div);
-        });
-
-        overlay.appendChild(terminal);
-
-        const modal = document.createElement("div");
-        modal.className = "t05-fear-modal final-reveal-modal";
-
-        const label = document.createElement("div");
-        label.className = "t05-fear-label";
-        label.textContent = "ECHO_REST / FINAL_SYNC";
-
-        const title = document.createElement("h2");
-        title.textContent = T.revealTitleStrong;
-
-        const body1 = document.createElement("p");
-        body1.textContent = T.revealBodyStrong;
-
-        const body2 = document.createElement("p");
-        body2.className = "t05-fear-warning";
-        body2.textContent = T.revealWarningStrong;
-
-        const body3 = document.createElement("p");
-        body3.className = "t05-fear-code";
-        body3.textContent = mode === "shutdown"
-            ? "shutdown_complete == true // current_repairer archived by EchoRest"
-            : "recorded_object == current_repairer // sync_state = pending_shutdown";
-
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.textContent = T.revealButtonStrong;
-
-        function closeFinalOverlay() {
-            document.body.classList.remove("t05-fear-active");
-
-            const nowOverlay = document.getElementById("finalRevealOverlay");
-            if (nowOverlay) {
-                nowOverlay.remove();
-            }
-        }
-
-        btn.addEventListener("click", closeFinalOverlay);
-
-        overlay.addEventListener("click", function (event) {
-            if (event.target === overlay) {
-                closeFinalOverlay();
-            }
-        });
-
-        modal.appendChild(label);
-        modal.appendChild(title);
-        modal.appendChild(body1);
-        modal.appendChild(body2);
-        modal.appendChild(body3);
-        modal.appendChild(btn);
-        overlay.appendChild(modal);
-
-        document.body.classList.add("t05-fear-active");
-        document.documentElement.appendChild(overlay);
+    function openFinalReceipt() {
+        receiptTrigger = document.activeElement;
+        finalShow("finalBlackout", true);
+        finalFocus("finalBlackoutReturnBtn");
     }
-    function triggerFinalGlitch() {
-        document.body.classList.remove("final-hard-glitch");
-        void document.body.offsetWidth;
-        document.body.classList.add("final-hard-glitch");
-
-        setTimeout(function () {
-            document.body.classList.remove("final-hard-glitch");
-        }, 1100);
+    function closeFinalReceipt() {
+        finalShow("finalBlackout", false);
+        if (receiptTrigger && receiptTrigger.isConnected) receiptTrigger.focus();
     }
 
     document.addEventListener("DOMContentLoaded", initFinalPage);
@@ -13426,6 +13941,11 @@ function renderEchoEvidencePost404Index() {
                 !unlocked
             );
 
+            element.classList.toggle(
+                "unlocked",
+                unlocked
+            );
+
             const paragraph =
                 element.querySelector("p");
 
@@ -13438,6 +13958,39 @@ function renderEchoEvidencePost404Index() {
             }
         }
     );
+
+    const usageElement =
+        document.querySelector(
+            '[data-evidence-fragment="usage"]'
+        );
+
+    if (usageElement) {
+        const usageUnlocked =
+            localStorage.getItem(
+                "echorest_t05_room_audit_v1"
+            ) === "1";
+
+        usageElement.classList.toggle(
+            "locked",
+            !usageUnlocked
+        );
+
+        usageElement.classList.toggle(
+            "unlocked",
+            usageUnlocked
+        );
+
+        const usageParagraph =
+            usageElement.querySelector("p");
+
+        if (
+            usageParagraph &&
+            usageUnlocked
+        ) {
+            usageParagraph.textContent =
+                "\u7ef4\u62a4\u4f1a\u8bdd\u5df2\u88ab\u7cfb\u7edf\u89e3\u91ca\u4e3a\u5360\u7528\u8bb0\u5f55\u3002\u5f53\u524d\u5904\u7406\u4eba\u5b57\u6bb5\u5df2\u5199\u5165\u3002";
+        }
+    }
 }
 
 /* =========================

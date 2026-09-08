@@ -27,6 +27,26 @@
     </header>
 
     <main class="forum-main">
+        <div class="legacy-board-breadcrumb">
+            <span>您所在的位置：</span>
+
+            <a href="../../dashboard.html">
+                EchoRest 维护工作区
+            </a>
+
+            <span>›</span>
+
+            <a href="board.html">
+                Echo Board
+            </a>
+
+            <span>›</span>
+
+            <strong>
+                旧站恢复目录
+            </strong>
+        </div>
+
         <section class="simple-card forum-head-card">
             <p class="section-label">论坛总览 / Board Index</p>
             <h1 class="simple-title">Echo Board 已接入。</h1>
@@ -69,6 +89,104 @@
                 <p class="warning-title">站务摘要</p>
                 <p id="boardStatusText">正在比对旧站公开目录与本地缓存。</p>
             </div>
+
+            <div class="legacy-board-runtime-strip">
+
+                <span>
+                    <b>论坛状态：</b>
+                    开放读取
+                </span>
+
+                <span>
+                    <b>当前在线：</b>
+                    17
+                </span>
+
+                <span>
+                    <b>游客：</b>
+                    14
+                </span>
+
+                <span>
+                    <b>维护会话：</b>
+                    1
+                </span>
+
+                <span>
+                    <b>最后索引：</b>
+                    04:04
+                </span>
+
+            </div>
+
+            <div class="legacy-board-ticker">
+
+                <span class="legacy-board-ticker-label">
+                    公告
+                </span>
+
+                <div class="legacy-board-ticker-content">
+                    <a href="#boardFirstShiftGuide">
+                        新接班维护员请先阅读站务交接说明
+                    </a>
+
+                    <span>|</span>
+
+                    <span>
+                        旧站图片附件仍可能出现读取失败
+                    </span>
+
+                    <span>|</span>
+
+                    <span>
+                        搜索索引恢复进度：部分完成
+                    </span>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="board-first-shift" id="boardFirstShiftGuide">
+            <details open>
+                <summary>
+                    <span class="board-pin">置顶</span>
+                    新接班维护员请先看这里
+                </summary>
+
+                <div class="board-first-shift-body">
+                    <p>
+                        旧站已经停止正常维护，目前只处理仍能返回内容的缓存记录。
+                    </p>
+
+                    <p>
+                        第一次进入请从
+                        <a href="thread_01.html">THREAD 01</a>
+                        开始。不要先处理目录外条目。
+                    </p>
+
+                    <div class="board-shift-steps">
+                        <p>
+                            <strong>① 阅读帖子</strong><br />
+                            先确认正文、附件和回复中有哪些不一致。
+                        </p>
+
+                        <p>
+                            <strong>② 使用页面里的检查工具</strong><br />
+                            可点击的附件、缓存、字段和搜索框都会给出下一步信息。
+                        </p>
+
+                        <p>
+                            <strong>③ 处理完成后返回目录</strong><br />
+                            新的记录或检索词可能会随着修复进度出现。
+                        </p>
+                    </div>
+
+                    <p class="board-shift-note">
+                        不需要浏览器开发者工具，也不需要网页或编程知识。
+                        如果后续需要查看“原始响应”或“源记录”，站内会提供对应入口。
+                    </p>
+                </div>
+            </details>
         </section>
 
         <section class="simple-card archive-search-card">
@@ -137,128 +255,355 @@
             </ul>
         </section>
 
-        <section class="simple-card thread-list-card">
-            <p class="section-label">帖子目录</p>
-            <h2 class="section-title">已恢复记录</h2>
+        <section class="simple-card thread-list-card legacy-board-table-card">
 
-            <div class="thread-list">
-                <a class="thread-card" href="thread_01.html">
-                    <div class="thread-card-top">
-                        <span class="thread-tag">THREAD 01</span>
-                        <span class="thread-state state-normal">已恢复</span>
+            <div class="legacy-board-table-titlebar">
+                <div>
+                    <strong>Echo Board</strong>
+                    <span>›</span>
+                    <span>旧站讨论</span>
+                    <span>›</span>
+                    <span>恢复目录</span>
+                </div>
+
+                <div class="legacy-board-table-meta">
+                    主题数：6 / 当前页：1
+                </div>
+            </div>
+
+            <div class="legacy-board-toolbar">
+                <span>版主：未读取</span>
+                <span>|</span>
+                <span>显示方式：主题列表</span>
+                <span>|</span>
+                <span>排序：缓存恢复顺序</span>
+            </div>
+
+            <div class="legacy-thread-header" aria-hidden="true">
+                <span>状态</span>
+                <span>主题 / 摘要</span>
+                <span>作者</span>
+                <span>回复</span>
+                <span>最后记录</span>
+            </div>
+
+            <div class="thread-list legacy-thread-list">
+
+                <a class="thread-card legacy-thread-row"
+                   href="thread_01.html">
+
+                    <div class="thread-card-top legacy-thread-status-cell">
+                        <span class="thread-tag">
+                            THREAD 01
+                        </span>
+
+                        <span class="thread-state state-normal">
+                            已恢复
+                        </span>
                     </div>
 
-                    <h3>神奇植物在哪里</h3>
+                    <div class="legacy-thread-topic-cell">
+                        <h3>
+                            <span class="legacy-topic-icon">□</span>
+                            神奇植物在哪里
+                        </h3>
 
-                    <p class="thread-meta">
-                        版块：旧站讨论 / 附件：图像残缺 /
-                        缓存备注：来源未完全对应
-                    </p>
+                        <p class="thread-meta">
+                            版块：旧站讨论 /
+                            附件：图像残缺 /
+                            来源未完全对应
+                        </p>
 
-                    <p class="thread-desc">
-                        记录可读，但回复区图像与时间顺序存在轻微偏差。
-                        部分附件在刷新后返回结果不稳定。
-                    </p>
-                </a>
-
-                <a class="thread-card" href="thread_02.html">
-                    <div class="thread-card-top">
-                        <span class="thread-tag">THREAD 02</span>
-                        <span class="thread-state state-warning">内容缺失</span>
+                        <p class="thread-desc">
+                            记录可读，但回复区图像与时间顺序存在轻微偏差。
+                        </p>
                     </div>
 
-                    <h3>AAA物流店老板王姐</h3>
-
-                    <p class="thread-meta">
-                        版块：旧站讨论 / 附件：简历碎片 /
-                        缓存备注：用户字段偶发错位
-                    </p>
-
-                    <p class="thread-desc">
-                        主体内容可读，但文本、附件与账号信息之间存在不稳定对应，
-                        刷新后局部字段会变化。
-                    </p>
-                </a>
-
-                <a class="thread-card" href="thread_03.html">
-                    <div class="thread-card-top">
-                        <span class="thread-tag">THREAD 03</span>
-                        <span class="thread-state state-warning">部分恢复</span>
+                    <div class="legacy-thread-author">
+                        旧站用户
+                        <small>普通用户</small>
                     </div>
 
-                    <h3>疲惫的粉刷匠</h3>
-
-                    <p class="thread-meta">
-                        版块：旧站讨论 / 附件：墙体音频 /
-                        缓存备注：存在非原页插入内容
-                    </p>
-
-                    <p class="thread-desc">
-                        页面主体可读，但夹带一段来源不明的广告缓存与异常音频记录，
-                        局部内容疑似串页。
-                    </p>
-                </a>
-
-                <a class="thread-card" href="thread_04.html">
-                    <div class="thread-card-top">
-                        <span class="thread-tag">THREAD 04</span>
-                        <span class="thread-state state-warning">索引偏移</span>
+                    <div class="legacy-thread-replies">
+                        28
                     </div>
 
-                    <h3>交稿了！</h3>
-
-                    <p class="thread-meta">
-                        版块：旧站讨论 / 附件：稿件残页 /
-                        缓存备注：页序记录存在回写
-                    </p>
-
-                    <p class="thread-desc">
-                        稿件顺序、修改时间与页码记录之间存在不稳定覆盖，
-                        部分缓存会重复落回同一位置。
-                    </p>
+                    <div class="legacy-thread-last">
+                        较早
+                        <small>缓存记录</small>
+                    </div>
                 </a>
 
-                <a class="thread-card"
+
+                <a class="thread-card legacy-thread-row"
+                   href="thread_02.html">
+
+                    <div class="thread-card-top legacy-thread-status-cell">
+                        <span class="thread-tag">
+                            THREAD 02
+                        </span>
+
+                        <span class="thread-state state-warning">
+                            内容缺失
+                        </span>
+                    </div>
+
+                    <div class="legacy-thread-topic-cell">
+                        <h3>
+                            <span class="legacy-topic-icon">□</span>
+                            AAA物流店老板王姐
+                        </h3>
+
+                        <p class="thread-meta">
+                            版块：旧站讨论 /
+                            附件：简历碎片 /
+                            用户字段偶发错位
+                        </p>
+
+                        <p class="thread-desc">
+                            文本、附件与账号信息之间存在不稳定对应。
+                        </p>
+                    </div>
+
+                    <div class="legacy-thread-author">
+                        王姐
+                        <small>普通用户</small>
+                    </div>
+
+                    <div class="legacy-thread-replies">
+                        44
+                    </div>
+
+                    <div class="legacy-thread-last">
+                        较早
+                        <small>字段偏移</small>
+                    </div>
+                </a>
+
+
+                <a class="thread-card legacy-thread-row"
+                   href="thread_03.html">
+
+                    <div class="thread-card-top legacy-thread-status-cell">
+                        <span class="thread-tag">
+                            THREAD 03
+                        </span>
+
+                        <span class="thread-state state-warning">
+                            部分恢复
+                        </span>
+                    </div>
+
+                    <div class="legacy-thread-topic-cell">
+                        <h3>
+                            <span class="legacy-topic-icon">□</span>
+                            疲惫的粉刷匠
+                        </h3>
+
+                        <p class="thread-meta">
+                            版块：旧站讨论 /
+                            附件：墙体音频 /
+                            存在非原页插入内容
+                        </p>
+
+                        <p class="thread-desc">
+                            页面主体可读，局部内容疑似与其他缓存串页。
+                        </p>
+                    </div>
+
+                    <div class="legacy-thread-author">
+                        楼主
+                        <small>旧站用户</small>
+                    </div>
+
+                    <div class="legacy-thread-replies">
+                        19
+                    </div>
+
+                    <div class="legacy-thread-last">
+                        较早
+                        <small>串页缓存</small>
+                    </div>
+                </a>
+
+
+                <a class="thread-card legacy-thread-row"
+                   href="thread_04.html">
+
+                    <div class="thread-card-top legacy-thread-status-cell">
+                        <span class="thread-tag">
+                            THREAD 04
+                        </span>
+
+                        <span class="thread-state state-warning">
+                            索引偏移
+                        </span>
+                    </div>
+
+                    <div class="legacy-thread-topic-cell">
+                        <h3>
+                            <span class="legacy-topic-icon">□</span>
+                            交稿了！
+                        </h3>
+
+                        <p class="thread-meta">
+                            版块：旧站讨论 /
+                            附件：稿件残页 /
+                            页序记录存在回写
+                        </p>
+
+                        <p class="thread-desc">
+                            稿件顺序、修改时间与页码记录之间存在不稳定覆盖。
+                        </p>
+                    </div>
+
+                    <div class="legacy-thread-author">
+                        楼主
+                        <small>旧站用户</small>
+                    </div>
+
+                    <div class="legacy-thread-replies">
+                        31
+                    </div>
+
+                    <div class="legacy-thread-last">
+                        未确认
+                        <small>索引回写</small>
+                    </div>
+                </a>
+
+
+                <a class="thread-card legacy-thread-row"
                    id="thread05Card"
                    href="thread_05.html"
                    data-evidence-gate="2">
-                    <div class="thread-card-top">
-                        <span class="thread-tag">THREAD 05</span>
-                        <span class="thread-state state-danger">高关联</span>
+
+                    <div class="thread-card-top legacy-thread-status-cell">
+                        <span class="thread-tag">
+                            THREAD 05
+                        </span>
+
+                        <span class="thread-state state-danger">
+                            高关联
+                        </span>
                     </div>
 
-                    <h3>鸢</h3>
+                    <div class="legacy-thread-topic-cell">
+                        <h3>
+                            <span class="legacy-topic-icon legacy-topic-new">
+                                ■
+                            </span>
+                            第一天上班……
+                        </h3>
 
-                    <p class="thread-meta">
-                        版块：站务记录 / 来源：管理层缓存 /
-                        备注：前台标记与编号未完全对应
-                    </p>
+                        <p class="thread-meta">
+                            版块：旧站讨论 /
+                            来源：站务层缓存 /
+                            普通用户记录中混入后台字段
+                        </p>
 
-                    <p class="thread-desc">
-                        该记录位于普通讨论层之外，包含站务日志与用户缓存残片，
-                        部分字段无法通过前台信息单独确认。
-                    </p>
-                </a>
-
-                <a class="thread-card thread-card-danger" href="post_404.html">
-                    <div class="thread-card-top">
-                        <span class="thread-tag">POST 404</span>
-                        <span class="thread-state state-danger">不可用</span>
+                        <p class="thread-desc">
+                            一名新管理员留下的普通论坛记录。
+                            后半部分混入了不应出现在前台的站务缓存。
+                        </p>
                     </div>
 
-                    <h3>【缺失实例】该条目索引返回异常</h3>
+                    <div class="legacy-thread-author">
+                        MOD_005
+                        <small>账号字段损坏</small>
+                    </div>
 
-                    <p class="thread-meta">
-                        来源：目录外条目 / 状态：返回不稳定 /
-                        备注：不建议直接校验
-                    </p>
+                    <div class="legacy-thread-replies">
+                        50241
+                    </div>
 
-                    <p class="thread-desc">
-                        该条目会间歇性出现在公开目录中，
-                        但其返回形式与普通缺页不一致，历史记录未能稳定归档。
-                    </p>
+                    <div class="legacy-thread-last">
+                        04:04
+                        <small>缓存时间</small>
+                    </div>
                 </a>
+
+
+                <a class="thread-card legacy-thread-row thread-card-danger"
+                   href="post_404.html">
+
+                    <div class="thread-card-top legacy-thread-status-cell">
+                        <span class="thread-tag">
+                            POST 404
+                        </span>
+
+                        <span class="thread-state state-danger">
+                            不可用
+                        </span>
+                    </div>
+
+                    <div class="legacy-thread-topic-cell">
+                        <h3>
+                            <span class="legacy-topic-icon legacy-topic-broken">
+                                ×
+                            </span>
+                            【缺失实例】该条目索引返回异常
+                        </h3>
+
+                        <p class="thread-meta">
+                            来源：目录外条目 /
+                            状态：返回不稳定 /
+                            不建议直接校验
+                        </p>
+
+                        <p class="thread-desc">
+                            条目会间歇性出现在公开目录中，
+                            但历史记录无法稳定归档。
+                        </p>
+                    </div>
+
+                    <div class="legacy-thread-author">
+                        --
+                        <small>无法读取</small>
+                    </div>
+
+                    <div class="legacy-thread-replies">
+                        --
+                    </div>
+
+                    <div class="legacy-thread-last">
+                        --
+                        <small>无记录</small>
+                    </div>
+                </a>
+
             </div>
+
+
+            <div class="legacy-board-pager">
+                <span>第 1 页 / 共 1 页</span>
+
+                <strong>[1]</strong>
+
+                <span class="legacy-board-pager-disabled">
+                    下一页 ›
+                </span>
+            </div>
+
+
+            <div class="legacy-board-stats">
+                <span>
+                    主题：6
+                </span>
+
+                <span>
+                    帖子：无法完整统计
+                </span>
+
+                <span>
+                    今日恢复：4
+                </span>
+
+                <span>
+                    最后缓存更新：04:04
+                </span>
+            </div>
+
         </section>
 
         <section class="simple-card forum-side-card">

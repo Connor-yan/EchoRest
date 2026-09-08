@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EchoRest — admin terminal</title>
+    <title>EchoRest — object registration</title>
     <link rel="stylesheet" href="../../assets/css/style.css" />
 </head>
 
@@ -17,50 +17,58 @@
                 <span class="brand-dot"></span>
                 <span class="brand-name">EchoRest</span>
             </div>
-            <p class="brand-sub">Admin Terminal / 权限冲突后台</p>
+            <p class="brand-sub">Admin Terminal / 对象登记终端</p>
         </div>
 
         <div class="status-block">
-            <p>后台状态：未授权访问</p>
-            <p>权限层级：冲突</p>
-            <p>当前模块：admin_conflict</p>
+            <p>终端状态：登记模式</p>
+            <p>对象类型：待确认</p>
+            <p>当前模块：spatial_registry</p>
         </div>
     </header>
 
     <main class="thread-main admin-main">
         <section class="simple-card admin-head-card">
-            <p class="section-label">ADMIN TERMINAL</p>
-            <h1 class="simple-title">权限冲突检测</h1>
+            <p class="section-label">OBJECT REGISTRATION</p>
+            <h1 class="simple-title">对象登记终端</h1>
 
             <div class="admin-warning-line">
-                该页面不应出现在维修员工作区。你不是管理员。或者，你已经是了。
+                镜像结果已返回空间类结构。系统正在等待当前维护会话完成登记。
             </div>
 
             <div class="thread-info-grid">
                 <div class="thread-info-item">
-                    <span class="thread-info-key">当前管理员</span>
-                    <span class="thread-info-value admin-danger-text">鸢 / MOD_005</span>
+                    <span class="thread-info-key">对象来源</span>
+                    <span class="thread-info-value admin-danger-text">
+                        post_404.index
+                    </span>
                 </div>
 
                 <div class="thread-info-item">
                     <span class="thread-info-key">当前处理人</span>
-                    <span class="thread-info-value" id="adminWorkerValue">未读取</span>
+                    <span class="thread-info-value" id="adminWorkerValue">
+                        未读取
+                    </span>
                 </div>
 
                 <div class="thread-info-item">
-                    <span class="thread-info-key">权限冲突</span>
-                    <span class="thread-info-value admin-danger-text" id="adminConflictValue">true</span>
+                    <span class="thread-info-key">登记状态</span>
+                    <span class="thread-info-value admin-danger-text" id="adminConflictValue">
+                        WAITING
+                    </span>
                 </div>
 
                 <div class="thread-info-item">
-                    <span class="thread-info-key">身份合并率</span>
-                    <span class="thread-info-value" id="adminMergeValue">未计算</span>
+                    <span class="thread-info-key">登记进度</span>
+                    <span class="thread-info-value" id="adminMergeValue">
+                        0%
+                    </span>
                 </div>
             </div>
 
             <div class="login-log-box admin-system-box">
-                <p class="warning-title">ADMIN MESSAGE</p>
-                <p id="adminStatusText">正在等待权限校验。</p>
+                <p class="warning-title">REGISTRY MESSAGE</p>
+                <p id="adminStatusText">正在等待对象登记读取。</p>
             </div>
         </section>
 
@@ -68,28 +76,28 @@
             <p class="section-label">ADMIN CONSOLE</p>
 
             <div class="admin-terminal">
-                <p>[admin] route exposed by mirror profile</p>
-                <p>[admin] current_admin = 鸢 / MOD_005</p>
-                <p>[admin] current_repairer = <span id="adminInlineWorker">unknown</span></p>
-                <p>[admin] permission_conflict = true</p>
-                <p>[admin] waiting for operator action...</p>
+                <p>[registry] route exposed by spatial mirror</p>
+                <p>[registry] source_object = post_404.index</p>
+                <p>[registry] current_operator = <span id="adminInlineWorker">unknown</span></p>
+                <p>[registry] object_type = UNRESOLVED</p>
+                <p>[registry] waiting for registration action...</p>
             </div>
 
             <div class="admin-action-grid">
                 <button class="admin-action-btn" type="button" data-admin-action="scan">
-                    读取权限冲突
+                    读取登记对象
                 </button>
 
                 <button class="admin-action-btn locked" type="button" data-admin-action="takeover">
-                    尝试接管权限
+                    确认对象类型
                 </button>
 
                 <button class="admin-action-btn locked" type="button" data-admin-action="rollback">
-                    回滚鸢的账号
+                    校验公开目录
                 </button>
 
                 <button class="admin-action-btn locked danger" type="button" data-admin-action="logout">
-                    注销当前维修员
+                    提交对象登记
                 </button>
             </div>
 
@@ -100,44 +108,73 @@
         </section>
 
         <section class="simple-card admin-fragment-card">
-            <p class="section-label">ADMIN RECOVERY NOTES</p>
+            <p class="section-label">REGISTRY RECOVERY NOTES</p>
 
             <div class="admin-fragment-list">
                 <div class="admin-fragment">
-                    <span>ADMIN_NOTE_01</span>
-                    <p>“后台不是权限更高的地方。后台只是更接近记录你的地方。”</p>
+                    <span>REGISTRY_NOTE_01</span>
+                    <p>
+                        未找到对应空间条目。<br />
+                        字段完整性检查：通过。<br />
+                        流程未中止。
+                    </p>
                 </div>
 
                 <div class="admin-fragment">
-                    <span>ADMIN_NOTE_02</span>
-                    <p>“你看见的按钮不是选择。它们只是让系统知道你愿意继续点。”</p>
+                    <span>REGISTRY_NOTE_02</span>
+                    <p>
+                        公开目录匹配结果：NONE。<br />
+                        系统已自动创建新对象位。
+                    </p>
                 </div>
 
                 <div class="admin-fragment locked" id="adminHiddenFragment">
-                    <span>ADMIN_NOTE_03</span>
-                    <p>等待任意危险操作完成。</p>
+                    <span>REGISTRY_NOTE_03</span>
+                    <p>等待登记写入完成。</p>
                 </div>
             </div>
 
             <div id="adminFinalExpose" class="admin-final-box hidden">
-                <p class="warning-title">FINAL ROUTE EXPOSED</p>
-                <p>当前处理人已被写入管理员冲突记录。最终同步页已暴露。</p>
+                <p class="warning-title">
+                    REGISTRATION WRITE ACCEPTED
+                </p>
 
-                <div class="admin-route-actions">
-                    <a href="../final/shutdown.html">进入 final sync</a>
-                    <a href="../restore/mirror.html">返回 mirror route</a>
-                    <a href="../forum/board.html">返回论坛目录</a>
+                <p>
+                    目录外对象已取得完整字段。
+                    系统正在为其创建新的公开空间记录。
+                </p>
+
+                <div class="admin-system-summary">
+                    <p>object_type — SPATIAL_OBJECT</p>
+                    <p>field_set — COMPLETE</p>
+                    <p>directory_match — NONE</p>
+                    <p>allocation_mode — CREATE_NEW_ENTRY</p>
                 </div>
 
                 <p class="admin-route-note">
-                    final route 已指向 pages/final/shutdown.html。
+                    新对象位已分配。
+                    最终同步将写入可访问记录。
                 </p>
+
+                <div class="admin-route-actions">
+                    <a href="../final/shutdown.html">
+                        进入最终同步
+                    </a>
+
+                    <a href="../restore/mirror.html">
+                        返回对象镜像
+                    </a>
+
+                    <a href="../forum/board.html">
+                        暂时返回论坛
+                    </a>
+                </div>
             </div>
         </section>
 
         <section class="simple-card thread-nav-card">
             <div class="thread-nav-links">
-                <a href="../restore/mirror.html">返回 mirror route</a>
+                <a href="../restore/mirror.html">返回对象镜像</a>
                 <span>|</span>
                 <a href="../forum/post_404.html">返回 post_404.index</a>
                 <span>|</span>
@@ -147,8 +184,8 @@
     </main>
 
     <footer class="site-footer">
-        <p>EchoRest Admin Terminal v0.6.0</p>
-        <p>该页面不属于公开维修员工作区</p>
+        <p>EchoRest Spatial Registry Terminal v0.6.0</p>
+        <p>该模块用于处理目录外对象登记</p>
         <p>© 未检测到有效归属方</p>
     </footer>
 

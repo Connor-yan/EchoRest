@@ -27,58 +27,159 @@
     </header>
 
     <main class="simple-page-main">
-        <section class="simple-card login-card">
-            <p class="section-label">身份验证 / Access Check</p>
-            <h1 class="simple-title">进入工作区前，请完成身份验证。</h1>
+        <section class="simple-card login-card legacy-login-shell">
+            <div class="legacy-login-windowbar">
+                <span>EchoRest Maintenance Access</span>
+
+                <div class="legacy-login-window-controls" aria-hidden="true">
+                    <span>_</span>
+                    <span>□</span>
+                    <span>×</span>
+                </div>
+            </div>
+
+            <p class="section-label">
+                USER AUTHENTICATION / 内部维护接入
+            </p>
+
+            <h1 class="simple-title">
+                EchoRest 站点维护系统
+            </h1>
 
             <p class="simple-text">
-                你正在访问 EchoRest 的维护入口。请输入分配给你的维修员编号与访问码。
+                当前节点仅开放临时维修员登录。
+                登录后请从公开论坛恢复任务开始处理。
             </p>
 
             <p class="simple-text dim-text">
-                注意：系统可能保留此前未完成的登录痕迹。
+                系统将保留维修员编号、访问时间及当前会话记录。
             </p>
+
+            <div class="legacy-login-status-table">
+
+                <div class="legacy-login-status-row">
+                    <span class="legacy-login-status-key">
+                        服务节点
+                    </span>
+
+                    <span class="legacy-login-status-value">
+                        ER-NODE-03
+                    </span>
+                </div>
+
+                <div class="legacy-login-status-row">
+                    <span class="legacy-login-status-key">
+                        节点状态
+                    </span>
+
+                    <span class="legacy-login-status-value legacy-login-online">
+                        <i class="legacy-login-led"></i>
+                        ONLINE
+                    </span>
+                </div>
+
+                <div class="legacy-login-status-row">
+                    <span class="legacy-login-status-key">
+                        授权级别
+                    </span>
+
+                    <span class="legacy-login-status-value">
+                        TEMPORARY MAINTENANCE
+                    </span>
+                </div>
+
+                <div class="legacy-login-status-row">
+                    <span class="legacy-login-status-key">
+                        默认任务
+                    </span>
+
+                    <span class="legacy-login-status-value">
+                        ECHO BOARD / PUBLIC RESTORE
+                    </span>
+                </div>
+
+            </div>
 
             <div class="login-alert hidden" id="historyAlert">
                 &#26816;&#27979;&#21040;&#30456;&#21516;&#32534;&#21495;&#30340;&#21382;&#21490;&#20250;&#35805;&#12290;
             </div>
 
-            <form id="loginForm" class="login-form" novalidate>
-                <div class="form-group">
-                    <label for="workerId">维修员编号</label>
-                    <input type="text"
-                           id="workerId"
-                           name="workerId"
-                           placeholder="例如：observer_13"
-                           autocomplete="off" />
+            <form id="loginForm"
+                  class="login-form legacy-login-form"
+                  novalidate>
+
+                <div class="legacy-login-field-table">
+
+                    <div class="legacy-login-field-row">
+                        <label for="workerId">
+                            维修员编号：
+                        </label>
+
+                        <input type="text"
+                               id="workerId"
+                               name="workerId"
+                               placeholder="observer_13"
+                               autocomplete="off" />
+                    </div>
+
+                    <div class="legacy-login-field-row">
+                        <label for="accessCode">
+                            访问码：
+                        </label>
+
+                        <input type="password"
+                               id="accessCode"
+                               name="accessCode"
+                               placeholder=""
+                               autocomplete="off" />
+                    </div>
+
                 </div>
 
-                <div class="form-group">
-                    <label for="accessCode">访问码</label>
-                    <input type="password"
-                           id="accessCode"
-                           name="accessCode"
-                           placeholder="请输入访问码"
-                           autocomplete="off" />
-                </div>
-
-                <div class="hint-box">
-                    <p>当前测试阶段可用访问码：</p>
-                    <p><strong>ECHO-13</strong></p>
+                <div class="hint-box legacy-login-hint">
+                    <p>
+                        <strong>测试节点：</strong>
+                        当前维护访问码为
+                        <code>ECHO-13</code>
+                    </p>
                 </div>
 
                 <p class="form-error" id="formError"></p>
 
-                <div class="hero-buttons">
-                    <button type="submit" class="btn btn-primary">验证并进入</button>
-                    <a class="btn btn-secondary" href="index.html">返回入口页</a>
+                <div class="hero-buttons legacy-login-actions">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        登录
+                    </button>
+
+                    <button type="reset"
+                            class="btn btn-secondary">
+                        清空
+                    </button>
+
+                    <a class="btn btn-secondary"
+                       href="index.html">
+                        返回
+                    </a>
+
                 </div>
             </form>
 
-            <div class="login-log-box">
-                <p class="warning-title">节点提示</p>
-                <p id="loginStatusText">&#31561;&#24453;&#36755;&#20837;&#12290;</p>
+            <div class="login-log-box legacy-login-message">
+                <div class="legacy-login-message-head">
+                    SYSTEM MESSAGE
+                </div>
+
+                <p id="loginStatusText">
+                    &#31561;&#24453;&#36755;&#20837;&#12290;
+                </p>
             </div>
+            <p class="legacy-login-footnote">
+                Security module 1.4.2 / session logging enabled /
+                connection type: intranet mirror
+            </p>
+
         </section>
     </main>
 

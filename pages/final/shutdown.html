@@ -3,170 +3,158 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EchoRest — final sync</title>
+    <title>EchoRest — Registry Verification / 登记前核验</title>
     <link rel="stylesheet" href="../../assets/css/style.css" />
 </head>
-
 <body class="page-final-shutdown">
     <div class="screen-noise"></div>
     <div class="screen-scanlines"></div>
-
     <header class="topbar">
         <div class="brand-block">
-            <div class="brand-line">
-                <span class="brand-dot"></span>
-                <span class="brand-name">EchoRest</span>
-            </div>
-            <p class="brand-sub">Final Sync / 最终同步</p>
+            <div class="brand-line"><span class="brand-dot"></span><span class="brand-name">EchoRest</span></div>
+            <p class="brand-sub">Registry Verification / 登记前核验</p>
         </div>
-
         <div class="status-block">
-            <p>同步状态：不可回滚</p>
-            <p>记录对象：当前处理人</p>
-            <p>章节状态：closing</p>
+            <p>同步状态：<span id="finalHeaderState">待写入</span></p>
+            <p>登记对象：目录外空间</p>
+            <p>当前模块：spatial_registry</p>
         </div>
     </header>
-
     <main class="thread-main final-main">
         <section class="simple-card final-head-card">
-            <p class="section-label">FINAL SYNC</p>
-            <h1 class="simple-title">关闭 EchoRest</h1>
-
-            <div class="final-warning-line">
-                该流程不会删除 EchoRest。它只会结束当前处理人可以看见的部分。
-            </div>
-
+            <p class="section-label">REGISTRY VERIFICATION</p>
+            <h1 class="simple-title">登记前核验</h1>
+            <div class="final-warning-line" id="finalIntroText">post_404.index 已被解释为空间对象，正在等待写入公开空间目录。你可以直接提交登记，也可以调取底层记录，核验本次写入的依据。</div>
             <div class="thread-info-grid">
-                <div class="thread-info-item">
-                    <span class="thread-info-key">当前处理人</span>
-                    <span class="thread-info-value" id="finalWorkerValue">未读取</span>
-                </div>
-
-                <div class="thread-info-item">
-                    <span class="thread-info-key">本地会话</span>
-                    <span class="thread-info-value" id="finalSessionValue">未读取</span>
-                </div>
-
-                <div class="thread-info-item">
-                    <span class="thread-info-key">管理员槽位</span>
-                    <span class="thread-info-value final-danger-text" id="finalSlotValue">等待同步</span>
-                </div>
-
-                <div class="thread-info-item">
-                    <span class="thread-info-key">关闭状态</span>
-                    <span class="thread-info-value" id="finalCloseValue">未执行</span>
-                </div>
+                <div class="thread-info-item"><span class="thread-info-key">当前处理人</span><span class="thread-info-value" id="finalWorkerValue">未读取</span></div>
+                <div class="thread-info-item"><span class="thread-info-key">来源会话</span><span class="thread-info-value" id="finalSessionValue">未读取</span></div>
+                <div class="thread-info-item"><span class="thread-info-key">空间编号</span><span class="thread-info-value final-danger-text" id="finalSlotValue">—404 / 待写入</span></div>
+                <div class="thread-info-item"><span class="thread-info-key">登记状态</span><span class="thread-info-value" id="finalCloseValue">PENDING</span></div>
             </div>
-
             <div class="login-log-box final-system-box">
-                <p class="warning-title">FINAL MESSAGE</p>
-                <p id="finalStatusText">正在等待最终同步。</p>
+                <p class="warning-title">REGISTRY MESSAGE</p>
+                <p id="finalStatusText" role="status" aria-live="polite">等待核验或提交登记。</p>
             </div>
         </section>
-
+        <section class="simple-card final-verification-card" aria-labelledby="finalVerificationTitle">
+            <div class="final-verification-heading"><h2 id="finalVerificationTitle">核验工作区</h2><p id="finalVerificationProgress" aria-live="polite">已核验 0 / 3</p></div>
+            <p class="final-verification-intro">三份记录来自不同的登记层。打开记录后，可继续追查其引用来源。核验不会自动提交任何变更。</p>
+            <div class="final-investigation-grid">
+                <article class="final-investigation-card" data-final-investigation="directory">
+                    <span class="final-investigation-number">01 / PUBLIC DIRECTORY</span><h3>公开目录核验</h3>
+                    <p class="final-investigation-desc">检查待写入地址与公开空间目录的对应关系。</p>
+                    <span class="final-investigation-state" id="finalDirectoryState">未调取</span>
+                    <button class="final-action-btn" type="button" data-final-action="directory" aria-controls="finalDirectoryPanel" aria-expanded="false">调取目录记录</button>
+                </article>
+                <article class="final-investigation-card" data-final-investigation="source">
+                    <span class="final-investigation-number">02 / SOURCE INDEX</span><h3>源索引核验</h3>
+                    <p class="final-investigation-desc">检查 post_404.index 与新空间条目的登记关系。</p>
+                    <span class="final-investigation-state" id="finalSourceState">未调取</span>
+                    <button class="final-action-btn" type="button" data-final-action="source" aria-controls="finalSourcePanel" aria-expanded="false">调取索引记录</button>
+                </article>
+                <article class="final-investigation-card" data-final-investigation="usage">
+                    <span class="final-investigation-number">03 / SESSION USAGE</span><h3>当前会话核验</h3>
+                    <p class="final-investigation-desc">检查 USAGE FIELD 的构成与最后一项写入依据。</p>
+                    <span class="final-investigation-state" id="finalUsageState">未调取</span>
+                    <button class="final-action-btn" type="button" data-final-action="usage" aria-controls="finalUsagePanel" aria-expanded="false">调取使用记录</button>
+                </article>
+            </div>
+            <section id="finalDirectoryPanel" class="final-dossier hidden" tabindex="-1" aria-labelledby="finalDirectoryTitle">
+                <p class="section-label">PUBLIC DIRECTORY / QUERY</p><h3 id="finalDirectoryTitle">待写入地址匹配</h3>
+                <pre class="final-evidence-record" id="finalDirectoryRecord"></pre>
+                <p>登记前，分配器返回了一个可用编号。可展开其引用的历史目录快照，检查分配依据。</p>
+                <div class="final-action-grid"><button class="final-action-btn" type="button" data-final-action="directory-compare" aria-controls="finalDirectoryFinding" aria-expanded="false">比对登记前快照</button></div>
+                <div id="finalDirectoryFinding" class="final-finding hidden" tabindex="-1">
+                    <p class="warning-title">DIRECTORY MISMATCH / 已记录异常</p>
+                    <pre class="final-evidence-record">snapshot = BEFORE_OBJECT_REGISTRATION
+query = BUILDING_4 / WEST_WALL / -404
+historical_entry = NONE
+mapped_physical_space = 0
+allocation_basis = COMPLETED_OBJECT_FIELDS</pre>
+                    <p>历史公开目录中没有 —404，建筑图也没有对应空间。新编号来自已补全的对象字段，而不是既有房间。维护记录被当作了空间存在的依据。</p>
+                    <p>可将这项不一致附入异常复核；提交后，本次公开写入会被隔离，等待复核。</p>
+                    <button class="final-action-btn hidden" type="button" data-final-action="quarantine">附上目录差异，提交异常复核</button>
+                </div>
+            </section>
+            <section id="finalSourcePanel" class="final-dossier hidden" tabindex="-1" aria-labelledby="finalSourceTitle">
+                <p class="section-label">SOURCE INDEX / LINK</p><h3 id="finalSourceTitle">索引与空间对象</h3>
+                <pre class="final-evidence-record">source_index = post_404.index
+interpreted_as = SPATIAL_OBJECT
+target_registry = PUBLIC_SPATIAL_INDEX
+operation = CREATE_SPATIAL_ENTRY
+cleanup_rule = registry_commit.retention</pre>
+                <p>登记请求的操作是创建公开空间条目。源索引的后续状态由另一条规则处理。</p>
+                <div class="final-action-grid"><button class="final-action-btn" type="button" data-final-action="source-retention" aria-controls="finalSourceFinding" aria-expanded="false">展开提交后的保留规则</button></div>
+                <div id="finalSourceFinding" class="final-finding hidden" tabindex="-1">
+                    <p class="warning-title">SOURCE RETENTION / 源索引保留</p>
+                    <pre class="final-evidence-record" id="finalSourceRecord"></pre>
+                    <p>空间登记没有消耗或替换 post_404.index。即使新地址生效，这个目录外索引仍然可读，继续作为空间条目的来源。</p>
+                </div>
+            </section>
+            <section id="finalUsagePanel" class="final-dossier hidden" tabindex="-1" aria-labelledby="finalUsageTitle">
+                <p class="section-label">SESSION USAGE / FIELD TRACE</p><h3 id="finalUsageTitle">使用字段的最后一项</h3>
+                <pre class="final-evidence-record" id="finalUsageRecord"></pre>
+                <p>前三个字段由维护记录补全。使用字段另有一条追加记录，可继续解析它的来源指针。</p>
+                <div class="final-action-grid"><button class="final-action-btn" type="button" data-final-action="usage-trace" aria-controls="finalUsageFinding" aria-expanded="false">追踪最后一项的会话来源</button></div>
+                <div id="finalUsageFinding" class="final-finding hidden" tabindex="-1">
+                    <p class="warning-title">CURRENT SESSION MATCH / 当前会话匹配</p>
+                    <pre class="final-evidence-record" id="finalUsageTrace"></pre>
+                    <p>USAGE FIELD 的最后一项来自本次登记引用的当前维护会话。系统把这次处理行为解释为该空间正在被使用，并用它补齐最后一个字段。</p>
+                    <p>可撤回当前会话对本次登记的使用证明。撤回后，USAGE FIELD 将失去这一项依据，本次公开写入随之终止。</p>
+                    <button class="final-action-btn hidden" type="button" data-final-action="withdraw">撤回当前会话的使用证明</button>
+                </div>
+            </section>
+        </section>
         <section class="simple-card final-console-card">
-            <p class="section-label">FINAL CONSOLE</p>
-
+            <p class="section-label">REGISTRATION CONSOLE</p>
             <div class="final-terminal">
-                <p>[final] route exposed by admin terminal</p>
-                <p>[final] previous_admin = 鸢 / MOD_005</p>
-                <p>[final] current_repairer = <span id="finalInlineWorker">unknown</span></p>
-                <p>[final] next_admin_slot = waiting</p>
-                <p>[final] shutdown request = not submitted</p>
+                <p>[registry] source_object = post_404.index</p><p>[registry] object_type = SPATIAL_OBJECT</p>
+                <p>[registry] current_operator = <span id="finalInlineWorker">unknown</span></p>
+                <p>[registry] public_address = 4号楼 / 西侧墙面 / —404</p>
+                <p>[registry] registration_commit = <span id="finalCommitState">NOT_SUBMITTED</span></p>
             </div>
-
+            <p class="final-commit-note" id="finalCommitNote">提交将使该地址进入公开空间目录。调取记录属于可选核验，不是登记的前置步骤；提交后的回执将固定本次处理结果。</p>
             <div class="final-action-grid">
-                <button class="final-action-btn" type="button" data-final-action="sync">
-                    读取最终同步
-                </button>
-
-                <button class="final-action-btn locked" type="button" data-final-action="record">
-                    查看写入对象
-                </button>
-
-                <button class="final-action-btn locked danger" type="button" data-final-action="shutdown">
-                    执行关闭流程
-                </button>
+                <button class="final-action-btn" type="button" data-final-action="sync" aria-controls="finalSyncPanel" aria-expanded="false">读取登记同步</button>
+                <button class="final-action-btn" type="button" data-final-action="record" aria-controls="finalRecordPanel" aria-expanded="false">查看待写入空间</button>
+                <button class="final-action-btn danger" type="button" data-final-action="shutdown">提交空间登记</button>
             </div>
-
-            <div id="finalSyncPanel" class="final-output-panel hidden"></div>
-            <div id="finalRecordPanel" class="final-output-panel hidden"></div>
+            <div id="finalSyncPanel" class="final-output-panel hidden" tabindex="-1"></div>
+            <div id="finalRecordPanel" class="final-output-panel hidden" tabindex="-1"></div>
             <div id="finalShutdownPanel" class="final-output-panel hidden"></div>
         </section>
-
         <section class="simple-card final-fragment-card">
-            <p class="section-label">LAST RECOVERED NOTES</p>
-
+            <p class="section-label">REGISTRY NOTES / 处理记录</p>
             <div class="final-fragment-list">
-                <div class="final-fragment">
-                    <span>FINAL_NOTE_01</span>
-                    <p>“你修复了很多东西。它们也终于有机会修复你。”</p>
-                </div>
-
-                <div class="final-fragment">
-                    <span>FINAL_NOTE_02</span>
-                    <p>“下一次有人打开这些页面时，他会觉得自己是第一个。”</p>
-                </div>
-
-                <div class="final-fragment locked" id="finalHiddenFragment">
-                    <span>FINAL_NOTE_03</span>
-                    <p>等待关闭流程完成。</p>
-                </div>
+                <div class="final-fragment"><span>REGISTRY_FINAL_01</span><p>登记对象：post_404.index 对应的目录外空间。公开目录仅接收已提交并获准写入的条目。</p></div>
+                <div class="final-fragment"><span>REGISTRY_FINAL_02</span><p id="finalInvestigationNote">尚未形成核验记录。可从核验工作区调取登记依据。</p></div>
+                <div class="final-fragment locked" id="finalHiddenFragment"><span>REGISTRY_FINAL_03</span><p>等待本次登记处理回执。</p></div>
             </div>
-
-            <div id="finalEndingBox" class="final-ending-box hidden">
-                <p class="warning-title">ECHO RESTORED</p>
-                <p>
-                    当前维修员已经从“访问者”变为“可恢复对象”。
-                    EchoRest 不再需要你继续修复本轮页面。
-                </p>
-
-                <div class="final-route-actions">
-                    <a href="../../index.html">返回入口页</a>
-                    <a href="../forum/board.html">查看旧论坛</a>
-                    <a href="../admin/user_unknown.html">打开 user_unknown.cache</a>
+            <div id="finalEndingBox" class="final-ending-box hidden" tabindex="-1" aria-labelledby="finalEndingTitle">
+                <p class="warning-title" id="finalEndingTitle"></p><p id="finalEndingDescription"></p>
+                <div class="admin-system-summary">
+                    <p>对象类型：SPATIAL_OBJECT</p><p>登记状态：<span id="finalEndingState"></span></p><p>公开查询：<span id="finalPublicLookup"></span></p>
                 </div>
-
-                <p class="final-route-note">
-                    user_unknown.cache 可以作为下一阶段隐藏支线继续扩展。
-                </p>
+                <div class="final-address-record">
+                    <p class="section-label" id="finalAddressLabel">TARGET ADDRESS</p><h2>4号楼 / 西侧墙面 / —404</h2><p id="finalAddressNote"></p>
+                </div>
+                <p class="final-route-note" id="finalOutcomeNote"></p>
+                <div class="final-receipt-actions"><button class="final-action-btn" type="button" data-final-action="receipt">展开处理回执</button></div>
+                <div class="final-route-actions"><a href="../../index.html">返回入口页</a><a href="../forum/board.html">返回论坛</a><a href="../forum/post_404.html">再次读取 post_404.index</a></div>
             </div>
         </section>
-
         <section class="simple-card thread-nav-card">
-            <div class="thread-nav-links">
-                <a href="../admin/terminal.html">返回 admin terminal</a>
-                <span>|</span>
-                <a href="../restore/mirror.html">返回 mirror route</a>
-                <span>|</span>
-                <a href="../forum/board.html">返回论坛目录</a>
-            </div>
+            <div class="thread-nav-links"><a href="../admin/terminal.html">返回对象登记终端</a><span>|</span><a href="../restore/mirror.html">返回对象镜像</a><span>|</span><a href="../forum/board.html">返回论坛目录</a></div>
         </section>
     </main>
-
-    <footer class="site-footer">
-        <p>EchoRest Final Sync v0.7.0</p>
-        <p>关闭流程只会结束当前可见页面</p>
-        <p>© 未检测到有效归属方</p>
-    </footer>
-
-    <div id="finalBlackout" class="final-blackout hidden">
+    <footer class="site-footer"><p>EchoRest Spatial Registry v0.7.0</p><p id="finalFooterState">公开空间目录等待写入</p><p>© 未检测到有效归属方</p></footer>
+    <div id="finalBlackout" class="final-blackout hidden" role="dialog" aria-modal="true" aria-labelledby="finalBlackoutTitle" aria-describedby="finalBlackoutDescription">
         <div class="final-blackout-inner">
-            <p class="final-blackout-label">ECHO RESTORED</p>
-            <h2>当前维修会话已关闭。</h2>
-            <p>
-                你可以关掉这个页面。
-                如果你再次打开 EchoRest，它会像第一次见到你一样欢迎你。
-            </p>
-            <p class="final-blackout-code">
-                next_admin_slot = current_repairer<br>
-                previous_admin = 鸢<br>
-                current_repairer = <span id="finalBlackoutWorker">unknown</span>
-            </p>
+            <p class="final-blackout-label" id="finalBlackoutLabel">REGISTRY RECEIPT</p><h2 id="finalBlackoutTitle"></h2><p id="finalBlackoutDescription"></p>
+            <p class="final-blackout-code" id="finalBlackoutCode"></p><p>4号楼 / 西侧墙面 / —404</p>
             <button type="button" id="finalBlackoutReturnBtn">重新显示页面</button>
         </div>
     </div>
-
     <script src="../../assets/js/main.js"></script>
 </body>
 </html>
