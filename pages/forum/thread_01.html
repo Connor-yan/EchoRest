@@ -1,468 +1,1261 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>EchoRest — 神奇植物在哪里</title>
-    <link rel="stylesheet" href="../../assets/css/style.css?v=20260701-investigation" />
+
+    <link rel="stylesheet"
+          href="../../assets/css/style.css?v=20260701-investigation" />
 </head>
+
+
 <body class="page-thread-01">
+
     <div class="screen-noise"></div>
     <div class="screen-scanlines"></div>
 
+
+    <!-- ==================================================
+         TOP BAR
+         ================================================== -->
+
     <header class="topbar">
+
         <div class="brand-block">
+
             <div class="brand-line">
                 <span class="brand-dot"></span>
                 <span class="brand-name">EchoRest</span>
             </div>
-            <p class="brand-sub">旧论坛恢复 / 线程阅读</p>
+
+            <p class="brand-sub">
+                旧论坛恢复 / 线程阅读
+            </p>
+
         </div>
+
 
         <div class="status-block">
             <p>读取层：公开目录</p>
             <p>缓存一致性：待复核</p>
             <p>附件状态：局部缺口</p>
         </div>
+
     </header>
 
+
     <main class="thread-main">
+
+
+        <!-- ==================================================
+             BREADCRUMB
+             ================================================== -->
+
+        <div class="legacy-thread-breadcrumb">
+
+            <span>
+                您所在的位置：
+            </span>
+
+            <a href="../../dashboard.html">
+                EchoRest 维护工作区
+            </a>
+
+            <span>›</span>
+
+            <a href="board.html">
+                Echo Board
+            </a>
+
+            <span>›</span>
+
+            <a href="board.html">
+                旧站讨论
+            </a>
+
+            <span>›</span>
+
+            <strong>
+                神奇植物在哪里
+            </strong>
+
+        </div>
+
+
+        <!-- ==================================================
+             THREAD HEADER
+             ================================================== -->
+
         <section class="simple-card thread-head-card">
-            <p class="section-label">THREAD 01</p>
-            <h1 class="simple-title">神奇植物在哪里</h1>
+
+            <div class="legacy-thread-titlebar">
+
+                <div>
+
+                    <span class="legacy-thread-folder-icon">
+                        □
+                    </span>
+
+                    <strong>
+                        旧站讨论
+                    </strong>
+
+                    <span class="legacy-thread-id">
+                        THREAD 01
+                    </span>
+
+                </div>
+
+
+                <span class="legacy-thread-title-state">
+                    CACHE RESTORED
+                </span>
+
+            </div>
+
+
+            <div class="legacy-thread-topic-head">
+
+                <h1 class="simple-title">
+                    神奇植物在哪里
+                </h1>
+
+                <p>
+                    查看模式：缓存恢复页 /
+                    当前主题共 3 条主体记录
+                </p>
+
+            </div>
+
 
             <div class="thread-info-grid">
-                <div class="thread-info-item">
-                    <span class="thread-info-key">当前处理人</span>
-                    <span class="thread-info-value" id="threadWorkerValue">未读取</span>
-                </div>
+
 
                 <div class="thread-info-item">
-                    <span class="thread-info-key">本地会话</span>
-                    <span class="thread-info-value" id="threadSessionValue">未读取</span>
+
+                    <span class="thread-info-key">
+                        当前处理人
+                    </span>
+
+                    <span class="thread-info-value"
+                          id="threadWorkerValue">
+                        未读取
+                    </span>
+
                 </div>
 
-                <div class="thread-info-item">
-                    <span class="thread-info-key">访问次数</span>
-                    <span class="thread-info-value" id="threadVisitValue">0</span>
-                </div>
 
                 <div class="thread-info-item">
-                    <span class="thread-info-key">缓存状态</span>
-                    <span class="thread-info-value" id="threadStateValue">已恢复</span>
+
+                    <span class="thread-info-key">
+                        本地会话
+                    </span>
+
+                    <span class="thread-info-value"
+                          id="threadSessionValue">
+                        未读取
+                    </span>
+
                 </div>
+
+
+                <div class="thread-info-item">
+
+                    <span class="thread-info-key">
+                        访问次数
+                    </span>
+
+                    <span class="thread-info-value"
+                          id="threadVisitValue">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="thread-info-item">
+
+                    <span class="thread-info-key">
+                        缓存状态
+                    </span>
+
+                    <span class="thread-info-value"
+                          id="threadStateValue">
+                        已恢复
+                    </span>
+
+                </div>
+
+
             </div>
+
 
             <div class="login-log-box">
-                <p class="warning-title">缓存读取记录</p>
-                <p id="threadStatusText">正在比对公开页与缓存副本。</p>
+
+                <p class="warning-title">
+                    缓存读取记录
+                </p>
+
+                <p id="threadStatusText">
+                    正在比对公开页与缓存副本。
+                </p>
+
             </div>
 
-            <div class="memory-strip hidden" id="thread01MemoryStrip"></div>
+
+            <div class="memory-strip hidden"
+                 id="thread01MemoryStrip">
+            </div>
+
         </section>
 
+
+        <!-- ==================================================
+             POST LIST
+             ================================================== -->
+
         <section class="simple-card post-list-card">
-            <p class="section-label">帖子正文</p>
 
-            <article class="forum-post">
-                <div class="forum-post-head">
-                    <div class="forum-post-user">
-                        <div class="avatar-slot inspectable-file"
-                             data-file-id="plant_owner_avatar"
-                             data-file-name="plant_owner_avatar.png"
-                             data-file-path="cache/forum/thread_01/avatar/"
-                             data-file-status="部分恢复"
-                             data-file-modified="未知"
-                             data-file-related="楼主账号 / 植物记录 / 旧论坛头像"
-                             data-file-note="头像文件仍可读取，但原始上传时间缺失。">
-                            楼主头像预留<br>plant_owner_avatar.png
-                            <span class="file-inspect-hint">检查文件</span>
-                        </div>
+            <p class="section-label">
+                帖子正文
+            </p>
 
-                        <div>
-                            <h2 class="forum-post-author">楼主 / 神奇植物在哪里</h2>
-                            <p class="forum-post-meta">发表于：较早 / 版块：旧站讨论</p>
-                        </div>
+
+            <!-- ==================================================
+         FLOOR 1
+         ================================================== -->
+
+            <article class="forum-post legacy-bbs-post">
+
+
+                <aside class="legacy-bbs-user">
+
+                    <div class="legacy-bbs-user-name">
+                        楼主
                     </div>
-                    <span class="forum-post-floor">#1</span>
-                </div>
 
-                <div class="forum-post-body">
-                    <p>
-                        究竟是谁！是谁把我的毕设偷走了！我三年的心血养育的心血！！！究竟是谁！！！
-                    </p>
-                </div>
 
-                <div class="reply-row">
-                    <div class="reply-mini">
-                        <div class="reply-avatar-slot">回复头像</div>
-                        <p>[蜡烛.jpg]</p>
-                    </div>
-                    <div class="reply-mini">
-                        <div class="reply-avatar-slot">回复头像</div>
-                        <p>[蜡烛.jpg]</p>
-                    </div>
-                    <div class="reply-mini">
-                        <div class="reply-avatar-slot">回复头像</div>
-                        <p>[蜡烛.jpg]</p>
-                    </div>
-                    <div class="reply-mini">
-                        <div class="reply-avatar-slot">回复头像</div>
-                        <p>[蜡烛.jpg]</p>
-                    </div>
-                </div>
-
-                <div class="more-replies-box">
-                    <p>…更多 <span id="thread01MoreCount">[50237]</span></p>
-                </div>
-            </article>
-
-            <article class="forum-post">
-                <div class="forum-post-head">
-                    <div class="forum-post-user">
-                        <div class="avatar-slot">楼主头像预留<br>plant_owner_avatar.png</div>
-
-                        <div>
-                            <h2 class="forum-post-author">楼主 / 神奇植物在哪里</h2>
-                            <p class="forum-post-meta">发表于：较早 / 版块：旧站讨论</p>
-                        </div>
-                    </div>
-                    <span class="forum-post-floor">#2</span>
-                </div>
-
-                <div class="forum-post-body">
-                    <p>
-                        最近楼下窗边长出了一串红色果子。
-                        物业说不是公寓绿化种的，附近的鸟也不吃，只会一直停在窗外。
-                    </p>
-
-                    <p>
-                        我昨天在楼外拍了张照片，上传以后系统却一直把它分类成“室内空间”。
-                        我删掉重传了三次，分类都没有变化。
-                    </p>
-
-                    <p>
-                        更奇怪的是，晚上回房间后，地板上也出现了几颗一样的果子。
-                        窗户没有开，我也没把它们带进来。
-                        是不是鸟扔进来的啊？该死的，这么多鸟，明明才春天，一窝蜂地在我窗户外徘徊！本来就因为毕设就烦人，
-                        还有鸟扔果子到我房间里，我服了，我明天就要和公寓反应！交了钱怎么不干事！
-                    </p>
-
-                    <section class="thread-record-card thread01-attachment-record"
-                             id="thread01AttachmentRecord">
-
-                        <div class="thread-record-head">
-                            <div>
-                                <span>ORIGINAL ATTACHMENT</span>
-                                <strong>unknown_fruit_photo.tmp</strong>
-                            </div>
-
-                            <em id="thread01AttachmentState">
-                                SOURCE UNRESOLVED
-                            </em>
-                        </div>
-
-                        <div class="thread-record-grid">
-                            <div class="thread-record-row">
-                                <span>文件类型</span>
-                                <strong>临时图像缓存</strong>
-                            </div>
-
-                            <div class="thread-record-row">
-                                <span>上传设备</span>
-                                <strong>MOBILE_03</strong>
-                            </div>
-
-                            <div class="thread-record-row">
-                                <span>定位信息</span>
-                                <strong>无法读取</strong>
-                            </div>
-
-                            <div class="thread-record-row">
-                                <span>图像分类</span>
-
-                                <strong class="thread-record-conflict">
-                                    室外植物 / 室内空间
-                                </strong>
-                            </div>
-
-                            <div class="thread-record-row">
-                                <span>公开来源</span>
-
-                                <strong id="thread01AttachmentSource">
-                                    未匹配
-                                </strong>
-                            </div>
-
-                            <div class="thread-record-row">
-                                <span>来源地址</span>
-
-                                <strong id="thread01AttachmentAddress">
-                                    未读取
-                                </strong>
-                            </div>
-                        </div>
-
-                        <p class="thread-record-warning">
-                            同一附件同时被归入两个互斥分类。
-                            自动归档没有将该结果标记为错误。
-                        </p>
-                    </section>
-
-                    <div class="inline-image-slot image-hover-slot inspectable-file"
-                         data-file-id="birds_window_scene"
-                         data-file-name="birds_window_scene_v2.png"
-                         data-file-path="cache/forum/thread_01/images/"
+                    <div class="legacy-bbs-avatar inspectable-file"
+                         data-file-id="plant_owner_avatar"
+                         data-file-name="plant_owner_avatar.png"
+                         data-file-path="cache/forum/thread_01/avatar/"
                          data-file-status="部分恢复"
                          data-file-modified="未知"
-                         data-file-related="鸟群 / 红果子 / 窗口 / 室内分类"
-                         data-file-note="原附件被标记为室外植物记录，但缓存分类同时识别到室内墙面与门牌反光。">
+                         data-file-related="楼主账号 / 植物记录 / 旧论坛头像"
+                         data-file-note="头像文件仍可读取，但原始上传时间缺失。">
 
-                        图片预留位 / unknown_fruit_photo.tmp
-
-                        <span>
-                            原始说明：窗外鸟群与红色果实
-                        </span>
+                        头像
 
                         <span class="file-inspect-hint">
                             检查文件
                         </span>
 
-                        <div class="hover-file-tag">
-                            cache/thread_01/unknown_fruit_photo.tmp
-                        </div>
                     </div>
 
-                    <section class="thread01-photo-investigation" id="thread01PhotoInvestigation">
-                        <div class="thread01-photo-investigation-head">
-                            <div>
-                                <span>LOCAL IMAGE INSPECTION</span>
-                                <strong>检查照片边缘中的三个不一致区域</strong>
-                            </div>
 
-                            <em id="thread01PhotoInspectStatus">PENDING</em>
-                        </div>
+                    <span class="legacy-bbs-user-line">
+                        <strong>身份：</strong>
+                        普通用户
+                    </span>
 
-                        <p class="thread01-photo-investigation-intro">
-                            原附件被标记为“窗外鸟群”，但缓存分类同时将它归入室内空间。
-                            依次检查红果、墙面纹理和玻璃反光。
-                        </p>
+                    <span class="legacy-bbs-user-line">
+                        <strong>注册：</strong>
+                        较早
+                    </span>
 
-                        <div class="thread01-photo-scan" id="thread01PhotoScan">
-                            <button class="thread01-photo-zone"
-                                    type="button"
-                                    data-thread01-scan="fruit"
-                                    data-readout="红色区域的可见轮廓会随压缩变化，但最外层像素边缘在每个缓存副本中完全一致。">
+                    <span class="legacy-bbs-user-line">
+                        <strong>帖子：</strong>
+                        184
+                    </span>
 
-                                <span>REGION 01</span>
-                                <strong>红色果实局部</strong>
-                                <small>等待检查</small>
-                            </button>
+                    <span class="legacy-bbs-user-line">
+                        <strong>最后在线：</strong>
+                        较早
+                    </span>
 
-                            <button class="thread01-photo-zone"
-                                    type="button"
-                                    data-thread01-scan="wall"
-                                    data-readout="照片下缘不是地面。重复纹理更接近旧式室内墙纸，且透视方向与窗口边框不一致。">
+                </aside>
 
-                                <span>REGION 02</span>
-                                <strong>下缘墙面纹理</strong>
-                                <small>等待检查</small>
-                            </button>
 
-                            <button class="thread01-photo-zone"
-                                    type="button"
-                                    data-thread01-scan="reflection"
-                                    data-readout="玻璃反光中存在门牌残片。可恢复字符只剩“— / 404”，公开楼层表中没有对应房间。">
+                <div class="legacy-bbs-content">
 
-                                <span>REGION 03</span>
-                                <strong>玻璃反光</strong>
-                                <small>等待检查</small>
-                            </button>
-                        </div>
 
-                        <div class="thread01-photo-readout">
-                            <span>SCAN READOUT</span>
-                            <p id="thread01PhotoReadoutText">
-                                尚未选中局部区域。
-                            </p>
-                        </div>
+                    <div class="legacy-bbs-post-head">
 
-                        <div class="thread01-photo-investigation-actions">
-                            <span id="thread01PhotoProgress">0 / 3</span>
+                        <span>
+                            发表于：较早 /
+                            版块：旧站讨论
+                        </span>
 
-                            <button id="thread01PhotoCommit"
-                                    type="button"
-                                    disabled>
-                                写入局部检查记录
-                            </button>
-                        </div>
+                        <span class="legacy-bbs-floor">
+                            #1
+                        </span>
 
-                        <div class="thread01-photo-result hidden"
-                             id="thread01PhotoResult">
-
-                            <strong>SOURCE TRACE RECORDED</strong>
-
-                            <p>
-                                EXIF 将照片标记为室外植物记录；图像透视却包含室内墙面和未登记门牌。
-                                系统已保留“来源地址尚未存在于公开楼层表”的冲突结论。
-                            </p>
-                        </div>
-                    </section>
-
-                    <div class="evidence-capture-row">
-                        <button class="evidence-capture-btn" type="button" data-evidence-id="red_cluster">
-                            保存红色区域到工作区
-                        </button>
-                        <span class="evidence-capture-note">局部像素可与其他附件叠加复核</span>
                     </div>
 
-                    <section class="thread-system-rewrite hidden"
-                             id="thread01SourceRewrite">
 
-                        <div class="thread-system-rewrite-head">
-                            <span>SYSTEM ARCHIVE UPDATE</span>
-                            <em>字段已补全</em>
-                        </div>
+                    <div class="legacy-bbs-body">
 
                         <p>
-                            该附件已重新归档。
-                            来源字段已依据物流附件同源关系完成补全。
+                            究竟是谁！是谁把我的毕设偷走了！
+                            我三年的心血养育的心血！！！
+                            究竟是谁！！！
                         </p>
 
-                        <div class="thread-system-rewrite-grid">
-                            <div>
-                                <span>来源地址</span>
-                                <strong>4号楼 / 西侧墙面 / —404</strong>
+
+                        <div class="legacy-inline-replies">
+
+                            <div class="legacy-inline-reply">
+                                <span>匿名用户</span>
+                                <p>🕯️</p>
                             </div>
 
-                            <div>
-                                <span>地址状态</span>
-                                <strong>可投递</strong>
+                            <div class="legacy-inline-reply">
+                                <span>匿名用户</span>
+                                <p>🕯️</p>
                             </div>
 
-                            <div>
-                                <span>补全依据</span>
-                                <strong>报修单 #013</strong>
+                            <div class="legacy-inline-reply">
+                                <span>匿名用户</span>
+                                <p>🕯️</p>
                             </div>
+
+                            <div class="legacy-inline-reply">
+                                <span>匿名用户</span>
+                                <p>🕯️</p>
+                            </div>
+
                         </div>
 
-                        <p class="thread-system-rewrite-note">
-                            公开楼层表中仍未找到对应房间。
-                            该冲突不影响附件归档。
-                        </p>
-                    </section>
-                </div>
 
-                <div class="reply-stack">
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论一：感觉楼主是个NPD</p>
-                    </div>
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论二：醉了，刚学会个新词就瞎用，你懂什么叫毕设不？楼上。</p>
-                    </div>
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论三：希望楼主能平安度过期末 [祈祷.jpg]</p>
-                    </div>
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论四：看起来像南天竹，但果子排列不太一样。别说了，我学姐种的新品种海棠被隔壁学昆虫学的，把新品种咬了一个大洞。</p>
-                    </div>
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
+                        <div class="legacy-bbs-more">
 
-                        <p>
-                            评论五：可能只是相册自动分类错了，
-                            玻璃反光很容易被识别成室内。
-                        </p>
-                    </div>
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
+                            …更多
 
-                        <p>
-                            评论六：是因为这个吧，虽说你说站在楼外拍的，
-                            但照片下边那块花纹看起来真的很像墙纸。
-                        </p>
-                    </div>
-                    <div class="reply-line reply-line-anomaly reply-line-same-author">
-                        <div class="reply-avatar-slot">
-                            头像
-                        </div>
-
-                        <div class="reply-content">
-                            <span class="reply-author-name">
-                                匿名用户
+                            <span id="thread01MoreCount">
+                                [50237]
                             </span>
 
-                            <p>
-                                评论七：？
-                            </p>
                         </div>
+
                     </div>
-                    <div class="reply-line reply-line-anomaly reply-line-same-author">
-                        <div class="reply-avatar-slot">
-                            头像
-                        </div>
 
-                        <div class="reply-content">
-                            <span class="reply-author-name">
-                                匿名用户
-                            </span>
 
-                            <p>
-                                评论八：
-                                你家那一层不是没有
-
-                                <span class="thread01-reply-redacted"
-                                      data-thread01-room-number>
-                                    ——
-                                </span>
-
-                                吗？
-                            </p>
-                        </div>
+                    <div class="legacy-bbs-signature">
+                        本页面来自旧站缓存。
+                        用户资料可能存在缺失。
                     </div>
+
+
                 </div>
 
-                <div class="more-replies-box">
-                    <p>…更多 <span class="thread01MoreCountMirror">[50237]</span></p>
-                </div>
             </article>
 
-            <article class="forum-post forum-post-news">
-                <div class="forum-post-head">
-                    <div class="forum-post-user">
-                        <div class="news-badge">新闻</div>
-                        <div>
-                            <h2 class="forum-post-author">自动修复新闻片段</h2>
-                            <p class="forum-post-meta">来源：站内新闻缓存 / 状态：部分损坏</p>
-                        </div>
+
+            <!-- ==================================================
+         FLOOR 2
+         ================================================== -->
+
+            <article class="forum-post legacy-bbs-post">
+
+
+                <aside class="legacy-bbs-user">
+
+                    <div class="legacy-bbs-user-name">
+                        楼主
                     </div>
-                    <span class="forum-post-floor">NEWS</span>
+
+
+                    <div class="legacy-bbs-avatar">
+                        头像
+                    </div>
+
+
+                    <span class="legacy-bbs-user-line">
+                        <strong>身份：</strong>
+                        普通用户
+                    </span>
+
+                    <span class="legacy-bbs-user-line">
+                        <strong>注册：</strong>
+                        较早
+                    </span>
+
+                    <span class="legacy-bbs-user-line">
+                        <strong>帖子：</strong>
+                        185
+                    </span>
+
+                    <span class="legacy-bbs-user-line"
+                          id="thread01OwnerActivityField">
+
+                        <strong>最后在线：</strong>
+                        较早
+
+                    </span>
+
+                </aside>
+
+
+                <div class="legacy-bbs-content">
+
+
+                    <div class="legacy-bbs-post-head">
+
+                        <span>
+                            发表于：较早 /
+                            版块：旧站讨论
+                        </span>
+
+                        <span class="legacy-bbs-floor">
+                            #2
+                        </span>
+
+                    </div>
+
+
+                    <div class="forum-post-body legacy-bbs-body">
+
+
+                        <p>
+                            最近楼下窗边长出了一串红色果子。
+                            物业说不是公寓绿化种的，附近的鸟也不吃，
+                            只会一直停在窗外。
+                        </p>
+
+
+                        <p>
+                            我昨天在楼外拍了张照片，
+                            上传以后系统却一直把它分类成“室内空间”。
+                            我删掉重传了三次，分类都没有变化。
+                        </p>
+
+
+                        <p>
+                            更奇怪的是，晚上回房间后，
+                            地板上也出现了几颗一样的果子。
+
+                            窗户没有开，我也没把它们带进来。
+
+                            是不是鸟扔进来的啊？
+                            该死的，这么多鸟，明明才春天，
+                            一窝蜂地在我窗户外徘徊！
+
+                            本来就因为毕设就烦人，
+                            还有鸟扔果子到我房间里，
+                            我服了，我明天就要和公寓反应！
+
+                            交了钱怎么不干事！
+                        </p>
+
+
+                        <!-- =========================
+                     ATTACHMENT RECORD
+                     ========================= -->
+
+                        <section class="thread-record-card thread01-attachment-record"
+                                 id="thread01AttachmentRecord">
+
+
+                            <div class="thread-record-head">
+
+                                <div>
+
+                                    <span>
+                                        ORIGINAL ATTACHMENT
+                                    </span>
+
+                                    <strong>
+                                        unknown_fruit_photo.tmp
+                                    </strong>
+
+                                </div>
+
+
+                                <em id="thread01AttachmentState">
+                                    SOURCE UNRESOLVED
+                                </em>
+
+                            </div>
+
+
+                            <div class="thread-record-grid">
+
+
+                                <div class="thread-record-row">
+                                    <span>文件类型</span>
+                                    <strong>临时图像缓存</strong>
+                                </div>
+
+
+                                <div class="thread-record-row">
+                                    <span>上传设备</span>
+                                    <strong>MOBILE_03</strong>
+                                </div>
+
+
+                                <div class="thread-record-row">
+                                    <span>定位信息</span>
+                                    <strong>无法读取</strong>
+                                </div>
+
+
+                                <div class="thread-record-row">
+
+                                    <span>图像分类</span>
+
+                                    <strong class="thread-record-conflict">
+                                        室外植物 / 室内空间
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="thread-record-row">
+
+                                    <span>公开来源</span>
+
+                                    <strong id="thread01AttachmentSource">
+                                        未匹配
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="thread-record-row">
+
+                                    <span>来源索引</span>
+
+                                    <strong id="thread01AttachmentAddress">
+                                        未读取
+                                    </strong>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <p class="thread-record-warning">
+
+                                同一附件同时被归入两个互斥分类。
+                                自动归档没有将该结果标记为错误。
+
+                            </p>
+
+
+                        </section>
+
+
+                        <!-- =========================
+                     IMAGE PLACEHOLDER
+                     ========================= -->
+
+                        <div class="inline-image-slot image-hover-slot inspectable-file"
+                             data-file-id="birds_window_scene"
+                             data-file-name="birds_window_scene_v2.png"
+                             data-file-path="cache/forum/thread_01/images/"
+                             data-file-status="部分恢复"
+                             data-file-modified="未知"
+                             data-file-related="鸟群 / 红果子 / 窗口 / 室内分类"
+                             data-file-note="原附件被标记为室外植物记录，但缓存分类同时识别到室内墙面与门牌反光。">
+
+
+                            图片预留位 / unknown_fruit_photo.tmp
+
+
+                            <span>
+                                原始说明：窗外鸟群与红色果实
+                            </span>
+
+
+                            <span class="file-inspect-hint">
+                                检查文件
+                            </span>
+
+
+                            <div class="hover-file-tag">
+                                cache/thread_01/unknown_fruit_photo.tmp
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =========================
+                     PHOTO INVESTIGATION
+                     ========================= -->
+
+                        <section class="thread01-photo-investigation"
+                                 id="thread01PhotoInvestigation">
+
+
+                            <div class="thread01-photo-investigation-head">
+
+                                <div>
+
+                                    <span>
+                                        LOCAL IMAGE INSPECTION
+                                    </span>
+
+                                    <strong>
+                                        检查照片边缘中的三个不一致区域
+                                    </strong>
+
+                                </div>
+
+
+                                <em id="thread01PhotoInspectStatus">
+                                    PENDING
+                                </em>
+
+
+                            </div>
+
+
+                            <p class="thread01-photo-investigation-intro">
+
+                                原附件被标记为“窗外鸟群”，
+                                但缓存分类同时将它归入室内空间。
+
+                                依次检查红果、墙面纹理和玻璃反光。
+
+                            </p>
+
+
+                            <div class="thread01-photo-scan"
+                                 id="thread01PhotoScan">
+
+
+                                <button class="thread01-photo-zone"
+                                        type="button"
+                                        data-thread01-scan="fruit"
+                                        data-readout="红色区域的可见轮廓会随压缩变化，但最外层像素边缘在每个缓存副本中完全一致。">
+
+
+                                    <span>
+                                        REGION 01
+                                    </span>
+
+                                    <strong>
+                                        红色果实局部
+                                    </strong>
+
+                                    <small>
+                                        等待检查
+                                    </small>
+
+
+                                </button>
+
+
+                                <button class="thread01-photo-zone"
+                                        type="button"
+                                        data-thread01-scan="wall"
+                                        data-readout="照片下缘不是地面。重复纹理更接近旧式室内墙纸，且透视方向与窗口边框不一致。">
+
+
+                                    <span>
+                                        REGION 02
+                                    </span>
+
+                                    <strong>
+                                        下缘墙面纹理
+                                    </strong>
+
+                                    <small>
+                                        等待检查
+                                    </small>
+
+
+                                </button>
+
+
+                                <button class="thread01-photo-zone"
+                                        type="button"
+                                        data-thread01-scan="reflection"
+                                        data-readout="玻璃反光中存在一处标识残片。字符损坏严重，无法稳定恢复；公开目录中没有对应记录。">
+
+
+                                    <span>
+                                        REGION 03
+                                    </span>
+
+                                    <strong>
+                                        玻璃反光
+                                    </strong>
+
+                                    <small>
+                                        等待检查
+                                    </small>
+
+
+                                </button>
+
+
+                            </div>
+
+
+                            <div class="thread01-photo-readout">
+
+                                <span>
+                                    SCAN READOUT
+                                </span>
+
+                                <p id="thread01PhotoReadoutText">
+                                    尚未选中局部区域。
+                                </p>
+
+                            </div>
+
+
+                            <div class="thread01-photo-investigation-actions">
+
+                                <span id="thread01PhotoProgress">
+                                    0 / 3
+                                </span>
+
+                                <button id="thread01PhotoCommit"
+                                        type="button"
+                                        disabled>
+
+                                    写入局部检查记录
+
+                                </button>
+
+                            </div>
+
+
+                            <div class="thread01-photo-result hidden"
+                                 id="thread01PhotoResult">
+
+
+                                <strong>
+                                    SOURCE TRACE RECORDED
+                                </strong>
+
+                                <p>
+                                    EXIF 将照片标记为室外植物记录；
+                                    图像透视中却出现了室内墙面与无法对应的标识反光。
+
+                                    系统已保留
+                                    “附件来源与公开目录记录不一致”
+                                    的冲突结论。
+                                </p>
+
+
+                            </div>
+
+
+                        </section>
+
+
+                        <!-- =========================
+                     EVIDENCE
+                     ========================= -->
+
+                        <div class="evidence-capture-row">
+
+
+                            <button class="evidence-capture-btn"
+                                    type="button"
+                                    data-evidence-id="red_cluster">
+
+                                保存红色区域到工作区
+
+                            </button>
+
+
+                            <span class="evidence-capture-note">
+
+                                局部像素可与其他附件叠加复核
+
+                            </span>
+
+
+                        </div>
+
+
+                        <!-- =========================
+                     SOURCE REWRITE
+                     ========================= -->
+
+                        <section class="thread-system-rewrite hidden"
+                                 id="thread01SourceRewrite">
+
+
+                            <div class="thread-system-rewrite-head">
+
+
+                                <span>
+                                    SYSTEM ARCHIVE UPDATE
+                                </span>
+
+
+                                <em>
+                                    字段已补全
+                                </em>
+
+
+                            </div>
+
+
+                            <p>
+                                同源复核完成。
+                                系统已接受该附件的来源字段写入。
+                            </p>
+
+
+                            <div class="thread-system-rewrite-grid">
+
+                                <div>
+
+                                    <span>
+                                        来源字段
+                                    </span>
+
+                                    <strong>
+                                        已确认
+                                    </strong>
+
+                                </div>
+
+
+                                <div>
+
+                                    <span>
+                                        公开目录
+                                    </span>
+
+                                    <strong>
+                                        无匹配记录
+                                    </strong>
+
+                                </div>
+
+
+                                <div>
+
+                                    <span>
+                                        补全依据
+                                    </span>
+
+                                    <strong>
+                                        报修单 #013
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <p class="thread-system-rewrite-note">
+
+                                来源字段已写入。
+                                公开目录中仍没有可对应的原始条目。
+                                该冲突未阻止附件重新归档。
+
+                            </p>
+
+                        </section>
+
+
+                    </div>
+
+
+                    <!-- =========================
+                 FLOOR 2 REPLIES
+                 ========================= -->
+
+                    <div class="legacy-bbs-reply-stack">
+
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <p>
+                                评论一：感觉楼主是个NPD
+                            </p>
+
+                        </div>
+
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <p>
+                                评论二：醉了，刚学会个新词就瞎用，
+                                你懂什么叫毕设不？楼上。
+                            </p>
+
+                        </div>
+
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <p>
+                                评论三：希望楼主能平安度过期末 [祈祷.jpg]
+                            </p>
+
+                        </div>
+
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <p>
+                                评论四：看起来像南天竹，但果子排列不太一样。
+                                别说了，我学姐种的新品种海棠被隔壁学昆虫学的，
+                                把新品种咬了一个大洞。
+                            </p>
+
+                        </div>
+
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <p>
+                                评论五：可能只是相册自动分类错了，
+                                玻璃反光很容易被识别成室内。
+                            </p>
+
+                        </div>
+
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <p>
+                                评论六：是因为这个吧，
+                                虽说你说站在楼外拍的，
+                                但照片下边那块花纹看起来真的很像墙纸。
+                            </p>
+
+                        </div>
+
+
+                        <div class="reply-line reply-line-anomaly reply-line-same-author">
+
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+
+                            <div class="reply-content">
+
+
+                                <span class="reply-author-name">
+                                    匿名用户
+                                </span>
+
+
+                                <p>
+                                    评论七：？
+                                </p>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="reply-line reply-line-anomaly reply-line-same-author">
+
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+
+                            <div class="reply-content">
+
+
+                                <span class="reply-author-name">
+                                    匿名用户
+                                </span>
+
+
+                                <p>
+
+                                    评论八：
+                                    你家那一层不是没有
+
+                                    <span class="thread01-reply-redacted"
+                                          data-thread01-room-number>
+                                        ——
+                                    </span>
+
+                                    吗？
+
+                                </p>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="legacy-bbs-more">
+
+                        …更多
+
+                        <span class="thread01MoreCountMirror">
+                            [50237]
+                        </span>
+
+                    </div>
+
+
                 </div>
 
-                <div class="forum-post-body">
-                    <div id="newsBrokenBlock">
-                        <p class="broken-news-line">
-                            [新闻：
-                            <span class="restricted-trigger" data-restricted="plant_news_hidden">【无法显示】</span>
-                            植物园新发现了一棵不应该在本地区出现的树，与
-                            <span class="glitch-inline">【无法显示】</span>
-                            的同科植物类似……]
-                        </p>
 
-                        <button class="repair-btn" id="repairNewsBtn" type="button">尝试修复</button>
+            </article>
+
+
+            <!-- ==================================================
+         MILLENNIUM NEWS INSERT
+         ================================================== -->
+
+            <article class="forum-post forum-post-news legacy-web-insert legacy-web-insert-news">
+
+
+                <div class="legacy-web-news-head">
+
+
+                    <div class="legacy-web-news-left">
+
+
+                        <span class="legacy-web-news-badge">
+                            今日快讯
+                        </span>
+
+
+                        <strong>
+                            自动修复新闻片段
+                        </strong>
+
+
+                        <em>
+                            新闻缓存 / 部分损坏
+                        </em>
+
+
                     </div>
 
-                    <div id="newsRecoveredBlock" class="hidden">
-                        <p>
-                            [新闻：【无法显示】植物园新发现了一棵不应该在本地区出现的树，
-                            与【无法显示】的同科植物类似，有关专家正在进一步调查]
+
+                    <div class="legacy-web-news-right">
+
+
+                        <span class="legacy-web-news-hot">
+                            HOT
+                        </span>
+
+
+                        <span class="legacy-web-news-channel">
+                            站内投放
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="legacy-web-news-toolbar">
+
+                    <span>频道：首页 &gt; 校园资讯 &gt; 植物园</span>
+
+                    <span>
+                        发布时间：2007-04-17 04:04
+                    </span>
+
+                    <span>
+                        来源：站内转载
+                    </span>
+
+                    <a href="javascript:void(0)">
+                        打印
+                    </a>
+
+                    <a href="javascript:void(0)">
+                        收藏
+                    </a>
+
+                </div>
+
+                <div class="legacy-web-news-toolbar">
+
+                    <span>
+                        当前位置：
+                        首页 &gt; 站内资讯 &gt; 校园新闻
+                    </span>
+
+                    <span>
+                        来源：EchoRest 资讯频道
+                    </span>
+
+                    <span>
+                        2007-04-17
+                    </span>
+
+                    <a href="javascript:void(0)">
+                        设为首页
+                    </a>
+
+                    <a href="javascript:void(0)">
+                        加入收藏
+                    </a>
+
+                </div>
+
+                <div class="forum-post-body legacy-web-insert-body legacy-web-news-body">
+                    <div class="legacy-web-news-ticker">
+
+                        <span class="legacy-web-news-ticker-tag">
+                            最新
+                        </span>
+
+                        <div class="legacy-web-news-ticker-window">
+
+                            <span class="legacy-web-news-ticker-text">
+                                植物园发现异常植物记录　｜
+                                春季绿化工作进入尾声　｜
+                                部分历史图片新闻暂时无法读取　｜
+                                本站旧版页面恢复中
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="legacy-web-news-marquee">
+
+                        <span class="legacy-web-news-marquee-label">
+                            最新
+                        </span>
+
+                        <span class="legacy-web-news-marquee-text">
+                            植物园近期发现异常植物记录 ·
+                            部分旧新闻图片仍在恢复中 ·
+                            点击标题查看完整内容
+                        </span>
+
+                    </div>
+                    <div id="newsBrokenBlock">
+
+
+                        <p class="broken-news-line">
+
+                            【站内新闻】
+
+                            <span class="restricted-trigger"
+                                  data-restricted="plant_news_hidden">
+
+                                【无法显示】
+
+                            </span>
+
+                            植物园新发现了一棵不应该在本地区出现的树，
+
+                            与
+
+                            <span class="glitch-inline">
+                                【无法显示】
+                            </span>
+
+                            的同科植物类似……
+
                         </p>
 
-                        <p class="news-fix-note">（已由【sjahqiuhdiuq】自动修复）</p>
+
+                        <button class="repair-btn"
+                                id="repairNewsBtn"
+                                type="button">
+
+                            查看完整新闻
+
+                        </button>
+
+
+                    </div>
+
+                    <div class="legacy-web-news-footerbar">
+
+                        <span>
+                            阅读：2387
+                        </span>
+
+                        <span>
+                            评论：17
+                        </span>
+
+                        <span>
+                            字号：
+                            <a href="javascript:void(0)">小</a>
+                            <a href="javascript:void(0)">中</a>
+                            <a href="javascript:void(0)">大</a>
+                        </span>
+
+                        <a href="javascript:void(0)">
+                            返回频道首页
+                        </a>
+
+                    </div>
+
+
+                    <div id="newsRecoveredBlock"
+                         class="hidden">
+
+
+                        <p>
+
+                            【站内新闻】
+
+                            【无法显示】植物园新发现了一棵不应该在本地区出现的树，
+
+                            与【无法显示】的同科植物类似，
+
+                            有关专家正在进一步调查。
+
+                        </p>
+
+
+                        <p class="news-fix-note">
+
+                            页面内容已由
+                            【sjahqiuhdiuq】
+                            自动恢复。
+
+                        </p>
+
 
                         <div class="inline-image-slot news-image-slot image-hover-slot inspectable-file"
                              data-file-id="news_plant_tree"
@@ -472,183 +1265,483 @@
                              data-file-modified="未知"
                              data-file-related="植物园 / 异常树木 / sjahqiuhdiuq"
                              data-file-note="该文件只在新闻碎片被修复后显示。">
+
+
                             新闻插图预留位 / news_plant_tree.jpg
-                            <span>建议放：植物园档案照片、树木近景、模糊新闻截图风格</span>
-                            <span class="file-inspect-hint">检查文件</span>
-                            <div class="hover-file-tag">archive/news_plant_tree_01.jpg</div>
+
+
+                            <span>
+                                建议放：植物园档案照片、树木近景、模糊新闻截图风格
+                            </span>
+
+
+                            <span class="file-inspect-hint">
+                                检查文件
+                            </span>
+
+
+                            <div class="hover-file-tag">
+                                archive/news_plant_tree_01.jpg
+                            </div>
+
+
                         </div>
+
+
                     </div>
+
+                    <div class="legacy-web-news-bottom">
+
+                        <div class="legacy-web-news-related">
+
+                            <strong>
+                                热点推荐
+                            </strong>
+
+                            <a href="javascript:void(0)">
+                                · 春季校园绿化维护通知
+                            </a>
+
+                            <a href="javascript:void(0)">
+                                · 植物园新增临时观察区域
+                            </a>
+
+                            <a href="javascript:void(0)">
+                                · 旧站图片资料恢复公告
+                            </a>
+
+                            <a href="javascript:void(0)">
+                                · 桑科植物资料索引
+                            </a>
+
+                        </div>
+
+
+                        <div class="legacy-web-news-counter">
+
+                            <span>
+                                本文浏览：2387
+                            </span>
+
+                            <span>
+                                今日：17
+                            </span>
+
+                            <span>
+                                字号：
+                                <a href="javascript:void(0)">小</a>
+                                /
+                                <a href="javascript:void(0)">中</a>
+                                /
+                                <a href="javascript:void(0)">大</a>
+                            </span>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
+
             </article>
 
-            <article class="forum-post forum-post-warning">
-                <div class="forum-post-head">
-                    <div class="forum-post-user">
-                        <div class="avatar-slot">楼主头像预留<br>plant_owner_avatar.png</div>
 
-                        <div>
-                            <h2 class="forum-post-author">楼主 / 神奇植物在哪里</h2>
-                            <p class="forum-post-meta">发表于：较早 / 版块：旧站讨论</p>
-                        </div>
-                    </div>
-                    <span class="forum-post-floor">#3</span>
-                </div>
+            <!-- ==================================================
+    FLOOR 3
+    ================================================== -->
 
-                <div class="forum-post-body">
-                    <p>
-                        <span class="hover-term" data-hover="该词条曾在其他记录中出现。">桑科榕属</span>……
-                        <span class="hover-term" data-hover="该词条曾在其他记录中出现。">桑科榕属</span>……
-                        <span class="hover-term" data-hover="该词条曾在其他记录中出现。">桑科榕属</span>……
-                    </p>
-                </div>
+            <article class="forum-post legacy-bbs-post">
 
-                <div class="reply-stack">
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论一：楼主终于疯了吗</p>
-                    </div>
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论二：学习哪有不疯的</p>
-                    </div>
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论三：别继续了</p>
-                    </div>
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot reply-avatar-missing inspectable-file"
-                             data-file-id="candle_missing"
-                             data-file-name="candle_missing.jpg"
-                             data-file-path="cache/forum/thread_01/replies/"
-                             data-file-status="无法读取"
-                             data-file-modified="未知"
-                             data-file-related="蜡烛回复 / 缺失头像 / 404闪现"
-                             data-file-note="该文件名存在于回复缓存中，但图像主体不可读。">
-                            缺失
-                        </div>
-                        <p>评论四：[蜡烛_missing.jpg]</p>
-                    </div>
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论五：奇怪刚刚这个贴显示404啊，怎么现在又能刷出来了……</p>
-                    </div>
-                    <div class="reply-line reply-line-anomaly reply-line-same-author">
-                        <div class="reply-avatar-slot">
-                            头像
-                        </div>
+                <aside class="legacy-bbs-user">
 
-                        <div class="reply-content">
-                            <span class="reply-author-name">
-                                匿名用户
-                            </span>
+                    <div class="legacy-bbs-user-name">
+                        楼主
+                    </div>
 
-                            <p>
-                                评论六：
-                                你家那一层不是没有
+                    <div class="legacy-bbs-avatar">
+                        头像
+                    </div>
 
-                                <span class="thread01-reply-redacted"
-                                      data-thread01-room-number>
-                                    ——
+                    <span class="legacy-bbs-user-line">
+                        <strong>身份：</strong>
+                        普通用户
+                    </span>
+
+                    <span class="legacy-bbs-user-line">
+                        <strong>注册：</strong>
+                        较早
+                    </span>
+
+                    <span class="legacy-bbs-user-line">
+                        <strong>帖子：</strong>
+                        186
+                    </span>
+
+                    <span class="legacy-bbs-user-line">
+                        <strong>最后在线：</strong>
+                        较早
+                    </span>
+
+                </aside>
+
+
+                <div class="legacy-bbs-content">
+
+                    <div class="legacy-bbs-post-head">
+
+                        <span>
+                            发表于：较早 /
+                            版块：旧站讨论
+                        </span>
+
+                        <span class="legacy-bbs-floor">
+                            #3
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================
+                 FLOOR 3 BODY
+                 系统推荐模块侵入正文区域
+                 ================================= -->
+
+                    <div class="legacy-bbs-body">
+
+                        <div class="legacy-inline-recommend">
+
+                            <div class="legacy-inline-recommend-head">
+
+                                <span class="legacy-inline-recommend-badge">
+                                    推荐条目
                                 </span>
 
-                                吗？
-                            </p>
-                        </div>
-                    </div>
-                    <div class="reply-line reply-line-anomaly reply-line-same-author">
-                        <div class="reply-avatar-slot">
-                            头像
+                                <strong>
+                                    相关内容
+                                </strong>
+
+                                <em>
+                                    自动匹配
+                                </em>
+
+                            </div>
+
+
+                            <div class="legacy-inline-recommend-body">
+
+                                <p class="legacy-inline-recommend-keywords">
+
+                                    <span class="hover-term"
+                                          data-hover="该词条曾在其他记录中出现。">
+                                        桑科榕属
+                                    </span>
+
+                                    ……
+
+                                    <span class="hover-term"
+                                          data-hover="该词条曾在其他记录中出现。">
+                                        桑科榕属
+                                    </span>
+
+                                    ……
+
+                                    <span class="hover-term"
+                                          data-hover="该词条曾在其他记录中出现。">
+                                        桑科榕属
+                                    </span>
+
+                                    ……
+
+                                </p>
+
+                            </div>
+
                         </div>
 
-                        <div class="reply-content">
-                            <span class="reply-author-name">
-                                匿名用户
-                            </span>
+                    </div>
+
+
+                    <!-- =================================
+                 FLOOR 3 NORMAL REPLIES
+                 ================================= -->
+
+                    <div class="legacy-bbs-reply-stack anomaly-copy-stack">
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
 
                             <p>
-                                评论七：
-                                你家那一层不是没有
-
-                                <span class="thread01-reply-redacted"
-                                      data-thread01-room-number>
-                                    ——
-                                </span>
-
-                                吗？
+                                评论一：楼主终于疯了吗
                             </p>
-                        </div>
-                    </div>
-                    <div class="reply-line reply-line-anomaly reply-line-same-author">
-                        <div class="reply-avatar-slot">
-                            头像
+
                         </div>
 
-                        <div class="reply-content">
-                            <span class="reply-author-name">
-                                匿名用户
-                            </span>
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
 
                             <p>
-                                评论八：
-                                你家那一层不是没有
-
-                                <span class="thread01-reply-redacted"
-                                      data-thread01-room-number>
-                                    ——
-                                </span>
-
-                                吗？
+                                评论二：学习哪有不疯的
                             </p>
-                        </div>
-                    </div>
-                    <div class="reply-line reply-line-anomaly reply-line-same-author">
-                        <div class="reply-avatar-slot">
-                            头像
+
                         </div>
 
-                        <div class="reply-content">
-                            <span class="reply-author-name">
-                                匿名用户
-                            </span>
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
 
                             <p>
-                                评论九：
-                                你家那一层不是没有
+                                评论三：别继续了
+                            </p>
 
-                                <span class="thread01-reply-redacted"
-                                      data-thread01-room-number>
-                                    ——
+                        </div>
+
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot reply-avatar-missing inspectable-file"
+                                 data-file-id="candle_missing"
+                                 data-file-name="candle_missing.jpg"
+                                 data-file-path="cache/forum/thread_01/replies/"
+                                 data-file-status="无法读取"
+                                 data-file-modified="未知"
+                                 data-file-related="蜡烛回复 / 缺失头像 / 404闪现"
+                                 data-file-note="该文件名存在于回复缓存中，但图像主体不可读。">
+
+                                缺失
+
+                            </div>
+
+                            <p>
+                                评论四：[蜡烛_missing.jpg]
+                            </p>
+
+                        </div>
+
+
+                        <div class="reply-line">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <p>
+                                评论五：奇怪刚刚这个贴显示404啊，
+                                怎么现在又能刷出来了……
+                            </p>
+
+                        </div>
+
+
+                        <div class="reply-line reply-line-anomaly reply-line-same-author">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <div class="reply-content">
+
+                                <span class="reply-author-name">
+                                    匿名用户
                                 </span>
 
-                                吗？
-                            </p>
+                                <p>
+                                    评论六：
+                                    你家那一层不是没有
+
+                                    <span class="thread01-reply-redacted"
+                                          data-thread01-room-number>
+                                        ——
+                                    </span>
+
+                                    吗？
+                                </p>
+
+                            </div>
+
                         </div>
+
+
+                        <div class="reply-line reply-line-anomaly reply-line-same-author">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <div class="reply-content">
+
+                                <span class="reply-author-name">
+                                    匿名用户
+                                </span>
+
+                                <p>
+                                    评论七：
+                                    你家那一层不是没有
+
+                                    <span class="thread01-reply-redacted"
+                                          data-thread01-room-number>
+                                        ——
+                                    </span>
+
+                                    吗？
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="reply-line reply-line-anomaly reply-line-same-author">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <div class="reply-content">
+
+                                <span class="reply-author-name">
+                                    匿名用户
+                                </span>
+
+                                <p>
+                                    评论八：
+                                    你家那一层不是没有
+
+                                    <span class="thread01-reply-redacted"
+                                          data-thread01-room-number>
+                                        ——
+                                    </span>
+
+                                    吗？
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="reply-line reply-line-anomaly reply-line-same-author">
+
+                            <div class="reply-avatar-slot">
+                                头像
+                            </div>
+
+                            <div class="reply-content">
+
+                                <span class="reply-author-name">
+                                    匿名用户
+                                </span>
+
+                                <p>
+                                    评论九：
+                                    你家那一层不是没有
+
+                                    <span class="thread01-reply-redacted"
+                                          data-thread01-room-number>
+                                        ——
+                                    </span>
+
+                                    吗？
+                                </p>
+
+                            </div>
+
+                        </div>
+
                     </div>
+
+
+                    <div class="legacy-bbs-more">
+
+                        …更多
+
+                        <span class="thread01MoreCountMirror">
+                            [50237]
+                        </span>
+
+                    </div>
+
                 </div>
 
-                <div class="more-replies-box">
-                    <p>…更多 <span class="thread01MoreCountMirror">[50237]</span></p>
-                </div>
             </article>
 
-            <div id="thread01InjectedReplyAnchor"></div>
+
+            <!-- ==================================================
+         JS INJECTION ANCHOR
+         ================================================== -->
+
+            <div id="thread01InjectedReplyAnchor">
+            </div>
+
+
         </section>
+
+
+        <!-- ==================================================
+             THREAD NAVIGATION
+             ================================================== -->
 
         <section class="simple-card thread-nav-card">
+
+
             <div class="thread-nav-links">
-                <a href="board.html">返回列表</a>
+
+
+                <a href="board.html">
+                    返回列表
+                </a>
+
+
                 <span>|</span>
-                <a href="thread_02.html">相关缓存：物流记录</a>
+
+
+                <a href="thread_02.html">
+                    相关缓存：物流记录
+                </a>
+
+
             </div>
+
+
         </section>
+
+
     </main>
 
+
+    <!-- ==================================================
+         FOOTER
+         ================================================== -->
+
     <footer class="site-footer">
-        <p>Echo Board 线程阅读器 v1.4.0</p>
-        <p>恢复内容可能与站点历史缓存存在轻微偏移</p>
-        <p>© 未检测到有效归属方</p>
+
+        <p>
+            Echo Board 线程阅读器 v1.4.0
+        </p>
+
+        <p>
+            恢复内容可能与站点历史缓存存在轻微偏移
+        </p>
+
+        <p>
+            © 未检测到有效归属方
+        </p>
+
     </footer>
 
+
     <script src="../../assets/js/main.js?v=20260701-investigation"></script>
+
+
 </body>
+
 </html>

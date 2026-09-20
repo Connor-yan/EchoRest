@@ -189,70 +189,128 @@
             </details>
         </section>
 
-        <section class="simple-card archive-search-card">
-            <p class="section-label">旧站搜索 / Archive Search</p>
-            <h2 class="section-title">检索缓存记录</h2>
+        <section class="simple-card archive-search-card legacy-maint-leak">
 
-            <p class="simple-text">
-                输入你在页面里看到的词。检索结果只返回旧站残留，不保证与前台显示一致。
-            </p>
+            <div class="legacy-maint-leak-titlebar">
+                <span>
+                    BACKEND TOOL / CACHE QUERY
+                </span>
 
-            <div class="archive-search-box">
-                <input id="archiveSearchInput"
-                       class="archive-search-input"
-                       type="text"
-                       placeholder="输入关键词，例如：红果子、肩膀、缓存名"
-                       autocomplete="off" />
-
-                <button id="archiveSearchBtn"
-                        class="archive-search-btn"
-                        type="button">
-                    检索缓存
-                </button>
+                <span class="legacy-maint-leak-badge">
+                    FRONTEND EXPOSED
+                </span>
             </div>
 
-            <div class="search-chip-row">
-                <button class="search-chip" type="button" data-search="红果子">
-                    红果子
-                </button>
+            <div class="legacy-maint-leak-body">
 
-                <button class="search-chip" type="button" data-search="桑科榕属">
-                    桑科榕属
-                </button>
+                <p class="legacy-maint-leak-path">
+                    /maintenance/cache/query
+                </p>
 
-                <button class="search-chip" type="button" data-search="肩膀">
-                    肩膀
-                </button>
+                <h2 class="section-title">
+                    缓存检索工具
+                </h2>
 
-                <button class="search-chip" type="button" data-search="背后">
-                    背后
-                </button>
+                <p class="simple-text">
+                    该接口用于站务缓存检索。
+                    当前前台页面意外保留了只读查询入口。
+                </p>
 
-                <button class="search-chip" type="button" data-search="404">
-                    404
-                </button>
+                <p class="legacy-maint-leak-note">
+                    前台显示与缓存副本不一致时，可使用这里的结果进行比对。
+                </p>
 
-                <button class="search-chip" type="button" data-search="墙洞">
-                    墙洞
-                </button>
+                <div class="legacy-maint-field-head">
+                    <span>查询字段 / QUERY STRING</span>
+                    <span>模式：只读 / READ ONLY</span>
+                </div>
 
-                <button class="search-chip" type="button" data-search="音频">
-                    音频
-                </button>
-            </div>
+                <div class="archive-search-box">
+                    <input id="archiveSearchInput"
+                           class="archive-search-input"
+                           type="text"
+                           placeholder="输入关键词、缓存字段或文件名"
+                           autocomplete="off" />
 
-            <div id="archiveSearchResults" class="archive-search-results">
-                <p class="search-muted">等待输入。</p>
+                    <button id="archiveSearchBtn"
+                            class="archive-search-btn"
+                            type="button">
+                        检索缓存
+                    </button>
+                </div>
+
+                <div class="legacy-maint-history-head">
+                    最近查询记录 / RECENT QUERY CACHE
+                </div>
+
+                <div class="search-chip-row legacy-maint-query-history">
+                    <button class="search-chip" type="button" data-search="红果子">
+                        红果子
+                    </button>
+
+                    <button class="search-chip" type="button" data-search="桑科榕属">
+                        桑科榕属
+                    </button>
+
+                    <button class="search-chip" type="button" data-search="肩膀">
+                        肩膀
+                    </button>
+
+                    <button class="search-chip" type="button" data-search="背后">
+                        背后
+                    </button>
+
+                    <button class="search-chip" type="button" data-search="404">
+                        404
+                    </button>
+
+                    <button class="search-chip" type="button" data-search="墙洞">
+                        墙洞
+                    </button>
+
+                    <button class="search-chip" type="button" data-search="音频">
+                        音频
+                    </button>
+                </div>
+
+                <div id="archiveSearchResults" class="archive-search-results">
+                    <p class="search-muted">等待输入。</p>
+                </div>
+
             </div>
         </section>
 
-        <section class="simple-card repair-log-card">
-            <p class="section-label">本地记录 / Local Repair Log</p>
-            <h2 class="section-title">当前浏览器中的修复痕迹</h2>
+        <div class="legacy-maint-bridge-note">
+            前台挂载提示：维护工具不应出现在论坛目录中。
+        </div>
 
-            <ul id="repairLogList" class="repair-log-list">
-                <li>正在读取本地记录。</li>
-            </ul>
+        <section class="simple-card repair-log-card legacy-maint-leak">
+
+            <div class="legacy-maint-leak-titlebar">
+                <span>
+                    BACKEND TOOL / LOCAL TRACE
+                </span>
+
+                <span class="legacy-maint-leak-badge">
+                    SESSION ONLY
+                </span>
+            </div>
+
+            <div class="legacy-maint-leak-body">
+
+                <p class="legacy-maint-leak-path">
+                    local://session/repair-log
+                </p>
+
+                <h2 class="section-title">
+                    当前会话修复记录
+                </h2>
+
+                <ul id="repairLogList" class="repair-log-list">
+                    <li>正在读取本地记录。</li>
+                </ul>
+
+            </div>
         </section>
 
         <section class="simple-card thread-list-card legacy-board-table-card">

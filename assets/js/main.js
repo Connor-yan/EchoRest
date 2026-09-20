@@ -199,6 +199,14 @@ document.addEventListener("DOMContentLoaded", () => {
         handleThread04Page(now);
     }
 
+    if (
+        body.classList.contains(
+            "page-logistics-tracking"
+        )
+    ) {
+        handleLogisticsTrackingPage(now);
+    }
+
     bindRestrictedTriggers();
     bindFileInspectors();
 });
@@ -565,8 +573,9 @@ function handleThread01Page(now) {
 
         injectedAnchor.appendChild(article);
     }
-
     initThread01PhotoInvestigation();
+
+    syncThread01ProfileContamination();
 
     localStorage.setItem("echo_last_thread01_time", now);
 }
@@ -660,17 +669,10 @@ function syncThread01NarrativeState() {
     roomNumbers.forEach(
         function (roomNumber) {
             roomNumber.textContent =
-                photoCommitted ||
-                    aligned ||
-                    audited
-                    ? "404"
-                    : "\u2014\u2014";
+                "\u2014\u2014";
 
-            roomNumber.classList.toggle(
-                "is-recovered",
-                photoCommitted ||
-                aligned ||
-                audited
+            roomNumber.classList.remove(
+                "is-recovered"
             );
         }
     );
@@ -730,7 +732,7 @@ function syncThread01NarrativeState() {
 
         if (address) {
             address.textContent =
-                "4\u53f7\u697c / \u897f\u4fa7\u5899\u9762 / \u2014404";
+                "\u5df2\u5199\u5165 / \u516c\u5f00\u76ee\u5f55\u65e0\u5339\u914d";
         }
 
         if (rewrite) {
@@ -980,11 +982,865 @@ function initThread01PhotoInvestigation() {
                 "\u51b2\u7a81\u7ed3\u8bba\u5df2\u5199\u5165\u672c\u5730\u8c03\u67e5\u8bb0\u5f55\u3002";
 
             render();
+
+            syncThread01ProfileContamination();
+
             renderWorkConsole();
         }
     );
 
     render();
+}
+
+/* =========================
+   THREAD 01 Profile Contamination
+   ========================= */
+
+function syncThread01ProfileContamination() {
+    const field =
+        document.getElementById(
+            "thread01OwnerActivityField"
+        );
+
+    if (!field) {
+        return;
+    }
+
+    const photoState =
+        typeof loadThread01PhotoInspectionState ===
+            "function"
+            ? loadThread01PhotoInspectionState()
+            : {
+                committed: false
+            };
+
+    const photoCommitted =
+        photoState.committed === true ||
+        localStorage.getItem(
+            "echorest_thread01_room_trace_v1"
+        ) === "1";
+
+    const activityLinked =
+        typeof hasThread03WallAudioLink ===
+            "function"
+            ? hasThread03WallAudioLink()
+            : false;
+
+    field.classList.remove(
+        "is-time-shifted",
+        "is-activity-shifted"
+    );
+
+    if (activityLinked) {
+        field.innerHTML =
+            "<strong>ACTIVITY\uff1a</strong> ACTIVE";
+
+        field.classList.add(
+            "is-activity-shifted"
+        );
+
+        return;
+    }
+
+    if (photoCommitted) {
+        field.innerHTML =
+            "<strong>\u6700\u540e\u5728\u7ebf\uff1a</strong> 04:04";
+
+        field.classList.add(
+            "is-time-shifted"
+        );
+
+        return;
+    }
+
+    field.innerHTML =
+        "<strong>\u6700\u540e\u5728\u7ebf\uff1a</strong> \u8f83\u65e9";
+}
+
+/* =========================
+   AAA Logistics Tracking
+   ========================= */
+
+const ECHO_AAA_LOCAL_RECORD_KEY =
+    "echorest_aaa_local_record_found_v1";
+
+function handleLogisticsTrackingPage(now) {
+    const waybillInput =
+        document.getElementById(
+            "aaaTrackingInput"
+        );
+
+    const waybillButton =
+        document.getElementById(
+            "aaaTrackingSearchBtn"
+        );
+
+    const deviceInput =
+        document.getElementById(
+            "aaaDeviceInput"
+        );
+
+    const nodeInput =
+        document.getElementById(
+            "aaaNodeInput"
+        );
+
+    const deviceButton =
+        document.getElementById(
+            "aaaDeviceSearchBtn"
+        );
+
+    const resultState =
+        document.getElementById(
+            "aaaTrackingResultState"
+        );
+
+    const resultBody =
+        document.getElementById(
+            "aaaTrackingResultBody"
+        );
+
+    if (
+        !waybillInput ||
+        !waybillButton ||
+        !deviceInput ||
+        !nodeInput ||
+        !deviceButton ||
+        !resultState ||
+        !resultBody
+    ) {
+        return;
+    }
+
+    function normalizeDevice(value) {
+        return String(value || "")
+            .trim()
+            .toUpperCase();
+    }
+
+    function normalizeNode(value) {
+        return String(value || "")
+            .trim()
+            .toUpperCase()
+            .replace(/\s+/g, "");
+    }
+
+    function renderNotice(
+        state,
+        message
+    ) {
+        resultState.textContent =
+            state;
+
+        resultBody.innerHTML = "";
+
+        const paragraph =
+            document.createElement("p");
+
+        paragraph.textContent =
+            message;
+
+        resultBody.appendChild(
+            paragraph
+        );
+    }
+
+    function renderLocalRecord() {
+        resultState.textContent =
+            "LOCAL RECORD";
+
+        resultBody.innerHTML = "";
+
+        const record =
+            document.createElement("div");
+
+        record.className =
+            "aaa-local-record";
+
+        const head =
+            document.createElement("div");
+
+        head.className =
+            "aaa-local-record-head";
+
+        const title =
+            document.createElement("strong");
+
+        title.textContent =
+            "\u672c\u5730\u7f13\u5b58\u8bb0\u5f55";
+
+        const badge =
+            document.createElement("span");
+
+        badge.textContent =
+            "UNREGISTERED";
+
+        head.appendChild(title);
+        head.appendChild(badge);
+
+        const rows =
+            document.createElement("div");
+
+        rows.className =
+            "aaa-local-record-rows";
+
+        const rowData = [
+            [
+                "\u8bb0\u5f55\u7f16\u53f7",
+                "UNREGISTERED COPY / 02"
+            ],
+            [
+                "\u626b\u63cf\u8bbe\u5907",
+                "SCN-WJ-02"
+            ],
+            [
+                "\u95e8\u5e97\u8282\u70b9",
+                "AAA-LOCAL / 03"
+            ],
+            [
+                "\u516c\u5f00\u8fd0\u5355\u7d22\u5f15",
+                "NONE"
+            ],
+            [
+                "\u672c\u5730\u8bb0\u5f55\u72b6\u6001",
+                "READABLE"
+            ]
+        ];
+
+        rowData.forEach(
+            function (item) {
+                const row =
+                    document.createElement(
+                        "div"
+                    );
+
+                const key =
+                    document.createElement(
+                        "span"
+                    );
+
+                const value =
+                    document.createElement(
+                        "strong"
+                    );
+
+                key.textContent =
+                    item[0];
+
+                value.textContent =
+                    item[1];
+
+                row.appendChild(key);
+                row.appendChild(value);
+
+                rows.appendChild(row);
+            }
+        );
+
+        const note =
+            document.createElement("p");
+
+        note.className =
+            "aaa-local-record-note";
+
+        note.textContent =
+            "\u8be5\u8bb0\u5f55\u4e0d\u5b58\u5728\u4e8e\u516c\u5f00\u8fd0\u5355\u7d22\u5f15\u4e2d\uff0c\u4f46\u95e8\u5e97\u626b\u63cf\u8bbe\u5907\u4ecd\u4fdd\u7559\u53ef\u8bfb\u526f\u672c\u3002";
+
+        record.appendChild(head);
+        record.appendChild(rows);
+        record.appendChild(note);
+
+        const openButton =
+            document.createElement("button");
+
+        openButton.type = "button";
+
+        openButton.className =
+            "aaa-local-record-open";
+
+        openButton.textContent =
+            "\u67e5\u770b\u672c\u5730\u8bb0\u5f55";
+
+        openButton.addEventListener(
+            "click",
+            function () {
+                renderLocalTrackingDetail();
+            }
+        );
+
+        record.appendChild(
+            openButton
+        );
+
+        resultBody.appendChild(
+            record
+        );
+    }
+
+    function renderLocalTrackingDetail() {
+        const resultState =
+            document.getElementById(
+                "aaaTrackingResultState"
+            );
+
+        const resultBody =
+            document.getElementById(
+                "aaaTrackingResultBody"
+            );
+
+        if (
+            !resultState ||
+            !resultBody
+        ) {
+            return;
+        }
+
+        resultState.textContent =
+            "RECORD OPEN";
+
+        resultBody.innerHTML = "";
+
+        const detail =
+            document.createElement("div");
+
+        detail.className =
+            "aaa-tracking-detail";
+
+
+        /* =========================
+           HEADER
+           ========================= */
+
+        const head =
+            document.createElement("div");
+
+        head.className =
+            "aaa-tracking-detail-head";
+
+        const headLeft =
+            document.createElement("div");
+
+        const title =
+            document.createElement("strong");
+
+        title.textContent =
+            "UNREGISTERED COPY / 02";
+
+        const subtitle =
+            document.createElement("span");
+
+        subtitle.textContent =
+            "LOCAL TRACKING CACHE";
+
+        headLeft.appendChild(title);
+        headLeft.appendChild(subtitle);
+
+
+        const status =
+            document.createElement("em");
+
+        status.textContent =
+            "VALID";
+
+
+        head.appendChild(headLeft);
+        head.appendChild(status);
+
+        detail.appendChild(head);
+
+
+        /* =========================
+           TRACKING EVENTS
+           ========================= */
+
+        const timeline =
+            document.createElement("div");
+
+        timeline.className =
+            "aaa-tracking-timeline";
+
+
+        const events = [
+            {
+                time: "04:04",
+
+                title:
+                    "\u5305\u88f9\u5df2\u7b7e\u6536",
+
+                note:
+                    "\u51ed\u636e\uff1a\u56fe\u6837\u9a8c\u8bc1\u901a\u8fc7"
+            },
+
+            {
+                time: "04:07",
+
+                title:
+                    "\u8fdb\u5165\u672b\u7aef\u914d\u9001\u7f51\u70b9",
+
+                note:
+                    "\u8bbe\u5907\uff1aSCN-WJ-02"
+            },
+
+            {
+                time: "04:11",
+
+                title:
+                    "\u5feb\u4ef6\u5b8c\u6210\u63fd\u6536",
+
+                note:
+                    "\u59cb\u53d1\u7f51\u70b9\uff1aAAA-LOCAL / 03"
+            },
+
+            {
+                time: "04:18",
+
+                title:
+                    "\u5730\u5740\u6821\u9a8c\u901a\u8fc7",
+
+                note:
+                    "\u5730\u5740\u6765\u6e90\uff1a\u7cfb\u7edf\u81ea\u52a8\u8865\u5168"
+            }
+        ];
+
+
+        events.forEach(
+            function (event) {
+                const row =
+                    document.createElement("div");
+
+                row.className =
+                    "aaa-tracking-event";
+
+
+                const time =
+                    document.createElement("span");
+
+                time.className =
+                    "aaa-tracking-event-time";
+
+                time.textContent =
+                    event.time;
+
+
+                const copy =
+                    document.createElement("div");
+
+                const eventTitle =
+                    document.createElement("strong");
+
+                eventTitle.textContent =
+                    event.title;
+
+
+                const eventNote =
+                    document.createElement("small");
+
+                eventNote.textContent =
+                    event.note;
+
+
+                copy.appendChild(
+                    eventTitle
+                );
+
+                copy.appendChild(
+                    eventNote
+                );
+
+
+                row.appendChild(time);
+                row.appendChild(copy);
+
+                timeline.appendChild(row);
+            }
+        );
+
+
+        detail.appendChild(timeline);
+
+
+        /* =========================
+           RECORD STATE
+           ========================= */
+
+        const footer =
+            document.createElement("div");
+
+        footer.className =
+            "aaa-tracking-detail-footer";
+
+
+        const footerLabel =
+            document.createElement("span");
+
+        footerLabel.textContent =
+            "RECORD STATUS";
+
+
+        const footerValue =
+            document.createElement("strong");
+
+        footerValue.textContent =
+            "VALID";
+
+
+        footer.appendChild(
+            footerLabel
+        );
+
+        footer.appendChild(
+            footerValue
+        );
+
+
+        detail.appendChild(footer);
+
+        const reviewBox =
+            document.createElement("div");
+
+        reviewBox.className =
+            "aaa-tracking-review-gate";
+
+
+        const reviewText =
+            document.createElement("div");
+
+        reviewText.className =
+            "aaa-tracking-review-copy";
+
+
+        const reviewState =
+            document.createElement("strong");
+
+        reviewState.textContent =
+            "AUTO CHECK / VALID";
+
+
+        const reviewNote =
+            document.createElement("span");
+
+        reviewNote.textContent =
+            "\u81ea\u52a8\u7cfb\u7edf\u672a\u68c0\u6d4b\u5230\u9700\u8981\u4e2d\u6b62\u7684\u914d\u9001\u5f02\u5e38\u3002";
+
+
+        reviewText.appendChild(
+            reviewState
+        );
+
+        reviewText.appendChild(
+            reviewNote
+        );
+
+
+        const reviewButton =
+            document.createElement("button");
+
+        reviewButton.type =
+            "button";
+
+        reviewButton.className =
+            "aaa-tracking-review-open";
+
+        reviewButton.textContent =
+            "\u7533\u8bf7\u4eba\u5de5\u590d\u6838";
+
+
+        reviewButton.addEventListener(
+            "click",
+            function () {
+                const panel =
+                    document.getElementById(
+                        "aaaManualReviewPanel"
+                    );
+
+                if (!panel) {
+                    return;
+                }
+
+                localStorage.setItem(
+                    "echorest_aaa_manual_review_opened_v1",
+                    "1"
+                );
+
+                panel.classList.remove(
+                    "hidden"
+                );
+
+                window.requestAnimationFrame(
+                    function () {
+                        panel.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+                    }
+                );
+            }
+        );
+
+
+        reviewBox.appendChild(
+            reviewText
+        );
+
+        reviewBox.appendChild(
+            reviewButton
+        );
+
+
+        detail.appendChild(
+            reviewBox
+        );
+
+        /* =========================
+           BACK
+           ========================= */
+
+        const backButton =
+            document.createElement("button");
+
+        backButton.type = "button";
+
+        backButton.className =
+            "aaa-tracking-detail-back";
+
+        backButton.textContent =
+            "\u8fd4\u56de\u67e5\u8be2\u7ed3\u679c";
+
+        backButton.addEventListener(
+            "click",
+            function () {
+                renderLocalRecord();
+            }
+        );
+
+
+        detail.appendChild(
+            backButton
+        );
+
+
+        resultBody.appendChild(
+            detail
+        );
+    }
+
+    waybillButton.addEventListener(
+        "click",
+        function () {
+            const value =
+                waybillInput.value.trim();
+
+            if (!value) {
+                renderNotice(
+                    "INPUT REQUIRED",
+                    "\u8bf7\u8f93\u5165\u5b8c\u6574\u8fd0\u5355\u7f16\u53f7\u3002"
+                );
+
+                return;
+            }
+
+            renderNotice(
+                "NO MATCH",
+                "\u516c\u5f00\u8fd0\u5355\u7d22\u5f15\u4e2d\u672a\u627e\u5230\u5bf9\u5e94\u8bb0\u5f55\u3002"
+            );
+        }
+    );
+
+    deviceButton.addEventListener(
+        "click",
+        function () {
+            const device =
+                normalizeDevice(
+                    deviceInput.value
+                );
+
+            const node =
+                normalizeNode(
+                    nodeInput.value
+                );
+
+            if (!device || !node) {
+                renderNotice(
+                    "INPUT REQUIRED",
+                    "\u8bf7\u8f93\u5165\u626b\u63cf\u8bbe\u5907\u4e0e\u95e8\u5e97\u8282\u70b9\u3002"
+                );
+
+                return;
+            }
+
+            const deviceMatched =
+                device ===
+                "SCN-WJ-02";
+
+            const nodeMatched =
+                node ===
+                "AAA-LOCAL/03";
+
+            if (
+                !deviceMatched ||
+                !nodeMatched
+            ) {
+                renderNotice(
+                    "NO LOCAL RECORD",
+                    "\u672a\u5728\u5f53\u524d\u95e8\u5e97\u7f13\u5b58\u4e2d\u627e\u5230\u5339\u914d\u8bb0\u5f55\u3002"
+                );
+
+                return;
+            }
+
+            localStorage.setItem(
+                ECHO_AAA_LOCAL_RECORD_KEY,
+                "1"
+            );
+
+            addInvestigationLog(
+                "aaa_local_record_found",
+
+                "[INVESTIGATION] AAA \u5386\u53f2\u8bbe\u5907\u67e5\u8be2\u8fd4\u56de\u4e00\u6761\u4e0d\u5b58\u5728\u4e8e\u516c\u5f00\u8fd0\u5355\u7d22\u5f15\u7684\u672c\u5730\u7f13\u5b58\u8bb0\u5f55\u3002",
+
+                false
+            );
+
+            renderLocalRecord();
+        }
+    );
+
+    if (
+        localStorage.getItem(
+            ECHO_AAA_LOCAL_RECORD_KEY
+        ) === "1"
+    ) {
+        renderLocalRecord();
+    }
+
+    if (
+        typeof initThread02LogisticsAudit ===
+        "function"
+    ) {
+        initThread02LogisticsAudit();
+    }
+
+    if (
+        typeof initThread02SequenceAudit ===
+        "function"
+    ) {
+        initThread02SequenceAudit();
+    }
+
+    const reviewPanel =
+        document.getElementById(
+            "aaaManualReviewPanel"
+        );
+
+    if (
+        reviewPanel &&
+        localStorage.getItem(
+            "echorest_aaa_manual_review_opened_v1"
+        ) === "1"
+    ) {
+        reviewPanel.classList.remove(
+            "hidden"
+        );
+    }
+
+    const systemResponse =
+        document.getElementById(
+            "aaaReviewSystemResponse"
+        );
+
+    if (
+        systemResponse &&
+        localStorage.getItem(
+            "echorest_thread02_logistics_audit_v1"
+        ) === "1"
+    ) {
+        systemResponse.classList.remove(
+            "hidden"
+        );
+    }
+
+    const sequenceOpenButton =
+        document.getElementById(
+            "aaaSequenceReviewOpen"
+        );
+
+    const sequencePanel =
+        document.getElementById(
+            "aaaSequenceReviewPanel"
+        );
+
+
+    if (
+        sequenceOpenButton &&
+        sequencePanel &&
+        sequenceOpenButton.dataset
+            .aaaSequenceBound !==
+        "1"
+    ) {
+        sequenceOpenButton.addEventListener(
+            "click",
+            function () {
+                if (
+                    localStorage.getItem(
+                        "echorest_thread02_logistics_audit_v1"
+                    ) !== "1"
+                ) {
+                    return;
+                }
+
+                localStorage.setItem(
+                    "echorest_aaa_sequence_review_opened_v1",
+                    "1"
+                );
+
+                sequencePanel.classList.remove(
+                    "hidden"
+                );
+
+                if (
+                    typeof
+                    renderThread02SequenceAudit ===
+                    "function"
+                ) {
+                    renderThread02SequenceAudit();
+                }
+
+                window.requestAnimationFrame(
+                    function () {
+                        sequencePanel.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+                    }
+                );
+            }
+        );
+
+        if (
+            sequencePanel &&
+            (
+                localStorage.getItem(
+                    "echorest_aaa_sequence_review_opened_v1"
+                ) === "1" ||
+                localStorage.getItem(
+                    "echorest_thread02_sequence_audit_v1"
+                ) === "1"
+            )
+        ) {
+            sequencePanel.classList.remove(
+                "hidden"
+            );
+        }
+
+        sequenceOpenButton.dataset
+            .aaaSequenceBound =
+            "1";
+    }
+
+    localStorage.setItem(
+        "echo_last_aaa_tracking_time",
+        now
+    );
 }
 
 function handleThread02Page(now) {
@@ -1912,6 +2768,17 @@ function initThread02LogisticsAudit() {
                 ECHO_THREAD02_LOGISTICS_UNLOCK_KEY,
                 "1"
             );
+
+            const systemResponse =
+                document.getElementById(
+                    "aaaReviewSystemResponse"
+                );
+
+            if (systemResponse) {
+                systemResponse.classList.remove(
+                    "hidden"
+                );
+            }
 
             addInvestigationLog(
                 "thread02_logistics_conflict_audit",
@@ -3332,10 +4199,10 @@ const ECHO_TICKET013_TEXT = {
         "\u5c1a\u672a\u8fbe\u5230 92% \u7684\u9501\u5b9a\u9608\u503c\u3002",
 
     success:
-        "VERIFIED / \u4e24\u4efd\u6765\u6e90\u4e0d\u540c\u7684\u56fe\u50cf\u5171\u4eab\u540c\u4e00\u7ec4\u7ea2\u8272\u8fb9\u7f18\u6570\u636e\u3002\u7cfb\u7edf\u5df2\u636e\u6b64\u8865\u5168\u9644\u4ef6\u6765\u6e90\u5730\u5740\u3002",
+        "VERIFIED / \u4e24\u4efd\u6765\u6e90\u4e0d\u540c\u7684\u56fe\u50cf\u5171\u4eab\u540c\u4e00\u7ec4\u7ea2\u8272\u8fb9\u7f18\u6570\u636e\u3002\u7cfb\u7edf\u5df2\u636e\u6b64\u786e\u8ba4\u9644\u4ef6\u6765\u6e90\u5b57\u6bb5\u3002",
 
     verified:
-        "\u8be5\u5de5\u5355\u5df2\u5b8c\u6210\u56fe\u50cf\u540c\u6e90\u6838\u9a8c\u3002\u6765\u6e90\u5b57\u6bb5\u5df2\u5199\u5165\u672a\u767b\u8bb0\u5730\u5740\u3002"
+        "\u8be5\u5de5\u5355\u5df2\u5b8c\u6210\u56fe\u50cf\u540c\u6e90\u6838\u9a8c\u3002\u6765\u6e90\u5b57\u6bb5\u5df2\u5199\u5165\uff0c\u516c\u5f00\u76ee\u5f55\u4ecd\u65e0\u5bf9\u5e94\u8bb0\u5f55\u3002"
 };
 
 function isEchoTicket013Verified() {
@@ -3645,7 +4512,7 @@ const ECHO_TICKET013_REASONING_TEXT = {
         "\u7ed3\u8bba\u4e2d\u5305\u542b\u65e0\u6cd5\u7531\u73b0\u6709\u8bc1\u636e\u652f\u6301\u7684\u63a8\u65ad\u3002\u9519\u8bef\u5224\u65ad\u5df2\u88ab\u8bb0\u5f55\u3002",
 
     success:
-        "\u7ed3\u8bba\u901a\u8fc7\u3002\u7cfb\u7edf\u5df2\u6839\u636e\u56fe\u50cf\u540c\u6e90\u5173\u7cfb\u8865\u5168\u9644\u4ef6\u6765\u6e90\u5730\u5740\uff1b\u8be5\u5730\u5740\u4e0d\u5728\u516c\u5f00\u697c\u5c42\u8868\u4e2d\u3002",
+        "\u7ed3\u8bba\u901a\u8fc7\u3002\u7cfb\u7edf\u5df2\u6839\u636e\u56fe\u50cf\u540c\u6e90\u5173\u7cfb\u786e\u8ba4\u6765\u6e90\u5b57\u6bb5\uff1b\u516c\u5f00\u76ee\u5f55\u4e2d\u4ecd\u65e0\u5bf9\u5e94\u8bb0\u5f55\u3002",
 
     verified:
         "\u5df2\u5b8c\u6210\u6765\u6e90\u7ed3\u8bba\u590d\u6838\u3002",
@@ -3654,7 +4521,7 @@ const ECHO_TICKET013_REASONING_TEXT = {
         "\u56fe\u50cf\u5bf9\u9f50\u5df2\u9501\u5b9a\u3002\u8bf7\u5b8c\u6210\u4e0b\u65b9\u7ed3\u8bba\u590d\u6838\uff0c\u5916\u90e8\u8bb0\u5f55\u624d\u4f1a\u63a5\u53d7\u8be5\u6765\u6e90\u3002",
 
     log:
-        "\u62a5\u4fee\u5355 #013 \u6765\u6e90\u7ed3\u8bba\u590d\u6838\u5b8c\u6210\uff1a\u9644\u4ef6\u88ab\u5199\u5165\u4e00\u4e2a\u4e0d\u5b58\u5728\u4e8e\u516c\u5f00\u697c\u5c42\u8868\u7684\u6295\u9012\u5730\u5740\u3002"
+        "\u62a5\u4fee\u5355 #013 \u6765\u6e90\u7ed3\u8bba\u590d\u6838\u5b8c\u6210\uff1a\u9644\u4ef6\u6765\u6e90\u5b57\u6bb5\u5df2\u88ab\u7cfb\u7edf\u63a5\u53d7\uff0c\u4f46\u516c\u5f00\u76ee\u5f55\u4e2d\u672a\u627e\u5230\u5bf9\u5e94\u8bb0\u5f55\u3002"
 };
 
 function isEchoTicket013AuditVerified() {
@@ -9356,7 +10223,7 @@ function createInjectedThread04Block(id, meta, text) {
         );
     }
 
-    
+
 
     function initT05RoomAudit() {
         const root =
@@ -18633,3 +19500,280 @@ function initEchoEvidenceSystem() {
         }
     };
 }
+
+/* ==========================================
+AAA tracking page - side ads / pollution
+========================================== */
+
+function isEchoTrackingAdPolluted() {
+    const possibleKeys = [
+        "echorest_thread02_sequence_audit_v1"
+    ];
+
+    return possibleKeys.some(function (key) {
+        const value = localStorage.getItem(key);
+
+        return (
+            value === "1" ||
+            value === "true" ||
+            value === "verified" ||
+            value === "VERIFIED"
+        );
+    });
+}
+
+function syncEchoTrackingAds() {
+    if (
+        !document.body ||
+        !document.body.classList.contains(
+            "page-logistics-tracking"
+        )
+    ) {
+        return;
+    }
+
+    const polluted =
+        isEchoTrackingAdPolluted();
+
+    const leftCounter =
+        document.getElementById(
+            "aaaLeftCounterValue"
+        );
+
+    const rightCounter =
+        document.getElementById(
+            "aaaRightCounterValue"
+        );
+
+    const leftBox =
+        document.getElementById(
+            "aaaAdLeftPollutedBox"
+        );
+
+    const leftTag =
+        document.getElementById(
+            "aaaAdLeftPollutedTag"
+        );
+
+    const leftTitle =
+        document.getElementById(
+            "aaaAdLeftPollutedTitle"
+        );
+
+    const leftDesc =
+        document.getElementById(
+            "aaaAdLeftPollutedDesc"
+        );
+
+    const leftLink =
+        document.getElementById(
+            "aaaAdLeftPollutedLink"
+        );
+
+    const rightBox =
+        document.getElementById(
+            "aaaAdRightPollutedBox"
+        );
+
+    const rightTag =
+        document.getElementById(
+            "aaaAdRightPollutedTag"
+        );
+
+    const rightTitle =
+        document.getElementById(
+            "aaaAdRightPollutedTitle"
+        );
+
+    const rightDesc =
+        document.getElementById(
+            "aaaAdRightPollutedDesc"
+        );
+
+    const rightLink =
+        document.getElementById(
+            "aaaAdRightPollutedLink"
+        );
+
+    if (
+        !leftBox ||
+        !leftTag ||
+        !leftTitle ||
+        !leftDesc ||
+        !leftLink ||
+        !rightBox ||
+        !rightTag ||
+        !rightTitle ||
+        !rightDesc ||
+        !rightLink
+    ) {
+        return;
+    }
+
+    if (polluted) {
+        if (leftCounter) {
+            leftCounter.textContent =
+                "00040417";
+        }
+
+        if (rightCounter) {
+            rightCounter.textContent =
+                "00040417";
+        }
+
+        leftBox.classList.add(
+            "is-polluted"
+        );
+
+        leftTag.textContent =
+            "\u81ea\u52a8\u8865\u5168";
+
+        leftTitle.textContent =
+            "\u627e\u4e0d\u5230\u6295\u9012\u5730\u5740\uff1f";
+
+        leftDesc.textContent =
+            "\u68c0\u6d4b\u5230 1 \u6761\u672a\u767b\u8bb0\u5730\u5740\u8bb0\u5f55\u3002\u7cfb\u7edf\u53ef\u4e3a\u60a8\u81ea\u52a8\u8865\u5168\u3002";
+
+        leftLink.textContent =
+            "\u7acb\u5373\u8865\u5168 >>";
+
+        leftLink.setAttribute(
+            "href",
+            "#aaaRecordWriteTrace"
+        );
+
+        leftLink.setAttribute(
+            "target",
+            "_self"
+        );
+
+        leftLink.removeAttribute("rel");
+
+
+        rightBox.classList.add(
+            "is-polluted"
+        );
+
+        rightTag.textContent =
+            "\u5f02\u5e38";
+
+        rightTitle.textContent =
+            "\u672c\u5730\u72b6\u6001\u66f4\u65b0";
+
+        rightDesc.textContent =
+            "\u5df2\u68c0\u6d4b\u5230 04:18 \u7cfb\u7edf\u8865\u5199\u8bb0\u5f55\u3002\u53ef\u7ee7\u7eed\u67e5\u770b\u5f53\u524d\u5199\u5165\u7ebf\u7d22\u3002";
+
+        rightLink.textContent =
+            "\u67e5\u770b\u8865\u5199\u8bb0\u5f55";
+
+        rightLink.setAttribute(
+            "href",
+            "../forum/thread_02.html#thread02TrackingRecord"
+        );
+
+        rightLink.setAttribute(
+            "target",
+            "_self"
+        );
+
+        rightLink.removeAttribute("rel");
+
+        return;
+    }
+
+    if (leftCounter) {
+        leftCounter.textContent =
+            "002381";
+    }
+
+    if (rightCounter) {
+        rightCounter.textContent =
+            "00048217";
+    }
+
+    leftBox.classList.remove(
+        "is-polluted"
+    );
+
+    leftTag.textContent =
+        "\u7ad9\u957f\u63a8\u8350";
+
+    leftTitle.textContent =
+        "\u7269\u6d41\u5ba2\u670d\u4e13\u7ebf";
+
+    leftDesc.textContent =
+        "\u67e5\u8be2\u95e8\u5e97 / \u5bc4\u4ef6 / \u6295\u8bc9\u7535\u8bdd / \u670d\u52a1\u65f6\u95f4";
+
+    leftLink.textContent =
+        "\u7acb\u5373\u67e5\u770b >>";
+
+    leftLink.setAttribute(
+        "href",
+        "https://www.baidu.com/"
+    );
+
+    leftLink.setAttribute(
+        "target",
+        "_blank"
+    );
+
+    leftLink.setAttribute(
+        "rel",
+        "noopener noreferrer"
+    );
+
+
+    rightBox.classList.remove(
+        "is-polluted"
+    );
+
+    rightTag.textContent =
+        "\u5b9e\u7528";
+
+    rightTitle.textContent =
+        "\u4eca\u65e5\u5929\u6c14\u67e5\u8be2";
+
+    rightDesc.textContent =
+        "\u5168\u56fd\u57ce\u5e02\u5929\u6c14\u9884\u62a5";
+
+    rightLink.textContent =
+        "\u67e5\u770b\u5929\u6c14";
+
+    rightLink.setAttribute(
+        "href",
+        "https://www.weather.com.cn/"
+    );
+
+    rightLink.setAttribute(
+        "target",
+        "_blank"
+    );
+
+    rightLink.setAttribute(
+        "rel",
+        "noopener noreferrer"
+    );
+}
+
+function initEchoTrackingAds() {
+    if (
+        !document.body ||
+        !document.body.classList.contains(
+            "page-logistics-tracking"
+        )
+    ) {
+        return;
+    }
+
+    syncEchoTrackingAds();
+
+    window.setInterval(
+        syncEchoTrackingAds,
+        900
+    );
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initEchoTrackingAds
+);
