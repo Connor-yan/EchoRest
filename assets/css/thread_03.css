@@ -1,0 +1,5111 @@
+﻿/* =========================================================
+   EchoRest / THREAD 03
+   Thread-specific visual layer
+
+   Base styles remain in style.css.
+   New THREAD 03 visual adjustments should be added here.
+   ========================================================= */
+/* =========================================================
+   THREAD 03 / AUDIO RECOVERED FILE
+   ========================================================= */
+
+.thread03-audio-file-status {
+    margin: 0 0 14px;
+    padding: 0;
+    border: 1px solid #33444d;
+    background: #0c1419;
+}
+
+
+.thread03-audio-file-head {
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 8px 10px;
+    border-bottom: 1px solid #33444d;
+    background: #121d23;
+}
+
+
+    .thread03-audio-file-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+
+    .thread03-audio-file-head span {
+        color: #788d99;
+        font-family: "Courier New", monospace;
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+
+    .thread03-audio-file-head strong {
+        color: #d5e1e6;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+    }
+
+
+    .thread03-audio-file-head em {
+        padding: 2px 7px;
+        border: 1px solid #55786c;
+        background: #14271f;
+        color: #83b69a;
+        font-family: "Courier New", monospace;
+        font-size: 10px;
+        font-style: normal;
+    }
+
+
+/* status grid */
+
+.thread03-audio-file-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-bottom: 1px solid #293840;
+}
+
+
+    .thread03-audio-file-grid > div {
+        min-height: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        padding: 8px 10px;
+        box-sizing: border-box;
+        border-right: 1px solid #293840;
+        border-bottom: 1px solid #293840;
+    }
+
+
+        .thread03-audio-file-grid > div:nth-child(2n) {
+            border-right: 0;
+        }
+
+
+        .thread03-audio-file-grid > div:nth-last-child(-n + 2) {
+            border-bottom: 0;
+        }
+
+
+    .thread03-audio-file-grid span {
+        color: #758895;
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+        letter-spacing: .8px;
+    }
+
+
+    .thread03-audio-file-grid strong {
+        color: #cad7dc;
+        font-family: "Courier New", monospace;
+        font-size: 11px;
+        overflow-wrap: anywhere;
+    }
+
+
+        .thread03-audio-file-grid strong.is-ok {
+            color: #88b49b;
+        }
+
+
+        .thread03-audio-file-grid strong.is-waiting {
+            color: #c7ad72;
+        }
+
+
+/* note */
+
+.thread03-audio-file-note {
+    margin: 0;
+    padding: 9px 10px;
+    color: #9eafb6;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   THREAD 03 / ASSOCIATED MAINTENANCE
+   ========================================================= */
+
+#thread03AudioFollowup {
+    position: relative;
+    margin-top: 14px;
+    padding: 11px 12px;
+    border: 1px solid #4b4a3f;
+    background: linear-gradient( 90deg, rgba(141, 117, 62, .10), rgba(141, 117, 62, .03) );
+}
+
+
+    #thread03AudioFollowup::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #977c42;
+    }
+
+
+    #thread03AudioFollowup.is-new {
+        border-color: #77673f;
+        box-shadow: inset 0 0 0 1px rgba(173, 143, 72, .08);
+    }
+
+
+    #thread03AudioFollowup button {
+        border: 1px solid #626153;
+        background: #171a19;
+        color: #cbb984;
+        cursor: pointer;
+    }
+
+
+        #thread03AudioFollowup button:hover {
+            border-color: #918361;
+            background: #1d201e;
+        }
+
+/* =========================================================
+   THREAD 03
+   ECHO BOARD SHARED SKIN
+   circa 2006-2007
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   PAGE
+   same site, slightly later revision
+   --------------------------------------------------------- */
+
+body.page-thread-03 {
+    background: #c8d2d9 !important;
+    color: #243a48 !important;
+    font-family: "SimSun", Tahoma, Arial, sans-serif !important;
+}
+
+
+/* do not let CRT treatment dominate the forum */
+
+.page-thread-03
+.screen-noise,
+.page-thread-03
+.screen-scanlines {
+    opacity: .025 !important;
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   SITE HEADER
+   same EchoRest / Echo Board family
+   --------------------------------------------------------- */
+
+.page-thread-03
+.topbar {
+    min-height: 60px;
+    padding: 10px 18px;
+    border-bottom: 1px solid #8195a3;
+    background: linear-gradient( 180deg, #edf3f6 0%, #dce5ea 45%, #c4d1da 100% ) !important;
+    box-shadow: inset 0 1px 0 #ffffff;
+}
+
+
+.page-thread-03
+.brand-name {
+    color: #173b60 !important;
+    text-shadow: none !important;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+}
+
+
+.page-thread-03
+.brand-dot {
+    background: #4c7898 !important;
+    box-shadow: none !important;
+}
+
+
+.page-thread-03
+.brand-sub,
+.page-thread-03
+.status-block {
+    color: #617583 !important;
+}
+
+
+/* ---------------------------------------------------------
+   MAIN PAGE WIDTH
+   same proportions as the earlier board pages
+   --------------------------------------------------------- */
+
+.page-thread-03
+.thread-main {
+    width: calc(100% - 40px);
+    max-width: 1120px;
+    margin: 14px auto 28px;
+}
+
+
+/* ---------------------------------------------------------
+   COMMON BOARD PANELS
+   --------------------------------------------------------- */
+
+.page-thread-03
+.simple-card {
+    border: 1px solid #8d9da8 !important;
+    background: #eef1f2 !important;
+    color: #243947 !important;
+    box-shadow: 1px 1px 2px rgba(62, 76, 85, .18) !important;
+}
+
+
+.page-thread-03
+.thread-head-card {
+    background: #edf0f1 !important;
+}
+
+
+.page-thread-03
+.section-label {
+    color: #6b8190 !important;
+    font-family: Tahoma, "SimSun", sans-serif;
+    font-size: 11px;
+}
+
+
+.page-thread-03
+.simple-title {
+    color: #173d63 !important;
+    text-shadow: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   THREAD HEADER DATA
+   old portal table instead of dark dashboard boxes
+   --------------------------------------------------------- */
+
+.page-thread-03
+.thread-info-grid {
+    border-top: 1px solid #9aa9b3;
+    border-left: 1px solid #9aa9b3;
+    gap: 0 !important;
+}
+
+
+.page-thread-03
+.thread-info-item {
+    min-height: 46px;
+    padding: 7px 9px;
+    border-right: 1px solid #9aa9b3 !important;
+    border-bottom: 1px solid #9aa9b3 !important;
+    background: #f4f5f4 !important;
+}
+
+
+    .page-thread-03
+    .thread-info-item:nth-child(4n + 1),
+    .page-thread-03
+    .thread-info-item:nth-child(4n + 4) {
+        background: #e3e8eb !important;
+    }
+
+
+.page-thread-03
+.thread-info-key {
+    color: #657987 !important;
+    font-size: 10px;
+}
+
+
+.page-thread-03
+.thread-info-value {
+    color: #20384a !important;
+}
+
+
+/* ---------------------------------------------------------
+   CACHE READ RECORD
+   like an old site notice
+   --------------------------------------------------------- */
+
+.page-thread-03
+.login-log-box {
+    border: 1px solid #c1a964 !important;
+    background: #fff7d5 !important;
+    color: #564a28 !important;
+}
+
+
+.page-thread-03
+.warning-title {
+    color: #55461e !important;
+}
+
+
+/* ---------------------------------------------------------
+   POST LIST CONTAINER
+   --------------------------------------------------------- */
+
+.page-thread-03
+.post-list-card {
+    background: #edf0f1 !important;
+}
+
+/* ---------------------------------------------------------
+   FORUM POST
+   classic BBS two-column structure
+   --------------------------------------------------------- */
+
+.page-thread-03
+.post-list-card {
+    background: #d9dfe3 !important;
+    border: 1px solid #9aa7b0 !important;
+    padding: 16px !important;
+}
+
+
+.page-thread-03
+.forum-post {
+    margin: 0 0 14px !important;
+    border: 1px solid #9aa7b0 !important;
+    background: #e7ecef !important;
+    color: #263844 !important;
+    display: grid !important;
+    grid-template-columns: 140px minmax(0, 1fr);
+    box-shadow: none !important;
+}
+
+
+/* left user column */
+
+.page-thread-03
+.forum-post-side {
+    background: #d7dde1 !important;
+    border-right: 1px solid #a5b1b9 !important;
+    padding: 14px 10px 12px !important;
+}
+
+
+    .page-thread-03
+    .forum-post-side .forum-post-author {
+        margin: 0 0 12px !important;
+        color: #123d67 !important;
+        font-size: 14px !important;
+        font-weight: bold !important;
+        line-height: 1.3 !important;
+    }
+
+
+.page-thread-03
+.avatar-slot {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 12px !important;
+    border: 1px solid #8fa0ab !important;
+    background: #eaf0f3 !important;
+    color: #6d808c !important;
+    box-shadow: inset 1px 1px 0 #ffffff !important;
+}
+
+
+.page-thread-03
+.file-inspect-hint {
+    display: block;
+    margin: 4px 0 10px;
+    text-align: center;
+    color: #7a8a94 !important;
+    font-size: 10px !important;
+}
+
+
+.page-thread-03
+.forum-post-user-meta {
+    display: grid;
+    gap: 5px;
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #314957;
+}
+
+    .page-thread-03
+    .forum-post-user-meta span.label {
+        color: #5f7685;
+    }
+
+
+/* right content area */
+
+.page-thread-03
+.forum-post-main {
+    background: #f4f5f3 !important;
+}
+
+
+.page-thread-03
+.forum-post-head {
+    min-height: 32px;
+    padding: 7px 10px !important;
+    border-bottom: 1px solid #aab5bc !important;
+    background: #dde4e8 !important;
+    color: #526975 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+
+.page-thread-03
+.forum-post-meta {
+    margin: 0 !important;
+    color: #5a707d !important;
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+}
+
+
+.page-thread-03
+.forum-post-floor {
+    min-width: 30px;
+    padding: 2px 6px !important;
+    border: 1px solid #96a7b1 !important;
+    background: #eef2f3 !important;
+    color: #35556d !important;
+    font-size: 10px !important;
+    text-align: center !important;
+}
+
+
+/* body text */
+
+.page-thread-03
+.forum-post-body {
+    padding: 16px 14px 14px !important;
+    background: #f7f7f4 !important;
+    color: #263640 !important;
+    font-size: 12px !important;
+    line-height: 1.95 !important;
+}
+
+
+    .page-thread-03
+    .forum-post-body > p {
+        margin: 0 0 12px !important;
+    }
+
+
+/* attachment placeholder block stays visible but more BBS-like */
+
+.page-thread-03
+.attachment-placeholder,
+.page-thread-03
+.image-placeholder,
+.page-thread-03
+.file-preview-placeholder {
+    border: 1px dashed #98a6af !important;
+    background: #eef1f2 !important;
+    color: #4d6575 !important;
+    padding: 14px !important;
+}
+
+
+/* ---------------------------------------------------------
+   REPLIES
+   flatter classic rows
+   --------------------------------------------------------- */
+
+.page-thread-03
+.reply-stack {
+    margin: 4px 14px 12px !important;
+    border: 1px solid #a7b2b9 !important;
+    background: #edf1f2 !important;
+}
+
+
+.page-thread-03
+.reply-line {
+    display: grid !important;
+    grid-template-columns: 46px minmax(0, 1fr) 38px;
+    align-items: stretch;
+    min-height: 44px;
+    margin: 0 !important;
+    border: 0 !important;
+    border-bottom: 1px solid #b1bcc2 !important;
+    background: #edf1f2 !important;
+}
+
+    .page-thread-03
+    .reply-line:last-child {
+        border-bottom: 0 !important;
+    }
+
+    .page-thread-03
+    .reply-line:nth-child(even) {
+        background: #e8edef !important;
+    }
+
+
+.page-thread-03
+.reply-avatar-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    background: #dde5e8 !important;
+    border-right: 1px solid #b1bcc2 !important;
+    color: #667d8b !important;
+    font-size: 10px !important;
+}
+
+
+.page-thread-03
+.reply-line p {
+    margin: 0 !important;
+    padding: 11px 12px !important;
+    color: #2a3e49 !important;
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+}
+
+
+.page-thread-03
+.reply-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bfc9cf !important;
+    font-size: 10px !important;
+}
+
+
+/* ---------------------------------------------------------
+   MORE REPLIES
+   --------------------------------------------------------- */
+
+.page-thread-03
+.more-replies-box {
+    margin: 0 14px 14px !important;
+    padding: 10px 12px !important;
+    border: 1px solid #aab4ba !important;
+    background: #e3e8eb !important;
+    color: #667b88 !important;
+    font-size: 11px !important;
+}
+
+
+    .page-thread-03
+    .more-replies-box a {
+        color: #4d6480 !important;
+        text-decoration: none;
+    }
+
+
+/* ---------------------------------------------------------
+   POST FOOT NOTE
+   --------------------------------------------------------- */
+
+.page-thread-03
+.forum-post-tail,
+.page-thread-03
+.post-tail-note {
+    margin: 8px 14px 10px !important;
+    padding-top: 8px;
+    border-top: 1px dashed #b9c2c7 !important;
+    color: #90a0aa !important;
+    font-size: 10px !important;
+    text-align: right !important;
+}
+
+/* =========================================================
+   EchoRest / THREAD 03
+   Echo Board shared skin
+   circa 2006-2007
+
+   Base: assets/css/style.css
+   This file only overrides THREAD 03.
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+body.page-thread-03 {
+    margin: 0;
+    background: #c8d2d9 !important;
+    color: #243744 !important;
+    font-family: "SimSun", Tahoma, Arial, sans-serif !important;
+}
+
+
+/* no strong CRT on the forum */
+
+.page-thread-03 .screen-noise,
+.page-thread-03 .screen-scanlines {
+    display: none !important;
+}
+
+
+/* =========================================================
+   SITE HEADER
+   ========================================================= */
+
+.page-thread-03 .topbar {
+    min-height: 58px;
+    padding: 9px 18px !important;
+    border-bottom: 1px solid #899ba7 !important;
+    background: linear-gradient( 180deg, #edf3f6 0%, #d8e3e9 48%, #c2d0da 100% ) !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+
+
+.page-thread-03 .brand-name {
+    color: #183d63 !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 21px !important;
+    text-shadow: none !important;
+}
+
+
+.page-thread-03 .brand-dot {
+    background: #4f7997 !important;
+    box-shadow: none !important;
+}
+
+
+.page-thread-03 .brand-sub,
+.page-thread-03 .status-block {
+    color: #627684 !important;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.page-thread-03 .thread-main {
+    width: calc(100% - 48px) !important;
+    max-width: 1120px !important;
+    margin: 14px auto 28px !important;
+}
+
+
+/* =========================================================
+   GENERAL CARDS
+   ========================================================= */
+
+.page-thread-03 .simple-card {
+    border: 1px solid #8f9fa9 !important;
+    background: #edf0f1 !important;
+    color: #263b47 !important;
+    box-shadow: 1px 1px 2px rgba(55, 69, 78, .14) !important;
+}
+
+
+.page-thread-03 .section-label {
+    color: #667d8c !important;
+    font-size: 11px !important;
+}
+
+
+.page-thread-03 .simple-title {
+    color: #173f67 !important;
+    text-shadow: none !important;
+}
+
+
+/* =========================================================
+   THREAD HEADER
+   ========================================================= */
+
+.page-thread-03 .thread-info-grid {
+    gap: 0 !important;
+    border-top: 1px solid #9daab3 !important;
+    border-left: 1px solid #9daab3 !important;
+}
+
+
+.page-thread-03 .thread-info-item {
+    padding: 7px 9px !important;
+    border-right: 1px solid #9daab3 !important;
+    border-bottom: 1px solid #9daab3 !important;
+    background: #f3f4f3 !important;
+}
+
+
+    .page-thread-03 .thread-info-item:nth-child(3n + 1) {
+        background: #e2e7ea !important;
+    }
+
+
+.page-thread-03 .thread-info-key {
+    color: #617785 !important;
+    font-size: 10px !important;
+}
+
+
+.page-thread-03 .thread-info-value {
+    color: #203949 !important;
+}
+
+
+.page-thread-03 .login-log-box {
+    border: 1px solid #c4aa61 !important;
+    background: #fff6cf !important;
+    color: #564923 !important;
+}
+
+
+.page-thread-03 .warning-title {
+    color: #56461c !important;
+}
+
+
+/* =========================================================
+   POST LIST
+   ========================================================= */
+
+.page-thread-03 .post-list-card {
+    padding: 16px !important;
+    background: #e8edef !important;
+}
+
+
+/* =========================================================
+   NORMAL FORUM POSTS
+   REAL TWO-COLUMN OLD BBS LAYOUT
+
+   Actual HTML:
+   forum-post
+     forum-post-head
+     forum-post-body
+     reply-stack
+     more-replies-box
+   ========================================================= */
+
+.page-thread-03
+.forum-post:not(.forum-post-news):not(.forum-post-system) {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: 148px minmax(0, 1fr) !important;
+    grid-template-areas:
+        "side body"
+        "side replies"
+        "side more" !important;
+    margin: 0 0 14px !important;
+    border: 1px solid #8fa0aa !important;
+    background: #f4f5f3 !important;
+    color: #263943 !important;
+    box-shadow: none !important;
+}
+
+
+    /* ---------------------------------------------------------
+   LEFT USER COLUMN
+   Existing forum-post-head becomes the profile column.
+   --------------------------------------------------------- */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-head {
+        grid-area: side !important;
+        position: static !important;
+        display: block !important;
+        min-width: 0 !important;
+        min-height: 100% !important;
+        padding: 11px 10px !important;
+        border: 0 !important;
+        border-right: 1px solid #a4b0b7 !important;
+        background: #dce3e7 !important;
+        box-sizing: border-box !important;
+    }
+
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-user {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 7px !important;
+    }
+
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .avatar-slot {
+        width: 72px !important;
+        height: 72px !important;
+        min-height: 72px !important;
+        margin: 4px auto 6px !important;
+        padding: 5px !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column !important;
+        overflow: visible !important;
+        border: 1px solid #91a2ad !important;
+        background: #e7edef !important;
+        color: #647b89 !important;
+        text-align: center !important;
+        font-size: 9px !important;
+        line-height: 1.35 !important;
+        box-shadow: inset 1px 1px 0 #ffffff !important;
+    }
+
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-author {
+        margin: 2px 0 5px !important;
+        color: #113e69 !important;
+        font-family: "SimSun", Tahoma, sans-serif !important;
+        font-size: 13px !important;
+        font-weight: bold !important;
+        line-height: 1.45 !important;
+    }
+
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-meta {
+        margin: 0 !important;
+        color: #536c7b !important;
+        font-size: 10px !important;
+        line-height: 1.6 !important;
+    }
+
+
+.page-thread-03
+.file-inspect-hint {
+    display: block !important;
+    margin-top: 4px !important;
+    color: #7b8d97 !important;
+    font-size: 9px !important;
+}
+
+
+/* floor stays in upper-right, like an old BBS */
+
+.page-thread-03
+.forum-post:not(.forum-post-news):not(.forum-post-system)
+.forum-post-floor {
+    position: absolute !important;
+    top: 7px !important;
+    right: 8px !important;
+    z-index: 2 !important;
+    min-width: 27px !important;
+    padding: 2px 5px !important;
+    border: 1px solid #94a5af !important;
+    background: #eef2f3 !important;
+    color: #31536c !important;
+    text-align: center !important;
+    font: 9px Tahoma, Arial, sans-serif !important;
+}
+
+
+/* ---------------------------------------------------------
+   RIGHT POST BODY
+   --------------------------------------------------------- */
+
+.page-thread-03
+.forum-post:not(.forum-post-news):not(.forum-post-system)
+.forum-post-body {
+    grid-area: body !important;
+    min-width: 0 !important;
+    min-height: 120px !important;
+    padding: 15px 48px 14px 15px !important;
+    border: 0 !important;
+    border-bottom: 1px solid #b0bbc1 !important;
+    background: #f8f8f5 !important;
+    color: #263943 !important;
+    font-size: 12px !important;
+    line-height: 1.9 !important;
+    box-sizing: border-box !important;
+}
+
+
+.page-thread-03
+.forum-post-body > p {
+    margin: 0 0 11px !important;
+}
+
+
+/* =========================================================
+   REPLIES
+   ========================================================= */
+
+.page-thread-03
+.forum-post:not(.forum-post-news):not(.forum-post-system)
+.reply-stack {
+    grid-area: replies !important;
+    display: block !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: #edf1f2 !important;
+}
+
+
+.page-thread-03
+.reply-line {
+    display: grid !important;
+    grid-template-columns: 48px minmax(0, 1fr) !important;
+    min-height: 43px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-bottom: 1px solid #b3bdc3 !important;
+    background: #eef1f2 !important;
+}
+
+
+    .page-thread-03
+    .reply-line:nth-child(even) {
+        background: #e8edef !important;
+    }
+
+
+.page-thread-03
+.reply-avatar-slot {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 43px !important;
+    border: 0 !important;
+    border-right: 1px solid #b3bdc3 !important;
+    background: #dde5e8 !important;
+    color: #627987 !important;
+    font-size: 9px !important;
+}
+
+
+.page-thread-03
+.reply-line p {
+    margin: 0 !important;
+    padding: 10px 11px !important;
+    color: #283d48 !important;
+    font-size: 11px !important;
+    line-height: 1.65 !important;
+}
+
+
+/* =========================================================
+   MORE REPLIES
+   ========================================================= */
+
+.page-thread-03
+.forum-post:not(.forum-post-news):not(.forum-post-system)
+.more-replies-box {
+    grid-area: more !important;
+    display: block !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 7px 10px !important;
+    border: 0 !important;
+    background: #dfe5e8 !important;
+    color: #59717f !important;
+    font-size: 10px !important;
+    box-sizing: border-box !important;
+}
+
+
+.page-thread-03 .more-replies-box p {
+    margin: 0 !important;
+}
+
+
+/* =========================================================
+   PLACEHOLDERS / ART NOTES
+   KEEP THEM VISIBLE FOR ART PIPELINE
+   ========================================================= */
+
+.page-thread-03 .inline-image-slot {
+    border: 1px dashed #92a1aa !important;
+    background: #edf0f1 !important;
+    color: #506977 !important;
+    box-shadow: inset 1px 1px 0 #ffffff !important;
+}
+
+
+.page-thread-03 .hover-file-tag {
+    color: #718691 !important;
+}
+
+
+/* =========================================================
+   SPECIAL INSERTED RECORDS
+   AUDIO / AD / SYSTEM
+   Same site, but clearly system-generated.
+   ========================================================= */
+
+.page-thread-03
+.forum-post-news,
+.page-thread-03
+.forum-post-system {
+    display: block !important;
+    margin: 0 0 14px !important;
+    border: 1px solid #8196a1 !important;
+    background: #edf1f2 !important;
+    color: #263a46 !important;
+    box-shadow: none !important;
+}
+
+
+    .page-thread-03
+    .forum-post-news .forum-post-head,
+    .page-thread-03
+    .forum-post-system .forum-post-head {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        min-height: 42px !important;
+        padding: 6px 8px !important;
+        border: 0 !important;
+        border-bottom: 1px solid #93a3ad !important;
+        background: linear-gradient( 180deg, #d8e2e6, #c9d5da ) !important;
+    }
+
+
+    .page-thread-03
+    .forum-post-news .forum-post-user,
+    .page-thread-03
+    .forum-post-system .forum-post-user {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 9px !important;
+    }
+
+
+.page-thread-03
+.news-badge {
+    min-width: 43px !important;
+    padding: 7px 5px !important;
+    border: 1px solid #748e97 !important;
+    background: #5f858c !important;
+    color: #ffffff !important;
+    text-align: center !important;
+    font: bold 10px Tahoma, Arial, sans-serif !important;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .55) !important;
+}
+
+
+.page-thread-03
+.forum-post-news .forum-post-body,
+.page-thread-03
+.forum-post-system .forum-post-body {
+    padding: 12px 13px !important;
+    background: #f5f5f2 !important;
+    color: #283b46 !important;
+}
+
+
+/* =========================================================
+   EMBEDDED ECHOREST UTILITIES
+   old Windows / OA component family
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-audit,
+.page-thread-03
+.thread03-audio-file-status,
+.page-thread-03
+.thread03-transcript-record,
+.page-thread-03
+.thread03-audio-followup,
+.page-thread-03
+.thread03-knock-audit,
+.page-thread-03
+.thread03-source-registration {
+    border: 1px solid #879aa3 !important;
+    background: #e5eaec !important;
+    color: #263b46 !important;
+    box-shadow: inset 1px 1px 0 #ffffff !important;
+}
+
+
+.page-thread-03
+.thread03-wall-audit-head,
+.page-thread-03
+.thread03-audio-file-head,
+.page-thread-03
+.thread03-transcript-head,
+.page-thread-03
+.thread03-audio-followup-head,
+.page-thread-03
+.thread03-knock-head,
+.page-thread-03
+.thread03-source-registration-head {
+    padding: 5px 7px !important;
+    border-bottom: 1px solid #879aa3 !important;
+    background: linear-gradient( 180deg, #78999b, #5f8385 ) !important;
+    color: #ffffff !important;
+}
+
+
+    .page-thread-03
+    .thread03-wall-audit-head span,
+    .page-thread-03
+    .thread03-audio-file-head span,
+    .page-thread-03
+    .thread03-transcript-head span,
+    .page-thread-03
+    .thread03-audio-followup-head span,
+    .page-thread-03
+    .thread03-knock-head span,
+    .page-thread-03
+    .thread03-source-registration-head span {
+        color: #edf7f7 !important;
+        font: 9px Tahoma, "Courier New", monospace !important;
+        letter-spacing: .7px !important;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-audit-head strong,
+    .page-thread-03
+    .thread03-audio-file-head strong,
+    .page-thread-03
+    .thread03-transcript-head strong,
+    .page-thread-03
+    .thread03-audio-followup-head strong,
+    .page-thread-03
+    .thread03-knock-head strong,
+    .page-thread-03
+    .thread03-source-registration-head strong {
+        color: #ffffff !important;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-audit-head em,
+    .page-thread-03
+    .thread03-audio-file-head em,
+    .page-thread-03
+    .thread03-transcript-head em,
+    .page-thread-03
+    .thread03-audio-followup-head em,
+    .page-thread-03
+    .thread03-knock-head em,
+    .page-thread-03
+    .thread03-source-registration-head em {
+        padding: 2px 5px !important;
+        border: 1px solid #566d73 !important;
+        background: #edf2f2 !important;
+        color: #405d65 !important;
+        font: normal 8px Tahoma, Arial, sans-serif !important;
+    }
+
+
+/* utility body text */
+
+.page-thread-03
+.thread03-wall-audit p,
+.page-thread-03
+.thread03-audio-file-status p,
+.page-thread-03
+.thread03-transcript-record p,
+.page-thread-03
+.thread03-audio-followup p,
+.page-thread-03
+.thread03-knock-audit p,
+.page-thread-03
+.thread03-source-registration p {
+    color: #344b57 !important;
+}
+
+
+/* old buttons */
+
+.page-thread-03
+button {
+    border-top: 1px solid #ffffff !important;
+    border-left: 1px solid #ffffff !important;
+    border-right: 1px solid #71828b !important;
+    border-bottom: 1px solid #71828b !important;
+    background: #dfe5e7 !important;
+    color: #304854 !important;
+    font-family: "SimSun", Tahoma, sans-serif !important;
+}
+
+
+    .page-thread-03
+    button:not(:disabled):active {
+        border-top-color: #71828b !important;
+        border-left-color: #71828b !important;
+        border-right-color: #ffffff !important;
+        border-bottom-color: #ffffff !important;
+    }
+
+
+    .page-thread-03
+    button:disabled {
+        color: #98a4a9 !important;
+        background: #d5dadc !important;
+    }
+
+
+/* transcript */
+
+.page-thread-03
+.audio-transcript-box {
+    border: 1px solid #9aa8af !important;
+    background: #f1f3f2 !important;
+}
+
+
+    .page-thread-03
+    .audio-transcript-box p {
+        border-bottom: 1px solid #c2c9cd !important;
+        color: #263e49 !important;
+    }
+
+
+    .page-thread-03
+    .audio-transcript-box span {
+        color: #6d818b !important;
+    }
+
+
+/* =========================================================
+   DELETED COMMENT
+   ========================================================= */
+
+.page-thread-03
+.deleted-comment-line {
+    background: #eee9dc !important;
+}
+
+
+.page-thread-03
+.deleted-comment-frag {
+    color: #745f3f !important;
+}
+
+
+.page-thread-03
+.thread03-deleted-comment-state {
+    color: #886d3c !important;
+    font-size: 9px !important;
+}
+
+
+/* =========================================================
+   FINAL SYSTEM RECORD
+   ========================================================= */
+
+.page-thread-03
+.thread03-source-registration-conflict {
+    border: 1px solid #c4ab64 !important;
+    background: #fff5ca !important;
+    color: #594b28 !important;
+}
+
+
+/* =========================================================
+   THREAD NAV / FOOTER
+   ========================================================= */
+
+.page-thread-03 .thread-nav-card {
+    background: #e4e9eb !important;
+}
+
+
+.page-thread-03 .thread-nav-links a {
+    color: #245c91 !important;
+}
+
+
+.page-thread-03 .site-footer {
+    border-top: 1px solid #8f9fa9 !important;
+    background: transparent !important;
+    color: #71828b !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE FALLBACK
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system) {
+        display: block !important;
+    }
+
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .forum-post-head {
+            border-right: 0 !important;
+            border-bottom: 1px solid #a4b0b7 !important;
+        }
+
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .forum-post-user {
+            flex-direction: row !important;
+            align-items: center !important;
+        }
+
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .avatar-slot {
+            margin: 0 !important;
+        }
+}
+
+/* =========================================================
+   THREAD 03 / READABILITY PASS
+   keep layout, increase contrast
+   ========================================================= */
+
+.page-thread-03
+.forum-post-body,
+.page-thread-03
+.forum-post-body p,
+.page-thread-03
+.forum-post-body span {
+    color: #1f313d !important;
+    opacity: 1 !important;
+    font-size: 13px !important;
+    line-height: 1.9 !important;
+}
+
+
+.page-thread-03
+.forum-post-author {
+    color: #0d3861 !important;
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+}
+
+
+.page-thread-03
+.forum-post-meta {
+    color: #455f70 !important;
+    opacity: 1 !important;
+    font-size: 11px !important;
+    line-height: 1.55 !important;
+}
+
+
+.page-thread-03
+.reply-line p,
+.page-thread-03
+.reply-line p span {
+    color: #1f3542 !important;
+    opacity: 1 !important;
+    font-size: 12px !important;
+    line-height: 1.65 !important;
+}
+
+
+.page-thread-03
+.reply-avatar-slot {
+    color: #526c7a !important;
+    opacity: 1 !important;
+    font-size: 10px !important;
+}
+
+
+.page-thread-03
+.more-replies-box,
+.page-thread-03
+.more-replies-box p,
+.page-thread-03
+.more-replies-box span {
+    color: #496576 !important;
+    opacity: 1 !important;
+    font-size: 11px !important;
+}
+
+
+.page-thread-03
+.section-label {
+    color: #526b7a !important;
+    opacity: 1 !important;
+    font-size: 11px !important;
+}
+
+
+/* avatar / art note text */
+
+.page-thread-03
+.avatar-slot,
+.page-thread-03
+.avatar-slot span {
+    color: #435f70 !important;
+    opacity: 1 !important;
+}
+
+
+.page-thread-03
+.file-inspect-hint {
+    color: #526f80 !important;
+    opacity: 1 !important;
+}
+
+/* =========================================================
+   THREAD 03 / 2007 BBS CHROME PASS
+   Match the established Echo Board family.
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   PAGE BACKDROP
+   remove the modern dark frame feeling
+   --------------------------------------------------------- */
+
+.page-thread-03::before {
+    background: linear-gradient( to bottom, #7d8c98 0, #abb5be 135px, #d6dade 350px, #c7cdd2 100% ) !important;
+}
+
+
+.page-thread-03 .screen-noise {
+    display: block !important;
+    opacity: .018 !important;
+}
+
+
+.page-thread-03 .screen-scanlines {
+    display: block !important;
+    opacity: .01 !important;
+}
+
+
+/* ---------------------------------------------------------
+   THREAD HEADER
+   compact 2006-2007 forum style
+   --------------------------------------------------------- */
+
+.page-thread-03 .thread-head-card {
+    padding: 0 !important;
+    background: #eef1f3 !important;
+    border: 1px solid #71808d !important;
+    box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #abb4bc, 1px 1px 3px rgba(35,45,55,.14) !important;
+}
+
+
+    /* blue old-forum title strip */
+
+    .page-thread-03
+    .thread-head-card > .section-label {
+        margin: 0 !important;
+        padding: 5px 8px !important;
+        border-bottom: 1px solid #536a7e !important;
+        background: linear-gradient( to bottom, #7d91a4, #60768a ) !important;
+        color: #ffffff !important;
+        font: bold 10px Tahoma, Arial, "SimSun", sans-serif !important;
+        letter-spacing: .03em !important;
+    }
+
+
+    /* thread title: no huge modern hero */
+
+    .page-thread-03
+    .thread-head-card > .simple-title {
+        margin: 9px 12px 4px !important;
+        color: #17375e !important;
+        font: bold 17px Tahoma, Arial, "SimSun", sans-serif !important;
+        line-height: 1.35 !important;
+        text-shadow: none !important;
+    }
+
+
+/* ---------------------------------------------------------
+   INFO TABLE
+   actual old portal table
+   --------------------------------------------------------- */
+
+.page-thread-03 .thread-info-grid {
+    margin: 9px 12px 0 !important;
+    gap: 0 !important;
+    border-top: 1px solid #919ca5 !important;
+    border-left: 1px solid #919ca5 !important;
+    background: transparent !important;
+}
+
+
+.page-thread-03 .thread-info-item {
+    min-height: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    border: 0 !important;
+    border-right: 1px solid #919ca5 !important;
+    border-bottom: 1px solid #919ca5 !important;
+    background: #f7f8f9 !important;
+}
+
+
+/* field name = gray header cell */
+
+.page-thread-03 .thread-info-key {
+    display: block !important;
+    padding: 3px 7px !important;
+    border-bottom: 1px solid #c2c9ce !important;
+    background: #dce1e5 !important;
+    color: #566671 !important;
+    font-size: 10px !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0 !important;
+}
+
+
+/* field value */
+
+.page-thread-03 .thread-info-value {
+    display: block !important;
+    padding: 5px 7px !important;
+    color: #19334a !important;
+    font: 10px Consolas, "Courier New", monospace !important;
+    line-height: 1.4 !important;
+    opacity: 1 !important;
+}
+
+
+/* abnormal state stays subtle, like a corrupted field */
+
+.page-thread-03
+.thread-info-item-drift-soft,
+.page-thread-03
+.thread-info-item-drift-mid,
+.page-thread-03
+.thread-info-item-drift-danger {
+    background: #f3eeee !important;
+    box-shadow: inset 2px 0 0 #a75f62 !important;
+}
+
+
+.page-thread-03
+.thread-header-drift-soft,
+.page-thread-03
+.thread-header-drift-mid,
+.page-thread-03
+.thread-header-drift-danger {
+    color: #823f43 !important;
+    text-shadow: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   CACHE READ NOTICE
+   thin old BBS notice, not giant yellow card
+   --------------------------------------------------------- */
+
+.page-thread-03 .login-log-box {
+    margin: 8px 12px 12px !important;
+    padding: 6px 8px !important;
+    min-height: 0 !important;
+    border: 1px solid #b4a96f !important;
+    background: #fff9d7 !important;
+    box-shadow: none !important;
+}
+
+
+.page-thread-03 .warning-title {
+    margin: 0 0 3px !important;
+    color: #5c5127 !important;
+    font: bold 10px "SimSun", Tahoma, sans-serif !important;
+}
+
+
+.page-thread-03 #thread03StatusText {
+    margin: 0 !important;
+    color: #514a30 !important;
+    opacity: 1 !important;
+    font-size: 10px !important;
+    line-height: 1.55 !important;
+    text-shadow: none !important;
+}
+
+
+/* kill modern drift glow on the notice */
+
+.page-thread-03
+.thread-logbox-drift-soft,
+.page-thread-03
+.thread-logbox-drift-mid,
+.page-thread-03
+.thread-logbox-drift-danger {
+    background: #fff4ce !important;
+    border-color: #c2a96d !important;
+    box-shadow: none !important;
+}
+
+
+/* =========================================================
+   NORMAL POST / 2007 USER COLUMN TUNING
+   ========================================================= */
+
+.page-thread-03
+.forum-post:not(.forum-post-news):not(.forum-post-system) {
+    grid-template-columns: 162px minmax(0, 1fr) !important;
+}
+
+
+    /* left profile area */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-head {
+        padding: 9px 10px !important;
+        background: #e3e9ed !important;
+        border-right: 1px solid #aeb8c0 !important;
+    }
+
+
+    /* avatar */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .avatar-slot {
+        width: 72px !important;
+        height: 72px !important;
+        margin: 4px auto 9px !important;
+        border-top: 1px solid #ffffff !important;
+        border-left: 1px solid #ffffff !important;
+        border-right: 1px solid #7d8a94 !important;
+        border-bottom: 1px solid #7d8a94 !important;
+        background: #cdd5db !important;
+        color: #566d7b !important;
+    }
+
+
+    /* username */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-author {
+        margin: 0 0 5px !important;
+        color: #17375e !important;
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+        word-break: normal !important;
+    }
+
+
+    /*
+   Move post metadata visually into the classic
+   top-right post bar.
+*/
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-meta {
+        position: absolute !important;
+        top: 0 !important;
+        left: 162px !important;
+        right: 0 !important;
+        height: 29px !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 6px 45px 5px 9px !important;
+        border-bottom: 1px solid #aeb8c0 !important;
+        background: #dde3e7 !important;
+        color: #566b79 !important;
+        font-size: 10px !important;
+        line-height: 1.5 !important;
+    }
+
+
+    /* make room for that old BBS post-info strip */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-body {
+        padding: 44px 15px 14px !important;
+    }
+
+
+    /* floor number inside the same strip */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-floor {
+        top: 5px !important;
+        right: 7px !important;
+        background: transparent !important;
+        border: 0 !important;
+        color: #365469 !important;
+        font-size: 9px !important;
+        font-weight: bold !important;
+    }
+
+    /* =========================================================
+   THREAD 03 / BBS USER COLUMN FIX
+   ========================================================= */
+
+
+    /* username should sit above avatar, not below it */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-user {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0 !important;
+    }
+
+
+        /* the wrapper containing author + meta */
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .forum-post-user > div:last-child {
+            display: contents !important;
+        }
+
+
+    /* username first */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-author {
+        order: -2 !important;
+        margin: 0 0 8px !important;
+        padding-bottom: 6px !important;
+        border-bottom: 1px solid #b3bec5 !important;
+        color: #143f69 !important;
+        font-size: 13px !important;
+        line-height: 1.45 !important;
+    }
+
+
+    /* avatar second */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .avatar-slot {
+        order: -1 !important;
+        width: 76px !important;
+        height: 76px !important;
+        margin: 2px auto 10px !important;
+    }
+
+
+    /* add a small recovered-profile note below the avatar */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-head::after {
+        content: "资料：部分恢复\A用户页：缺失";
+        display: block;
+        margin-top: 4px;
+        padding-top: 7px;
+        border-top: 1px dotted #a8b4bb;
+        color: #586d7a;
+        white-space: pre-line;
+        font: 10px/1.7 "SimSun", Tahoma, sans-serif;
+    }
+
+
+    /* ---------------------------------------------------------
+   right-side post header strip
+   --------------------------------------------------------- */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-meta {
+        left: 162px !important;
+        height: 30px !important;
+        padding: 6px 48px 5px 10px !important;
+        border-bottom: 1px solid #a5b1b8 !important;
+        background: #d9e0e4 !important;
+        color: #4c6371 !important;
+    }
+
+
+    /* floor number should look like plain old BBS text */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-floor {
+        top: 7px !important;
+        right: 9px !important;
+        color: #274c68 !important;
+        font-size: 9px !important;
+    }
+
+
+    /* align first line of post body under the header strip */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-body {
+        padding-top: 45px !important;
+    }
+
+
+    /* left column should be a little more like a real forum profile cell */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-head {
+        background: #dfe6ea !important;
+        border-right: 1px solid #9eabb3 !important;
+    }
+
+
+    /* reduce the feeling of a huge empty slab */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-head {
+        color: #425966 !important;
+    }
+
+/* =========================================================
+   EchoRest / THREAD 03
+   Thread-specific visual layer
+
+   Target:
+   Echo Board circa 2006-2007
+   Same site family as THREAD 01 / THREAD 02.
+
+   Base styles and existing investigation tools remain
+   in assets/css/style.css.
+   ========================================================= */
+
+
+/* =========================================================
+   01. PAGE SURFACE
+
+   Only neutralize the modern dark page backdrop.
+   Do NOT restyle topbar / brand / MAINT console here.
+   ========================================================= */
+
+body.page-thread-03 {
+    background: #c7cfd5;
+    color: #283843;
+    font-family: Tahoma, Arial, "SimSun", sans-serif;
+}
+
+    body.page-thread-03::before {
+        background: linear-gradient( to bottom, #aab5bd 0, #c1c9cf 150px, #d3d8dc 360px, #c8ced2 100% );
+    }
+
+.page-thread-03 .screen-noise {
+    opacity: .015;
+}
+
+.page-thread-03 .screen-scanlines {
+    opacity: .008;
+}
+
+
+/* =========================================================
+   02. THREAD PAGE WIDTH
+   ========================================================= */
+
+.page-thread-03 .thread-main {
+    width: min(1120px, calc(100% - 24px));
+    margin: 12px auto 28px;
+    padding: 0;
+    gap: 8px;
+    align-items: stretch;
+}
+
+    .page-thread-03 .thread-main > .simple-card {
+        max-width: none;
+        backdrop-filter: none;
+        border: 1px solid #71808d;
+        background: #eef1f3;
+        color: #28343e;
+        box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #abb4bc, 1px 1px 3px rgba(35, 45, 55, .14);
+    }
+
+
+/* =========================================================
+   03. THREAD HEADER
+   2007 Echo Board topic information
+   ========================================================= */
+
+.page-thread-03 .thread-head-card {
+    padding: 0;
+}
+
+
+    /* blue-grey old forum title bar */
+
+    .page-thread-03
+    .thread-head-card > .section-label {
+        margin: 0;
+        padding: 5px 8px;
+        border-bottom: 1px solid #536a7e;
+        background: linear-gradient( to bottom, #8296a8 0%, #657b8f 48%, #5d7285 52%, #74899a 100% );
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: .03em;
+    }
+
+
+    /* topic title */
+
+    .page-thread-03
+    .thread-head-card > .simple-title {
+        margin: 9px 12px 4px;
+        color: #17375e;
+        font-family: Tahoma, Arial, "SimSun", sans-serif;
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 1.35;
+        text-shadow: none;
+    }
+
+
+/* =========================================================
+   04. THREAD INFO TABLE
+   ========================================================= */
+
+.page-thread-03 .thread-info-grid {
+    margin: 9px 12px 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border-top: 1px solid #919ca5;
+    border-left: 1px solid #919ca5;
+}
+
+.page-thread-03 .thread-info-item {
+    min-height: 0;
+    padding: 0;
+    gap: 0;
+    border: 0;
+    border-right: 1px solid #919ca5;
+    border-bottom: 1px solid #919ca5;
+    background: #f7f8f9;
+}
+
+.page-thread-03 .thread-info-key {
+    display: block;
+    padding: 3px 7px;
+    border-bottom: 1px solid #c2c9ce;
+    background: #dce1e5;
+    color: #566671;
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: 0;
+}
+
+.page-thread-03 .thread-info-value {
+    display: block;
+    padding: 5px 7px;
+    color: #19334a;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 10px;
+    line-height: 1.45;
+    opacity: 1;
+}
+
+
+/* system drift remains understated */
+
+.page-thread-03
+.thread-info-item-drift-soft,
+.page-thread-03
+.thread-info-item-drift-mid,
+.page-thread-03
+.thread-info-item-drift-danger {
+    background: #f2eded;
+    box-shadow: inset 2px 0 0 #9b5e61;
+}
+
+.page-thread-03
+.thread-header-drift-soft,
+.page-thread-03
+.thread-header-drift-mid,
+.page-thread-03
+.thread-header-drift-danger {
+    color: #7d4144;
+    text-shadow: none;
+}
+
+
+/* =========================================================
+   05. CACHE NOTICE
+   Old forum notice strip, not a modern warning card
+   ========================================================= */
+
+.page-thread-03 .login-log-box {
+    margin: 8px 12px 12px;
+    padding: 6px 8px;
+    border: 1px solid #b4a96f;
+    background: #fff9d7;
+    color: #514a30;
+    box-shadow: none;
+}
+
+.page-thread-03 .warning-title {
+    margin: 0 0 3px;
+    color: #5c5127;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.page-thread-03 #thread03StatusText {
+    margin: 0;
+    color: #514a30;
+    font-size: 10px;
+    line-height: 1.55;
+    opacity: 1;
+    text-shadow: none;
+}
+
+.page-thread-03
+.thread-logbox-drift-soft,
+.page-thread-03
+.thread-logbox-drift-mid,
+.page-thread-03
+.thread-logbox-drift-danger {
+    background: #fff4ce;
+    border-color: #c2a96d;
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   06. POST LIST SHELL
+   ========================================================= */
+
+.page-thread-03 .post-list-card {
+    padding: 0 0 12px;
+    background: #e6ebee;
+}
+
+    .page-thread-03
+    .post-list-card > .section-label {
+        margin: 0 0 10px;
+        padding: 6px 10px;
+        border-bottom: 1px solid #9ca8b0;
+        background: #dbe2e6;
+        color: #596d7a;
+        font-size: 10px;
+        letter-spacing: .04em;
+    }
+
+
+/* =========================================================
+   07. NORMAL FORUM POST
+
+   Actual HTML:
+   forum-post
+     forum-post-head
+     forum-post-body
+     reply-stack
+     more-replies-box
+   ========================================================= */
+
+.page-thread-03
+.forum-post:not(.forum-post-news):not(.forum-post-system) {
+    position: relative;
+    display: grid;
+    grid-template-columns: 138px minmax(0, 1fr);
+    grid-template-areas:
+        "user body"
+        "user replies"
+        "user more";
+    margin: 0 12px 12px;
+    padding: 0;
+    border: 1px solid #9ba8b1;
+    background: #f6f7f6;
+    color: #293943;
+    box-shadow: none;
+}
+
+
+    /* =========================================================
+   08. LEFT USER COLUMN
+   ========================================================= */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-head {
+        grid-area: user;
+        position: static;
+        display: block;
+        min-width: 0;
+        min-height: 100%;
+        margin: 0;
+        padding: 9px 9px 12px;
+        border: 0;
+        border-right: 1px solid #aeb8c0;
+        background: #e3e9ed;
+        box-sizing: border-box;
+    }
+
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-user {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 7px;
+    }
+
+
+    /* avatar / art placeholder stays visible */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .avatar-slot {
+        width: 72px;
+        height: 72px;
+        min-height: 72px;
+        margin: 2px auto 7px;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
+        border-top: 1px solid #ffffff;
+        border-left: 1px solid #ffffff;
+        border-right: 1px solid #7d8a94;
+        border-bottom: 1px solid #7d8a94;
+        background: #cdd5db;
+        color: #506777;
+        text-align: center;
+        font-size: 9px;
+        line-height: 1.35;
+        box-shadow: none;
+    }
+
+
+    /* username */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-author {
+        margin: 2px 0 5px;
+        color: #163b62;
+        font-family: Tahoma, Arial, "SimSun", sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.5;
+        text-shadow: none;
+    }
+
+
+    /*
+   Existing meta text becomes the classic
+   "发表于 / 版块" bar above the right content.
+*/
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-meta {
+        position: absolute;
+        top: 0;
+        left: 138px;
+        right: 0;
+        height: 29px;
+        margin: 0;
+        padding: 6px 44px 5px 9px;
+        box-sizing: border-box;
+        overflow: hidden;
+        border-bottom: 1px solid #b8c1c7;
+        background: #dce2e6;
+        color: #526977;
+        font-size: 10px;
+        line-height: 1.5;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+
+    /* floor */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-floor {
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        z-index: 2;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #31546c;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 9px;
+        font-weight: bold;
+        letter-spacing: 0;
+    }
+
+
+    /* =========================================================
+   09. POST BODY
+   ========================================================= */
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system)
+    .forum-post-body {
+        grid-area: body;
+        min-width: 0;
+        min-height: 120px;
+        margin: 0;
+        padding: 43px 14px 13px;
+        border: 0;
+        border-bottom: 1px solid #b7c0c6;
+        background: #f8f8f5;
+        color: #253741;
+        box-sizing: border-box;
+    }
+
+.page-thread-03
+.forum-post-body > p {
+    margin: 0 0 11px;
+    color: #253741;
+    font-size: 13px;
+    line-height: 1.85;
+    opacity: 1;
+}
+
+
+/* normal links inside the post */
+
+.page-thread-03
+.post-list-card a {
+    color: #245b91;
+}
+
+    .page-thread-03
+    .post-list-card a:visited {
+        color: #684687;
+    }
+
+
+/* =========================================================
+   10. REPLIES
+   Flat old BBS rows
+   ========================================================= */
+
+.page-thread-03
+.forum-post:not(.forum-post-news):not(.forum-post-system)
+.reply-stack {
+    grid-area: replies;
+    display: block;
+    min-width: 0;
+    margin: 0;
+    border: 0;
+    background: #edf1f2;
+}
+
+.page-thread-03 .reply-line {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    min-height: 43px;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    border: 0;
+    border-bottom: 1px solid #b6c0c6;
+    background: #eef1f2;
+}
+
+    .page-thread-03
+    .reply-line:nth-child(even) {
+        background: #e9edef;
+    }
+
+.page-thread-03
+.reply-avatar-slot {
+    width: auto;
+    min-height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 4px;
+    border: 0;
+    border-right: 1px solid #b6c0c6;
+    background: #dde5e8;
+    color: #526c7a;
+    font-size: 10px;
+}
+
+.page-thread-03
+.reply-line p {
+    margin: 0;
+    padding: 10px 11px;
+    color: #253943;
+    font-size: 12px;
+    line-height: 1.65;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   11. MORE REPLIES
+   ========================================================= */
+
+.page-thread-03
+.forum-post:not(.forum-post-news):not(.forum-post-system)
+.more-replies-box {
+    grid-area: more;
+    min-width: 0;
+    margin: 0;
+    padding: 7px 10px;
+    border: 0;
+    background: #dfe5e8;
+    color: #4b6677;
+    box-sizing: border-box;
+}
+
+.page-thread-03
+.more-replies-box p,
+.page-thread-03
+.more-replies-box span {
+    margin: 0;
+    color: #4b6677;
+    font-size: 11px;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   12. ART / FILE PLACEHOLDERS
+   These remain visible for the art pipeline.
+   ========================================================= */
+
+.page-thread-03
+.inline-image-slot {
+    margin-top: 14px;
+    padding: 13px;
+    border: 1px dashed #8f9fa9;
+    background: #edf0f1;
+    color: #425e70;
+    font-size: 12px;
+    line-height: 1.7;
+    box-shadow: inset 1px 1px 0 #ffffff;
+}
+
+    .page-thread-03
+    .inline-image-slot span {
+        color: #536d7c;
+        font-size: 11px;
+    }
+
+.page-thread-03
+.file-inspect-hint {
+    color: #4d697a;
+    font-size: 10px;
+    opacity: 1;
+}
+
+.page-thread-03
+.hover-file-tag {
+    color: #718691;
+}
+
+
+/* =========================================================
+   13. SPECIAL INSERTED POSTS
+   AUDIO / recovered cache / old inserted records
+
+   These should still belong to Echo Board, but look like
+   a system attachment rather than a normal forum floor.
+   ========================================================= */
+
+.page-thread-03
+.forum-post-news,
+.page-thread-03
+.forum-post-system {
+    display: block;
+    margin: 0 12px 12px;
+    padding: 0;
+    border: 1px solid #81929c;
+    background: #edf0f1;
+    color: #273b46;
+    box-shadow: none;
+}
+
+    .page-thread-03
+    .forum-post-news > .forum-post-head,
+    .page-thread-03
+    .forum-post-system > .forum-post-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        min-height: 43px;
+        margin: 0;
+        padding: 6px 8px;
+        border: 0;
+        border-bottom: 1px solid #8d9ba3;
+        background: linear-gradient( to bottom, #dce5e8 0%, #cbd7dc 100% );
+    }
+
+    .page-thread-03
+    .forum-post-news .forum-post-user,
+    .page-thread-03
+    .forum-post-system .forum-post-user {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 9px;
+    }
+
+    .page-thread-03
+    .forum-post-news .forum-post-author,
+    .page-thread-03
+    .forum-post-system .forum-post-author {
+        margin: 0 0 2px;
+        color: #31546a;
+        font-size: 12px;
+    }
+
+    .page-thread-03
+    .forum-post-news .forum-post-meta,
+    .page-thread-03
+    .forum-post-system .forum-post-meta {
+        margin: 0;
+        color: #687982;
+        font-size: 9px;
+    }
+
+.page-thread-03
+.news-badge {
+    width: 48px;
+    min-width: 48px;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #657b83;
+    border-bottom: 1px solid #657b83;
+    background: #78989c;
+    color: #ffffff;
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: .04em;
+    box-shadow: none;
+}
+
+.page-thread-03
+.forum-post-news .forum-post-floor,
+.page-thread-03
+.forum-post-system .forum-post-floor {
+    color: #607781;
+    font: 9px Consolas, "Courier New", monospace;
+    letter-spacing: .04em;
+}
+
+.page-thread-03
+.forum-post-news > .forum-post-body,
+.page-thread-03
+.forum-post-system > .forum-post-body {
+    margin: 0;
+    padding: 12px 13px;
+    background: #f4f5f2;
+    color: #293d47;
+}
+
+
+/* =========================================================
+   14. AUDIO CACHE RECORD
+   New THREAD 03 module.
+   Match the existing dark investigation-tool family
+   already defined in style.css.
+   ========================================================= */
+
+.page-thread-03
+.thread03-audio-file-status {
+    margin: 0 0 14px;
+    overflow: hidden;
+    border: 1px solid rgba(154, 183, 171, .22);
+    background: repeating-linear-gradient( 0deg, rgba(198, 216, 207, .012) 0, rgba(198, 216, 207, .012) 1px, transparent 1px, transparent 7px ), rgba(9, 14, 12, .92);
+}
+
+.page-thread-03
+.thread03-audio-file-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 11px;
+    border-bottom: 1px solid rgba(154, 183, 171, .13);
+}
+
+    .page-thread-03
+    .thread03-audio-file-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .page-thread-03
+    .thread03-audio-file-head span {
+        color: #78978c;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: .12em;
+    }
+
+    .page-thread-03
+    .thread03-audio-file-head strong {
+        color: #d0dbd6;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .page-thread-03
+    .thread03-audio-file-head em {
+        padding: 3px 6px;
+        border: 1px solid rgba(126, 195, 161, .34);
+        color: #89b49e;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.page-thread-03
+.thread03-audio-file-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-bottom: 1px solid rgba(154, 183, 171, .10);
+}
+
+    .page-thread-03
+    .thread03-audio-file-grid > div {
+        min-height: 46px;
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        border-right: 1px solid rgba(154, 183, 171, .10);
+        border-bottom: 1px solid rgba(154, 183, 171, .10);
+    }
+
+        .page-thread-03
+        .thread03-audio-file-grid > div:nth-child(2n) {
+            border-right: 0;
+        }
+
+        .page-thread-03
+        .thread03-audio-file-grid > div:nth-last-child(-n + 2) {
+            border-bottom: 0;
+        }
+
+    .page-thread-03
+    .thread03-audio-file-grid span {
+        color: #70897f;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: .08em;
+    }
+
+    .page-thread-03
+    .thread03-audio-file-grid strong {
+        color: #bdcbc5;
+        font: 10px Consolas, "Courier New", monospace;
+        overflow-wrap: anywhere;
+    }
+
+        .page-thread-03
+        .thread03-audio-file-grid strong.is-ok {
+            color: #89b39e;
+        }
+
+        .page-thread-03
+        .thread03-audio-file-grid strong.is-waiting {
+            color: #c4aa69;
+        }
+
+.page-thread-03
+.thread03-audio-file-note {
+    margin: 0;
+    padding: 9px 10px;
+    color: #93a49d;
+    font-size: 10px;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   15. ASSOCIATED MAINTENANCE / #021
+   Lightweight source-page entrance only.
+   The real task card stays in MAINT Console.
+   ========================================================= */
+
+.page-thread-03
+#thread03AudioFollowup {
+    position: relative;
+    margin: 14px 0;
+    overflow: hidden;
+    border: 1px solid rgba(190, 165, 104, .28);
+    background: repeating-linear-gradient( 0deg, rgba(200, 180, 120, .012) 0, rgba(200, 180, 120, .012) 1px, transparent 1px, transparent 7px ), rgba(16, 15, 11, .93);
+}
+
+    .page-thread-03
+    #thread03AudioFollowup::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #987d45;
+    }
+
+.page-thread-03
+.thread03-audio-followup-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 11px;
+    border-bottom: 1px solid rgba(190, 165, 104, .15);
+}
+
+    .page-thread-03
+    .thread03-audio-followup-head > div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .page-thread-03
+    .thread03-audio-followup-head span {
+        color: #98875f;
+        font: 8px Consolas, "Courier New", monospace;
+        letter-spacing: .12em;
+    }
+
+    .page-thread-03
+    .thread03-audio-followup-head strong {
+        color: #d4c7a5;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .page-thread-03
+    .thread03-audio-followup-head em {
+        padding: 3px 6px;
+        border: 1px solid rgba(190, 165, 104, .34);
+        color: #c8ad6e;
+        font: normal 8px Consolas, "Courier New", monospace;
+    }
+
+.page-thread-03
+.thread03-audio-followup-body {
+    padding: 10px 11px;
+}
+
+    .page-thread-03
+    .thread03-audio-followup-body > p {
+        margin: 0 0 9px;
+        color: #ada994;
+        font-size: 10px;
+        line-height: 1.65;
+    }
+
+    .page-thread-03
+    .thread03-audio-followup-body dl {
+        margin: 0 0 10px;
+        border-top: 1px solid rgba(190, 165, 104, .14);
+        border-left: 1px solid rgba(190, 165, 104, .14);
+    }
+
+        .page-thread-03
+        .thread03-audio-followup-body dl > div {
+            display: grid;
+            grid-template-columns: 90px minmax(0, 1fr);
+        }
+
+    .page-thread-03
+    .thread03-audio-followup-body dt,
+    .page-thread-03
+    .thread03-audio-followup-body dd {
+        margin: 0;
+        padding: 5px 7px;
+        border-right: 1px solid rgba(190, 165, 104, .14);
+        border-bottom: 1px solid rgba(190, 165, 104, .14);
+        font-size: 9px;
+    }
+
+    .page-thread-03
+    .thread03-audio-followup-body dt {
+        color: #897d60;
+        background: rgba(190, 165, 104, .035);
+    }
+
+    .page-thread-03
+    .thread03-audio-followup-body dd {
+        color: #c1b79d;
+        font-family: Consolas, "Courier New", monospace;
+    }
+
+
+/* only this one button — no global button override */
+
+.page-thread-03
+#thread03OpenTicket021Btn {
+    padding: 5px 9px;
+    border-top: 1px solid #e9e7dd;
+    border-left: 1px solid #e9e7dd;
+    border-right: 1px solid #69665a;
+    border-bottom: 1px solid #69665a;
+    background: #d9d8ce;
+    color: #403d32;
+    font: 10px Tahoma, Arial, "SimSun", sans-serif;
+    cursor: pointer;
+}
+
+    .page-thread-03
+    #thread03OpenTicket021Btn:active {
+        border-top-color: #69665a;
+        border-left-color: #69665a;
+        border-right-color: #e9e7dd;
+        border-bottom-color: #e9e7dd;
+    }
+
+.page-thread-03
+#thread03AudioFollowup.is-new {
+    border-color: rgba(209, 179, 101, .46);
+}
+
+
+/* =========================================================
+   16. DELETED COMMENT
+   Keep it restrained.
+   ========================================================= */
+
+.page-thread-03
+.deleted-comment-line {
+    background: #eee9dc;
+}
+
+.page-thread-03
+.deleted-comment-frag {
+    color: #745f3f;
+}
+
+.page-thread-03
+.thread03-deleted-comment-state {
+    color: #806b42;
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   17. THREAD NAV
+   ========================================================= */
+
+.page-thread-03
+.thread-nav-card {
+    padding: 7px 10px;
+    background: #e5eaed;
+    color: #526673;
+}
+
+    .page-thread-03
+    .thread-nav-card a {
+        color: #245b91;
+    }
+
+
+/* =========================================================
+   18. RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .page-thread-03
+    .thread-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .page-thread-03
+    .forum-post:not(.forum-post-news):not(.forum-post-system) {
+        display: block;
+    }
+
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .forum-post-head {
+            min-height: auto;
+            padding: 9px;
+            border-right: 0;
+            border-bottom: 1px solid #aeb8c0;
+        }
+
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .forum-post-user {
+            flex-direction: row;
+            align-items: center;
+        }
+
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .avatar-slot {
+            margin: 0;
+        }
+
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .forum-post-meta {
+            position: static;
+            height: auto;
+            margin-top: 3px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            white-space: normal;
+        }
+
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .forum-post-floor {
+            top: 8px;
+            right: 8px;
+        }
+
+
+        .page-thread-03
+        .forum-post:not(.forum-post-news):not(.forum-post-system)
+        .forum-post-body {
+            padding: 13px;
+        }
+
+
+    .page-thread-03
+    .thread03-audio-file-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+        .page-thread-03
+        .thread03-audio-file-grid > div {
+            border-right: 0;
+        }
+
+
+            .page-thread-03
+            .thread03-audio-file-grid > div:nth-last-child(-n + 2) {
+                border-bottom: 1px solid rgba(154, 183, 171, .10);
+            }
+
+
+            .page-thread-03
+            .thread03-audio-file-grid > div:last-child {
+                border-bottom: 0;
+            }
+
+
+    .page-thread-03
+    .thread03-audio-followup-body dl > div {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   19. WALL CACHE COMPARE UTILITY
+   Separate old desktop utility launched from the forum.
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   launcher inside the forum post
+   --------------------------------------------------------- */
+
+.page-thread-03
+.thread03-wall-tool-launcher {
+    margin: 12px 0 14px;
+    min-height: 52px;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 8px;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #7e8b92;
+    border-bottom: 1px solid #7e8b92;
+    background: #dfe5e7;
+    color: #374b56;
+}
+
+
+.page-thread-03
+.thread03-wall-tool-launcher-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #75858d;
+    border-bottom: 1px solid #75858d;
+    background: #9db1b8;
+    color: #ffffff;
+    font: bold 9px Tahoma, Arial, sans-serif;
+}
+
+
+.page-thread-03
+.thread03-wall-tool-launcher-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-launcher-copy strong {
+        color: #294d64;
+        font-size: 11px;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-tool-launcher-copy span {
+        color: #697a83;
+        font-size: 9px;
+    }
+
+
+.page-thread-03
+#thread03WallToolOpenBtn {
+    padding: 5px 9px;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #6d7b82;
+    border-bottom: 1px solid #6d7b82;
+    background: #e8ecee;
+    color: #304c5d;
+    font: 10px Tahoma, Arial, "SimSun", sans-serif;
+    cursor: pointer;
+}
+
+
+/* ---------------------------------------------------------
+   screen overlay
+   --------------------------------------------------------- */
+
+.page-thread-03
+.thread03-wall-tool-overlay {
+    position: fixed;
+    z-index: 9000;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 26px;
+    box-sizing: border-box;
+    background: rgba(31, 42, 49, .42);
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-overlay.hidden {
+        display: none !important;
+    }
+
+
+/* ---------------------------------------------------------
+   desktop window
+   --------------------------------------------------------- */
+
+.page-thread-03
+.thread03-wall-tool-window {
+    width: min(1040px, calc(100vw - 52px));
+    max-height: calc(100vh - 52px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #4d5d65;
+    border-bottom: 1px solid #4d5d65;
+    background: #d8dddf;
+    box-shadow: 2px 3px 10px rgba(20, 30, 36, .42);
+}
+
+
+/* title bar */
+
+.page-thread-03
+.thread03-wall-tool-titlebar {
+    min-height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 3px 4px 3px 5px;
+    background: linear-gradient( to bottom, #7899a5 0%, #668690 48%, #52737e 52%, #6f8e98 100% );
+    color: #ffffff;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-titlebar > div:first-child {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-tool-titlebar strong {
+        font: bold 11px Tahoma, Arial, sans-serif;
+    }
+
+
+.page-thread-03
+.thread03-wall-tool-appicon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, .7);
+    background: #e6efef;
+    color: #426773;
+    font: bold 9px Tahoma, Arial, sans-serif;
+}
+
+
+/* window controls */
+
+.page-thread-03
+.thread03-wall-tool-window-controls {
+    display: flex;
+    gap: 2px;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-window-controls span,
+    .page-thread-03
+    #thread03WallToolCloseBtn {
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-top: 1px solid #ffffff;
+        border-left: 1px solid #ffffff;
+        border-right: 1px solid #49616a;
+        border-bottom: 1px solid #49616a;
+        background: #dce4e6;
+        color: #2f4c58;
+        font: 10px Tahoma, Arial, sans-serif;
+    }
+
+
+.page-thread-03
+#thread03WallToolCloseBtn {
+    cursor: pointer;
+}
+
+
+/* ---------------------------------------------------------
+   menu / address
+   --------------------------------------------------------- */
+
+.page-thread-03
+.thread03-wall-tool-menubar {
+    min-height: 25px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding: 2px 7px;
+    border-bottom: 1px solid #9ea8ad;
+    background: #e5e5e3;
+    color: #2d383d;
+    font-size: 10px;
+}
+
+
+.page-thread-03
+.thread03-wall-tool-address {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    align-items: center;
+    gap: 5px;
+    padding: 4px 6px;
+    border-bottom: 1px solid #a0aaaf;
+    background: #d8dddf;
+    color: #4d5c63;
+    font-size: 9px;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-address > div {
+        min-width: 0;
+        padding: 3px 5px;
+        overflow: hidden;
+        border-top: 1px solid #79868d;
+        border-left: 1px solid #79868d;
+        border-right: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+        background: #ffffff;
+        color: #4a606c;
+        font: 9px Consolas, "Courier New", monospace;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+
+/* ---------------------------------------------------------
+   utility workspace
+   --------------------------------------------------------- */
+
+.page-thread-03
+.thread03-wall-tool-workspace {
+    min-height: 0;
+    padding: 9px;
+    overflow: auto;
+    background: #cdd4d7;
+}
+
+
+    /*
+   The existing wall audit keeps all gameplay,
+   but loses its old "forum component" spacing.
+*/
+
+    .page-thread-03
+    .thread03-wall-tool-workspace
+    .thread03-wall-audit {
+        margin: 0;
+        box-shadow: none;
+    }
+
+
+/* ---------------------------------------------------------
+   status bar
+   --------------------------------------------------------- */
+
+.page-thread-03
+.thread03-wall-tool-statusbar {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 2px;
+    padding: 3px;
+    border-top: 1px solid #8f9a9f;
+    background: #d5dbdd;
+    color: #53636b;
+    font: 8px Tahoma, Arial, sans-serif;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-statusbar span {
+        padding: 3px 6px;
+        border-top: 1px solid #7f8b90;
+        border-left: 1px solid #7f8b90;
+        border-right: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+    }
+
+
+/* stop page scrolling while utility is open */
+
+body.page-thread-03.thread03-tool-open {
+    overflow: hidden;
+}
+
+
+@media (max-width: 760px) {
+
+    .page-thread-03
+    .thread03-wall-tool-launcher {
+        grid-template-columns: 40px minmax(0, 1fr);
+    }
+
+
+    .page-thread-03
+    #thread03WallToolOpenBtn {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-tool-overlay {
+        padding: 8px;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-tool-window {
+        width: 100%;
+        max-height: calc(100vh - 16px);
+    }
+}
+
+/* =========================================================
+   WALL TOOL / CURRENT INVESTIGATION LAYER
+   circa 2019-2021 internal archive utility
+   ========================================================= */
+
+
+/* overlay - current system layer */
+
+.page-thread-03
+.thread03-wall-tool-overlay {
+    background: rgba(20, 27, 33, .58);
+    backdrop-filter: blur(2px);
+}
+
+
+/* main application shell */
+
+.page-thread-03
+.thread03-wall-tool-window {
+    width: min(1080px, calc(100vw - 56px));
+    border: 1px solid #26343d;
+    background: #eef1f3;
+    box-shadow: 0 18px 48px rgba(10, 18, 24, .38);
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+
+/* =========================================================
+   MODERN TITLE BAR
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-tool-titlebar {
+    min-height: 38px;
+    padding: 0 8px 0 11px;
+    background: #26343d;
+    color: #f4f7f8;
+    border: 0;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-titlebar strong {
+        font: 600 12px "Segoe UI", Tahoma, Arial, sans-serif;
+        letter-spacing: .01em;
+    }
+
+
+.page-thread-03
+.thread03-wall-tool-appicon {
+    width: 18px;
+    height: 18px;
+    border: 0;
+    border-radius: 2px;
+    background: #3d7e96;
+    color: #ffffff;
+    font: 600 10px "Segoe UI", sans-serif;
+}
+
+
+/* =========================================================
+   WINDOW CONTROLS
+   Windows 10-ish
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-tool-window-controls {
+    align-self: stretch;
+    gap: 0;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-window-controls span,
+    .page-thread-03
+    #thread03WallToolCloseBtn {
+        width: 42px;
+        height: 38px;
+        border: 0;
+        background: transparent;
+        color: #d9e0e4;
+        font: 13px "Segoe UI", sans-serif;
+    }
+
+
+        .page-thread-03
+        .thread03-wall-tool-window-controls span:hover {
+            background: #35444e;
+        }
+
+
+        .page-thread-03
+        #thread03WallToolCloseBtn:hover {
+            background: #b64343;
+            color: #ffffff;
+        }
+
+
+/* =========================================================
+   MENU BAR
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-tool-menubar {
+    min-height: 31px;
+    gap: 2px;
+    padding: 0 7px;
+    border: 0;
+    border-bottom: 1px solid #c5ccd1;
+    background: #f4f6f7;
+    color: #42515b;
+    font: 11px "Segoe UI", Tahoma, sans-serif;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-menubar span {
+        padding: 7px 9px;
+    }
+
+
+        .page-thread-03
+        .thread03-wall-tool-menubar span:hover {
+            background: #e2e8eb;
+        }
+
+
+/* =========================================================
+   SOURCE / PATH BAR
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-tool-address {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 8px;
+    padding: 7px 10px;
+    border: 0;
+    border-bottom: 1px solid #d1d7db;
+    background: #e9edef;
+    color: #66747d;
+    font: 10px "Segoe UI", sans-serif;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-address > div {
+        padding: 5px 7px;
+        border: 1px solid #bdc6cc;
+        border-radius: 2px;
+        background: #ffffff;
+        color: #445863;
+        font: 10px Consolas, "Courier New", monospace;
+    }
+
+
+/* =========================================================
+   MAIN WORKSPACE
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-tool-workspace {
+    padding: 14px;
+    background: #e4e9ec;
+}
+
+
+    /*
+   Existing audit gameplay becomes a modern analysis panel
+   only inside this window.
+*/
+
+    .page-thread-03
+    .thread03-wall-tool-workspace
+    .thread03-wall-audit {
+        border: 1px solid #b7c2c9;
+        background: #f7f9fa;
+        box-shadow: none;
+    }
+
+
+    /* analysis panel header */
+
+    .page-thread-03
+    .thread03-wall-tool-workspace
+    .thread03-wall-audit-head {
+        padding: 10px 12px;
+        border-bottom: 1px solid #c6d0d5;
+        background: #ffffff;
+    }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        .thread03-wall-audit-head span {
+            color: #71818b;
+            font: 10px Consolas, "Courier New", monospace;
+            letter-spacing: .06em;
+        }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        .thread03-wall-audit-head strong {
+            color: #273d49;
+            font: 600 13px "Segoe UI", Tahoma, sans-serif;
+        }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        .thread03-wall-audit-head em {
+            padding: 3px 7px;
+            border: 1px solid #bdc8ce;
+            border-radius: 2px;
+            background: #eef2f4;
+            color: #5a6d78;
+            font: normal 9px Consolas, monospace;
+        }
+
+
+    /* =========================================================
+   CACHE A/B/C
+   ========================================================= */
+
+    .page-thread-03
+    .thread03-wall-tool-workspace
+    .thread03-wall-frame {
+        border: 1px solid #bcc6cc;
+        border-radius: 2px;
+        background: #ffffff;
+        box-shadow: none;
+    }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        .thread03-wall-frame:hover:not(:disabled) {
+            border-color: #6f9eb2;
+            background: #f6fafb;
+        }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        .thread03-wall-frame.is-inspected {
+            border-color: #548da5;
+            box-shadow: inset 0 0 0 1px rgba(84, 141, 165, .14);
+        }
+
+
+    /* =========================================================
+   READOUT
+   ========================================================= */
+
+    .page-thread-03
+    .thread03-wall-tool-workspace
+    .thread03-wall-readout {
+        border: 1px solid #c5cdd2;
+        background: #eef2f4;
+    }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        .thread03-wall-readout span {
+            color: #60747f;
+        }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        .thread03-wall-readout p {
+            color: #2e424d;
+        }
+
+
+    /* =========================================================
+   CONCLUSION BUTTONS
+   ========================================================= */
+
+    .page-thread-03
+    .thread03-wall-tool-workspace
+    .thread03-wall-conclusion-options button {
+        border: 1px solid #bcc6cc;
+        border-radius: 2px;
+        background: #ffffff;
+        color: #334955;
+        box-shadow: none;
+    }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        .thread03-wall-conclusion-options button:hover:not(:disabled) {
+            border-color: #6b9bb0;
+            background: #f1f7f9;
+        }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        .thread03-wall-conclusion-options button.is-selected {
+            border-color: #4f899f;
+            background: #e7f1f5;
+        }
+
+
+    /* =========================================================
+   PRIMARY ACTION
+   ========================================================= */
+
+    .page-thread-03
+    .thread03-wall-tool-workspace
+    #thread03WallCommit {
+        min-height: 30px;
+        padding: 5px 12px;
+        border: 1px solid #39798f;
+        border-radius: 2px;
+        background: #4c8ca3;
+        color: #ffffff;
+        font: 11px "Segoe UI", Tahoma, sans-serif;
+        box-shadow: none;
+    }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        #thread03WallCommit:hover:not(:disabled) {
+            background: #397c94;
+        }
+
+
+        .page-thread-03
+        .thread03-wall-tool-workspace
+        #thread03WallCommit:disabled {
+            border-color: #c3cbd0;
+            background: #dfe4e7;
+            color: #98a4aa;
+        }
+
+
+/* =========================================================
+   STATUS BAR
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-tool-statusbar {
+    grid-template-columns: 1fr auto auto auto;
+    gap: 14px;
+    padding: 6px 10px;
+    border: 0;
+    border-top: 1px solid #c4cbd0;
+    background: #f1f3f4;
+    color: #72818a;
+    font: 9px "Segoe UI", Tahoma, sans-serif;
+}
+
+
+    .page-thread-03
+    .thread03-wall-tool-statusbar span {
+        padding: 0;
+        border: 0;
+    }
+
+/* =========================================================
+   THREAD 03 / WALL TOOL
+   Modern system utility pass
+   iOS / near-future soft glass + neumorphism
+   ========================================================= */
+
+
+/* ---------- overlay ---------- */
+
+.page-thread-03 .thread03-wall-tool-overlay {
+    background: rgba(18, 26, 32, 0.30);
+    backdrop-filter: blur(12px) saturate(115%);
+    -webkit-backdrop-filter: blur(12px) saturate(115%);
+}
+
+
+/* ---------- main window ---------- */
+
+.page-thread-03 .thread03-wall-tool-window {
+    width: min(1180px, calc(100vw - 64px));
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient( 180deg, rgba(245, 248, 250, 0.92) 0%, rgba(231, 237, 241, 0.90) 100% );
+    box-shadow: 0 28px 80px rgba(10, 18, 24, 0.28), 0 8px 24px rgba(19, 32, 41, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(22px) saturate(135%);
+    -webkit-backdrop-filter: blur(22px) saturate(135%);
+}
+
+
+/* ---------- title bar ---------- */
+
+.page-thread-03 .thread03-wall-tool-titlebar {
+    min-height: 52px;
+    padding: 0 12px 0 16px;
+    background: linear-gradient( 180deg, rgba(60, 76, 88, 0.96) 0%, rgba(49, 65, 76, 0.92) 100% );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    color: #f4f8fb;
+}
+
+.page-thread-03 .thread03-wall-tool-appicon {
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    background: linear-gradient( 145deg, #5aa8c4, #2d6f89 );
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.42), 0 2px 6px rgba(10, 36, 48, 0.28);
+}
+
+
+/* ---------- window controls ---------- */
+
+.page-thread-03 .thread03-wall-tool-window-controls {
+    gap: 8px;
+}
+
+    .page-thread-03 .thread03-wall-tool-window-controls span,
+    .page-thread-03 #thread03WallToolCloseBtn {
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: 10px;
+        background: rgba(255,255,255,.08);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 1px 2px rgba(0,0,0,.08);
+        transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+    }
+
+        .page-thread-03 .thread03-wall-tool-window-controls span:hover {
+            transform: translateY(-1px);
+            background: rgba(255,255,255,.14);
+        }
+
+        .page-thread-03 #thread03WallToolCloseBtn:hover {
+            transform: translateY(-1px);
+            background: rgba(214, 88, 88, .85);
+        }
+
+
+/* ---------- menu bar ---------- */
+
+.page-thread-03 .thread03-wall-tool-menubar {
+    min-height: 40px;
+    background: rgba(248, 250, 251, 0.64);
+    border-bottom: 1px solid rgba(113, 131, 142, 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+    .page-thread-03 .thread03-wall-tool-menubar span {
+        padding: 6px 10px;
+        border-radius: 8px;
+        color: #263540;
+    }
+
+        .page-thread-03 .thread03-wall-tool-menubar span:hover {
+            background: rgba(111, 142, 159, 0.12);
+        }
+
+
+/* ---------- address row ---------- */
+
+.page-thread-03 .thread03-wall-tool-address {
+    padding: 10px 14px;
+    background: rgba(241, 245, 247, 0.78);
+    border-bottom: 1px solid rgba(117, 135, 145, 0.12);
+}
+
+    .page-thread-03 .thread03-wall-tool-address > div {
+        border: 1px solid rgba(141, 158, 168, 0.24);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.68);
+        box-shadow: inset 0 1px 2px rgba(30, 45, 56, 0.05), inset 0 -1px 0 rgba(255,255,255,.55);
+    }
+
+
+/* ---------- workspace ---------- */
+
+.page-thread-03 .thread03-wall-tool-workspace {
+    padding: 18px;
+    background: linear-gradient( 180deg, rgba(232, 237, 241, 0.86) 0%, rgba(225, 231, 236, 0.80) 100% );
+}
+
+
+    /* ---------- major modules ---------- */
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-audit,
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-readout {
+        border: 1px solid rgba(125, 144, 154, 0.18);
+        border-radius: 16px;
+        overflow: hidden;
+        background: linear-gradient( 180deg, rgba(255,255,255,.48), rgba(244,248,250,.38) );
+        box-shadow: 0 10px 24px rgba(56, 73, 84, 0.06), inset 1px 1px 0 rgba(255,255,255,.62), inset -1px -1px 0 rgba(196, 206, 212, 0.22);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-audit-head {
+        padding: 14px 16px 12px;
+        background: linear-gradient( 180deg, rgba(109, 150, 156, 0.86) 0%, rgba(96, 135, 141, 0.82) 100% );
+        color: #eff9fb;
+        border-bottom: 1px solid rgba(255,255,255,.16);
+    }
+
+
+    /* ---------- cache cards ---------- */
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-frame {
+        border: 1px solid rgba(134, 151, 160, 0.20);
+        border-radius: 16px;
+        background: linear-gradient( 180deg, rgba(248,251,252,.88), rgba(235,240,243,.72) );
+        box-shadow: 8px 8px 20px rgba(177, 189, 197, 0.26), -8px -8px 18px rgba(255, 255, 255, 0.72), inset 0 1px 0 rgba(255,255,255,.72);
+        transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+    }
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-frame:hover:not(:disabled) {
+            transform: translateY(-2px);
+            border-color: rgba(96, 152, 172, 0.48);
+            box-shadow: 10px 12px 26px rgba(169, 182, 190, 0.30), -8px -8px 18px rgba(255, 255, 255, 0.78), inset 0 1px 0 rgba(255,255,255,.78);
+        }
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-frame.is-inspected {
+            border-color: rgba(81, 145, 168, 0.64);
+            background: linear-gradient( 180deg, rgba(237, 248, 251, .96), rgba(228, 240, 246, .84) );
+            box-shadow: 0 0 0 2px rgba(102, 165, 188, 0.12), 10px 12px 26px rgba(164, 176, 184, 0.26), -8px -8px 18px rgba(255,255,255,.80);
+        }
+
+
+        /* ---------- frame preview image ---------- */
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-frame img {
+            border-radius: 10px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 4px 10px rgba(0,0,0,.08);
+        }
+
+
+    /* ---------- readout box ---------- */
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-readout {
+        padding-bottom: 8px;
+    }
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-readout p,
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-readout div {
+            color: #2f3f49;
+        }
+
+
+    /* ---------- option buttons ---------- */
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-conclusion-options button {
+        min-height: 46px;
+        border: 1px solid rgba(136, 151, 160, 0.18);
+        border-radius: 14px;
+        background: linear-gradient( 180deg, rgba(248,250,251,.92), rgba(232,238,241,.82) );
+        box-shadow: 6px 6px 14px rgba(180,190,197,.24), -6px -6px 14px rgba(255,255,255,.76), inset 0 1px 0 rgba(255,255,255,.74);
+        color: #425560;
+        transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-conclusion-options button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            border-color: rgba(103, 152, 171, 0.38);
+            box-shadow: 8px 8px 16px rgba(176,186,193,.28), -6px -6px 14px rgba(255,255,255,.84), inset 0 1px 0 rgba(255,255,255,.78);
+        }
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-conclusion-options button.is-selected,
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-conclusion-options button[aria-pressed="true"] {
+            border-color: rgba(79, 141, 165, 0.48);
+            background: linear-gradient( 180deg, rgba(229, 244, 249, .96), rgba(215, 234, 241, .92) );
+            color: #2e5361;
+            box-shadow: inset 3px 3px 8px rgba(169, 186, 194, 0.24), inset -3px -3px 8px rgba(255,255,255,.70);
+        }
+
+
+    /* ---------- primary action ---------- */
+
+    .page-thread-03 .thread03-wall-tool-workspace #thread03WallCommit {
+        min-width: 176px;
+        min-height: 42px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient( 180deg, #67b9d2 0%, #4c98b4 100% );
+        color: #ffffff;
+        box-shadow: 0 10px 18px rgba(77, 140, 165, 0.26), inset 0 1px 0 rgba(255,255,255,.32);
+        transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+
+        .page-thread-03 .thread03-wall-tool-workspace #thread03WallCommit:hover:not(:disabled) {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+            box-shadow: 0 14px 22px rgba(77, 140, 165, 0.32), inset 0 1px 0 rgba(255,255,255,.36);
+        }
+
+        .page-thread-03 .thread03-wall-tool-workspace #thread03WallCommit:disabled {
+            opacity: .45;
+            box-shadow: none;
+        }
+
+
+/* ---------- status / footer ---------- */
+
+.page-thread-03 .thread03-wall-tool-statusbar {
+    min-height: 38px;
+    background: linear-gradient( 180deg, rgba(245,247,249,.90), rgba(233,238,241,.82) );
+    border-top: 1px solid rgba(124, 142, 152, 0.14);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+/* ---------- typography tuning ---------- */
+
+.page-thread-03 .thread03-wall-tool-window,
+.page-thread-03 .thread03-wall-tool-window button,
+.page-thread-03 .thread03-wall-tool-window input,
+.page-thread-03 .thread03-wall-tool-window div,
+.page-thread-03 .thread03-wall-tool-window span {
+    letter-spacing: .01em;
+}
+
+    .page-thread-03 .thread03-wall-tool-window .thread03-wall-audit-head strong,
+    .page-thread-03 .thread03-wall-tool-window .thread03-wall-readout strong {
+        font-weight: 600;
+    }
+
+/* =========================================================
+   THREAD 03 / WALL TOOL
+   v2 fine tuning override
+   append only
+   ========================================================= */
+
+.page-thread-03 .thread03-wall-tool-window {
+    border-radius: 20px;
+    background: linear-gradient( 180deg, rgba(246, 249, 251, 0.94) 0%, rgba(232, 238, 242, 0.92) 100% );
+    box-shadow: 0 28px 80px rgba(14, 22, 28, 0.24), 0 10px 30px rgba(20, 34, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+/* ---------- title bar: more modern / softer ---------- */
+
+.page-thread-03 .thread03-wall-tool-titlebar {
+    background: linear-gradient( 180deg, rgba(68, 84, 97, 0.94) 0%, rgba(57, 72, 84, 0.90) 100% );
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.10), inset 0 -1px 0 rgba(0,0,0,.08);
+}
+
+    .page-thread-03 .thread03-wall-tool-titlebar strong,
+    .page-thread-03 .thread03-wall-tool-titlebar span,
+    .page-thread-03 .thread03-wall-tool-titlebar div {
+        color: #f5f8fb;
+    }
+
+.page-thread-03 .thread03-wall-tool-appicon {
+    border-radius: 8px;
+    background: linear-gradient( 145deg, #65b7d4 0%, #3e8aaa 100% );
+    box-shadow: 0 4px 10px rgba(29, 78, 98, 0.22), inset 0 1px 0 rgba(255,255,255,.34);
+}
+
+/* ---------- controls ---------- */
+
+.page-thread-03 .thread03-wall-tool-window-controls span,
+.page-thread-03 #thread03WallToolCloseBtn {
+    border-radius: 11px;
+    background: rgba(255,255,255,.10);
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 1px 2px rgba(0,0,0,.08);
+}
+
+    .page-thread-03 .thread03-wall-tool-window-controls span:hover {
+        background: rgba(255,255,255,.16);
+    }
+
+.page-thread-03 #thread03WallToolCloseBtn {
+    background: rgba(255,255,255,.82);
+    color: #2d3a43;
+}
+
+    .page-thread-03 #thread03WallToolCloseBtn:hover {
+        background: rgba(232, 92, 92, .92);
+        color: #ffffff;
+    }
+
+/* ---------- menu + address ---------- */
+
+.page-thread-03 .thread03-wall-tool-menubar {
+    background: rgba(250, 251, 252, 0.72);
+}
+
+.page-thread-03 .thread03-wall-tool-address {
+    background: rgba(244, 247, 249, 0.82);
+}
+
+    .page-thread-03 .thread03-wall-tool-address > div {
+        min-height: 34px;
+        border-radius: 14px;
+        background: rgba(255,255,255,.78);
+        border: 1px solid rgba(146, 161, 170, 0.20);
+        box-shadow: inset 0 1px 2px rgba(42, 59, 71, 0.04), inset 0 -1px 0 rgba(255,255,255,.64);
+    }
+
+/* ---------- workspace background ---------- */
+
+.page-thread-03 .thread03-wall-tool-workspace {
+    background: linear-gradient( 180deg, rgba(236, 241, 244, 0.88) 0%, rgba(229, 235, 239, 0.84) 100% );
+}
+
+    /* ---------- section panels ---------- */
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-audit,
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-readout {
+        border-radius: 18px;
+        border: 1px solid rgba(128, 145, 155, 0.16);
+        background: linear-gradient( 180deg, rgba(255,255,255,.42), rgba(245,248,250,.30) );
+        box-shadow: 0 8px 20px rgba(60, 78, 89, 0.05), inset 0 1px 0 rgba(255,255,255,.70), inset 0 -1px 0 rgba(210,218,223,.16);
+    }
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-audit-head {
+        background: linear-gradient( 180deg, rgba(112, 154, 160, 0.88) 0%, rgba(98, 138, 145, 0.84) 100% );
+        padding-top: 15px;
+        padding-bottom: 14px;
+    }
+
+    /* ---------- frame cards ---------- */
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-frame {
+        border-radius: 18px;
+        background: linear-gradient( 180deg, rgba(250,252,253,.90), rgba(238,243,246,.78) );
+        box-shadow: 10px 10px 22px rgba(183, 193, 199, 0.22), -8px -8px 16px rgba(255,255,255,.68), inset 0 1px 0 rgba(255,255,255,.82);
+    }
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-frame:hover:not(:disabled) {
+            transform: translateY(-2px) scale(1.003);
+        }
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-frame.is-inspected {
+            border-color: rgba(86, 155, 178, 0.58);
+            background: linear-gradient( 180deg, rgba(237, 249, 252, .96), rgba(226, 241, 246, .90) );
+            box-shadow: 0 0 0 2px rgba(110, 178, 202, 0.16), 10px 12px 24px rgba(176, 188, 195, 0.24), -8px -8px 16px rgba(255,255,255,.78), inset 0 1px 0 rgba(255,255,255,.86);
+        }
+
+            .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-frame.is-inspected::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 18px;
+                pointer-events: none;
+                box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+            }
+
+    /* ---------- readout / answer area ---------- */
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-readout p,
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-readout div {
+        color: #32424c;
+    }
+
+    .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-conclusion-options button {
+        min-height: 48px;
+        border-radius: 15px;
+        border: 1px solid rgba(135, 149, 158, 0.16);
+        background: linear-gradient( 180deg, rgba(248,250,251,.94), rgba(233,238,241,.84) );
+        color: #50626d;
+        box-shadow: 6px 6px 14px rgba(186,194,199,.20), -6px -6px 14px rgba(255,255,255,.72), inset 0 1px 0 rgba(255,255,255,.78);
+    }
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-conclusion-options button:hover:not(:disabled) {
+            color: #394b56;
+        }
+
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-conclusion-options button.is-selected,
+        .page-thread-03 .thread03-wall-tool-workspace .thread03-wall-conclusion-options button[aria-pressed="true"] {
+            background: linear-gradient( 180deg, rgba(227, 242, 247, .98), rgba(214, 233, 240, .94) );
+            color: #234a59;
+            border-color: rgba(92, 150, 171, 0.40);
+            box-shadow: inset 3px 3px 8px rgba(171,186,194,.24), inset -3px -3px 8px rgba(255,255,255,.72);
+        }
+
+    /* ---------- commit button ---------- */
+
+    .page-thread-03 .thread03-wall-tool-workspace #thread03WallCommit {
+        min-width: 184px;
+        min-height: 44px;
+        border-radius: 999px;
+        background: linear-gradient( 180deg, #72bfd7 0%, #529bb7 100% );
+        box-shadow: 0 10px 20px rgba(77, 140, 165, 0.24), inset 0 1px 0 rgba(255,255,255,.32);
+    }
+
+        .page-thread-03 .thread03-wall-tool-workspace #thread03WallCommit:hover:not(:disabled) {
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 14px 24px rgba(77, 140, 165, 0.30), inset 0 1px 0 rgba(255,255,255,.36);
+        }
+
+/* ---------- status bar ---------- */
+
+.page-thread-03 .thread03-wall-tool-statusbar {
+    background: linear-gradient( 180deg, rgba(246,248,249,.92), rgba(233,238,241,.84) );
+    border-top: 1px solid rgba(125, 142, 151, 0.12);
+}
+
+/* ---------- tiny typography refinement ---------- */
+
+.page-thread-03 .thread03-wall-tool-window {
+    color: #2b3c46;
+}
+
+    .page-thread-03 .thread03-wall-tool-window .thread03-wall-audit-head strong,
+    .page-thread-03 .thread03-wall-tool-window .thread03-wall-readout strong {
+        letter-spacing: 0.03em;
+    }
+
+    .page-thread-03 .thread03-wall-tool-window .thread03-wall-readout small,
+    .page-thread-03 .thread03-wall-tool-window .thread03-wall-frame small {
+        opacity: 0.72;
+    }
+
+/* =========================================================
+   AUDIO / LEGACY UTILITY ENTRY
+   Old recovered service, not current investigation UI.
+   ========================================================= */
+
+.page-thread-03
+.thread03-audio-utility-entry {
+    margin: 12px 0 0;
+    border: 1px solid #8b999f;
+    background: #e2e6e6;
+    color: #30434c;
+    box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #adb7bb;
+}
+
+
+.page-thread-03
+.thread03-audio-utility-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 5px 7px;
+    border-bottom: 1px solid #77898f;
+    background: linear-gradient( to bottom, #6f9091, #59797b );
+    color: #ffffff;
+}
+
+
+    .page-thread-03
+    .thread03-audio-utility-head span {
+        font: bold 8px Tahoma, Arial, sans-serif;
+        letter-spacing: .05em;
+    }
+
+
+    .page-thread-03
+    .thread03-audio-utility-head em {
+        padding: 1px 4px;
+        border: 1px solid rgba(255,255,255,.5);
+        color: #ffffff;
+        font: normal 8px Tahoma, sans-serif;
+    }
+
+
+.page-thread-03
+.thread03-audio-utility-body {
+    padding: 9px;
+}
+
+
+    .page-thread-03
+    .thread03-audio-utility-body > strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #244753;
+        font-size: 11px;
+    }
+
+
+    .page-thread-03
+    .thread03-audio-utility-body > p {
+        margin: 0 0 8px;
+        color: #586c74;
+        font-size: 10px;
+        line-height: 1.6;
+    }
+
+
+.page-thread-03
+.thread03-audio-utility-meta {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1fr);
+    margin-bottom: 8px;
+    border-top: 1px solid #b2bdc1;
+    border-left: 1px solid #b2bdc1;
+}
+
+
+    .page-thread-03
+    .thread03-audio-utility-meta span,
+    .page-thread-03
+    .thread03-audio-utility-meta b {
+        padding: 4px 6px;
+        border-right: 1px solid #b2bdc1;
+        border-bottom: 1px solid #b2bdc1;
+        font-size: 9px;
+    }
+
+
+    .page-thread-03
+    .thread03-audio-utility-meta span {
+        background: #d5dcde;
+        color: #60727a;
+    }
+
+
+    .page-thread-03
+    .thread03-audio-utility-meta b {
+        background: #edf0ef;
+        color: #40545c;
+        font-family: Consolas, "Courier New", monospace;
+        font-weight: normal;
+    }
+
+
+.page-thread-03
+#thread03AudioUtilityOpenBtn {
+    padding: 5px 9px;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #76858b;
+    border-bottom: 1px solid #76858b;
+    background: #dce2e3;
+    color: #344c56;
+    font: 10px Tahoma, Arial, "SimSun", sans-serif;
+    cursor: pointer;
+}
+
+/* =========================================================
+   AUDIO / RECOVERED LEGACY APPLICATION
+   Vista / early Win7 era service launcher
+   ========================================================= */
+
+.page-thread-03
+.thread03-audio-utility-entry {
+    margin: 14px 0 4px;
+}
+
+
+.page-thread-03
+.thread03-audio-utility-glass {
+    position: relative;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 14px 14px 13px;
+    overflow: hidden;
+    border: 1px solid rgba(89, 121, 137, .52);
+    border-radius: 10px;
+    background: linear-gradient( 180deg, rgba(240, 250, 253, .96) 0%, rgba(205, 226, 234, .91) 48%, rgba(184, 210, 220, .90) 100% );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .92), inset 0 -1px 0 rgba(77, 112, 127, .18), 0 3px 9px rgba(39, 64, 77, .14);
+    color: #26414f;
+}
+
+
+    /* old Aero highlight */
+
+    .page-thread-03
+    .thread03-audio-utility-glass::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 46%;
+        pointer-events: none;
+        background: linear-gradient( 180deg, rgba(255,255,255,.58), rgba(255,255,255,.09) );
+    }
+
+
+    .page-thread-03
+    .thread03-audio-utility-glass::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        right: -70px;
+        top: -95px;
+        pointer-events: none;
+        border-radius: 50%;
+        background: radial-gradient( circle, rgba(118, 182, 196, .16), rgba(118, 182, 196, 0) 70% );
+    }
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.page-thread-03
+.thread03-audio-app-icon {
+    position: relative;
+    z-index: 1;
+    width: 58px;
+    height: 58px;
+    border: 1px solid rgba(59, 106, 127, .52);
+    border-radius: 14px;
+    background: linear-gradient( 145deg, #79c3d6 0%, #4f9db3 48%, #3a7b91 100% );
+    box-shadow: inset 0 1px 1px rgba(255,255,255,.70), inset 0 -2px 4px rgba(27, 66, 81, .22), 0 4px 9px rgba(34, 73, 88, .20);
+}
+
+
+    .page-thread-03
+    .thread03-audio-app-icon::before {
+        content: "";
+        position: absolute;
+        inset: 5px 6px auto;
+        height: 19px;
+        border-radius: 9px 9px 50% 50%;
+        background: linear-gradient( 180deg, rgba(255,255,255,.65), rgba(255,255,255,.06) );
+    }
+
+
+.page-thread-03
+.thread03-audio-app-disc {
+    position: absolute;
+    left: 17px;
+    top: 17px;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    border: 2px solid rgba(245,253,255,.88);
+    box-shadow: 0 1px 3px rgba(18, 66, 84, .30);
+}
+
+
+    .page-thread-03
+    .thread03-audio-app-disc::after {
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        left: 7px;
+        top: 7px;
+        border-radius: 50%;
+        background: #eafcff;
+    }
+
+
+.page-thread-03
+.thread03-audio-app-wave {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    height: 7px;
+    border-top: 2px solid rgba(255,255,255,.86);
+    border-bottom: 1px solid rgba(255,255,255,.44);
+    transform: skewX(-18deg);
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.page-thread-03
+.thread03-audio-utility-content {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+}
+
+
+.page-thread-03
+.thread03-audio-utility-kicker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+    color: #5d7986;
+    font: 8px Tahoma, Arial, sans-serif;
+    letter-spacing: .08em;
+}
+
+
+    .page-thread-03
+    .thread03-audio-utility-kicker em {
+        padding: 1px 5px;
+        border: 1px solid rgba(79, 127, 146, .28);
+        border-radius: 8px;
+        background: rgba(255,255,255,.42);
+        color: #557784;
+        font-style: normal;
+    }
+
+
+.page-thread-03
+.thread03-audio-utility-title {
+    display: block;
+    color: #1f4b62;
+    font: bold 14px "Segoe UI", Tahoma, Arial, sans-serif;
+    text-shadow: 0 1px 0 rgba(255,255,255,.72);
+}
+
+
+.page-thread-03
+.thread03-audio-utility-subtitle {
+    display: block;
+    margin-top: 1px;
+    color: #4f6774;
+    font: 9px "Segoe UI", Tahoma, sans-serif;
+}
+
+.page-thread-03
+.thread03-audio-utility-content p {
+    max-width: 620px;
+    margin: 8px 0 9px;
+    color: #405865;
+    font-size: 10px;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   STATUS PILLS
+   ========================================================= */
+
+.page-thread-03
+.thread03-audio-utility-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+
+    .page-thread-03
+    .thread03-audio-utility-status span {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 7px;
+        border: 1px solid rgba(101, 127, 139, .22);
+        border-radius: 999px;
+        background: rgba(247, 250, 252, .72);
+        color: #536a76;
+        font: 8px Consolas, "Courier New", monospace;
+    }
+
+
+    .page-thread-03
+    .thread03-audio-utility-status i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #58b69f;
+        box-shadow: 0 0 4px rgba(65, 175, 150, .44);
+    }
+
+
+/* =========================================================
+   ACTION
+   ========================================================= */
+
+.page-thread-03
+.thread03-audio-utility-action {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+
+    .page-thread-03
+    .thread03-audio-utility-action small {
+        color: #708892;
+        font: 8px Tahoma, sans-serif;
+    }
+
+
+.page-thread-03
+#thread03AudioUtilityOpenBtn {
+    min-width: 128px;
+    padding: 7px 10px 7px 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 1px solid #397e99;
+    border-radius: 7px;
+    background: linear-gradient( 180deg, #7ed0e4 0%, #48a6c2 48%, #3189a8 52%, #459fba 100% );
+    color: #ffffff;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.58), inset 0 -1px 0 rgba(31, 91, 113, .34), 0 2px 4px rgba(36, 89, 108, .18);
+    text-shadow: 0 -1px 0 rgba(31, 83, 102, .46);
+    font: 10px "Segoe UI", Tahoma, "SimSun", sans-serif;
+    cursor: pointer;
+}
+
+
+    .page-thread-03
+    #thread03AudioUtilityOpenBtn:hover {
+        filter: brightness(1.06);
+    }
+
+
+    .page-thread-03
+    #thread03AudioUtilityOpenBtn span {
+        font-size: 17px;
+        line-height: 1;
+    }
+
+
+@media (max-width: 720px) {
+
+    .page-thread-03
+    .thread03-audio-utility-glass {
+        position: relative;
+        display: grid;
+        grid-template-columns: 64px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 14px 14px 13px;
+        overflow: hidden;
+        border: 1px solid rgba(103, 128, 141, .52);
+        border-radius: 10px;
+        background: linear-gradient( 180deg, rgba(233, 242, 246, .97) 0%, rgba(203, 219, 227, .94) 52%, rgba(186, 206, 216, .93) 100% );
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .88), inset 0 -1px 0 rgba(72, 96, 108, .16), 0 3px 9px rgba(43, 58, 68, .12);
+        color: #2f4653;
+    }
+
+
+    .page-thread-03
+    .thread03-audio-utility-action {
+        grid-column: 1 / -1;
+        align-items: stretch;
+    }
+
+
+    .page-thread-03
+    #thread03AudioUtilityOpenBtn {
+        min-width: 128px;
+        padding: 7px 10px 7px 13px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border: 1px solid #678593;
+        border-radius: 7px;
+        background: linear-gradient( 180deg, #f6f8fa 0%, #dde6eb 48%, #cedbe2 52%, #d9e3e8 100% );
+        color: #2a4655;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.84), inset 0 -1px 0 rgba(92, 118, 130, .18), 0 2px 4px rgba(44, 64, 73, .12);
+        text-shadow: 0 1px 0 rgba(255,255,255,.70);
+        font: 10px "Segoe UI", Tahoma, "SimSun", sans-serif;
+        cursor: pointer;
+    }
+}
+
+/* =========================================================
+   THREAD 03 / SYSTEM WRITEBACK
+   Backend record surfaced inside the old forum mirror.
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback {
+    position: relative;
+    margin: 13px 5px 15px;
+    border: 1px solid #9eafb6;
+    border-left: 3px solid #668f9d;
+    background: #ecefed;
+    color: #344b57;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.84), 0 1px 2px rgba(55,75,85,.06);
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback.hidden {
+        display: none !important;
+    }
+
+
+    /* subtle system marker */
+
+    .page-thread-03
+    .thread03-wall-writeback::before {
+        content: "";
+        position: absolute;
+        left: -7px;
+        top: 14px;
+        width: 5px;
+        height: 5px;
+        border: 1px solid #698c98;
+        background: #eef2f3;
+    }
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 7px 9px;
+    border-bottom: 1px solid #9fadb3;
+    background: linear-gradient( 90deg, #c9d9df 0%, #d9e2e4 68%, #e8dfca 100% );
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback-head > div {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-head span {
+        color: #345766;
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-head small {
+        color: #748891;
+        font: 7px Tahoma, Arial, sans-serif;
+        letter-spacing: .08em;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-head em {
+        padding: 2px 7px;
+        border: 1px solid #91aa9e;
+        background: #dce9df;
+        color: #476b5d;
+        font: normal 8px "SimSun", Tahoma, sans-serif;
+    }
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-summary {
+    padding: 10px 10px 8px;
+    background: linear-gradient( 90deg, #f7f6ef 0%, #f1f4f3 72% );
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback-summary strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #294b5b;
+        font-size: 11px;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-summary p {
+        margin: 0;
+        max-width: 760px;
+        color: #4c6069;
+        font-size: 10px;
+        line-height: 1.65;
+    }
+
+
+/* =========================================================
+   DATA ROWS
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-data {
+    margin: 0 10px 9px;
+    border-top: 1px solid #bcc7cb;
+    border-left: 1px solid #bcc7cb;
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback-data > div {
+        display: grid;
+        grid-template-columns: 95px minmax(0, 1fr);
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-data span,
+    .page-thread-03
+    .thread03-wall-writeback-data strong {
+        padding: 5px 7px;
+        border-right: 1px solid #bcc7cb;
+        border-bottom: 1px solid #bcc7cb;
+        font-size: 9px;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-data span {
+        background: #dce4e7;
+        color: #617681;
+        font-weight: normal;
+    }
+
+    .page-thread-03
+    .thread03-wall-writeback-data > div:nth-child(1) span {
+        background: #e7e0cc;
+        color: #75684b;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-data > div:nth-child(2) span {
+        background: #d9e3e7;
+        color: #607684;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-data > div:nth-child(3) span {
+        background: #d5e3e5;
+        color: #4f7077;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-data > div:nth-child(4) span {
+        background: #d8e6dc;
+        color: #50705f;
+    }
+
+    .page-thread-03
+    .thread03-wall-writeback-data strong {
+        background: rgba(250, 250, 247, .84);
+        color: #344e5a;
+        font-weight: normal;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-data
+    .is-verified strong {
+        background: #edf4ef;
+        color: #42705c;
+        font-weight: bold;
+    }
+
+
+/* =========================================================
+   FOOT
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 5px 9px;
+    border-top: 1px solid #b6c2c6;
+    background: linear-gradient( 90deg, #dce5e8 0%, #e8e7dd 100% );
+    color: #75868e;
+    font: 7px Consolas, "Courier New", monospace;
+    letter-spacing: .03em;
+}
+
+/* =========================================================
+   THREAD 03 / LEGACY SYSTEM WRITEBACK VIEWER
+   Old internal system window surfaced inside the forum.
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback {
+    margin: 14px 2px 16px;
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback.hidden {
+        display: none !important;
+    }
+
+
+/* =========================================================
+   WINDOW SHELL
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-window {
+    overflow: hidden;
+    border: 1px solid #85989e;
+    background: #d8ddde;
+    color: #31464f;
+    box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #a6b0b3;
+    font-family: Tahoma, Arial, "SimSun", sans-serif;
+}
+
+
+/* =========================================================
+   TITLE BAR
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-titlebar {
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 2px 4px 2px 7px;
+    background: linear-gradient( 180deg, #73978f 0%, #62877e 100% );
+    border-bottom: 1px solid #4f716b;
+    color: #ffffff;
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback-titlebar strong {
+        font: bold 10px Tahoma, Arial, "SimSun", sans-serif;
+        text-shadow: 0 1px 0 rgba(45, 76, 69, .42);
+    }
+
+
+.page-thread-03
+.thread03-wall-writeback-controls {
+    display: flex;
+    gap: 2px;
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback-controls span {
+        width: 13px;
+        height: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top: 1px solid #f5f7f6;
+        border-left: 1px solid #f5f7f6;
+        border-right: 1px solid #57716c;
+        border-bottom: 1px solid #57716c;
+        background: #d9e1df;
+        color: #4b665f;
+        font: 8px Arial, sans-serif;
+    }
+
+
+/* =========================================================
+   MENU BAR
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-menubar {
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 1px 8px;
+    border-bottom: 1px solid #a8b1b4;
+    background: #e5e4e2;
+    color: #46575f;
+    font-size: 9px;
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback-menubar span {
+        cursor: default;
+    }
+
+
+/* =========================================================
+   ADDRESS BAR
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-address {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    align-items: center;
+    gap: 7px;
+    padding: 5px 7px;
+    border-bottom: 1px solid #9eaaae;
+    background: #d2d8da;
+    color: #5a6b73;
+    font-size: 8px;
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback-address > div {
+        min-width: 0;
+        padding: 4px 6px;
+        overflow: hidden;
+        border-top: 1px solid #78898f;
+        border-left: 1px solid #78898f;
+        border-right: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+        background: #f7f9f8;
+        color: #50656e;
+        font: 8px Consolas, "Courier New", monospace;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+
+/* =========================================================
+   MAIN BODY
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-main {
+    display: grid;
+    grid-template-columns: 182px minmax(0, 1fr);
+    min-height: 210px;
+    background: #d3d8da;
+}
+
+
+/* =========================================================
+   LEFT INFORMATION PANE
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-side {
+    padding: 14px 10px;
+    border-right: 1px solid #a1adb1;
+    background: linear-gradient( 180deg, #e4e8e8 0%, #dce1e1 100% );
+}
+
+
+.page-thread-03
+.thread03-wall-writeback-field {
+    margin-bottom: 13px;
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback-field:last-child {
+        margin-bottom: 0;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-field span {
+        display: block;
+        margin-bottom: 3px;
+        color: #74858c;
+        font-size: 8px;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-field strong {
+        display: block;
+        color: #36505b;
+        font: normal 9px Tahoma, Arial, "SimSun", sans-serif;
+    }
+
+
+        .page-thread-03
+        .thread03-wall-writeback-field
+        strong.is-verified {
+            color: #4c7768;
+            font-weight: bold;
+        }
+
+
+/* =========================================================
+   PREVIEW / RESULT AREA
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-preview {
+    margin: 16px 18px;
+    padding: 17px 20px;
+    border: 1px solid #a5aaa7;
+    background: #e8e5dc;
+    color: #3d4c52;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.64);
+}
+
+
+.page-thread-03
+.thread03-wall-writeback-preview-label {
+    margin-bottom: 16px;
+    color: #7d8178;
+    font: 8px Consolas, "Courier New", monospace;
+    letter-spacing: .06em;
+}
+
+
+.page-thread-03
+.thread03-wall-writeback-preview-title {
+    display: block;
+    margin-bottom: 9px;
+    color: #304e59;
+    font-size: 12px;
+}
+
+
+.page-thread-03
+.thread03-wall-writeback-preview-copy {
+    max-width: 680px;
+    margin: 0 0 15px;
+    color: #556269;
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   RESULT TABLE
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-result {
+    max-width: 560px;
+    border-top: 1px solid #b2b4ae;
+    border-left: 1px solid #b2b4ae;
+}
+
+
+    .page-thread-03
+    .thread03-wall-writeback-result > div {
+        display: grid;
+        grid-template-columns: 92px minmax(0, 1fr);
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-result span,
+    .page-thread-03
+    .thread03-wall-writeback-result strong {
+        padding: 5px 7px;
+        border-right: 1px solid #b2b4ae;
+        border-bottom: 1px solid #b2b4ae;
+        font-size: 8px;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-result span {
+        background: #d9ddd9;
+        color: #6e7979;
+        font-weight: normal;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-result strong {
+        background: rgba(248,247,242,.72);
+        color: #40545c;
+        font-weight: normal;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-result
+    .is-success span {
+        background: #d5e1d7;
+        color: #587064;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-result
+    .is-success strong {
+        background: #e3ebe3;
+        color: #49715f;
+        font-weight: bold;
+    }
+
+
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-note {
+    margin: 13px 0 0;
+    color: #777b73;
+    font-size: 8px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   STATUS BAR
+   ========================================================= */
+
+.page-thread-03
+.thread03-wall-writeback-statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 6px;
+    border-top: 1px solid #9ba7aa;
+    background: #dfe3e2;
+    color: #68777d;
+    font-size: 7px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 720px) {
+
+    .page-thread-03
+    .thread03-wall-writeback-main {
+        grid-template-columns: 1fr;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-side {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        border-right: 0;
+        border-bottom: 1px solid #a1adb1;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-field {
+        margin-bottom: 0;
+    }
+
+
+    .page-thread-03
+    .thread03-wall-writeback-preview {
+        margin: 10px;
+    }
+}

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="88"
+     height="31"
+     viewBox="0 0 88 31"
+     shape-rendering="crispEdges">
+
+    <rect width="88" height="31" fill="#111111"/>
+
+    <rect x="1" y="1"
+          width="86"
+          height="29"
+          fill="none"
+          stroke="#f3c424"/>
+
+    <path d="
+        M0 5 L5 0
+        M0 15 L15 0
+        M0 25 L25 0
+        M8 31 L39 0
+        M22 31 L53 0
+        M36 31 L67 0
+        M50 31 L81 0
+        M64 31 L88 7
+        M78 31 L88 21"
+          stroke="#f3c424"
+          stroke-width="5"
+          opacity=".28"/>
+
+    <rect x="8"
+          y="7"
+          width="72"
+          height="17"
+          fill="#111111"/>
+
+    <text x="44"
+          y="14"
+          text-anchor="middle"
+          font-family="Arial"
+          font-size="7"
+          font-weight="bold"
+          fill="#ffd83d">
+        UNDER
+    </text>
+
+    <text x="44"
+          y="22"
+          text-anchor="middle"
+          font-family="Arial"
+          font-size="7"
+          font-weight="bold"
+          fill="#ffffff">
+        CONSTRUCTION
+    </text>
+
+</svg>

@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EchoRest — 疲惫的粉刷匠</title>
-    <link rel="stylesheet" href="../../assets/css/style.css?v=20260701-investigation" />
+    <link rel="stylesheet"
+          href="../../assets/css/style.css?v=20260701-investigation" />
+
+    <link rel="stylesheet"
+          href="../../assets/css/thread_03.css?v=20260924-2"/>
 </head>
 <body class="page-thread-03">
     <div class="screen-noise"></div>
@@ -197,149 +201,387 @@
                         </div>
                     </div>
 
-                    <section class="thread03-wall-audit"
-                             id="thread03WallAudit">
+                    <div class="thread03-wall-tool-launcher">
 
-                        <div class="thread03-wall-audit-head">
-                            <div>
-                                <span>CACHE FRAME COMPARISON</span>
-                                <strong>比对墙洞附件的三个缓存版本</strong>
+                        <div class="thread03-wall-tool-launcher-icon">
+                            IMG
+                        </div>
+
+                        <div class="thread03-wall-tool-launcher-copy">
+                            <strong>
+                                EchoRest Archive Cache Inspector
+                            </strong>
+
+                            <span>
+                                检测到 3 个可比较的附件缓存版本
+                            </span>
+                        </div>
+
+                        <button type="button"
+                                id="thread03WallToolOpenBtn">
+                            打开缓存比对工具
+                        </button>
+
+                    </div>
+
+                    <div class="thread03-wall-tool-overlay hidden"
+                         id="thread03WallToolOverlay"
+                         aria-hidden="true">
+
+                        <div class="thread03-wall-tool-window"
+                             role="dialog"
+                             aria-modal="true"
+                             aria-label="EchoRest Cache Compare Utility">
+
+                            <div class="thread03-wall-tool-titlebar">
+
+                                <div>
+                                    <span class="thread03-wall-tool-appicon">
+                                        E
+                                    </span>
+
+                                    <strong>
+                                        EchoRest Archive Cache Inspector
+                                    </strong>
+                                </div>
+
+                                <div class="thread03-wall-tool-window-controls">
+                                    <span>_</span>
+                                    <span>□</span>
+
+                                    <button type="button"
+                                            id="thread03WallToolCloseBtn"
+                                            aria-label="关闭">
+                                        ×
+                                    </button>
+                                </div>
+
                             </div>
 
-                            <em id="thread03WallAuditStatus">
-                                PENDING
-                            </em>
-                        </div>
-
-                        <p class="thread03-wall-audit-intro">
-                            三份缓存都来自同一个附件，但裁切范围、墙纸纹理和压缩区域并不一致。
-                            逐一检查每一份缓存，再判断墙洞真正依附在哪一层。
-                        </p>
-
-                        <div class="thread03-wall-frame-grid">
-                            <button class="thread03-wall-frame"
-                                    type="button"
-                                    data-thread03-wall-frame="frame_a"
-                                    data-readout="缓存 A 中，墙洞位于水渍左侧。可见直径为 22 像素。">
-
-                                <span>CACHE A</span>
-
-                                <div class="thread03-wall-preview"
-                                     data-wall-preview="a"
-                                     aria-hidden="true">
-                                </div>
-
-                                <strong>原始上传缓存</strong>
-                                <small>等待检查</small>
-                            </button>
-
-                            <button class="thread03-wall-frame"
-                                    type="button"
-                                    data-thread03-wall-frame="frame_b"
-                                    data-readout="缓存 B 的墙纸纹理整体向右偏移，水渍位置也发生变化；墙洞仍位于画面同一坐标，直径仍为 22 像素。">
-
-                                <span>CACHE B</span>
-
-                                <div class="thread03-wall-preview"
-                                     data-wall-preview="b"
-                                     aria-hidden="true">
-                                </div>
-
-                                <strong>重新压缩缓存</strong>
-                                <small>等待检查</small>
-                            </button>
-
-                            <button class="thread03-wall-frame"
-                                    type="button"
-                                    data-thread03-wall-frame="frame_c"
-                                    data-readout="缓存 C 的画面经过裁切和缩放，但墙洞没有跟随墙面比例变化，仍保持 22 像素，并停留在相同画面坐标。">
-
-                                <span>CACHE C</span>
-
-                                <div class="thread03-wall-preview"
-                                     data-wall-preview="c"
-                                     aria-hidden="true">
-                                </div>
-
-                                <strong>缩略图缓存</strong>
-                                <small>等待检查</small>
-                            </button>
-                        </div>
-
-                        <div class="thread03-wall-readout">
-                            <span>FRAME READOUT</span>
-
-                            <p id="thread03WallReadout">
-                                尚未检查缓存版本。
-                            </p>
-                        </div>
-
-                        <div class="thread03-wall-progress">
-                            <span id="thread03WallProgress">
-                                0 / 3 FRAMES
-                            </span>
-
-                            <span id="thread03WallMistakes">
-                                误判：0
-                            </span>
-                        </div>
-
-                        <div class="thread03-wall-conclusion">
-                            <p>
-                                三份缓存中，哪一种解释最符合检查结果？
-                            </p>
-
-                            <div class="thread03-wall-conclusion-options">
-                                <button type="button"
-                                        data-thread03-wall-conclusion="moisture"
-                                        data-readout="潮湿和墙体开裂可以改变洞口边缘，但无法解释照片裁切变化后，墙洞仍保持相同像素尺寸和画面坐标。"
-                                        disabled>
-                                    墙体受潮导致裂缝反复扩大
-                                </button>
-
-                                <button type="button"
-                                        data-thread03-wall-conclusion="camera"
-                                        data-readout="拍摄角度变化可以改变墙面透视，但墙洞应当跟随墙面纹理一起移动，而不是固定在画面坐标中。"
-                                        disabled>
-                                    拍摄者每次站在不同位置
-                                </button>
-
-                                <button type="button"
-                                        data-thread03-wall-conclusion="overlay"
-                                        data-readout="墙纸纹理、裁切范围和缩放比例都发生变化，只有墙洞保持相同像素尺寸与位置。它更像被写在附件上层的独立图层。"
-                                        disabled>
-                                    墙洞属于附件图层，而不是墙面
-                                </button>
+                            <div class="thread03-wall-tool-menubar">
+                                <span>文件(F)</span>
+                                <span>查看(V)</span>
+                                <span>比较(C)</span>
+                                <span>工具(T)</span>
+                                <span>帮助(H)</span>
                             </div>
+
+                            <div class="thread03-wall-tool-address">
+                                <span>地址(D)</span>
+
+                                <div>
+                                    cache/forum/thread_03/images/wall_hole_01.png
+                                </div>
+                            </div>
+
+                            <div class="thread03-wall-tool-workspace">
+
+                                <section class="thread03-wall-audit"
+                                         id="thread03WallAudit">
+
+                                    <div class="thread03-wall-audit-head">
+                                        <div>
+                                            <span>CACHE FRAME COMPARISON</span>
+                                            <strong>比对墙洞附件的三个缓存版本</strong>
+                                        </div>
+
+                                        <em id="thread03WallAuditStatus">
+                                            PENDING
+                                        </em>
+                                    </div>
+
+                                    <p class="thread03-wall-audit-intro">
+                                        三份缓存都来自同一个附件，但裁切范围、墙纸纹理和压缩区域并不一致。
+                                        逐一检查每一份缓存，再判断墙洞真正依附在哪一层。
+                                    </p>
+
+                                    <div class="thread03-wall-frame-grid">
+                                        <button class="thread03-wall-frame"
+                                                type="button"
+                                                data-thread03-wall-frame="frame_a"
+                                                data-readout="缓存 A 中，墙洞位于水渍左侧。可见直径为 22 像素。">
+
+                                            <span>CACHE A</span>
+
+                                            <div class="thread03-wall-preview"
+                                                 data-wall-preview="a"
+                                                 aria-hidden="true">
+                                            </div>
+
+                                            <strong>原始上传缓存</strong>
+                                            <small>等待检查</small>
+                                        </button>
+
+                                        <button class="thread03-wall-frame"
+                                                type="button"
+                                                data-thread03-wall-frame="frame_b"
+                                                data-readout="缓存 B 的墙纸纹理整体向右偏移，水渍位置也发生变化；墙洞仍位于画面同一坐标，直径仍为 22 像素。">
+
+                                            <span>CACHE B</span>
+
+                                            <div class="thread03-wall-preview"
+                                                 data-wall-preview="b"
+                                                 aria-hidden="true">
+                                            </div>
+
+                                            <strong>重新压缩缓存</strong>
+                                            <small>等待检查</small>
+                                        </button>
+
+                                        <button class="thread03-wall-frame"
+                                                type="button"
+                                                data-thread03-wall-frame="frame_c"
+                                                data-readout="缓存 C 的画面经过裁切和缩放，但墙洞没有跟随墙面比例变化，仍保持 22 像素，并停留在相同画面坐标。">
+
+                                            <span>CACHE C</span>
+
+                                            <div class="thread03-wall-preview"
+                                                 data-wall-preview="c"
+                                                 aria-hidden="true">
+                                            </div>
+
+                                            <strong>缩略图缓存</strong>
+                                            <small>等待检查</small>
+                                        </button>
+                                    </div>
+
+                                    <div class="thread03-wall-readout">
+                                        <span>FRAME READOUT</span>
+
+                                        <p id="thread03WallReadout">
+                                            尚未检查缓存版本。
+                                        </p>
+                                    </div>
+
+                                    <div class="thread03-wall-progress">
+                                        <span id="thread03WallProgress">
+                                            0 / 3 FRAMES
+                                        </span>
+
+                                        <span id="thread03WallMistakes">
+                                            误判：0
+                                        </span>
+                                    </div>
+
+                                    <div class="thread03-wall-conclusion">
+                                        <p>
+                                            三份缓存中，哪一种解释最符合检查结果？
+                                        </p>
+
+                                        <div class="thread03-wall-conclusion-options">
+                                            <button type="button"
+                                                    data-thread03-wall-conclusion="moisture"
+                                                    data-readout="潮湿和墙体开裂可以改变洞口边缘，但无法解释照片裁切变化后，墙洞仍保持相同像素尺寸和画面坐标。"
+                                                    disabled>
+                                                墙体受潮导致裂缝反复扩大
+                                            </button>
+
+                                            <button type="button"
+                                                    data-thread03-wall-conclusion="camera"
+                                                    data-readout="拍摄角度变化可以改变墙面透视，但墙洞应当跟随墙面纹理一起移动，而不是固定在画面坐标中。"
+                                                    disabled>
+                                                拍摄者每次站在不同位置
+                                            </button>
+
+                                            <button type="button"
+                                                    data-thread03-wall-conclusion="overlay"
+                                                    data-readout="墙纸纹理、裁切范围和缩放比例都发生变化，只有墙洞保持相同像素尺寸与位置。它更像被写在附件上层的独立图层。"
+                                                    disabled>
+                                                墙洞属于附件图层，而不是墙面
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="thread03-wall-actions">
+                                        <span id="thread03WallSelection">
+                                            尚未选择结论
+                                        </span>
+
+                                        <button id="thread03WallCommit"
+                                                type="button"
+                                                disabled>
+                                            提交墙体图层判断
+                                        </button>
+                                    </div>
+
+                                    <div class="thread03-wall-result hidden"
+                                         id="thread03WallResult">
+
+                                        <strong>WALL LAYER CONFLICT RECORDED</strong>
+
+                                        <p>
+                                            墙面纹理会随缓存版本移动，墙洞却固定在相同画面坐标。
+                                            当前附件无法证明现实墙面中存在同样的缺口。
+                                        </p>
+
+                                        <p>
+                                            该缺损更像一个独立图层，被重复写入每一份墙体照片。
+                                        </p>
+                                    </div>
+                                </section>
+
+                            </div>
+
+                            <div class="thread03-wall-tool-complete hidden"
+                                 id="thread03WallToolComplete">
+
+                                <div>
+                                    <span>ANALYSIS COMPLETE</span>
+
+                                    <strong>
+                                        Attachment layer conflict verified
+                                    </strong>
+
+                                    <p>
+                                        墙洞轮廓未随墙面缓存变化。
+                                        当前结果已写回来源记录。
+                                    </p>
+                                </div>
+
+                                <button type="button"
+                                        id="thread03WallToolReturnBtn">
+                                    返回来源帖子
+                                </button>
+
+                            </div>
+
+                            <div class="thread03-wall-tool-statusbar">
+                                <span>READY</span>
+                                <span>LOCAL CACHE</span>
+                                <span>READ ONLY</span>
+                                <span>3 OBJECTS</span>
+                            </div>
+
                         </div>
 
-                        <div class="thread03-wall-actions">
-                            <span id="thread03WallSelection">
-                                尚未选择结论
-                            </span>
+                    </div>
 
-                            <button id="thread03WallCommit"
-                                    type="button"
-                                    disabled>
-                                提交墙体图层判断
-                            </button>
+                    <div class="thread03-wall-writeback hidden"
+                         id="thread03WallWriteback">
+
+                        <div class="thread03-wall-writeback-window">
+
+                            <div class="thread03-wall-writeback-titlebar">
+
+                                <strong>
+                                    系统写回查看器
+                                </strong>
+
+                                <div class="thread03-wall-writeback-controls"
+                                     aria-hidden="true">
+                                    <span>□</span>
+                                    <span>□</span>
+                                    <span>×</span>
+                                </div>
+
+                            </div>
+
+                            <div class="thread03-wall-writeback-menubar">
+                                <span>文件</span>
+                                <span>查看</span>
+                                <span>记录</span>
+                                <span>帮助</span>
+                            </div>
+
+                            <div class="thread03-wall-writeback-address">
+                                <span>地址(D)</span>
+
+                                <div>
+                                    cache/forum/thread_03/writeback/wall_hole_01/
+                                </div>
+                            </div>
+
+                            <div class="thread03-wall-writeback-main">
+
+                                <aside class="thread03-wall-writeback-side">
+
+                                    <div class="thread03-wall-writeback-field">
+                                        <span>来源附件</span>
+                                        <strong>wall_hole_01.png</strong>
+                                    </div>
+
+                                    <div class="thread03-wall-writeback-field">
+                                        <span>来源帖子</span>
+                                        <strong>THREAD 03 / POST 02</strong>
+                                    </div>
+
+                                    <div class="thread03-wall-writeback-field">
+                                        <span>记录类型</span>
+                                        <strong>附件图层分析</strong>
+                                    </div>
+
+                                    <div class="thread03-wall-writeback-field">
+                                        <span>处理状态</span>
+                                        <strong class="is-verified">
+                                            已验证
+                                        </strong>
+                                    </div>
+
+                                </aside>
+
+                                <section class="thread03-wall-writeback-preview">
+
+                                    <div class="thread03-wall-writeback-preview-label">
+                                        WRITEBACK RESULT
+                                    </div>
+
+                                    <strong class="thread03-wall-writeback-preview-title">
+                                        墙体附件分析结果
+                                    </strong>
+
+                                    <p class="thread03-wall-writeback-preview-copy">
+                                        三个缓存版本中的墙纸纹理、裁切范围与水渍位置均存在变化，
+                                        但墙洞始终保持相同的像素尺寸与画面坐标。
+                                    </p>
+
+                                    <div class="thread03-wall-writeback-result">
+
+                                        <div>
+                                            <span>墙体表面</span>
+                                            <strong>
+                                                未确认存在对应缺口
+                                            </strong>
+                                        </div>
+
+                                        <div>
+                                            <span>图层判断</span>
+                                            <strong>
+                                                墙洞属于附件图层
+                                            </strong>
+                                        </div>
+
+                                        <div class="is-success">
+                                            <span>写回结果</span>
+                                            <strong>
+                                                已完成
+                                            </strong>
+                                        </div>
+
+                                    </div>
+
+                                    <p class="thread03-wall-writeback-note">
+                                        分析结果已写回来源帖子，并可作为墙体缺损轮廓证据保存。
+                                    </p>
+
+                                </section>
+
+                            </div>
+
+                            <div class="thread03-wall-writeback-statusbar">
+
+                                <span>
+                                    1 个写回对象
+                                </span>
+
+                                <span>
+                                    后台同步：完成
+                                </span>
+
+                            </div>
+
                         </div>
 
-                        <div class="thread03-wall-result hidden"
-                             id="thread03WallResult">
-
-                            <strong>WALL LAYER CONFLICT RECORDED</strong>
-
-                            <p>
-                                墙面纹理会随缓存版本移动，墙洞却固定在相同画面坐标。
-                                当前附件无法证明现实墙面中存在同样的缺口。
-                            </p>
-
-                            <p>
-                                该缺损更像一个独立图层，被重复写入每一份墙体照片。
-                            </p>
-                        </div>
-                    </section>
+                    </div>
 
                     <div class="evidence-capture-row">
                         <button class="evidence-capture-btn"
@@ -355,35 +597,113 @@
                     </div>
                 </div>
 
+                            <div class="reply-stack">
+                                <div class="reply-line">
+                                    <div class="reply-avatar-slot">头像</div>
+                                    <p>评论一：这不就是墙体开裂吗？</p>
+                                </div>
+
+                                <div class="reply-line">
+                                    <div class="reply-avatar-slot">头像</div>
+                                    <p>评论二：别趴上去听啊哥，你不觉得这很怪吗。</p>
+                                </div>
+
+                                <div class="reply-line">
+                                    <div class="reply-avatar-slot">头像</div>
+                                    <p>评论三：隔壁住的是谁？</p>
+                                </div>
+
+                                <div class="reply-line">
+                                    <div class="reply-avatar-slot">头像</div>
+                                    <p>评论四：我记得你之前是不是说过隔壁是个单亲妈妈带小孩？</p>
+                                </div>
+                            </div>
+
+                            <div class="more-replies-box">
+                                <p>
+                                    …更多
+                                    <span class="thread03MoreCountMirror">
+                                        [50239]
+                                    </span>
+                                </p>
+                            </div>
+</article>
+
+            <article class="forum-post forum-post-warning">
+                <div class="forum-post-head">
+                    <div class="forum-post-user">
+                        <div class="avatar-slot">
+                            楼主头像预留<br />
+                            painter_avatar.png
+                        </div>
+
+                        <div>
+                            <h2 class="forum-post-author">
+                                楼主 / 疲惫的粉刷匠
+                            </h2>
+
+                            <p class="forum-post-meta">
+                                发表于：较早 / 版块：生活吐槽
+                            </p>
+                        </div>
+                    </div>
+
+                    <span class="forum-post-floor">#3</span>
+                </div>
+
+                <div class="forum-post-body">
+                    <p>
+                        我本来只是想用腻子把
+                        <span class="hover-term"
+                              data-hover="该词条已被引用 4 次。">
+                            洞
+                        </span>
+                        补上。
+                    </p>
+
+                    <p>
+                        但我拿刮刀靠近的时候，洞那边忽然有人说了句话。
+                        我没听清，只听见最后两个字像是“……妈妈”。
+                    </p>
+
+                    <p>
+                        我站着听了半天，隔壁又没动静。现在有点不敢补了。
+                    </p>
+                </div>
+
                 <div class="reply-stack">
                     <div class="reply-line">
                         <div class="reply-avatar-slot">头像</div>
-                        <p>评论一：这不就是墙体开裂吗？</p>
+                        <p>评论一：楼主别编了，有点吓人了。</p>
                     </div>
 
                     <div class="reply-line">
                         <div class="reply-avatar-slot">头像</div>
-                        <p>评论二：别趴上去听啊哥，你不觉得这很怪吗。</p>
+                        <p>评论二：隔壁小孩吧？你问问不就好了。</p>
+                    </div>
+
+                    <div class="reply-line deleted-comment-line">
+                        <div class="reply-avatar-slot">头像</div>
+
+                        <p>
+                            评论三：
+                            <span class="deleted-comment-frag"
+                                  id="thread03DeletedCommentText"
+                                  data-hover="恢复内容尚未确认。">
+                                他不在【此评论被楼主删除】
+                            </span>
+
+                            <span class="thread03-deleted-comment-state"
+                                  id="thread03DeletedCommentState">
+                                CACHE PARTIAL
+                            </span>
+                        </p>
                     </div>
 
                     <div class="reply-line">
                         <div class="reply-avatar-slot">头像</div>
-                        <p>评论三：隔壁住的是谁？</p>
+                        <p>评论四：我刚刚点开这个帖的时候跳了一下404，你们有吗？</p>
                     </div>
-
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论四：我记得你之前是不是说过隔壁是个单亲妈妈带小孩？</p>
-                    </div>
-                </div>
-
-                <div class="more-replies-box">
-                    <p>
-                        …更多
-                        <span class="thread03MoreCountMirror">
-                            [50239]
-                        </span>
-                    </p>
                 </div>
             </article>
 
@@ -433,15 +753,124 @@
                             </span>
                         </div>
 
-                        <button class="repair-btn"
-                                id="repairAudioBtn"
-                                type="button">
-                            尝试修复音频转写
-                        </button>
+                        <section class="thread03-audio-utility-entry hidden"
+                                 id="thread03AudioUtilityEntry">
+
+                            <div class="thread03-audio-utility-glass">
+
+                                <div class="thread03-audio-app-icon"
+                                     aria-hidden="true">
+
+                                    <span class="thread03-audio-app-disc"></span>
+                                    <span class="thread03-audio-app-wave"></span>
+
+                                </div>
+
+                                <div class="thread03-audio-utility-content">
+
+                                    <div class="thread03-audio-utility-kicker">
+                                        <span>RECOVERED LEGACY APPLICATION</span>
+                                        <em>BUILD 2008.04</em>
+                                    </div>
+
+                                    <strong class="thread03-audio-utility-title">
+                                        Echo Audio Service
+                                    </strong>
+
+                                    <span class="thread03-audio-utility-subtitle">
+                                        Transcript Recovery Module
+                                    </span>
+
+                                    <p>
+                                        在附件缓存中发现旧版语音索引。
+                                        与历史恢复服务的文件格式匹配，可尝试重新启动该组件。
+                                    </p>
+
+                                    <div class="thread03-audio-utility-status">
+                                        <span>
+                                            <i></i>
+                                            SERVICE AVAILABLE
+                                        </span>
+
+                                        <span>
+                                            VOICE INDEX CACHE
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="thread03-audio-utility-action">
+
+                                    <small>
+                                        legacy service
+                                    </small>
+
+                                    <button type="button"
+                                            id="thread03AudioUtilityOpenBtn">
+                                        启动恢复组件
+                                        <span>›</span>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </section>
                     </div>
 
                     <div id="audioRecoveredBlock"
                          class="hidden">
+                        <section class="thread03-audio-file-status">
+
+                            <div class="thread03-audio-file-head">
+
+                                <div>
+                                    <span>AUDIO CACHE RECORD</span>
+                                    <strong>audio_wall_behind.wav</strong>
+                                </div>
+
+                                <em>
+                                    RECOVERED
+                                </em>
+
+                            </div>
+
+                            <div class="thread03-audio-file-grid">
+
+                                <div>
+                                    <span>FILE</span>
+                                    <strong>audio_wall_behind.wav</strong>
+                                </div>
+
+                                <div>
+                                    <span>TRANSCRIPT</span>
+                                    <strong class="is-ok">
+                                        RECOVERED
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>BACKGROUND</span>
+                                    <strong class="is-waiting">
+                                        UNPROCESSED
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>SOURCE</span>
+                                    <strong>
+                                        cache/forum/thread_03/audio/
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                            <p class="thread03-audio-file-note">
+                                人声转写缓存已恢复。原始音频仍无法正常播放，
+                                背景声道存在未处理数据。
+                            </p>
+
+                        </section>
 
                         <section class="thread03-transcript-record">
                             <div class="thread03-transcript-head">
@@ -473,14 +902,68 @@
 
                                 <p>
                                     <span>00:11</span>
-                                    ……墙那边有人。
+                                    ……那边是不是有人？
                                 </p>
 
                                 <p>
                                     <span>00:15</span>
-                                    ……不要让他看见洞。
+                                    ……别让他看见……
                                 </p>
                             </div>
+                        </section>
+
+                        <section class="thread03-audio-followup hidden"
+                                 id="thread03AudioFollowup">
+
+                            <div class="thread03-audio-followup-head">
+
+                                <div>
+                                    <span>
+                                        ASSOCIATED MAINTENANCE
+                                    </span>
+
+                                    <strong>
+                                        系统关联记录
+                                    </strong>
+                                </div>
+
+                                <em>
+                                    #021
+                                </em>
+
+                            </div>
+
+                            <div class="thread03-audio-followup-body">
+
+                                <p>
+                                    人声转写缓存已恢复。
+                                    检测到未建立索引的背景声道数据。
+                                </p>
+
+                                <dl>
+                                    <div>
+                                        <dt>文件</dt>
+                                        <dd>audio_wall_behind.wav</dd>
+                                    </div>
+
+                                    <div>
+                                        <dt>背景声道</dt>
+                                        <dd>UNPROCESSED</dd>
+                                    </div>
+
+                                    <div>
+                                        <dt>关联项目</dt>
+                                        <dd>报修单 #021</dd>
+                                    </div>
+                                </dl>
+
+                                <button type="button"
+                                        id="thread03OpenTicket021Btn">
+                                    打开关联报修单
+                                </button>
+
+                            </div>
+
                         </section>
 
                         <section class="thread03-knock-audit is-locked"
@@ -672,8 +1155,8 @@
                                 </p>
 
                                 <p>
-                                    当前记录无法确认声音来自真实墙体，
-                                    但系统已经将它归档为“墙体另一侧的内部声源”。
+                                    当前记录无法确认声音来自真实墙体。
+                                    该声道已保存为“未定位背景插入”，等待与其他墙体记录建立关联。
                                 </p>
                             </div>
                         </section>
@@ -695,82 +1178,7 @@
                 </div>
             </article>
 
-            <article class="forum-post forum-post-warning">
-                <div class="forum-post-head">
-                    <div class="forum-post-user">
-                        <div class="avatar-slot">
-                            楼主头像预留<br />
-                            painter_avatar.png
-                        </div>
 
-                        <div>
-                            <h2 class="forum-post-author">
-                                楼主 / 疲惫的粉刷匠
-                            </h2>
-
-                            <p class="forum-post-meta">
-                                发表于：较早 / 版块：生活吐槽
-                            </p>
-                        </div>
-                    </div>
-
-                    <span class="forum-post-floor">#3</span>
-                </div>
-
-                <div class="forum-post-body">
-                    <p>
-                        我本来只是想用腻子把
-                        <span class="hover-term"
-                              data-hover="该词条已被引用 4 次。">
-                            洞
-                        </span>
-                        补上。
-                    </p>
-
-                    <p>
-                        但我拿刮刀靠近的时候，里面有人问我：“叔叔，你也是来找我妈妈的吗？”
-                    </p>
-
-                    <p>
-                        我现在有点不敢动墙了。
-                    </p>
-                </div>
-
-                <div class="reply-stack">
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论一：楼主别编了，有点吓人了。</p>
-                    </div>
-
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论二：隔壁小孩吧？你问问不就好了。</p>
-                    </div>
-
-                    <div class="reply-line deleted-comment-line">
-                        <div class="reply-avatar-slot">头像</div>
-
-                        <p>
-                            评论三：
-                            <span class="deleted-comment-frag"
-                                  id="thread03DeletedCommentText"
-                                  data-hover="恢复内容尚未确认。">
-                                他不在【此评论被楼主删除】
-                            </span>
-
-                            <span class="thread03-deleted-comment-state"
-                                  id="thread03DeletedCommentState">
-                                CACHE PARTIAL
-                            </span>
-                        </p>
-                    </div>
-
-                    <div class="reply-line">
-                        <div class="reply-avatar-slot">头像</div>
-                        <p>评论四：我刚刚点开这个帖的时候跳了一下404，你们有吗？</p>
-                    </div>
-                </div>
-            </article>
 
             <article class="forum-post forum-post-news">
                 <div class="forum-post-head">
@@ -945,6 +1353,6 @@
         <p>© 未检测到有效归属方</p>
     </footer>
 
-    <script src="../../assets/js/main.js?v=20260701-investigation"></script>
+    <script src="../../assets/js/main.js?v=20260924-thread03-1"></script>
 </body>
 </html>

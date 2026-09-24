@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="16"
+     height="16"
+     viewBox="0 0 16 16"
+     shape-rendering="crispEdges">
+
+    <rect width="16"
+          height="16"
+          fill="none"/>
+
+    <path d="
+        M8 1
+        L11 5
+        L10 7
+        L13 9
+        L12 13
+        L9 15
+        L5 14
+        L3 11
+        L4 7
+        L6 5
+        L6 2
+        Z"
+        fill="#d84a26"
+        stroke="#8d2f1b"/>
+
+    <path d="
+        M8 6
+        L10 9
+        L9 13
+        L6 13
+        L5 10
+        Z"
+        fill="#ffd75e"/>
+
+</svg>

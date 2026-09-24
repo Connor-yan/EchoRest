@@ -194,6 +194,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (body.classList.contains("page-thread-03")) {
         handleThread03Page(now);
     }
+    if (
+        body.classList.contains(
+            "page-audio-recovery"
+        )
+    ) {
+        handleAudioRecoveryPage(now);
+    }
 
     if (body.classList.contains("page-thread-04")) {
         handleThread04Page(now);
@@ -1944,27 +1951,35 @@ function handleThread02Page(now) {
     if (injectedAnchor && localStorage.getItem("echo_thread01_news_repaired") === "true" && !document.getElementById("thread02InjectedReply")) {
         const article = document.createElement("article");
         article.id = "thread02InjectedReply";
-        article.className = "forum-post forum-post-note injected-cache-block";
+        article.className =
+            "thread02-system-addendum injected-cache-block";
         article.innerHTML =
-            '<div class="forum-post-head">' +
-            '<div class="forum-post-user">' +
-            '<div class="news-badge">CACHE</div>' +
+            '<div class="thread02-system-addendum-head">' +
             '<div>' +
-            '<h2 class="forum-post-author">' + TXT.injectedAuthor + '</h2>' +
-            '<p class="forum-post-meta">' + TXT.injectedMeta02 + '</p>' +
+            '<span>SYSTEM APPEND</span>' +
+            '<strong>' +
+            TXT.injectedAuthor +
+            '</strong>' +
             '</div>' +
+            '<em>ADD</em>' +
             '</div>' +
-            '<span class="forum-post-floor">ADD</span>' +
+
+            '<div class="thread02-system-addendum-meta">' +
+            TXT.injectedMeta02 +
             '</div>' +
-            '<div class="reply-line">' +
-            '<div class="reply-avatar-slot">头像</div>' +
-            '<p>' + TXT.injectedToThread02 + '</p>' +
+
+            '<div class="thread02-system-addendum-reply">' +
+            '<div class="reply-avatar-slot">\u5934\u50cf</div>' +
+            '<p>' +
+            TXT.injectedToThread02 +
+            '</p>' +
             '</div>';
 
         injectedAnchor.appendChild(article);
     }
 
     initThread02LogisticsAudit();
+    initThread02CourierCacheGate();
     syncThread02NarrativeState();
 
     localStorage.setItem(
@@ -1976,6 +1991,9 @@ function handleThread02Page(now) {
 /* =========================
    THREAD 02 Narrative Sync
    ========================= */
+
+const ECHO_THREAD02_COURIER_CACHE_OPEN_KEY =
+    "echorest_thread02_courier_cache_opened_v1";
 
 function getEchoThread02PhotoCommitted() {
     try {
@@ -2038,6 +2056,34 @@ function getEchoThread02LogisticsCommitted() {
     );
 }
 
+function initThread02CourierCacheGate() {
+    const button =
+        document.getElementById(
+            "thread02CourierOpen"
+        );
+
+    if (
+        !button ||
+        button.dataset.bound === "1"
+    ) {
+        return;
+    }
+
+    button.dataset.bound = "1";
+
+    button.addEventListener(
+        "click",
+        function () {
+            localStorage.setItem(
+                ECHO_THREAD02_COURIER_CACHE_OPEN_KEY,
+                "1"
+            );
+
+            syncThread02NarrativeState();
+        }
+    );
+}
+
 function syncThread02NarrativeState() {
     const trackingRecord =
         document.getElementById(
@@ -2066,6 +2112,16 @@ function syncThread02NarrativeState() {
     const courierCache =
         document.getElementById(
             "thread02CourierCache"
+        );
+
+    const courierGate =
+        document.getElementById(
+            "thread02CourierGate"
+        );
+
+    const courierReply =
+        document.getElementById(
+            "thread02CourierReply"
         );
 
     const courierStatus =
@@ -2141,9 +2197,22 @@ function syncThread02NarrativeState() {
         localStorage.getItem(
             "echorest_thread02_sequence_audit_v1"
         ) === "1";
+    const courierCacheOpened =
+        localStorage.getItem(
+            ECHO_THREAD02_COURIER_CACHE_OPEN_KEY
+        ) === "1";
 
+    const courierContentOpen =
+        audited ||
+        courierCacheOpened;
 
     if (courierCache) {
+        courierCache.classList.toggle(
+            "hidden",
+            !sequenceCommitted &&
+            !audited
+        );
+
         courierCache.classList.toggle(
             "is-recovered",
             sequenceCommitted &&
@@ -2153,6 +2222,21 @@ function syncThread02NarrativeState() {
         courierCache.classList.toggle(
             "is-corrected",
             audited
+        );
+    }
+
+    if (courierGate) {
+        courierGate.classList.toggle(
+            "hidden",
+            !sequenceCommitted ||
+            courierContentOpen
+        );
+    }
+
+    if (courierReply) {
+        courierReply.classList.toggle(
+            "hidden",
+            !courierContentOpen
         );
     }
 
@@ -2181,7 +2265,9 @@ function syncThread02NarrativeState() {
     } else if (sequenceCommitted) {
         if (courierStatus) {
             courierStatus.textContent =
-                "LOCAL CACHE DIFFERENCE";
+                courierCacheOpened
+                    ? "LOCAL CACHE DIFFERENCE"
+                    : "NEW LOCAL COPY";
         }
 
         if (courierReplyText) {
@@ -2190,8 +2276,9 @@ function syncThread02NarrativeState() {
         }
 
         if (courierResidual) {
-            courierResidual.classList.remove(
-                "hidden"
+            courierResidual.classList.toggle(
+                "hidden",
+                !courierContentOpen
             );
         }
 
@@ -7153,20 +7240,19 @@ function appendEchoTicket021AudioTool(body) {
     intro.className =
         "ticket021-audio-intro";
 
+    const transcriptReady =
+        localStorage.getItem(
+            "echo_thread03_audio_repaired"
+        ) === "true";
+
     intro.textContent =
-        echoHasEvidenceLink(
-            "wall_audio_match"
-        )
+        transcriptReady
             ? ECHO_TICKET021_TEXT.intro
             : ECHO_TICKET021_TEXT.locked;
 
     section.appendChild(intro);
 
-    if (
-        !echoHasEvidenceLink(
-            "wall_audio_match"
-        )
-    ) {
+    if (!transcriptReady) {
         section.classList.add("is-locked");
         body.appendChild(section);
         return;
@@ -9244,6 +9330,18 @@ function openFileInspector(node) {
 
             setTimeout(() => {
                 localStorage.setItem("echo_file_checked_" + fileId, "true");
+                if (fileId === "audio_wall_behind") {
+                    const utilityEntry =
+                        document.getElementById(
+                            "thread03AudioUtilityEntry"
+                        );
+
+                    if (utilityEntry) {
+                        utilityEntry.classList.remove(
+                            "hidden"
+                        );
+                    }
+                }
 
                 addInvestigationLog(
                     "recheck_file_" + fileId,
@@ -9323,6 +9421,925 @@ function getFileExtraNotes(fileId) {
     return notes;
 }
 
+function handleAudioRecoveryPage(now) {
+    const unlocked =
+        localStorage.getItem(
+            "echo_file_checked_audio_wall_behind"
+        ) === "true";
+
+    if (!unlocked) {
+        window.location.href =
+            "thread_03.html";
+        return;
+    }
+
+    const playBtn =
+        document.getElementById(
+            "audioRecoveryPlayBtn"
+        );
+
+    const readIndexBtn =
+        document.getElementById(
+            "audioRecoveryReadIndexBtn"
+        );
+
+    const restoreBtn =
+        document.getElementById(
+            "audioRecoveryRestoreBtn"
+        );
+
+    const status =
+        document.getElementById(
+            "audioRecoveryStatus"
+        );
+
+    const message =
+        document.getElementById(
+            "audioRecoveryDisplayMessage"
+        );
+
+    const progress =
+        document.querySelector(
+            ".audio-player-progress-track div"
+        );
+
+    const meterBars =
+        document.querySelectorAll(
+            ".audio-player-meter i"
+        );
+
+    const results =
+        document.getElementById(
+            "audioRecoveryResults"
+        );
+
+    const transcriptLines =
+        document.querySelectorAll(
+            "#audioRecoveryTranscriptList p"
+        );
+
+    const lyricsCounter =
+        document.getElementById(
+            "audioLyricsCounter"
+        );
+
+    const modeButtons =
+        document.querySelectorAll(
+            "[data-audio-mode]"
+        );
+
+    const modeLabel =
+        document.getElementById(
+            "audioModeLabel"
+        );
+
+    const modeState =
+        document.getElementById(
+            "audioModeState"
+        );
+
+    const modeLog =
+        document.getElementById(
+            "audioModeLog"
+        );
+
+    const modeLogBody =
+        document.getElementById(
+            "audioModeLogBody"
+        );
+
+    const eqPanel =
+        document.querySelector(
+            ".audio-eq-panel"
+        );
+
+    const transcriptConsole =
+        document.querySelector(
+            ".audio-recovery-console"
+        );
+
+    const indexRead =
+        localStorage.getItem(
+            "echorest_thread03_audio_index_v1"
+        ) === "1";
+
+    const alreadyRecovered =
+        localStorage.getItem(
+            "echo_thread03_audio_repaired"
+        ) === "true";
+
+
+    const recoveredText = [
+        "\u2026\u2026\u963f\u59e8\u4ec0\u4e48\u65f6\u5019\u56de\u6765\uff1f",
+        "\u2026\u2026\u6211\u4e0d\u662f\u6545\u610f\u7684\u3002",
+        "\u2026\u2026\u90a3\u8fb9\u662f\u4e0d\u662f\u6709\u4eba\uff1f",
+        "\u2026\u2026\u522b\u8ba9\u4ed6\u770b\u89c1\u2026\u2026"
+    ];
+
+    const deadAdButtons =
+        document.querySelectorAll(
+            "[data-audio-ad-dead]"
+        );
+
+    const relatedToolCard =
+        document.getElementById(
+            "audioRelatedToolCard"
+        );
+
+    const relatedToolLabel =
+        document.getElementById(
+            "audioRelatedToolLabel"
+        );
+
+    const relatedToolTitle =
+        document.getElementById(
+            "audioRelatedToolTitle"
+        );
+
+    const relatedToolText =
+        document.getElementById(
+            "audioRelatedToolText"
+        );
+
+    const relatedToolBtn =
+        document.getElementById(
+            "audioRelatedToolBtn"
+        );
+
+    const relatedToolMeta =
+        document.getElementById(
+            "audioRelatedToolMeta"
+        );
+
+    const oldwebClock =
+        document.getElementById(
+            "audioOldwebClock"
+        );
+
+    function updateAudioOldwebClock() {
+        if (!oldwebClock) {
+            return;
+        }
+
+        const current = new Date();
+
+        const hh =
+            String(
+                current.getHours()
+            ).padStart(2, "0");
+
+        const mm =
+            String(
+                current.getMinutes()
+            ).padStart(2, "0");
+
+        const ss =
+            String(
+                current.getSeconds()
+            ).padStart(2, "0");
+
+        oldwebClock.textContent =
+            hh +
+            ":" +
+            mm +
+            ":" +
+            ss;
+    }
+    updateAudioOldwebClock();
+
+    window.setInterval(
+        updateAudioOldwebClock,
+        1000
+    );
+    function syncRelatedAudioTool() {
+        if (
+            !relatedToolCard ||
+            !relatedToolLabel ||
+            !relatedToolTitle ||
+            !relatedToolText ||
+            !relatedToolBtn ||
+            !relatedToolMeta
+        ) {
+            return;
+        }
+
+        const recovered =
+            localStorage.getItem(
+                "echo_thread03_audio_repaired"
+            ) === "true";
+
+        if (!recovered) {
+            relatedToolCard.classList.remove(
+                "is-matched"
+            );
+
+            relatedToolLabel.textContent =
+                "\u5173\u8054\u5de5\u5177";
+
+            relatedToolTitle.textContent =
+                "\u80cc\u666f\u566a\u58f0\u5206\u6790\u7ec4\u4ef6";
+
+            relatedToolText.textContent =
+                "\u5f55\u97f3\u964d\u566a / \u73af\u5883\u5206\u6790 / \u58f0\u9053\u5206\u79bb";
+
+            relatedToolBtn.textContent =
+                "\u67e5\u770b\u7ec4\u4ef6";
+
+            relatedToolMeta.textContent =
+                "COMPONENT / AUDIO-BG";
+
+            return;
+        }
+
+        relatedToolCard.classList.add(
+            "is-matched"
+        );
+
+        relatedToolLabel.textContent =
+            "\u5173\u8054\u9879\u5df2\u5339\u914d";
+
+        relatedToolTitle.textContent =
+            "\u80cc\u666f\u58f0\u9053\u5b58\u5728\u672a\u5904\u7406\u6570\u636e";
+
+        relatedToolText.textContent =
+            "\u68c0\u6d4b\u5230\u53ef\u5173\u8054\u7684\u7ef4\u62a4\u8bb0\u5f55\uff1a\u62a5\u4fee\u5355 #021";
+
+        relatedToolBtn.textContent =
+            "\u8fd4\u56de\u6765\u6e90\u9875\u9762";
+
+        relatedToolMeta.textContent =
+            "MATCH / TICKET_021";
+    }
+
+    function showIndexReady() {
+        document.body.classList.remove(
+            "audio-recovery-scanning"
+        );
+
+        if (status) {
+            status.textContent =
+                "\u7d22\u5f15\u5df2\u8bfb\u53d6";
+        }
+
+        if (message) {
+            message.textContent =
+                "\u68c0\u6d4b\u5230 4 \u6bb5\u53ef\u6062\u590d\u8bed\u97f3 / 00:03 / 00:07 / 00:11 / 00:15";
+        }
+
+        if (readIndexBtn) {
+            readIndexBtn.disabled = true;
+        }
+
+        if (restoreBtn) {
+            restoreBtn.disabled = false;
+        }
+
+        if (progress) {
+            progress.style.width =
+                "28%";
+        }
+    }
+
+
+    function showRecoveredState() {
+        document.body.classList.remove(
+            "audio-recovery-scanning"
+        );
+
+        if (results) {
+            results.classList.remove(
+                "hidden"
+            );
+        }
+
+        transcriptLines.forEach(
+            function (line, index) {
+                if (recoveredText[index]) {
+                    line.textContent =
+                        recoveredText[index];
+
+                    line.classList.add(
+                        "is-recovered"
+                    );
+
+                    line.classList.remove(
+                        "is-current"
+                    );
+                }
+            }
+        );
+
+        if (lyricsCounter) {
+            lyricsCounter.textContent =
+                "4 / 4";
+        }
+
+        if (status) {
+            status.textContent =
+                "\u8f6c\u5199\u5df2\u6062\u590d";
+        }
+
+        if (message) {
+            message.textContent =
+                "\u4eba\u58f0\u8f6c\u5199\u7f13\u5b58\u5df2\u6062\u590d\u3002\u80cc\u666f\u58f0\u9053\u4ecd\u672a\u5904\u7406\u3002";
+        }
+
+        if (restoreBtn) {
+            restoreBtn.disabled = true;
+        }
+
+        if (readIndexBtn) {
+            readIndexBtn.disabled = true;
+        }
+
+        if (progress) {
+            progress.style.width =
+                "68%";
+        }
+    }
+
+
+    if (alreadyRecovered) {
+        showRecoveredState();
+    } else if (indexRead) {
+        showIndexReady();
+    }
+
+
+    if (playBtn) {
+        playBtn.addEventListener(
+            "click",
+            function () {
+                document.body.classList.remove(
+                    "audio-recovery-scanning"
+                );
+
+                document.body.classList.add(
+                    "audio-recovery-playback-error"
+                );
+
+                if (status) {
+                    status.textContent =
+                        "\u64ad\u653e\u5931\u8d25";
+                }
+
+                if (message) {
+                    message.textContent =
+                        "\u65e0\u6cd5\u8bfb\u53d6\u539f\u59cb\u97f3\u9891\u6d41\u3002\u8bed\u97f3\u7d22\u5f15\u4ecd\u53ef\u8bfb\u53d6\uff0c\u53ef\u5c1d\u8bd5\u6062\u590d\u8f6c\u5199\u7f13\u5b58\u3002";
+                }
+
+                if (progress) {
+                    progress.style.width =
+                        "3%";
+                }
+            }
+        );
+    }
+
+
+    if (readIndexBtn) {
+        readIndexBtn.addEventListener(
+            "click",
+            function () {
+                if (
+                    localStorage.getItem(
+                        "echorest_thread03_audio_index_v1"
+                    ) === "1"
+                ) {
+                    showIndexReady();
+                    return;
+                }
+
+                document.body.classList.remove(
+                    "audio-recovery-playback-error"
+                );
+
+                document.body.classList.add(
+                    "audio-recovery-scanning"
+                );
+
+                readIndexBtn.disabled = true;
+
+                if (restoreBtn) {
+                    restoreBtn.disabled = true;
+                }
+
+                if (status) {
+                    status.textContent =
+                        "\u6b63\u5728\u8bfb\u53d6";
+                }
+
+                if (message) {
+                    message.textContent =
+                        "\u6b63\u5728\u68c0\u67e5\u8bed\u97f3\u7d22\u5f15\u2026\u2026";
+                }
+
+                if (progress) {
+                    progress.style.width =
+                        "12%";
+                }
+
+                meterBars.forEach(
+                    function (bar, index) {
+                        bar.style.height =
+                            (
+                                24 +
+                                ((index * 19) % 66)
+                            ) +
+                            "%";
+                    }
+                );
+
+                window.setTimeout(
+                    function () {
+                        document.body.classList.remove(
+                            "audio-recovery-scanning"
+                        );
+
+                        localStorage.setItem(
+                            "echorest_thread03_audio_index_v1",
+                            "1"
+                        );
+
+                        showIndexReady();
+                    },
+                    2400
+                );
+            }
+        );
+    }
+
+
+    if (restoreBtn) {
+        restoreBtn.addEventListener(
+            "click",
+            function () {
+                if (
+                    localStorage.getItem(
+                        "echo_thread03_audio_repaired"
+                    ) === "true"
+                ) {
+                    showRecoveredState();
+                    return;
+                }
+
+                restoreBtn.disabled = true;
+
+                document.body.classList.add(
+                    "audio-recovery-scanning"
+                );
+
+                if (results) {
+                    results.classList.remove(
+                        "hidden"
+                    );
+                }
+
+                if (status) {
+                    status.textContent =
+                        "\u6b63\u5728\u6062\u590d";
+                }
+
+                if (message) {
+                    message.textContent =
+                        "\u6b63\u5728\u91cd\u5efa\u8f6c\u5199\u7f13\u5b58\u2026\u2026";
+                }
+
+                transcriptLines.forEach(
+                    function (line) {
+                        line.textContent =
+                            "----";
+                    }
+                );
+
+                const delays = [
+                    900,
+                    2200,
+                    3900,
+                    6100
+                ];
+
+                transcriptLines.forEach(
+                    function (line, index) {
+                        window.setTimeout(
+                            function () {
+                                transcriptLines.forEach(
+                                    function (item) {
+                                        item.classList.remove(
+                                            "is-current"
+                                        );
+                                    }
+                                );
+
+                                line.textContent =
+                                    recoveredText[index];
+
+                                line.classList.add(
+                                    "is-recovered"
+                                );
+
+                                line.classList.add(
+                                    "is-current"
+                                );
+
+                                const currentRow =
+                                    line.closest(
+                                        "#audioRecoveryTranscriptList > div"
+                                    );
+
+                                if (currentRow) {
+                                    currentRow.scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "center"
+                                    });
+                                }
+
+                                if (lyricsCounter) {
+                                    lyricsCounter.textContent =
+                                        (index + 1) +
+                                        " / 4";
+                                }
+
+                                if (progress) {
+                                    progress.style.width =
+                                        (
+                                            38 +
+                                            index * 10
+                                        ) +
+                                        "%";
+                                }
+                            },
+                            delays[index]
+                        );
+                    }
+                );
+
+                window.setTimeout(
+                    function () {
+                        document.body.classList.remove(
+                            "audio-recovery-scanning"
+                        );
+
+                        transcriptLines.forEach(
+                            function (line) {
+                                line.classList.remove(
+                                    "is-current"
+                                );
+                            }
+                        );
+
+                        localStorage.setItem(
+                            "echo_thread03_audio_repaired",
+                            "true"
+                        );
+                        syncRelatedAudioTool();
+
+                        if (status) {
+                            status.textContent =
+                                "\u8f6c\u5199\u5df2\u6062\u590d";
+                        }
+
+                        if (message) {
+                            message.textContent =
+                                "\u4eba\u58f0\u8f6c\u5199\u7f13\u5b58\u5df2\u6062\u590d\u3002\u80cc\u666f\u58f0\u9053\u4ecd\u672a\u5904\u7406\u3002";
+                        }
+
+                        if (progress) {
+                            progress.style.width =
+                                "68%";
+                        }
+                    },
+                    7200
+                );
+            }
+        );
+    }
+
+    function clearModeFocus() {
+        document
+            .querySelectorAll(
+                ".audio-mode-focus"
+            )
+            .forEach(
+                function (item) {
+                    item.classList.remove(
+                        "audio-mode-focus"
+                    );
+                }
+            );
+    }
+
+
+    function updateModeLog() {
+        if (!modeLogBody) {
+            return;
+        }
+
+        const checked =
+            localStorage.getItem(
+                "echo_file_checked_audio_wall_behind"
+            ) === "true";
+
+        const indexReady =
+            localStorage.getItem(
+                "echorest_thread03_audio_index_v1"
+            ) === "1";
+
+        const recovered =
+            localStorage.getItem(
+                "echo_thread03_audio_repaired"
+            ) === "true";
+
+        modeLogBody.innerHTML = "";
+
+        const lines = [
+            checked
+                ? "[\u6587\u4ef6] \u5df2\u5b8c\u6210\u68c0\u67e5"
+                : "[\u6587\u4ef6] \u7b49\u5f85\u68c0\u67e5",
+
+            indexReady
+                ? "[\u7d22\u5f15] \u5df2\u627e\u5230 4 \u6bb5\u8bed\u97f3"
+                : "[\u7d22\u5f15] \u5c1a\u672a\u8bfb\u53d6",
+
+            recovered
+                ? "[\u8f6c\u5199] \u7f13\u5b58\u5df2\u6062\u590d"
+                : "[\u8f6c\u5199] \u7f13\u5b58\u5df2\u635f\u574f",
+
+            "[\u80cc\u666f\u58f0\u9053] \u672a\u5904\u7406"
+        ];
+
+        lines.forEach(
+            function (textValue) {
+                const row =
+                    document.createElement(
+                        "p"
+                    );
+
+                row.textContent =
+                    textValue;
+
+                modeLogBody.appendChild(
+                    row
+                );
+            }
+        );
+    }
+
+    function syncRelatedAudioTool() {
+        if (
+            !relatedToolCard ||
+            !relatedToolLabel ||
+            !relatedToolTitle ||
+            !relatedToolText ||
+            !relatedToolBtn ||
+            !relatedToolMeta
+        ) {
+            return;
+        }
+
+        const recovered =
+            localStorage.getItem(
+                "echo_thread03_audio_repaired"
+            ) === "true";
+
+        if (!recovered) {
+            relatedToolCard.classList.remove(
+                "is-matched"
+            );
+
+            relatedToolLabel.textContent =
+                "\u5173\u8054\u5de5\u5177";
+
+            relatedToolTitle.textContent =
+                "\u80cc\u666f\u566a\u58f0\u5206\u6790\u7ec4\u4ef6";
+
+            relatedToolText.textContent =
+                "\u5f55\u97f3\u964d\u566a / \u73af\u5883\u5206\u6790 / \u58f0\u9053\u5206\u79bb";
+
+            relatedToolBtn.textContent =
+                "\u67e5\u770b\u7ec4\u4ef6";
+
+            relatedToolMeta.textContent =
+                "COMPONENT / AUDIO-BG";
+
+            return;
+        }
+
+        relatedToolCard.classList.add(
+            "is-matched"
+        );
+
+        relatedToolLabel.textContent =
+            "\u5173\u8054\u9879\u5df2\u5339\u914d";
+
+        relatedToolTitle.textContent =
+            "\u80cc\u666f\u58f0\u9053\u5b58\u5728\u672a\u5904\u7406\u6570\u636e";
+
+        relatedToolText.textContent =
+            "\u68c0\u6d4b\u5230\u53ef\u5173\u8054\u7684\u7ef4\u62a4\u8bb0\u5f55\uff1a\u62a5\u4fee\u5355 #021";
+
+        relatedToolBtn.textContent =
+            "\u8fd4\u56de\u6765\u6e90\u9875\u9762";
+
+        relatedToolMeta.textContent =
+            "MATCH / TICKET_021";
+    }
+
+
+    function selectAudioMode(mode) {
+        modeButtons.forEach(
+            function (button) {
+                button.classList.toggle(
+                    "is-active",
+                    button.dataset.audioMode ===
+                    mode
+                );
+            }
+        );
+
+        clearModeFocus();
+
+        if (modeLog) {
+            modeLog.classList.add(
+                "hidden"
+            );
+        }
+
+        if (modeState) {
+            modeState.textContent =
+                "LOADING";
+        }
+
+        window.setTimeout(
+            function () {
+                if (mode === "idx") {
+                    if (modeLabel) {
+                        modeLabel.textContent =
+                            "INDEX";
+                    }
+
+                    if (modeState) {
+                        modeState.textContent =
+                            "READY";
+                    }
+
+                    if (transcriptConsole) {
+                        transcriptConsole.classList.add(
+                            "audio-mode-focus"
+                        );
+
+                        transcriptConsole.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+                    }
+
+                    return;
+                }
+
+
+                if (mode === "eq") {
+                    if (modeLabel) {
+                        modeLabel.textContent =
+                            "EQUALIZER";
+                    }
+
+                    if (modeState) {
+                        modeState.textContent =
+                            "MANUAL";
+                    }
+
+                    if (eqPanel) {
+                        eqPanel.classList.add(
+                            "audio-mode-focus"
+                        );
+                    }
+
+                    return;
+                }
+
+
+                if (mode === "txt") {
+                    if (modeLabel) {
+                        modeLabel.textContent =
+                            "TEXT";
+                    }
+
+                    if (modeState) {
+                        modeState.textContent =
+                            localStorage.getItem(
+                                "echo_thread03_audio_repaired"
+                            ) === "true"
+                                ? "RECOVERED"
+                                : "DAMAGED";
+                    }
+
+                    if (
+                        results &&
+                        !results.classList.contains(
+                            "hidden"
+                        )
+                    ) {
+                        results.classList.add(
+                            "audio-mode-focus"
+                        );
+
+                        results.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+                    } else if (
+                        transcriptConsole
+                    ) {
+                        transcriptConsole.classList.add(
+                            "audio-mode-focus"
+                        );
+                    }
+
+                    return;
+                }
+
+
+                if (mode === "log") {
+                    if (modeLabel) {
+                        modeLabel.textContent =
+                            "PROCESS LOG";
+                    }
+
+                    if (modeState) {
+                        modeState.textContent =
+                            "LOCAL";
+                    }
+
+                    updateModeLog();
+
+                    if (modeLog) {
+                        modeLog.classList.remove(
+                            "hidden"
+                        );
+                    }
+                }
+            },
+            420
+        );
+    }
+
+
+    modeButtons.forEach(
+        function (button) {
+            button.addEventListener(
+                "click",
+                function () {
+                    selectAudioMode(
+                        button.dataset.audioMode
+                    );
+                }
+            );
+        }
+    );
+    deadAdButtons.forEach(
+        function (button) {
+            button.addEventListener(
+                "click",
+                function () {
+                    window.alert(
+                        "\u8be5\u670d\u52a1\u5df2\u505c\u6b62\u7ef4\u62a4\u3002"
+                    );
+                }
+            );
+        }
+    );
+    syncRelatedAudioTool();
+    if (relatedToolBtn) {
+        relatedToolBtn.addEventListener(
+            "click",
+            function () {
+                const recovered =
+                    localStorage.getItem(
+                        "echo_thread03_audio_repaired"
+                    ) === "true";
+
+                if (!recovered) {
+                    window.alert(
+                        "\u5f53\u524d\u6587\u4ef6\u5c1a\u65e0\u53ef\u7528\u7684\u5173\u8054\u8bb0\u5f55\u3002"
+                    );
+
+                    return;
+                }
+
+                localStorage.setItem(
+                    "echorest_thread03_return_from_audio_v1",
+                    "1"
+                );
+
+                window.location.href =
+                    "thread_03.html";
+            }
+        );
+    }
+
+}
+
 function handleThread03Page(now) {
     const accessGranted = localStorage.getItem("echo_access_granted");
     const workerId = localStorage.getItem("echo_worker_id");
@@ -9337,10 +10354,53 @@ function handleThread03Page(now) {
     const moreCountMain = document.getElementById("thread03MoreCount");
     const moreCountMirrors = document.querySelectorAll(".thread03MoreCountMirror");
 
-    const repairAudioBtn = document.getElementById("repairAudioBtn");
+    const wallToolOverlay =
+        document.getElementById(
+            "thread03WallToolOverlay"
+        );
+
+    const wallToolOpenBtn =
+        document.getElementById(
+            "thread03WallToolOpenBtn"
+        );
+
+    const wallToolCloseBtn =
+        document.getElementById(
+            "thread03WallToolCloseBtn"
+        );
+
+    const wallToolReturnBtn =
+        document.getElementById(
+            "thread03WallToolReturnBtn"
+        );
+
+    const wallWriteback =
+        document.getElementById(
+            "thread03WallWriteback"
+        );
+    
     const audioBrokenBlock = document.getElementById("audioBrokenBlock");
     const audioRecoveredBlock = document.getElementById("audioRecoveredBlock");
 
+    const audioFollowup =
+        document.getElementById(
+            "thread03AudioFollowup"
+        );
+
+    const openTicket021Btn =
+        document.getElementById(
+            "thread03OpenTicket021Btn"
+        );
+
+    const audioUtilityEntry =
+        document.getElementById(
+            "thread03AudioUtilityEntry"
+        );
+
+    const audioUtilityOpenBtn =
+        document.getElementById(
+            "thread03AudioUtilityOpenBtn"
+        );
     const memoryStrip = document.getElementById("thread03MemoryStrip");
     const injectedAnchor = document.getElementById("thread03InjectedReplyAnchor");
 
@@ -9366,6 +10426,160 @@ function handleThread03Page(now) {
 
     threadVisitValue.textContent = String(threadVisitCount);
 
+    const setThread03WallToolOpen =
+        function (isOpen) {
+            if (!wallToolOverlay) {
+                return;
+            }
+
+            wallToolOverlay.classList.toggle(
+                "hidden",
+                !isOpen
+            );
+
+            wallToolOverlay.setAttribute(
+                "aria-hidden",
+                isOpen ? "false" : "true"
+            );
+
+            document.body.classList.toggle(
+                "thread03-tool-open",
+                isOpen
+            );
+
+            if (
+                isOpen &&
+                wallToolCloseBtn
+            ) {
+                wallToolCloseBtn.focus();
+            }
+
+            if (
+                !isOpen &&
+                wallToolOpenBtn
+            ) {
+                wallToolOpenBtn.focus();
+            }
+        };
+
+
+    if (
+        wallToolOpenBtn &&
+        wallToolOpenBtn.dataset
+            .thread03WallToolBound !== "1"
+    ) {
+        wallToolOpenBtn.addEventListener(
+            "click",
+            function () {
+                setThread03WallToolOpen(
+                    true
+                );
+            }
+        );
+
+        wallToolOpenBtn.dataset
+            .thread03WallToolBound = "1";
+    }
+
+
+    if (
+        wallToolCloseBtn &&
+        wallToolCloseBtn.dataset
+            .thread03WallToolBound !== "1"
+    ) {
+        wallToolCloseBtn.addEventListener(
+            "click",
+            function () {
+                setThread03WallToolOpen(
+                    false
+                );
+            }
+        );
+
+        wallToolCloseBtn.dataset
+            .thread03WallToolBound = "1";
+    }
+    if (
+        wallToolReturnBtn &&
+        wallToolReturnBtn.dataset
+            .thread03ReturnBound !== "1"
+    ) {
+        wallToolReturnBtn.addEventListener(
+            "click",
+            function () {
+                setThread03WallToolOpen(
+                    false
+                );
+
+                if (wallWriteback) {
+                    window.setTimeout(
+                        function () {
+                            wallWriteback
+                                .scrollIntoView({
+                                    behavior:
+                                        "smooth",
+                                    block:
+                                        "center"
+                                });
+                        },
+                        180
+                    );
+                }
+            }
+        );
+
+        wallToolReturnBtn.dataset
+            .thread03ReturnBound = "1";
+    }
+
+    if (
+        wallToolOverlay &&
+        wallToolOverlay.dataset
+            .thread03BackdropBound !== "1"
+    ) {
+        wallToolOverlay.addEventListener(
+            "click",
+            function (event) {
+                if (
+                    event.target ===
+                    wallToolOverlay
+                ) {
+                    setThread03WallToolOpen(
+                        false
+                    );
+                }
+            }
+        );
+
+        wallToolOverlay.dataset
+            .thread03BackdropBound = "1";
+    }
+
+
+    if (
+        wallToolOverlay &&
+        wallToolOverlay.dataset
+            .thread03EscapeBound !== "1"
+    ) {
+        document.addEventListener(
+            "keydown",
+            function (event) {
+                if (
+                    event.key === "Escape" &&
+                    !wallToolOverlay.classList
+                        .contains("hidden")
+                ) {
+                    setThread03WallToolOpen(
+                        false
+                    );
+                }
+            }
+        );
+
+        wallToolOverlay.dataset
+            .thread03EscapeBound = "1";
+    }
+
     if (threadVisitCount >= 2) {
         threadStateValue.textContent = TXT.thread03StateShifted;
         threadStatusText.textContent = TXT.thread03ReadingRepeat;
@@ -9386,35 +10600,92 @@ function handleThread03Page(now) {
         });
     }
 
-    const repaired = localStorage.getItem("echo_thread03_audio_repaired") === "true";
+    if (audioUtilityEntry) {
+        const utilityUnlocked =
+            localStorage.getItem(
+                "echo_file_checked_audio_wall_behind"
+            ) === "true";
 
-    if (repairAudioBtn && audioBrokenBlock && audioRecoveredBlock) {
-        if (repaired) {
-            audioBrokenBlock.classList.add("hidden");
-            audioRecoveredBlock.classList.remove("hidden");
-            threadStatusText.textContent = TXT.thread03AudioAlreadyDone;
-        }
-
-        repairAudioBtn.addEventListener("click", () => {
-            threadStatusText.textContent = TXT.thread03AudioStart;
-
-            setTimeout(() => {
-                localStorage.setItem("echo_thread03_audio_repaired", "true");
-                addInvestigationLog(
-                    "repair_thread03_audio",
-                    "[INVESTIGATION] 已修复 THREAD_03 音频转写，墙体缓存出现“不要让他看见洞”。",
-                    true
-                );
-                renderRepairLog();
-                renderWorkConsole();
-                audioBrokenBlock.classList.add("hidden");
-                audioRecoveredBlock.classList.remove("hidden");
-                threadStatusText.textContent = TXT.thread03AudioDone;
-            }, 700);
-        });
+        audioUtilityEntry.classList.toggle(
+            "hidden",
+            !utilityUnlocked
+        );
+    }
+    if (audioUtilityOpenBtn) {
+        audioUtilityOpenBtn.addEventListener(
+            "click",
+            () => {
+                window.location.href =
+                    "audio_recovery.html";
+            }
+        );
     }
 
-    applyThreadHeaderDrift(threadStateValue, threadStatusText, "thread03", threadVisitCount);
+    
+
+    const repaired = localStorage.getItem("echo_thread03_audio_repaired") === "true";
+
+    const returnedFromAudio =
+        localStorage.getItem(
+            "echorest_thread03_return_from_audio_v1"
+        ) === "1";
+
+    if (
+        repaired &&
+        audioBrokenBlock &&
+        audioRecoveredBlock
+    ) {
+        audioBrokenBlock.classList.add(
+            "hidden"
+        );
+
+        audioRecoveredBlock.classList.remove(
+            "hidden"
+        );
+
+        if (audioFollowup) {
+            audioFollowup.classList.remove(
+                "hidden"
+            );
+        }
+
+        threadStatusText.textContent =
+            TXT.thread03AudioAlreadyDone;
+    }
+    if (
+        openTicket021Btn &&
+        openTicket021Btn.dataset
+            .thread03TicketBound !== "1"
+    ) {
+        openTicket021Btn.addEventListener(
+            "click",
+            function () {
+                openMaintenanceTicketDetail(
+                    "ticket_audio_insert"
+                );
+            }
+        );
+
+        openTicket021Btn.dataset
+            .thread03TicketBound = "1";
+    }
+
+    if (
+        localStorage.getItem(
+            "echorest_thread03_wall_audit_v1"
+        ) === "1" ||
+        localStorage.getItem(
+            "echo_thread03_audio_repaired"
+        ) === "true"
+    ) {
+        applyThreadHeaderDrift(
+            threadStateValue,
+            threadStatusText,
+            "thread03",
+            threadVisitCount
+        );
+    }
+
     applyThreadHeaderVisualDrift(threadStateValue, threadStatusText, "thread03");
 
     if (memoryStrip && shouldShowInterruptStrip()) {
@@ -9438,6 +10709,11 @@ function handleThread03Page(now) {
             TXT.injectedToThread03SecondVisit
         );
         injectedAnchor.appendChild(article);
+    }
+    if (returnedFromAudio) {
+        localStorage.removeItem(
+            "echorest_thread03_return_from_audio_v1"
+        );
     }
 
     localStorage.setItem("echo_last_thread03_time", now);
@@ -15518,6 +16794,16 @@ function renderThread03WallAudit() {
             "thread03WallResult"
         );
 
+
+    const toolComplete =
+        document.getElementById(
+            "thread03WallToolComplete"
+        );
+
+    const wallWriteback =
+        document.getElementById(
+            "thread03WallWriteback"
+        );
     const evidenceNote =
         document.getElementById(
             "thread03WallEvidenceNote"
@@ -15674,6 +16960,20 @@ function renderThread03WallAudit() {
 
     if (result) {
         result.classList.toggle(
+            "hidden",
+            !committed
+        );
+    }
+
+    if (toolComplete) {
+        toolComplete.classList.toggle(
+            "hidden",
+            !committed
+        );
+    }
+
+    if (wallWriteback) {
+        wallWriteback.classList.toggle(
             "hidden",
             !committed
         );
@@ -19545,6 +20845,15 @@ function syncEchoTrackingAds() {
             "aaaRightCounterValue"
         );
 
+    const announcement =
+        document.getElementById(
+            "aaaPortalAnnouncementText"
+        );
+    const systemMarquee =
+        document.getElementById(
+            "aaaSystemMarquee"
+        );
+
     const leftBox =
         document.getElementById(
             "aaaAdLeftPollutedBox"
@@ -19621,21 +20930,33 @@ function syncEchoTrackingAds() {
                 "00040417";
         }
 
+        if (systemMarquee) {
+            systemMarquee.classList.remove(
+                "hidden"
+            );
+        }
+        if (announcement) {
+            announcement.textContent =
+                "\u70ed\u70c8\u5e86\u795d AAA \u672c\u5730\u7269\u6d41\u5b98\u65b9\u7f51\u7ad9\u6539\u7248\u4e0a\u7ebf\uff01   |   " +
+                "\u672c\u7ad9\u5df2\u5f00\u901a\u7f51\u4e0a\u5feb\u4ef6\u67e5\u8be2\u670d\u52a1   |   " +
+                "\u5f53\u524d\u67e5\u8be2\u7f13\u5b58\u5df2\u5b8c\u6210\u5b57\u6bb5\u540c\u6b65   |   " +
+                "\u6b22\u8fce\u5e7f\u5927\u5ba2\u6237\u76d1\u7763\u670d\u52a1\u8d28\u91cf";
+        }
         leftBox.classList.add(
             "is-polluted"
         );
 
         leftTag.textContent =
-            "\u81ea\u52a8\u8865\u5168";
+            "\u63a8\u8350";
 
         leftTitle.textContent =
-            "\u627e\u4e0d\u5230\u6295\u9012\u5730\u5740\uff1f";
+            "\u627e\u4e0d\u5230\u5730\u5740\uff1f";
 
         leftDesc.textContent =
-            "\u68c0\u6d4b\u5230 1 \u6761\u672a\u767b\u8bb0\u5730\u5740\u8bb0\u5f55\u3002\u7cfb\u7edf\u53ef\u4e3a\u60a8\u81ea\u52a8\u8865\u5168\u3002";
+            "\u672a\u627e\u5230\u5b8c\u6574\u8bb0\u5f55\uff0c\u5df2\u4f7f\u7528\u76f8\u5173\u5b57\u6bb5\u81ea\u52a8\u8865\u5168\u3002";
 
         leftLink.textContent =
-            "\u7acb\u5373\u8865\u5168 >>";
+            "\u67e5\u770b\u7ed3\u679c >>";
 
         leftLink.setAttribute(
             "href",
@@ -19647,7 +20968,9 @@ function syncEchoTrackingAds() {
             "_self"
         );
 
-        leftLink.removeAttribute("rel");
+        leftLink.removeAttribute(
+            "rel"
+        );
 
 
         rightBox.classList.add(
@@ -19655,20 +20978,20 @@ function syncEchoTrackingAds() {
         );
 
         rightTag.textContent =
-            "\u5f02\u5e38";
+            "\u5b9e\u7528";
 
         rightTitle.textContent =
-            "\u672c\u5730\u72b6\u6001\u66f4\u65b0";
+            "\u4eca\u65e5\u5929\u6c14";
 
         rightDesc.textContent =
-            "\u5df2\u68c0\u6d4b\u5230 04:18 \u7cfb\u7edf\u8865\u5199\u8bb0\u5f55\u3002\u53ef\u7ee7\u7eed\u67e5\u770b\u5f53\u524d\u5199\u5165\u7ebf\u7d22\u3002";
+            "\u65e5\u51fa\u65f6\u95f4\uff1a\u2014  /  \u5f53\u524d\u5730\u5740\uff1a\u5df2\u8865\u5168";
 
         rightLink.textContent =
-            "\u67e5\u770b\u8865\u5199\u8bb0\u5f55";
+            "\u67e5\u770b\u672c\u5730\u8bb0\u5f55";
 
         rightLink.setAttribute(
             "href",
-            "../forum/thread_02.html#thread02TrackingRecord"
+            "#aaaRecordWriteTrace"
         );
 
         rightLink.setAttribute(
@@ -19676,9 +20999,17 @@ function syncEchoTrackingAds() {
             "_self"
         );
 
-        rightLink.removeAttribute("rel");
+        rightLink.removeAttribute(
+            "rel"
+        );
 
         return;
+    }
+
+    if (systemMarquee) {
+        systemMarquee.classList.add(
+            "hidden"
+        );
     }
 
     if (leftCounter) {
@@ -19689,6 +21020,14 @@ function syncEchoTrackingAds() {
     if (rightCounter) {
         rightCounter.textContent =
             "00048217";
+    }
+
+    if (announcement) {
+        announcement.textContent =
+            "\u70ed\u70c8\u5e86\u795d AAA \u672c\u5730\u7269\u6d41\u5b98\u65b9\u7f51\u7ad9\u6539\u7248\u4e0a\u7ebf\uff01   |   " +
+            "\u672c\u7ad9\u5df2\u5f00\u901a\u7f51\u4e0a\u5feb\u4ef6\u67e5\u8be2\u670d\u52a1   |   " +
+            "\u90e8\u5206\u5386\u53f2\u95e8\u5e97\u626b\u63cf\u8bb0\u5f55\u6b63\u5728\u6574\u7406\u4e2d   |   " +
+            "\u6b22\u8fce\u5e7f\u5927\u5ba2\u6237\u76d1\u7763\u670d\u52a1\u8d28\u91cf";
     }
 
     leftBox.classList.remove(

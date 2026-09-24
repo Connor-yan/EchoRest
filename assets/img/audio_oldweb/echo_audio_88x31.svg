@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="88"
+     height="31"
+     viewBox="0 0 88 31"
+     shape-rendering="crispEdges">
+
+    <rect width="88" height="31" fill="#396e91"/>
+
+    <rect x="1" y="1" width="86" height="29"
+          fill="none"
+          stroke="#d7f4ff"/>
+
+    <rect x="3" y="3" width="82" height="7"
+          fill="#78b8d6"/>
+
+    <rect x="4" y="13" width="2" height="9" fill="#d9f6ff"/>
+    <rect x="8" y="16" width="2" height="6" fill="#9ed7e8"/>
+    <rect x="12" y="11" width="2" height="11" fill="#ffffff"/>
+    <rect x="16" y="15" width="2" height="7" fill="#9ed7e8"/>
+
+    <text x="22"
+          y="20"
+          font-family="Arial"
+          font-size="9"
+          font-weight="bold"
+          fill="#ffffff">
+        ECHO AUDIO
+    </text>
+
+    <text x="23"
+          y="27"
+          font-family="Arial"
+          font-size="5"
+          fill="#d5edf5">
+        TOOLS 2.3
+    </text>
+</svg>

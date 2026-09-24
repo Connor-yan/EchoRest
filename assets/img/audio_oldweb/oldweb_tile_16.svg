@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="32"
+     height="32"
+     viewBox="0 0 32 32"
+     shape-rendering="crispEdges">
+
+    <rect width="32"
+          height="32"
+          fill="#dce5e6"/>
+
+    <path d="M0 31H32 M31 0V32"
+          stroke="#d1dcde"
+          stroke-width="1"/>
+
+    <rect x="15"
+          y="15"
+          width="1"
+          height="1"
+          fill="#cbd7d9"
+          opacity=".55"/>
+
+</svg>
