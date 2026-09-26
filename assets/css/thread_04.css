@@ -1,0 +1,670 @@
+﻿/* =========================================================
+   EchoRest / THREAD 04
+   2010-2012 Chinese comic forum / Discuz-era skin
+
+   Base stylesheet:
+   assets/css/style.css
+
+   THREAD 04 only.
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+body.page-thread-04 {
+    margin: 0 !important;
+    background: linear-gradient( 180deg, #b8c7d4 0px, #dbe3e9 118px, #eef1f3 280px, #e6e9eb 100% ) !important;
+    color: #333f48 !important;
+    font-family: Tahoma, Arial, "Microsoft YaHei", "SimSun", sans-serif !important;
+    font-size: 12px !important;
+}
+
+
+/* Thread 04 should feel like a web page,
+   not a CRT screen */
+
+.page-thread-04 .screen-noise {
+    display: block !important;
+    opacity: .012 !important;
+}
+
+.page-thread-04 .screen-scanlines {
+    display: block !important;
+    opacity: .006 !important;
+}
+
+
+/* =========================================================
+   TOP SITE BAR
+   2010-ish blue portal / Discuz header
+   ========================================================= */
+
+.page-thread-04 .topbar {
+    min-height: 66px !important;
+    padding: 10px 22px !important;
+    border: 0 !important;
+    border-bottom: 1px solid #6987a1 !important;
+    background: linear-gradient( 180deg, #f5f9fc 0%, #dce8f0 38%, #bfd1df 100% ) !important;
+    box-shadow: inset 0 1px 0 #ffffff, 0 1px 3px rgba(47, 72, 91, .16) !important;
+}
+
+
+.page-thread-04 .brand-line {
+    gap: 8px !important;
+}
+
+
+.page-thread-04 .brand-dot {
+    width: 9px !important;
+    height: 9px !important;
+    border: 1px solid #49789c !important;
+    border-radius: 2px !important;
+    background: linear-gradient( 180deg, #8fc4e5, #4d91bc ) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.65) !important;
+}
+
+
+.page-thread-04 .brand-name {
+    color: #245d87 !important;
+    font-family: Arial, Tahoma, sans-serif !important;
+    font-size: 23px !important;
+    font-weight: bold !important;
+    letter-spacing: .01em !important;
+    text-shadow: 0 1px 0 #ffffff !important;
+}
+
+
+.page-thread-04 .brand-sub {
+    margin-top: 2px !important;
+    color: #627b8d !important;
+    font-size: 11px !important;
+}
+
+
+.page-thread-04 .status-block {
+    color: #5d7484 !important;
+    font-size: 10px !important;
+    line-height: 1.65 !important;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.page-thread-04 .thread-main {
+    width: calc(100% - 36px) !important;
+    max-width: 1040px !important;
+    margin: 13px auto 28px !important;
+    padding: 0 !important;
+    gap: 12px !important;
+}
+
+
+/* =========================================================
+   GENERIC THREAD 04 CARDS
+   ========================================================= */
+
+.page-thread-04 .simple-card {
+    max-width: none !important;
+    padding: 0 !important;
+    border: 1px solid #9eafb9 !important;
+    border-radius: 3px !important;
+    background: #f8fafb !important;
+    box-shadow: 0 1px 3px rgba(47, 62, 73, .10) !important;
+    backdrop-filter: none !important;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   THREAD HEADER
+   ========================================================= */
+
+.page-thread-04 .thread-head-card {
+    background: #f8fafb !important;
+}
+
+
+    /* THREAD 04 blue title strip */
+
+    .page-thread-04
+    .thread-head-card > .section-label {
+        margin: 0 !important;
+        padding: 5px 9px !important;
+        border-bottom: 1px solid #426f91 !important;
+        background: linear-gradient( 180deg, #6f9dbc 0%, #4f7fa1 52%, #416e8e 100% ) !important;
+        color: #ffffff !important;
+        font: bold 10px Tahoma, Arial, sans-serif !important;
+        letter-spacing: .08em !important;
+        text-shadow: 0 -1px 0 rgba(40,74,98,.55) !important;
+    }
+
+
+    /* title */
+
+    .page-thread-04 .thread-head-card .simple-title {
+        margin: 0 !important;
+        padding: 11px 12px 9px !important;
+        border-bottom: 1px solid #ccd6dc !important;
+        background: linear-gradient( 180deg, #ffffff, #f0f4f6 ) !important;
+        color: #2d5775 !important;
+        font: bold 18px "Microsoft YaHei", Tahoma, sans-serif !important;
+        text-shadow: 0 1px 0 #ffffff !important;
+    }
+
+
+/* =========================================================
+   THREAD INFO
+   more like portal/account summary table
+   ========================================================= */
+
+.page-thread-04 .thread-info-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #bdc9d0 !important;
+}
+
+
+.page-thread-04 .thread-info-item {
+    min-width: 0 !important;
+    padding: 8px 10px !important;
+    border: 0 !important;
+    border-right: 1px solid #cbd4d9 !important;
+    background: #edf3f6 !important;
+}
+
+
+    .page-thread-04
+    .thread-info-item:last-child {
+        border-right: 0 !important;
+    }
+
+
+.page-thread-04 .thread-info-key {
+    display: block;
+    margin-bottom: 4px;
+    color: #728691 !important;
+    font-size: 9px !important;
+    letter-spacing: 0 !important;
+}
+
+
+.page-thread-04 .thread-info-value {
+    color: #30556c !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
+}
+
+
+/* =========================================================
+   CACHE READ NOTICE
+   little system message, not horror box
+   ========================================================= */
+
+.page-thread-04 .login-log-box {
+    margin: 8px 10px 10px !important;
+    padding: 7px 9px !important;
+    border: 1px solid #d3bd78 !important;
+    background: #fffbdc !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
+}
+
+
+.page-thread-04 .warning-title {
+    margin: 0 0 2px !important;
+    color: #745f25 !important;
+    font: bold 10px Tahoma, "SimSun", sans-serif !important;
+}
+
+
+.page-thread-04 #thread04StatusText {
+    margin: 0 !important;
+    color: #756a45 !important;
+    font-size: 10px !important;
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   POST LIST CONTAINER
+   ========================================================= */
+
+.page-thread-04 .post-list-card {
+    padding: 0 !important;
+    background: #e8edf0 !important;
+}
+
+
+    .page-thread-04
+    .post-list-card > .section-label {
+        margin: 0 !important;
+        padding: 6px 9px !important;
+        border-bottom: 1px solid #9daeb8 !important;
+        background: linear-gradient( 180deg, #eef3f6, #d8e2e8 ) !important;
+        color: #576f7d !important;
+        font: bold 10px Tahoma, Arial, sans-serif !important;
+        letter-spacing: .04em !important;
+    }
+
+
+/* =========================================================
+   NORMAL FORUM POSTS
+   2010-2012 Discuz-like profile/content layout
+
+   IMPORTANT:
+   injected cache is deliberately excluded.
+   ========================================================= */
+
+.page-thread-04
+.forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: 154px minmax(0, 1fr) !important;
+    grid-template-areas:
+        "profile body"
+        "profile replies"
+        "profile more" !important;
+    margin: 10px !important;
+    padding: 0 !important;
+    border: 1px solid #aebbc4 !important;
+    border-radius: 3px !important;
+    background: #ffffff !important;
+    color: #333f48 !important;
+    box-shadow: 0 1px 2px rgba(50,64,74,.07) !important;
+    overflow: hidden !important;
+}
+
+
+    /* =========================================================
+   LEFT PROFILE COLUMN
+   ========================================================= */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) > .forum-post-head {
+        grid-area: profile !important;
+        position: relative !important;
+        display: block !important;
+        min-width: 0 !important;
+        min-height: 100% !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        border: 0 !important;
+        border-right: 1px solid #c3cdd3 !important;
+        background: linear-gradient( 180deg, #eef4f7 0%, #e5edf1 100% ) !important;
+    }
+
+
+    /* user wrapper */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .forum-post-user {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0 !important;
+    }
+
+
+        /* wrapper around name / meta */
+
+        .page-thread-04
+        .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+        .forum-post-user > div:last-child {
+            display: contents !important;
+        }
+
+
+    /* username */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .forum-post-author {
+        order: -2 !important;
+        margin: 0 0 8px !important;
+        padding: 0 0 6px !important;
+        border-bottom: 1px dotted #aebdc5 !important;
+        color: #336b97 !important;
+        font: bold 12px Tahoma, "Microsoft YaHei", sans-serif !important;
+        line-height: 1.45 !important;
+    }
+
+
+    /* avatar */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .avatar-slot {
+        order: -1 !important;
+        width: 86px !important;
+        min-height: 86px !important;
+        margin: 2px auto 8px !important;
+        padding: 6px !important;
+        border: 1px solid #a7b6c0 !important;
+        border-radius: 2px !important;
+        background: linear-gradient( 180deg, #ffffff, #e7eef2 ) !important;
+        color: #758993 !important;
+        box-shadow: inset 0 0 0 3px #f6f8f9 !important;
+        font-size: 9px !important;
+        line-height: 1.45 !important;
+    }
+
+
+        /* file inspection hint inside avatar */
+
+        .page-thread-04
+        .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+        .avatar-slot
+        .file-inspect-hint {
+            display: block !important;
+            margin-top: 5px !important;
+            color: #4e86ad !important;
+            font-size: 8px !important;
+            text-decoration: underline;
+        }
+
+
+    /* meta becomes simple profile information */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .forum-post-meta {
+        position: static !important;
+        order: 1 !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 7px 0 0 !important;
+        border: 0 !important;
+        border-top: 1px solid #d2dade !important;
+        background: transparent !important;
+        color: #7b8d96 !important;
+        font-size: 9px !important;
+        line-height: 1.65 !important;
+    }
+
+
+    /* profile footer detail */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) > .forum-post-head::after {
+        content: "用户组：创作交流\A在线状态：离线";
+        display: block;
+        margin-top: 8px;
+        padding-top: 6px;
+        border-top: 1px dotted #b6c3ca;
+        color: #81919a;
+        white-space: pre-line;
+        font: 9px/1.7 Tahoma, "SimSun", sans-serif;
+    }
+
+
+    /* =========================================================
+   FLOOR NUMBER
+   ========================================================= */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .forum-post-floor {
+        position: absolute !important;
+        top: 8px !important;
+        right: 10px !important;
+        z-index: 3 !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+        color: #7890a0 !important;
+        font: bold 10px Arial, Tahoma, sans-serif !important;
+        letter-spacing: 0 !important;
+    }
+
+
+    /* =========================================================
+   RIGHT POST BODY
+   ========================================================= */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) > .forum-post-body {
+        grid-area: body !important;
+        min-width: 0 !important;
+        min-height: 142px !important;
+        margin: 0 !important;
+        padding: 39px 18px 18px !important;
+        border: 0 !important;
+        border-bottom: 1px solid #d1d9de !important;
+        background: #ffffff !important;
+        color: #353f45 !important;
+        box-sizing: border-box !important;
+        font-size: 12px !important;
+        line-height: 1.9 !important;
+    }
+
+
+        /* fake Discuz post-info bar */
+
+        .page-thread-04
+        .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) > .forum-post-body::before {
+            content: "发表于 较早　|　只看该作者　|　收藏";
+            position: absolute;
+            left: 154px;
+            right: 0;
+            top: 0;
+            height: 30px;
+            padding: 7px 45px 5px 11px;
+            border-bottom: 1px solid #d0d8dd;
+            background: linear-gradient( 180deg, #fafcfd, #eef3f6 );
+            color: #7b8d98;
+            box-sizing: border-box;
+            font: 9px Tahoma, Arial, sans-serif;
+        }
+
+
+    /* body paragraphs */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .forum-post-body > p {
+        margin: 0 0 12px !important;
+        color: #343f46 !important;
+        font-size: 12px !important;
+        line-height: 1.9 !important;
+    }
+
+
+    /* =========================================================
+   REPLIES
+   ========================================================= */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) > .reply-stack {
+        grid-area: replies !important;
+        display: block !important;
+        margin: 0 !important;
+        border: 0 !important;
+        background: #f7f9fa !important;
+    }
+
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .reply-line {
+        display: grid !important;
+        grid-template-columns: 42px minmax(0, 1fr) !important;
+        gap: 0 !important;
+        min-height: 42px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-bottom: 1px solid #dbe1e5 !important;
+        background: #f8fafb !important;
+    }
+
+
+        .page-thread-04
+        .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+        .reply-line:nth-child(even) {
+            background: #f3f6f8 !important;
+        }
+
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .reply-avatar-slot {
+        width: auto !important;
+        min-height: 42px !important;
+        padding: 4px !important;
+        border: 0 !important;
+        border-right: 1px solid #d4dde2 !important;
+        background: #eaf0f3 !important;
+        color: #86969f !important;
+        font-size: 8px !important;
+    }
+
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .reply-line
+    p {
+        margin: 0 !important;
+        padding: 10px 12px !important;
+        color: #46545d !important;
+        font-size: 11px !important;
+        line-height: 1.65 !important;
+    }
+
+
+    /* =========================================================
+   MORE REPLIES
+   ========================================================= */
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) > .more-replies-box {
+        grid-area: more !important;
+        margin: 0 !important;
+        padding: 7px 11px !important;
+        border: 0 !important;
+        background: linear-gradient( 180deg, #edf3f6, #e5ecef ) !important;
+        color: #68808f !important;
+    }
+
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block)
+    .more-replies-box
+    p {
+        margin: 0 !important;
+        color: #68808f !important;
+        font-size: 10px !important;
+    }
+
+
+/* =========================================================
+   WARNING POSTS
+   same forum, just a light warm tint
+   ========================================================= */
+
+.page-thread-04
+.forum-post-warning:not(.injected-cache-block) {
+    border-color: #c0b4aa !important;
+}
+
+
+    .page-thread-04
+    .forum-post-warning:not(.injected-cache-block) > .forum-post-body {
+        background: #fffdf9 !important;
+    }
+
+
+/* =========================================================
+   LINKS / HOVER TERMS
+   early-2010s web blue
+   ========================================================= */
+
+.page-thread-04 .hover-term {
+    color: #3e77a4 !important;
+    border-bottom: 1px dotted #7199b6 !important;
+}
+
+
+/* =========================================================
+   FOOTER / NAV
+   ========================================================= */
+
+.page-thread-04 .thread-nav-card {
+    padding: 8px 10px !important;
+    background: linear-gradient( 180deg, #eef3f6, #dde6eb ) !important;
+}
+
+
+.page-thread-04 .thread-nav-links {
+    color: #8b9ba5 !important;
+    font-size: 10px !important;
+}
+
+
+    .page-thread-04 .thread-nav-links a {
+        color: #356f9b !important;
+        text-decoration: none !important;
+    }
+
+
+        .page-thread-04 .thread-nav-links a:hover {
+            text-decoration: underline !important;
+        }
+
+
+.page-thread-04 .site-footer {
+    padding: 17px 22px 24px !important;
+    border-top: 1px solid #aebbc3 !important;
+    background: transparent !important;
+    color: #7f8d95 !important;
+    font-size: 9px !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .page-thread-04 .thread-main {
+        width: calc(100% - 16px) !important;
+    }
+
+
+    .page-thread-04 .thread-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    .page-thread-04
+    .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) {
+        display: block !important;
+    }
+
+
+        .page-thread-04
+        .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) > .forum-post-head {
+            border-right: 0 !important;
+            border-bottom: 1px solid #c3cdd3 !important;
+        }
+
+
+        .page-thread-04
+        .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) > .forum-post-body::before {
+            display: none !important;
+        }
+
+
+        .page-thread-04
+        .forum-post:not(.forum-post-news):not(.forum-post-system):not(.injected-cache-block) > .forum-post-body {
+            padding-top: 15px !important;
+        }
+}
